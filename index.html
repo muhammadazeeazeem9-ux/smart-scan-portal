@@ -1,238 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartScan Portal - Cybersecurity & Verification Suite</title>
-    <!-- Tailwind CSS -->
+    <title>SmartScan - Complete Election System</title>
+    <!-- Tailwind CSS & FontAwesome -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- jsPDF for PDF generation -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <style>
-        body {
-            background-color: #0b0f19;
-            color: #e2e8f0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .cyber-card {
-            background: rgba(17, 24, 39, 0.8);
-            border: 1px solid rgba(34, 197, 94, 0.2);
-            box-shadow: 0 0 15px rgba(34, 197, 94, 0.05);
-            backdrop-filter: blur(10px);
-        }
-        .cyber-card:hover {
-            border-color: rgba(34, 197, 94, 0.5);
-            box-shadow: 0 0 20px rgba(34, 197, 94, 0.15);
-        }
-        .scan-pulse {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: .3; }
-        }
-    </style>
 </head>
-<body class="min-h-screen flex flex-col">
-
-    <!-- Header / Navbar -->
-    <header class="border-b border-gray-800 bg-gray-900/90 sticky top-0 z-50 px-6 py-4 flex justify-between items-center">
-        <div class="flex items-center space-x-3">
-            <i class="fa-solid fa-shield-halved text-green-500 text-2xl"></i>
-            <span class="text-xl font-bold tracking-wider text-white">SmartScan<span class="text-green-500">Portal</span></span>
-            <span class="text-xs bg-green-950 text-green-400 border border-green-800 px-2 py-0.5 rounded-full">v1.0 Live</span>
+<body class="bg-gray-100 min-h-screen font-sans">
+    
+    <!-- Header -->
+    <nav class="bg-indigo-900 text-white p-4 shadow-lg">
+        <div class="container mx-auto text-center">
+            <h1 class="text-2xl font-bold"><i class="fa-solid fa-crown text-yellow-400 ml-2"></i> SmartScan - مکمل الیکشن سسٹم</h1>
+            <p class="text-xs text-indigo-200 mt-1">آپ کے تمام پورٹل ایک ہی مرکزی جگہ پر</p>
         </div>
-        <div class="flex items-center space-x-4">
-            <span class="text-sm text-gray-400"><i class="fa-solid fa-earth-americas text-green-500 mr-1"></i> Global Nodes: 150+</span>
-            <button onclick="downloadLogTXT()" class="bg-gray-800 hover:bg-gray-700 text-xs px-3 py-2 rounded text-gray-300 transition">
-                <i class="fa-solid fa-download mr-1"></i> Export Logs
-            </button>
-        </div>
-    </header>
+    </nav>
 
-    <!-- Main Container -->
-    <main class="flex-grow container mx-auto px-4 py-8 max-w-7xl">
-        
-        <!-- Hero Section -->
-        <div class="text-center mb-10">
-            <h1 class="text-3xl md:text-5xl font-extrabold text-white mb-3">
-                Global Threat Intelligence & Verification Portal
-            </h1>
-            <p class="text-gray-400 max-w-2xl mx-auto text-sm md:text-base">
-                Instant Cyber Threat Analysis, IP Reputation Checker, Data Breach Detection, and Phone/SMS Verification System.
-            </p>
-        </div>
-
-        <!-- Scanner Console -->
-        <div class="cyber-card rounded-xl p-6 mb-10">
-            <div class="flex flex-col md:flex-row gap-4 mb-6">
-                <div class="flex-grow relative">
-                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-4 text-gray-500"></i>
-                    <input type="text" id="targetInput" placeholder="Enter IP Address, Domain (e.g. example.com), Phone Number, or Hash..." 
-                        class="w-full bg-gray-950 border border-gray-700 rounded-lg pl-11 pr-4 py-3 text-white focus:outline-none focus:border-green-500 transition">
-                </div>
-                <button onclick="startScan()" class="bg-green-600 hover:bg-green-500 text-black font-bold px-8 py-3 rounded-lg flex items-center justify-center space-x-2 transition shadow-lg shadow-green-900/30">
-                    <i class="fa-solid fa-radar"></i>
-                    <span>Start Scan</span>
-                </button>
-            </div>
-
-            <!-- Scan Status Bar (Hidden initially) -->
-            <div id="scanProgress" class="hidden space-y-2">
-                <div class="flex justify-between text-xs text-gray-400">
-                    <span id="scanStatusText">Initializing scanner engines...</span>
-                    <span id="scanPercent">0%</span>
-                </div>
-                <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
-                    <div id="progressBar" class="bg-green-500 h-full w-0 transition-all duration-300"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Results Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+    <!-- Main Grid Container -->
+    <div class="container mx-auto p-6 max-w-4xl">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             
-            <!-- Threat Score Card -->
-            <div class="cyber-card rounded-xl p-6">
-                <h3 class="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-4">Threat Risk Score</h3>
-                <div class="flex items-center justify-between">
-                    <div>
-                        <span id="threatScore" class="text-5xl font-extrabold text-green-500">0</span>
-                        <span class="text-gray-500 text-lg">/ 100</span>
-                    </div>
-                    <div id="statusBadge" class="px-3 py-1 bg-green-950 border border-green-800 text-green-400 text-xs rounded-full">
-                        Clean
-                    </div>
-                </div>
-                <p class="text-xs text-gray-500 mt-4" id="scoreDescription">No malicious activities or active blocklist records found.</p>
-            </div>
+            <a href="vote-slip-finder.html" class="bg-white p-5 rounded-2xl shadow hover:shadow-xl border-r-4 border-blue-600 transition block">
+                <h3 class="font-bold text-gray-800"><i class="fa-solid fa-magnifying-glass text-blue-600 ml-2"></i> 1. ووٹ پرچی فائنڈر</h3>
+                <p class="text-xs text-gray-500 mt-1">عوام کے لیے آن لائن تلاش</p>
+            </a>
 
-            <!-- Quick Audit Details -->
-            <div class="cyber-card rounded-xl p-6 col-span-2">
-                <h3 class="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-4">Audit Summary</h3>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                    <div class="bg-gray-900/60 p-3 rounded-lg border border-gray-800">
-                        <span class="block text-xs text-gray-500">IP Reputation</span>
-                        <span id="ipRep" class="text-sm font-bold text-gray-300">Passed</span>
-                    </div>
-                    <div class="bg-gray-900/60 p-3 rounded-lg border border-gray-800">
-                        <span class="block text-xs text-gray-500">Breach Record</span>
-                        <span id="breachStatus" class="text-sm font-bold text-gray-300">No Leak</span>
-                    </div>
-                    <div class="bg-gray-900/60 p-3 rounded-lg border border-gray-800">
-                        <span class="block text-xs text-gray-500">SSL/TLS Security</span>
-                        <span id="sslStatus" class="text-sm font-bold text-gray-300">Valid</span>
-                    </div>
-                    <div class="bg-gray-900/60 p-3 rounded-lg border border-gray-800">
-                        <span class="block text-xs text-gray-500">Spam / Fraud Risk</span>
-                        <span id="spamRisk" class="text-sm font-bold text-gray-300">Low</span>
-                    </div>
-                </div>
-                <div class="mt-4 flex justify-end">
-                    <button onclick="downloadPDFReport()" class="text-xs bg-green-950 border border-green-800 hover:bg-green-900 text-green-400 px-4 py-2 rounded transition flex items-center space-x-1">
-                        <i class="fa-solid fa-file-pdf"></i>
-                        <span>Download Security Report (PDF)</span>
-                    </button>
-                </div>
-            </div>
+            <a href="qr-voter-slip.html" class="bg-white p-5 rounded-2xl shadow hover:shadow-xl border-r-4 border-purple-600 transition block">
+                <h3 class="font-bold text-gray-800"><i class="fa-solid fa-qrcode text-purple-600 ml-2"></i> 2. QR والی پرچی</h3>
+                <p class="text-xs text-gray-500 mt-1">ڈیجیٹل سلپ اور واٹس ایپ شیئر</p>
+            </a>
+
+            <a href="polling-map.html" class="bg-white p-5 rounded-2xl shadow hover:shadow-xl border-r-4 border-green-600 transition block">
+                <h3 class="font-bold text-gray-800"><i class="fa-solid fa-map-location-dot text-green-600 ml-2"></i> 3. پولنگ نقشہ</h3>
+                <p class="text-xs text-gray-500 mt-1">گوگل میپ کے ذریعے سیدھا راستہ</p>
+            </a>
+
+            <a href="voter-dashboard.html" class="bg-white p-5 rounded-2xl shadow hover:shadow-xl border-r-4 border-indigo-600 transition block">
+                <h3 class="font-bold text-gray-800"><i class="fa-solid fa-chart-line text-indigo-600 ml-2"></i> 4. ووٹر ڈیش بورڈ</h3>
+                <p class="text-xs text-gray-500 mt-1">لائیو گراف اور اعداد و شمار</p>
+            </a>
+
+            <a href="field-agent.html" class="bg-white p-5 rounded-2xl shadow hover:shadow-xl border-r-4 border-orange-600 transition block">
+                <h3 class="font-bold text-gray-800"><i class="fa-solid fa-clipboard-user text-orange-600 ml-2"></i> 5. فیلڈ ایجنٹ</h3>
+                <p class="text-xs text-gray-500 mt-1">پولنگ ڈے پر لائیو حاضری اور چیکنگ</p>
+            </a>
+
+            <a href="bulk-sharing.html" class="bg-white p-5 rounded-2xl shadow hover:shadow-xl border-r-4 border-pink-600 transition block">
+                <h3 class="font-bold text-gray-800"><i class="fa-solid fa-share-nodes text-pink-600 ml-2"></i> 6. بلک شیئرنگ</h3>
+                <p class="text-xs text-gray-500 mt-1">ایک کلک میں مہماتی پیغام رسائی</p>
+            </a>
+
+            <a href="security-scanner.html" class="bg-gradient-to-r from-indigo-900 to-indigo-950 text-white p-5 rounded-2xl shadow-xl hover:shadow-2xl border-2 border-green-400 transition block md:col-span-2">
+                <h3 class="font-bold text-lg"><i class="fa-solid fa-shield-halved text-green-400 ml-2"></i> 7. AI سیکیورٹی سکینر</h3>
+                <p class="text-xs text-indigo-200 mt-1">محفوظ ترین اور تصدیق شدہ ووٹر سیکیورٹی سسٹم</p>
+            </a>
+
         </div>
-
-        <!-- Terminal Logs -->
-        <div class="cyber-card rounded-xl p-6">
-            <h3 class="text-gray-400 text-xs font-semibold uppercase tracking-wider mb-3">Live Terminal Log Output</h3>
-            <div id="terminalLog" class="bg-black/80 rounded-lg p-4 font-mono text-xs text-green-400 h-48 overflow-y-auto space-y-1 border border-gray-800">
-                <div>[SYSTEM] SmartScan Engine Initialized. Ready for queries...</div>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-gray-800 bg-gray-950 text-center py-4 text-xs text-gray-500">
-        © 2026 SmartScan Portal. International Cybersecurity & Verification Tools.
-    </footer>
-
-    <!-- JavaScript Logic -->
-    <script>
-        function log(msg) {
-            const terminal = document.getElementById('terminalLog');
-            const time = new Date().toLocaleTimeString();
-            const div = document.createElement('div');
-            div.innerHTML = `<span class="text-gray-500">[${time}]</span> ${msg}`;
-            terminal.appendChild(div);
-            terminal.scrollTop = terminal.scrollHeight;
-        }
-
-        function startScan() {
-            const target = document.getElementById('targetInput').value.trim();
-            if(!target) {
-                alert('Please enter a target IP, Domain, or Phone number to scan.');
-                return;
-            }
-
-            const progressBox = document.getElementById('scanProgress');
-            const progressBar = document.getElementById('progressBar');
-            const scanPercent = document.getElementById('scanPercent');
-            const scanStatusText = document.getElementById('scanStatusText');
-
-            progressBox.classList.remove('hidden');
-            progressBar.style.width = '0%';
-            
-            log(`Starting scan on target: <span class="text-yellow-400">${target}</span>`);
-
-            let pct = 0;
-            const interval = setInterval(() => {
-                pct += 20;
-                progressBar.style.width = pct + '%';
-                scanPercent.innerText = pct + '%';
-
-                if(pct === 20) {
-                    scanStatusText.innerText = 'Checking global blocklists...';
-                    log('Checking node responses across US, EU, and Asia servers...');
-                } else if(pct === 60) {
-                    scanStatusText.innerText = 'Analyzing SSL certificates and breach records...';
-                    log('Querying breach databases & SSL configurations...');
-                } else if(pct === 100) {
-                    clearInterval(interval);
-                    scanStatusText.innerText = 'Scan Complete!';
-                    log('<span class="text-green-400">Scan finished successfully. Threat Score calculated.</span>');
-                    
-                    // Update UI with simulated result
-                    document.getElementById('threatScore').innerText = '12';
-                    document.getElementById('threatScore').className = 'text-5xl font-extrabold text-green-500';
-                    document.getElementById('statusBadge').innerText = 'Low Risk';
-                    document.getElementById('statusBadge').className = 'px-3 py-1 bg-green-950 border border-green-800 text-green-400 text-xs rounded-full';
-                    document.getElementById('ipRep').innerText = 'Clean';
-                    document.getElementById('breachStatus').innerText = '0 Found';
-                    document.getElementById('sslStatus').innerText = 'A+ Grade';
-                    document.getElementById('spamRisk').innerText = 'Safe (2%)';
-                }
-            }, 400);
-        }
-
-        function downloadLogTXT() {
-            const text = document.getElementById('terminalLog').innerText;
-            const blob = new Blob([text], { type: 'text/plain' });
-            const anchor = document.createElement('a');
-            anchor.download = 'smartscan_terminal_log.txt';
-            anchor.href = window.URL.createObjectURL(blob);
-            anchor.click();
-        }
-
-        function downloadPDFReport() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            doc.text("SmartScan Portal - Security Audit Report", 10, 10);
-            doc.text("Target: " + (document.getElementById('targetInput').value || "N/A"), 10, 20);
-            doc.text("Threat Score: " + document.getElementById('threatScore').innerText + " / 100", 10, 30);
-            doc.text("Status: " + document.getElementById('statusBadge').innerText, 10, 40);
-            doc.text("Generated on: " + new Date().toLocaleString(), 10, 50);
-            doc.save("SmartScan_Security_Report.pdf");
-        }
-    </script>
+    </div>
 </body>
 </html>
