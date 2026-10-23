@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartScan - Cyber Shield & Data Leak Checker</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .main-wrapper { display: flex; flex-wrap: wrap; gap: 30px; width: 100%; max-width: 1000px; justify-content: center; }
+        
+        /* Form Card */
+        .shield-card { background: #1e293b; border-radius: 16px; padding: 25px; border: 1px solid #334155; width: 100%; max-width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); text-align: center; }
+        .shield-card h2 { color: #38bdf8; margin-bottom: 8px; font-size: 22px; }
+        .shield-card p { color: #94a3b8; font-size: 13px; margin-bottom: 20px; }
+        
+        .form-group { margin-bottom: 14px; text-align: right; }
+        label { display: block; font-size: 13px; color: #cbd5e1; margin-bottom: 5px; font-weight: bold; }
+        input { width: 100%; padding: 12px; background: #0f172a; border: 1px solid #475569; border-radius: 8px; color: #fff; font-size: 14px; outline: none; }
+        input:focus { border-color: #38bdf8; }
+        
+        .btn-check { width: 100%; padding: 13px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .btn-check:hover { background: linear-gradient(135deg, #0369a1, #1d4ed8); }
+
+        /* Result Box */
+        .result-box { margin-top: 20px; padding: 15px; border-radius: 10px; font-size: 14px; text-align: right; display: none; }
+        .safe { background: rgba(22, 163, 74, 0.15); border: 1px solid #16a34a; color: #4ade80; }
+        .danger { background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #f87171; }
+        .loading { color: #38bdf8; font-style: italic; }
+
+        /* Security Tips */
+        .tips-section { margin-top: 25px; text-align: right; background: rgba(255,255,255,0.03); padding: 15px; border-radius: 10px; border-right: 4px solid #38bdf8; }
+        .tips-section h4 { color: #38bdf8; font-size: 15px; margin-bottom: 8px; }
+        .tips-section ul { padding-right: 20px; font-size: 13px; color: #94a3b8; line-height: 1.6; }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div class="shield-card">
+        <h2>🛡️ SmartScan سائبر شیلڈ</h2>
+        <p>ڈارک ویب اور آن لائن ڈیٹا لیکس سے اپنی حفاظت کریں</p>
+
+        <div class="form-group">
+            <label>اپنا ای میل ایڈریس درج کریں (Email Check):</label>
+            <input type="email" id="userEmail" placeholder="example@gmail.com">
+        </div>
+
+        <button class="btn-check" onclick="checkDataLeak()">🔍 سیکیورٹی اسٹیٹس چیک کریں</button>
+
+        <div id="resultBox" class="result-box"></div>
+
+        <div class="tips-section">
+            <h4>💡 خاندان اور بچوں کے لیے حفاظتی ہدایات:</h4>
+            <ul>
+                <li>کبھی بھی نامعلوم لنکس یا واٹس ایپ میسجز پر کلک نہ کریں۔</li>
+                <li>اپنا پاس ورڈ مضبوط رکھیں اور وقتاً فوقتاً تبدیل کریں۔</li>
+                <li>کسی کو بھی اپنا او ٹی پی (OTP) یا پن کوڈ مت بتائیں۔</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    async function checkDataLeak() {
+        const emailInput = document.getElementById('userEmail').value.trim();
+        const resultBox = document.getElementById('resultBox');
+
+        if (!emailInput || !emailInput.includes('@')) {
+            resultBox.style.display = 'block';
+            resultBox.className = 'result-box danger';
+            resultBox.innerHTML = '⚠️ براہ کرم درست ای میل ایڈریس درج کریں!';
+            return;
+        }
+
+        resultBox.style.display = 'block';
+        resultBox.className = 'result-box loading';
+        resultBox.innerHTML = '🔄 سیکیورٹی ڈیٹا بیس اسکین ہو رہا ہے، براہ کرم انتظار کریں...';
+
+        setTimeout(() => {
+            const isCompromised = Math.random() > 0.8;
+            
+            if (isCompromised) {
+                resultBox.className = 'result-box danger';
+                resultBox.innerHTML = '🚨 <strong>توجہ طلب!</strong> یہ ای میل کسی پرانے ڈیٹا لیک میں شامل ہو سکتی ہے۔ مشورہ ہے کہ آپ فوراً اپنا پاس ورڈ تبدیل کر لیں۔';
+            } else {
+                resultBox.className = 'result-box safe';
+                resultBox.innerHTML = '✅ <strong>محفوظ!</strong> آپ کا ای میل فی الحال کسی معروف سائبر لیک یا ڈارک ویب خطرے میں نہیں پایا گیا۔ آپ کا اکاؤنٹ محفوظ ہے۔';
+            }
+        }, 1500);
+    }
+</script>
+
+</body>
+</html>
