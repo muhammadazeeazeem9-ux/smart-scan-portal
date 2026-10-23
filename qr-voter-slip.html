@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartScan - Global QR Voter Slip</title>
+    <!-- Tailwind CSS & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        @media print {
+            body * { visibility: hidden; }
+            #printable-slip, #printable-slip * { visibility: visible; }
+            #printable-slip { position: absolute; left: 0; top: 0; width: 100%; }
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans min-h-screen">
+
+    <!-- Header -->
+    <nav class="bg-indigo-900 text-white p-4 shadow-lg no-print">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold"><i class="fa-solid fa-qrcode ml-2"></i> SmartScan - Global QR Slip Generator</h1>
+            <a href="voters-dashboard.html" class="bg-indigo-700 hover:bg-indigo-800 text-xs px-3 py-2 rounded-lg font-bold transition">
+                <i class="fa-solid fa-chart-line ml-1"></i> ڈیش بورڈ
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-4 md:p-6 max-w-2xl">
+        
+        <!-- Search Box -->
+        <div class="bg-white p-6 rounded-2xl shadow-md mb-6 no-print">
+            <h2 class="text-lg font-bold text-gray-800 mb-3"><i class="fa-solid fa-search text-indigo-600 ml-2"></i> ووٹر شناختی کارڈ / پاسپورٹ نمبر درج کریں:</h2>
+            <div class="flex gap-2">
+                <input type="text" id="search-id" placeholder="مثال: 12345-6789012-3" 
+                       class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-left" dir="ltr">
+                <button onclick="generateQRSlip()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl shadow transition whitespace-nowrap">
+                    سلپ بنائیں
+                </button>
+            </div>
+            <p id="error-msg" class="text-red-500 text-sm mt-2 hidden"></p>
+        </div>
+
+        <!-- Printable QR Voter Slip Card -->
+        <div id="slip-container" class="hidden">
+            <div id="printable-slip" class="bg-white rounded-2xl shadow-xl border-2 border-indigo-600 p-6 relative overflow-hidden">
+                <!-- Header Badge -->
+                <div class="flex justify-between items-center border-b-2 border-gray-100 pb-4 mb-4">
+                    <div>
+                        <span class="bg-indigo-100 text-indigo-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Official Digital Voter Pass</span>
+                        <h2 class="text-2xl font-black text-indigo-900 mt-1">SmartScan Global Election Portal</h2>
+                    </div>
+                    <i class="fa-solid fa-check-to-slot text-4xl text-indigo-600"></i>
+                </div>
+
+                <!-- Voter Details Grid -->
+                <div class="grid grid-cols-3 gap-4 mb-6">
+                    <div class="col-span-2 space-y-3">
+                        <div>
+                            <p class="text-xs text-gray-400 font-semibold uppercase">نام (Voter Name)</p>
+                            <p id="v-name" class="text-lg font-bold text-gray-800">-</p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <p class="text-xs text-gray-400 font-semibold uppercase">شناختی نمبر (ID/CNIC)</p>
+                                <p id="v-id" class="text-sm font-bold text-gray-800" dir="ltr">-</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400 font-semibold uppercase">سلسلہ نمبر (Serial No)</p>
+                                <p id="v-serial" class="text-sm font-bold text-gray-800">-</p>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-400 font-semibold uppercase">پولنگ اسٹیشن (Polling Station)</p>
+                            <p id="v-station" class="text-sm font-bold text-gray-800">-</p>
+                        </div>
+                    </div>
+
+                    <!-- QR Code Display Area -->
+                    <div class="flex flex-col items-center justify-center border-r-2 border-gray-100 pr-4">
+                        <div id="qrcode" class="p-2 bg-white rounded-lg border border-gray-200"></div>
+                        <p class="text-[10px] text-gray-400 mt-2 text-center font-bold">Scan for instant verification</p>
+                    </div>
+                </div>
+
+                <!-- Footer Security Bar -->
+                <div class="bg-gray-50 -mx-6 -mb-6 p-3 px-6 flex justify-between items-center text-xs text-gray-500 border-t border-gray-100">
+                    <span><i class="fa-solid fa-shield-halved text-green-600 ml-1"></i> AI Verified System</span>
+                    <span id="v-time"></span>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-4 flex gap-3 no-print">
+                <button onclick="window.print()" class="w-1/2 bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl shadow transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-print"></i> پرنٹ / PDF سیو کریں
+                </button>
+                <button onclick="shareWhatsApp()" class="w-1/2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-3 rounded-xl shadow transition flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> واٹس ایپ شیئر
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script Section -->
+    <script>
+        const SUPABASE_URL = "https://ozhmuznwykhizyvxhjvk.supabase.co"; 
+        const SUPABASE_ANON_KEY = "sb_publishable_vby7dhYJrml-z_52C-7v1A_IQkHUyTY"; 
+
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        let qrcodeObj = null;
+
+        async function generateQRSlip() {
+            const searchId = document.getElementById('search-id').value.trim();
+            const errorMsg = document.getElementById('error-msg');
+            errorMsg.classList.add('hidden');
+
+            if (!searchId) {
+                errorMsg.innerText = "براہ کرم شناختی نمبر درج کریں۔";
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('voters')
+                    .select('*')
+                    .or(`cnic.eq.${searchId},id.eq.${searchId}`)
+                    .limit(1);
+
+                if (error) throw error;
+
+                if (!data || data.length === 0) {
+                    errorMsg.innerText = "یہ شناختی نمبر ڈیٹا بیس میں موجود نہیں ہے۔";
+                    errorMsg.classList.remove('hidden');
+                    document.getElementById('slip-container').classList.add('hidden');
+                    return;
+                }
+
+                const voter = data[0];
+
+                // Populate Card
+                document.getElementById('v-name').innerText = voter.name || 'N/A';
+                document.getElementById('v-id').innerText = voter.cnic || voter.id || searchId;
+                document.getElementById('v-serial').innerText = voter.serial_no || 'N/A';
+                document.getElementById('v-station').innerText = voter.polling_station || 'N/A';
+                document.getElementById('v-time').innerText = new Date().toLocaleDateString('en-GB');
+
+                // Generate QR Code containing voter JSON
+                const qrData = JSON.stringify({
+                    id: voter.cnic || voter.id,
+                    name: voter.name,
+                    station: voter.polling_station,
+                    verified: true
+                });
+
+                document.getElementById('qrcode').innerHTML = "";
+                qrcodeObj = new QRCode(document.getElementById("qrcode"), {
+                    text: qrData,
+                    width: 110,
+                    height: 110,
+                    colorDark : "#1e1b4b",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+
+                document.getElementById('slip-container').classList.remove('hidden');
+
+            } catch (err) {
+                console.error("Fetch Error:", err);
+                errorMsg.innerText = "ڈیٹا لانے میں دشواری ہوئی۔";
+                errorMsg.classList.remove('hidden');
+            }
+        }
+
+        function shareWhatsApp() {
+            const name = document.getElementById('v-name').innerText;
+            const station = document.getElementById('v-station').innerText;
+            const text = `*SmartScan Global Voter Slip*%0A%0A*نام:* ${name}%0A*پولنگ اسٹیشن:* ${station}%0A%0Aآن لائن تصدیق کے لیے پورٹل کا وزٹ کریں۔`;
+            window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+        }
+    </script>
+</body>
+</html>
