@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartScan Portal - Admin Dashboard</title>
+    <!-- Tailwind CSS & FontAwesome Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for Graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <!-- Header -->
+    <nav class="bg-indigo-900 text-white p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold"><i class="fa-solid fa-chart-line ml-2"></i> SmartScan - Analytics Dashboard</h1>
+            <span id="status-badge" class="bg-yellow-500 text-xs text-black px-3 py-1 rounded-full font-bold">Connecting...</span>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container mx-auto p-4 md:p-6">
+        
+        <!-- Key Metrics Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white p-5 rounded-xl shadow-md border-r-4 border-blue-500">
+                <p class="text-gray-500 text-sm font-semibold">کل ووٹرز (Total Voters)</p>
+                <h3 id="total-voters" class="text-3xl font-bold text-gray-800">0</h3>
+            </div>
+            <div class="bg-white p-5 rounded-xl shadow-md border-r-4 border-green-500">
+                <p class="text-gray-500 text-sm font-semibold">مرد ووٹرز (Male)</p>
+                <h3 id="male-voters" class="text-3xl font-bold text-gray-800">0</h3>
+            </div>
+            <div class="bg-white p-5 rounded-xl shadow-md border-r-4 border-pink-500">
+                <p class="text-gray-500 text-sm font-semibold">خواتین ووٹرز (Female)</p>
+                <h3 id="female-voters" class="text-3xl font-bold text-gray-800">0</h3>
+            </div>
+            <div class="bg-white p-5 rounded-xl shadow-md border-r-4 border-purple-500">
+                <p class="text-gray-500 text-sm font-semibold">پولنگ اسٹیشنز (Polling Stations)</p>
+                <h3 id="total-polling" class="text-3xl font-bold text-gray-800">0</h3>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Gender Breakdown Chart -->
+            <div class="bg-white p-5 rounded-xl shadow-md">
+                <h2 class="text-lg font-bold mb-4 text-gray-700">ووٹرز جینڈر تجزیہ (Gender Ratio)</h2>
+                <canvas id="genderChart"></canvas>
+            </div>
+            <!-- Status & Info Box -->
+            <div class="bg-white p-5 rounded-xl shadow-md flex flex-col justify-center items-center text-center">
+                <div class="p-4 bg-indigo-50 rounded-full mb-3 text-indigo-600 text-3xl">
+                    <i class="fa-solid fa-database"></i>
+                </div>
+                <h2 class="text-xl font-bold text-gray-800 mb-2">Supabase لائیو کنیکشن</h2>
+                <p class="text-gray-600 text-sm mb-4">آپ کا ڈیٹا بیس کامیابی سے منسلک ہے۔ تمام اعداد و شمار براہِ راست اپ ڈیٹ ہو رہے ہیں۔</p>
+                <a href="vote-slip-finder.html" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg shadow transition">
+                    <i class="fa-solid fa-magnifying-glass ml-2"></i> ووٹر سلپ فائنڈر کھولیں
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script to Connect Supabase and Render Analytics -->
+    <script>
+        const SUPABASE_URL = "https://ozhmuznwykhizyvxhjvk.supabase.co"; 
+        const SUPABASE_ANON_KEY = "sb_publishable_vby7dhYJrml-z_52C-7v1A_IQkHUyTY"; 
+
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function fetchDashboardData() {
+            try {
+                // Fetch voters data
+                const { data: voters, error } = await supabaseClient.from('voters').select('*');
+
+                if (error) throw error;
+
+                document.getElementById('status-badge').innerText = "Live Connected";
+                document.getElementById('status-badge').className = "bg-green-500 text-xs text-white px-3 py-1 rounded-full font-bold";
+
+                // Calculations
+                const total = voters ? voters.length : 0;
+                const male = voters ? voters.filter(v => v.gender === 'Male' || v.gender === 'مرد').length : 0;
+                const female = voters ? voters.filter(v => v.gender === 'Female' || v.gender === 'خواتین' || v.gender === 'عورت').length : 0;
+                const pollingStations = voters ? new Set(voters.map(v => v.polling_station)).size : 0;
+
+                // Update UI Cards
+                document.getElementById('total-voters').innerText = total.toLocaleString();
+                document.getElementById('male-voters').innerText = male.toLocaleString();
+                document.getElementById('female-voters').innerText = female.toLocaleString();
+                document.getElementById('total-polling').innerText = pollingStations;
+
+                // Render Gender Chart
+                new Chart(document.getElementById('genderChart'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['مرد (Male)', 'خواتین (Female)', 'دیگر (Other)'],
+                        datasets: [{
+                            data: [male, female, Math.max(0, total - (male + female))],
+                            backgroundColor: ['#10B981', '#EC4899', '#9CA3AF']
+                        }]
+                    }
+                });
+
+            } catch (err) {
+                console.error("Dashboard Fetch Error:", err);
+                document.getElementById('status-badge').innerText = "Connection Failed";
+                document.getElementById('status-badge').className = "bg-red-500 text-xs text-white px-3 py-1 rounded-full font-bold";
+            }
+        }
+
+        fetchDashboardData();
+    </script>
+</body>
+</html>
