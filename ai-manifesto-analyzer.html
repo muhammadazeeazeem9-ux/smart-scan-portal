@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartScan - Global AI Manifesto & Policy Analyzer</title>
+    <!-- html2canvas for HD Download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .main-wrapper { display: flex; flex-wrap: wrap; gap: 30px; width: 100%; max-width: 1200px; justify-content: center; }
+        
+        /* Form Card */
+        .form-card { background: #1e293b; border-radius: 16px; padding: 25px; border: 1px solid #334155; flex: 1; min-width: 320px; max-width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .form-card h2 { color: #38bdf8; margin-bottom: 8px; font-size: 22px; text-align: center; }
+        .form-card p { color: #94a3b8; font-size: 13px; margin-bottom: 20px; text-align: center; }
+        .form-group { margin-bottom: 14px; }
+        label { display: block; font-size: 13px; color: #cbd5e1; margin-bottom: 5px; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 11px; background: #0f172a; border: 1px solid #475569; border-radius: 8px; color: #fff; font-size: 14px; outline: none; }
+        input:focus, select:focus, textarea:focus { border-color: #38bdf8; }
+        textarea { resize: vertical; height: 90px; }
+        .btn-generate { width: 100%; padding: 13px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .btn-generate:hover { background: linear-gradient(135deg, #0369a1, #1d4ed8); }
+
+        /* Output Card / Preview */
+        .preview-wrapper { flex: 1; min-width: 320px; max-width: 550px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        
+        .manifesto-card { background: linear-gradient(135deg, #1e293b, #0f172a); color: #f8fafc; border-radius: 16px; padding: 25px; width: 100%; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 2px solid #38bdf8; text-align: right; position: relative; overflow: hidden; }
+        .manifesto-header { border-bottom: 2px dashed #334155; padding-bottom: 15px; margin-bottom: 15px; text-align: center; }
+        .manifesto-header h3 { font-size: 20px; color: #38bdf8; }
+        .manifesto-header p { font-size: 12px; color: #94a3b8; margin-top: 4px; }
+        
+        .policy-section { margin-bottom: 12px; font-size: 13px; background: rgba(255,255,255,0.03); padding: 12px; border-radius: 8px; border-right: 3px solid #38bdf8; }
+        .policy-section strong { display: block; color: #38bdf8; margin-bottom: 4px; font-size: 14px; }
+        
+        .btn-action-group { width: 100%; display: flex; gap: 10px; }
+        .btn-action { flex: 1; padding: 12px; border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s; text-align: center; }
+        .btn-download { background: #16a34a; }
+        .btn-download:hover { background: #15803d; }
+        .btn-wa { background: #25d366; }
+        .btn-wa:hover { background: #1eb954; }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <!-- Form Inputs -->
+    <div class="form-card">
+        <h2>🌐 گلوبال AI پالیسی & منشور جنریٹر</h2>
+        <p>150+ ممالک کے لیے سمارٹ سیاسی پالیسی اور وژن تیار کریں</p>
+
+        <div class="form-group">
+            <label>ملک کا انتخاب کریں (Select Country):</label>
+            <select id="countrySelect">
+                <option value="Pakistan">پاکستان (Pakistan)</option>
+                <option value="USA">ریاستہائے متحدہ امریکہ (USA)</option>
+                <option value="UK">برطانیہ (United Kingdom)</option>
+                <option value="Canada">کینیڈا (Canada)</option>
+                <option value="UAE">متحدہ عرب امارات (UAE)</option>
+                <option value="Saudi Arabia">سعودی عرب (Saudi Arabia)</option>
+                <option value="India">بھارت (India)</option>
+                <option value="Global / Worldwide">🌐 دیگر تمام بین الاقوامی ممالک (Global)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>سیاسی جماعت یا پینل کا نام (Party / Group Name):</label>
+            <input type="text" id="partyName" placeholder="مثال: ترقی پسند عوام پارٹی / Democratic Front">
+        </div>
+
+        <div class="form-group">
+            <label>بنیادی ہدف یا ایجنڈا (Core Focus Area):</label>
+            <input type="text" id="coreFocus" placeholder="مثال: معاشی استحکام اور فری ڈیجیٹل تعلیم">
+        </div>
+
+        <div class="form-group">
+            <label>منشور کے اہم نکات (Key Manifesto Points):</label>
+            <textarea id="rawManifesto" placeholder="اپنے خیالات یا منشور کے نکات یہاں لکھیں..."></textarea>
+        </div>
+
+        <button class="btn-generate" onclick="generateManifestoAI()">✨ AI پالیسی وژن تیار کریں</button>
+    </div>
+
+    <!-- Live Preview Wrapper -->
+    <div class="preview-wrapper">
+        <div class="manifesto-card" id="manifestoToPrint">
+            <div class="manifesto-header">
+                <h3 id="dispParty">ترقی پسند عوام پارٹی</h3>
+                <p id="dispCountryInfo">ملک: پاکستان | SmartScan AI Policy Document</p>
+            </div>
+
+            <div class="policy-section">
+                <strong>🎯 اسٹریٹیجک وژن (Strategic Vision):</strong>
+                <span id="dispVision">عوام کی فلاح و بہبود، شفافیت اور پائیدار ترقی کے حصول کے لیے جدید ترین اصلاحات نافذ کرنا۔</span>
+            </div>
+
+            <div class="policy-section">
+                <strong>📈 معاشی اور معاشرتی ترجیحات (Socio-Economic Goals):</strong>
+                <span id="dispGoals">نوجوانوں کے لیے روزگار کے نئے مواقع، مہنگائی پر قابو پانا اور معیاری بنیادی سہولیات فراہم کرنا۔</span>
+            </div>
+
+            <div class="policy-section">
+                <strong>📢 پبلک اپیل اور پیغام (Public Engagement Message):</strong>
+                <span id="dispAppeal">آئیے مل کر ایک بہتر اور خوشحال مستقبل کی بنیاد رکھیں۔ آپ کا تعاون ہماری کامیابی کی ضمانت ہے۔</span>
+            </div>
+        </div>
+
+        <div class="btn-action-group">
+            <button class="btn-action btn-download" onclick="downloadManifestoCard()">📥 پالیسی کارڈ ڈاؤن لوڈ کریں</button>
+            <button class="btn-action btn-wa" onclick="shareManifestoWA()">📱 واٹس ایپ پر شیئر کریں</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function generateManifestoAI() {
+        const country = document.getElementById('countrySelect').value;
+        const party = document.getElementById('partyName').value.trim() || 'عوامی ترقیاتی فرنٹ';
+        const focus = document.getElementById('coreFocus').value.trim() || 'تعلیم، صحت اور معاشی بہتری';
+        const rawNotes = document.getElementById('rawManifesto').value.trim() || 'عوام کی آواز کو بلند کرنا اور بہترین حکمرانی فراہم کرنا۔';
+
+        // Update UI
+        document.getElementById('dispParty').innerText = party;
+        document.getElementById('dispCountryInfo').innerText = `ملک: ${country} | SmartScan AI Policy Document`;
+        
+        document.getElementById('dispVision').innerText = `"${country} کے تناظر میں ${focus} کے تحت ایک شفاف، مضبوط اور ترقی یافتہ نظام کی تشکیل کرنا جہاں ہر شہری کو یکساں مواقع ملیں۔"`;
+        document.getElementById('dispGoals').innerText = `منشور کے بنیادی نکات: ${rawNotes} - اس کے ذریعے ملک کے ہر طبقے کو ریلیف اور طویل المدتی ترقی فراہم کی جائے گی۔`;
+        document.getElementById('dispAppeal').innerText = `تمام باشعور شہریوں سے اپیل ہے کہ ${party} کے اس مشن میں شامل ہوں اور آنے والے انتخابات میں تبدیلی کا حصہ بنیں۔`;
+    }
+
+    function downloadManifestoCard() {
+        const card = document.getElementById('manifestoToPrint');
+        if (typeof html2canvas !== 'undefined') {
+            html2canvas(card, { scale: 2, backgroundColor: null }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'AI_Manifesto_Policy.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+    }
+
+    function shareManifestoWA() {
+        const party = document.getElementById('dispParty').innerText;
+        const vision = document.getElementById('dispVision').innerText;
+        const goals = document.getElementById('dispGoals').innerText;
+        const appeal = document.getElementById('dispAppeal').innerText;
+
+        const text = `📜 *AI سیاسی پالیسی و منشور (SmartScan Portal)*\n\n` +
+                     `🏛️ *جماعت/پینل:* ${party}\n\n` +
+                     `🎯 *وژن:* ${vision}\n\n` +
+                     `📈 *اہداف:* ${goals}\n\n` +
+                     `📢 *اپیل:* ${appeal}\n\n` +
+                     `✨ _SmartScan AI گلوبال سسٹم کے ذریعے تیار کردہ۔_`;
+
+        window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(text), '_blank');
+    }
+
+    window.onload = function() {
+        generateManifestoAI();
+    };
+</script>
+
+</body>
+</html>
