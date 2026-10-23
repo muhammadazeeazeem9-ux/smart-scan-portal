@@ -3,118 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartScan - Field Agent Verification Portal</title>
-    <!-- Tailwind CSS & FontAwesome -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Supabase JS Client -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-</head>
-<body class="bg-gray-100 font-sans min-h-screen">
-
-    <!-- Header -->
-    <nav class="bg-indigo-900 text-white p-4 shadow-lg">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold"><i class="fa-solid fa-clipboard-user ml-2"></i> فیلڈ ایجنٹ ویریفیکیشن پورٹل</h1>
-            <div class="flex gap-2">
-                <a href="admin-dashboard.html" class="bg-indigo-700 hover:bg-indigo-800 text-xs px-3 py-2 rounded-lg font-bold transition">
-                    <i class="fa-solid fa-chart-line ml-1"></i> ڈیش بورڈ
-                </a>
-                <a href="gis-map.html" class="bg-indigo-700 hover:bg-indigo-800 text-xs px-3 py-2 rounded-lg font-bold transition">
-                    <i class="fa-solid fa-map-location-dot ml-1"></i> نقشہ
-                </a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="container mx-auto p-4 md:p-6 max-w-xl">
+    <title>SmartScan - Field Agent & Campaign Manager</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .main-wrapper { display: flex; flex-wrap: wrap; gap: 30px; width: 100%; max-width: 1100px; justify-content: center; }
         
-        <!-- Agent Scanner Box -->
-        <div class="bg-white p-6 rounded-2xl shadow-md mb-6">
-            <h2 class="text-lg font-bold text-gray-800 mb-3"><i class="fa-solid fa-qrcode text-indigo-600 ml-2"></i> ووٹر کی حاضری / تصدیق کریں:</h2>
-            <div class="flex gap-2">
-                <input type="text" id="agent-cnic-input" placeholder="شناختی کارڈ یا ID درج کریں..." 
-                       class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-left" dir="ltr">
-                <button onclick="verifyVoterForAgent()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl shadow transition whitespace-nowrap">
-                    تصدیق کریں
-                </button>
-            </div>
-            <p id="agent-msg" class="text-sm mt-3 hidden font-bold"></p>
+        .card { background: #1e293b; border-radius: 16px; padding: 25px; border: 1px solid #334155; flex: 1; min-width: 320px; max-width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .card h2 { color: #38bdf8; margin-bottom: 8px; font-size: 22px; text-align: center; }
+        .card p { color: #94a3b8; font-size: 13px; margin-bottom: 20px; text-align: center; }
+        .form-group { margin-bottom: 14px; }
+        label { display: block; font-size: 13px; color: #cbd5e1; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 11px; background: #0f172a; border: 1px solid #475569; border-radius: 8px; color: #fff; font-size: 14px; outline: none; }
+        input:focus, select:focus { border-color: #38bdf8; }
+        
+        .btn-action { width: 100%; padding: 13px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.3s; margin-top: 10px; text-align: center; }
+        .btn-action:hover { background: linear-gradient(135deg, #0369a1, #1d4ed8); }
+        
+        .disclaimer-box { margin-bottom: 15px; text-align: center; }
+        .disclaimer-text { color: red; font-size: 10px; background: #fef2f2; padding: 6px; border-radius: 4px; border: 1px solid #fecaca; display: inline-block; font-weight: bold; }
+        
+        .stats-box { margin-top: 20px; background: #0f172a; padding: 15px; border-radius: 10px; border: 1px solid #334155; text-align: center; }
+        .stats-box h4 { color: #38bdf8; margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div class="card" style="max-width: 600px; width: 100%;">
+        <h2>🛡️ فیلڈ ایجنٹ مہم ڈیش بورڈ</h2>
+        <p>تنظیمی کارکنان اور فیلڈ ورکرز کے لیے سکیور لوکل مہم مینیجر</p>
+
+        <div class="disclaimer-box">
+            <span class="disclaimer-text">UNOFFICIAL - FOR PARTY / ORGANIZATIONAL USE ONLY - NOT ECP ISSUED</span>
         </div>
 
-        <!-- Voter Info Card for Agent -->
-        <div id="agent-voter-card" class="hidden bg-white p-6 rounded-2xl shadow-xl border-2 border-green-500">
-            <div class="flex justify-between items-center border-b pb-3 mb-4">
-                <span class="bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full uppercase">ووٹر مل گیا (Found)</span>
-                <span id="agent-v-id" class="text-xs text-gray-500 font-mono" dir="ltr"></span>
-            </div>
-            <div class="space-y-3 mb-6">
-                <div>
-                    <p class="text-xs text-gray-400 font-semibold uppercase">نام (Name)</p>
-                    <p id="agent-v-name" class="text-lg font-bold text-gray-800">-</p>
-                </div>
-                <div>
-                    <p class="text-xs text-gray-400 font-semibold uppercase">پولنگ اسٹیشن (Polling Station)</p>
-                    <p id="agent-v-station" class="text-sm font-bold text-gray-800">-</p>
-                </div>
-            </div>
-            <button onclick="markVoteCasted()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl shadow transition flex items-center justify-center gap-2">
-                <i class="fa-solid fa-circle-check text-lg"></i> ووٹ کاسٹ ہو گیا ہے (Mark as Voted)
-            </button>
+        <div class="form-group">
+            <label>ایجنٹ کا نام (Agent Name):</label>
+            <input type="text" id="agentName" placeholder="مثال: علی خان">
         </div>
 
+        <div class="form-group">
+            <label>حلقہ یا علاقہ (Assigned Area / Constituency):</label>
+            <input type="text" id="agentArea" placeholder="مثال: یونین کونسل 4 - بلاک بی">
+        </div>
+
+        <div class="form-group">
+            <label>آج کے وزٹس / رابطے (Today's Contacts Count):</label>
+            <input type="number" id="contactCount" placeholder="مثال: 45">
+        </div>
+
+        <button class="btn-action" onclick="saveAgentReport()">📊 رپورٹ لوکل محفوظ کریں</button>
+
+        <div class="stats-box">
+            <h4>کل ریکارڈز (Local Storage):</h4>
+            <p id="reportStatus" style="color: #94a3b8; font-size: 13px;">کوئی ڈیٹا محفوظ نہیں کیا گیا۔</p>
+        </div>
     </div>
+</div>
 
-    <!-- Script -->
-    <script>
-        const SUPABASE_URL = "https://ozhmuznwykhizyvxhjvk.supabase.co"; 
-        const SUPABASE_ANON_KEY = "sb_publishable_vby7dhYJrml-z_52C-7v1A_IQkHUyTY"; 
+<script>
+    function saveAgentReport() {
+        const name = document.getElementById('agentName').value.trim();
+        const area = document.getElementById('agentArea').value.trim();
+        const count = document.getElementById('contactCount').value.trim();
 
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        let activeVoterId = null;
-
-        async function verifyVoterForAgent() {
-            const cnic = document.getElementById('agent-cnic-input').value.trim();
-            const msg = document.getElementById('agent-msg');
-            msg.classList.add('hidden');
-            document.getElementById('agent-voter-card').classList.add('hidden');
-
-            if (!cnic) {
-                msg.innerText = "براہ کرم شناختی نمبر درج کریں۔";
-                msg.className = "text-red-500 text-sm mt-3 font-bold";
-                msg.classList.remove('hidden');
-                return;
-            }
-
-            const { data, error } = await supabaseClient
-                .from('voters')
-                .select('*')
-                .or(`cnic.eq.${cnic},id.eq.${cnic}`)
-                .limit(1);
-
-            if (error || !data || data.length === 0) {
-                msg.innerText = "یہ ووٹر ڈیٹا بیس میں نہیں ملا۔";
-                msg.className = "text-red-500 text-sm mt-3 font-bold";
-                msg.classList.remove('hidden');
-                return;
-            }
-
-            const voter = data[0];
-            activeVoterId = voter.id || voter.cnic;
-
-            document.getElementById('agent-v-name').innerText = voter.name || 'N/A';
-            document.getElementById('agent-v-id').innerText = cnic;
-            document.getElementById('agent-v-station').innerText = voter.polling_station || 'N/A';
-
-            document.getElementById('agent-voter-card').classList.remove('hidden');
+        if (!name || !area || !count) {
+            alert('براہ کرم تمام خانے پر کریں!');
+            return;
         }
 
-        async function markVoteCasted() {
-            alert("کامیابی! ووٹر کا ووٹ رجسٹر کر دیا گیا ہے۔");
-            document.getElementById('agent-voter-card').classList.add('hidden');
-            document.getElementById('agent-cnic-input').value = "";
+        const reportData = `ایجنٹ: ${name} | علاقہ: ${area} | رابطے: ${count} | وقت: ${new Date().toLocaleDateString()}`;
+        localStorage.setItem('lastAgentReport', reportData);
+
+        document.getElementById('reportStatus').innerHTML = `آخری رپورٹ محفوظ ہو گئی: <br><b>${reportData}</b>`;
+        alert('رپورٹ لوکل ڈیوائس پر محفوظ ہو گئی!');
+    }
+
+    window.onload = function() {
+        const saved = localStorage.getItem('lastAgentReport');
+        if (saved) {
+            document.getElementById('reportStatus').innerHTML = `آخری رپورٹ محفوظ ہو گئی: <br><b>${saved}</b>`;
         }
-    </script>
+    };
+</script>
+
 </body>
 </html>
