@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartScan - Field Agent Verification Portal</title>
+    <!-- Tailwind CSS & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-100 font-sans min-h-screen">
+
+    <!-- Header -->
+    <nav class="bg-indigo-900 text-white p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold"><i class="fa-solid fa-clipboard-user ml-2"></i> فیلڈ ایجنٹ ویریفیکیشن پورٹل</h1>
+            <div class="flex gap-2">
+                <a href="admin-dashboard.html" class="bg-indigo-700 hover:bg-indigo-800 text-xs px-3 py-2 rounded-lg font-bold transition">
+                    <i class="fa-solid fa-chart-line ml-1"></i> ڈیش بورڈ
+                </a>
+                <a href="gis-map.html" class="bg-indigo-700 hover:bg-indigo-800 text-xs px-3 py-2 rounded-lg font-bold transition">
+                    <i class="fa-solid fa-map-location-dot ml-1"></i> نقشہ
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-4 md:p-6 max-w-xl">
+        
+        <!-- Agent Scanner Box -->
+        <div class="bg-white p-6 rounded-2xl shadow-md mb-6">
+            <h2 class="text-lg font-bold text-gray-800 mb-3"><i class="fa-solid fa-qrcode text-indigo-600 ml-2"></i> ووٹر کی حاضری / تصدیق کریں:</h2>
+            <div class="flex gap-2">
+                <input type="text" id="agent-cnic-input" placeholder="شناختی کارڈ یا ID درج کریں..." 
+                       class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none text-left" dir="ltr">
+                <button onclick="verifyVoterForAgent()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl shadow transition whitespace-nowrap">
+                    تصدیق کریں
+                </button>
+            </div>
+            <p id="agent-msg" class="text-sm mt-3 hidden font-bold"></p>
+        </div>
+
+        <!-- Voter Info Card for Agent -->
+        <div id="agent-voter-card" class="hidden bg-white p-6 rounded-2xl shadow-xl border-2 border-green-500">
+            <div class="flex justify-between items-center border-b pb-3 mb-4">
+                <span class="bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full uppercase">ووٹر مل گیا (Found)</span>
+                <span id="agent-v-id" class="text-xs text-gray-500 font-mono" dir="ltr"></span>
+            </div>
+            <div class="space-y-3 mb-6">
+                <div>
+                    <p class="text-xs text-gray-400 font-semibold uppercase">نام (Name)</p>
+                    <p id="agent-v-name" class="text-lg font-bold text-gray-800">-</p>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-400 font-semibold uppercase">پولنگ اسٹیشن (Polling Station)</p>
+                    <p id="agent-v-station" class="text-sm font-bold text-gray-800">-</p>
+                </div>
+            </div>
+            <button onclick="markVoteCasted()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-xl shadow transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-circle-check text-lg"></i> ووٹ کاسٹ ہو گیا ہے (Mark as Voted)
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Script -->
+    <script>
+        const SUPABASE_URL = "https://ozhmuznwykhizyvxhjvk.supabase.co"; 
+        const SUPABASE_ANON_KEY = "sb_publishable_vby7dhYJrml-z_52C-7v1A_IQkHUyTY"; 
+
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        let activeVoterId = null;
+
+        async function verifyVoterForAgent() {
+            const cnic = document.getElementById('agent-cnic-input').value.trim();
+            const msg = document.getElementById('agent-msg');
+            msg.classList.add('hidden');
+            document.getElementById('agent-voter-card').classList.add('hidden');
+
+            if (!cnic) {
+                msg.innerText = "براہ کرم شناختی نمبر درج کریں۔";
+                msg.className = "text-red-500 text-sm mt-3 font-bold";
+                msg.classList.remove('hidden');
+                return;
+            }
+
+            const { data, error } = await supabaseClient
+                .from('voters')
+                .select('*')
+                .or(`cnic.eq.${cnic},id.eq.${cnic}`)
+                .limit(1);
+
+            if (error || !data || data.length === 0) {
+                msg.innerText = "یہ ووٹر ڈیٹا بیس میں نہیں ملا۔";
+                msg.className = "text-red-500 text-sm mt-3 font-bold";
+                msg.classList.remove('hidden');
+                return;
+            }
+
+            const voter = data[0];
+            activeVoterId = voter.id || voter.cnic;
+
+            document.getElementById('agent-v-name').innerText = voter.name || 'N/A';
+            document.getElementById('agent-v-id').innerText = cnic;
+            document.getElementById('agent-v-station').innerText = voter.polling_station || 'N/A';
+
+            document.getElementById('agent-voter-card').classList.remove('hidden');
+        }
+
+        async function markVoteCasted() {
+            alert("کامیابی! ووٹر کا ووٹ رجسٹر کر دیا گیا ہے۔");
+            document.getElementById('agent-voter-card').classList.add('hidden');
+            document.getElementById('agent-cnic-input').value = "";
+        }
+    </script>
+</body>
+</html>
