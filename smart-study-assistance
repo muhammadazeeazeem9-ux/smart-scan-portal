@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartScan - AI Study & Knowledge Assistant</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .main-wrapper { display: flex; flex-wrap: wrap; gap: 30px; width: 100%; max-width: 1100px; justify-content: center; }
+        
+        .card { background: #1e293b; border-radius: 16px; padding: 25px; border: 1px solid #334155; flex: 1; min-width: 320px; max-width: 600px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .card h2 { color: #38bdf8; margin-bottom: 8px; font-size: 22px; text-align: center; }
+        .card p { color: #94a3b8; font-size: 13px; margin-bottom: 20px; text-align: center; }
+        .form-group { margin-bottom: 14px; }
+        label { display: block; font-size: 13px; color: #cbd5e1; margin-bottom: 5px; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 11px; background: #0f172a; border: 1px solid #475569; border-radius: 8px; color: #fff; font-size: 14px; outline: none; }
+        input:focus, select:focus, textarea:focus { border-color: #38bdf8; }
+        textarea { resize: vertical; height: 100px; }
+        
+        .btn-action { width: 100%; padding: 13px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.3s; margin-top: 10px; text-align: center; }
+        .btn-action:hover { background: linear-gradient(135deg, #0369a1, #1d4ed8); }
+        
+        .result-box { margin-top: 20px; background: #0f172a; padding: 15px; border-radius: 10px; border: 1px solid #334155; }
+        .result-box h4 { color: #38bdf8; margin-bottom: 8px; font-size: 15px; }
+        .result-content { color: #e2e8f0; font-size: 14px; line-height: 1.6; white-space: pre-wrap; }
+        
+        .disclaimer-box { margin-bottom: 15px; text-align: center; }
+        .disclaimer-text { color: red; font-size: 10px; background: #fef2f2; padding: 6px; border-radius: 4px; border: 1px solid #fecaca; display: inline-block; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div class="card">
+        <h2>🧠 اے آئی تعلیمی اور معلوماتی اسسٹنٹ</h2>
+        <p>مستقبل کے تقاضوں کے مطابق مطالعہ، اسلامی تعلیمات اور سمارٹ نوٹس جنریٹر</p>
+
+        <div class="disclaimer-box">
+            <span class="disclaimer-text">UNOFFICIAL - FOR EDUCATIONAL & ORGANIZATIONAL USE ONLY</span>
+        </div>
+
+        <div class="form-group">
+            <label>زمرہ منتخب کریں (Category):</label>
+            <select id="studyCategory">
+                <option value="islamic">اسلامی تعلیمات و احکام (Islamic Knowledge)</option>
+                <option value="science">سائنسی و تکنیکی نوٹس (Science & Tech)</option>
+                <option value="history">تاریخ و سیاسیات (History & Politics)</option>
+                <option value="general">عمومی علم اور تحقیق (General Research)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>اپنا سوال یا موضوع درج کریں (Topic / Question):</label>
+            <textarea id="studyQuery" placeholder="مثال: علم کی اہمیت پر اسلامی نقطہ نظر یا ڈیجیٹل دور میں سکیورٹی کے اصول..."></textarea>
+        </div>
+
+        <button class="btn-action" onclick="generateSmartNotes()">✨ اے آئی اسسٹنٹ نوٹس بنائیں</button>
+
+        <div class="result-box">
+            <h4>📜 تیار شدہ خلاصہ و نکات (AI Generated Notes):</h4>
+            <div id="resultOutput" class="result-content">براہ کرم اوپر موضوع لکھ کر بٹن دبائیں...</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function generateSmartNotes() {
+        const category = document.getElementById('studyCategory').value;
+        const query = document.getElementById('studyQuery').value.trim();
+        const outputDiv = document.getElementById('resultOutput');
+
+        if (!query) {
+            alert('براہ کرم کوئی موضوع یا سوال درج کریں!');
+            return;
+        }
+
+        outputDiv.innerHTML = "🔄 اے آئی تجزیہ کر رہا ہے، براہ کرم انتظار کریں...";
+
+        // Client-side structured smart response logic for future-proof tools
+        setTimeout(() => {
+            let responseText = "";
+            if (category === 'islamic') {
+                responseText = `📚 [اسلامی نقطہ نظر - سمارٹ نوٹس]\nموضوع: ${query}\n\n1. قرآن و سنت کی روشنی میں اس موضوع پر تدبر کرنے پر زور دیا گیا ہے۔\n2. اسلاف کا منہج اس بات کی عکاسی کرتا ہے کہ علم اور عمل کا امتزاج معاشرے کو مضبوط کرتا ہے۔\n3. تنظیمی و اخلاقی اقدار کے فروغ کے لیے یہ موضوع انتہائی کلیدی حیثیت رکھتا ہے۔`;
+            } else if (category === 'science') {
+                responseText = `🔬 [سائنسی و تکنیکی تجزیہ]\nموضوع: ${query}\n\n1. جدید دور میں آٹومیشن اور کلائنٹ سائیڈ سسٹمز کا استعمال ڈیٹا کی حفاظت کو یقینی بناتا ہے۔\n2. اس ٹیکنالوجی سے بغیر کسی مرکزی سرور کے بین الاقوامی سطح پر تیزی سے کام کیا جا سکتا ہے۔`;
+            } else {
+                responseText = `🌐 [تحقیقی خلاصہ]\nموضوع: ${query}\n\n1. بین الاقوامی اور تاریخی پس منظر کا جائزہ لینے سے معلوم ہوتا ہے کہ شفافیت اور تنظیم کامیابی کی بنیاد ہیں۔\n2. اس شعبے میں مزید ڈیجیٹل ٹولز کی ضرورت ہے جو مکمل طور پر محفوظ ہوں۔`;
+            }
+
+            outputDiv.innerHTML = responseText;
+        }, 600);
+    }
+</script>
+
+</body>
+</html>
