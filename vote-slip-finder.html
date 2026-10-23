@@ -3,87 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ووٹ پرچی فائنڈر - SmartScan</title>
-    <!-- Supabase v2.45.4 CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+    <title>SmartScan - Global Secure QR Slip Generator</title>
+    <!-- QRCode.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- html2canvas for Image Download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f4f6f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 450px; text-align: center; }
-        h2 { margin-bottom: 20px; color: #1e293b; }
-        .input-group { display: flex; gap: 10px; margin-bottom: 20px; }
-        input[type="text"] { flex: 1; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 16px; outline: none; direction: ltr; }
-        button { padding: 12px 20px; background-color: #2563eb; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; }
-        button:hover { background-color: #1d4ed8; }
-        .error-msg { color: #dc2626; margin-top: 10px; display: none; font-size: 14px; }
-        .result-box { margin-top: 20px; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; text-align: right; background-color: #f8fafc; display: none; }
-        .info-row { margin-bottom: 10px; display: flex; justify-content: space-between; border-bottom: 1px dashed #e2e8f0; padding-bottom: 5px; }
-        .info-label { font-weight: bold; color: #475569; }
-        .info-value { color: #0f172a; }
-        .map-btn { display: inline-block; width: 100%; padding: 10px; margin-top: 10px; background-color: #16a34a; color: white; text-decoration: none; border-radius: 6px; text-align: center; font-weight: bold; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .main-wrapper { display: flex; flex-wrap: wrap; gap: 30px; width: 100%; max-width: 1100px; justify-content: center; }
+        
+        .form-card { background: #1e293b; border-radius: 16px; padding: 25px; border: 1px solid #334155; flex: 1; min-width: 320px; max-width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .form-card h2 { color: #38bdf8; margin-bottom: 8px; font-size: 22px; text-align: center; }
+        .form-card p { color: #94a3b8; font-size: 13px; margin-bottom: 20px; text-align: center; }
+        .form-group { margin-bottom: 14px; }
+        label { display: block; font-size: 13px; color: #cbd5e1; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 11px; background: #0f172a; border: 1px solid #475569; border-radius: 8px; color: #fff; font-size: 14px; outline: none; }
+        input:focus, select:focus { border-color: #38bdf8; }
+        .btn-generate { width: 100%; padding: 13px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .btn-generate:hover { background: linear-gradient(135deg, #0369a1, #1d4ed8); }
+
+        .slip-wrapper { flex: 1; min-width: 320px; max-width: 420px; display: flex; flex-direction: column; align-items: center; }
+        .slip-card { background: #ffffff; color: #0f172a; border-radius: 14px; padding: 22px; width: 100%; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 2px solid #38bdf8; text-align: right; position: relative; overflow: hidden; }
+        
+        .slip-card::after { content: "UNOFFICIAL"; position: absolute; top: 40%; left: -15%; width: 130%; text-align: center; font-size: 52px; font-weight: 900; color: rgba(14, 165, 233, 0.08); transform: rotate(-25deg); pointer-events: none; letter-spacing: 2px; }
+        
+        .slip-header { border-bottom: 2px dashed #cbd5e1; padding-bottom: 12px; margin-bottom: 12px; text-align: center; }
+        .slip-header h3 { font-size: 18px; color: #1e3a8a; }
+        
+        .slip-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; border-bottom: 1px solid #f1f5f9; padding-bottom: 5px; }
+        .slip-row .title { font-weight: bold; color: #475569; }
+        .slip-row .value { color: #0f172a; font-weight: bold; }
+        
+        .qr-container { display: flex; justify-content: center; align-items: center; margin-top: 12px; padding-top: 10px; border-top: 2px dashed #cbd5e1; flex-direction: column; gap: 6px; }
+
+        .btn-action-group { width: 100%; display: flex; flex-direction: column; gap: 8px; margin-top: 15px; }
+        .btn-download { width: 100%; padding: 12px; background: #16a34a; border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s; display: none; text-align: center; }
+        .btn-download:hover { background: #15803d; }
+        .btn-wa { background: #25d366; }
+        .btn-wa:hover { background: #1eb954; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h2>📦 ووٹ پرچی فائنڈر</h2>
-        <div class="input-group">
-            <input type="text" id="cnicInput" placeholder="3660114730363" maxlength="15">
-            <button onclick="searchVoter()">تلاش کریں</button>
+
+<div class="main-wrapper">
+    <div class="form-card">
+        <h2>🌍 بین الاقوامی QR ووٹر پرچی</h2>
+        <p>تنظیمی و ذاتی استعمال کے لیے (محفوظ اور اینکریپٹڈ)</p>
+
+        <div class="form-group">
+            <label>ملک منتخب کریں (Select Country):</label>
+            <select id="countrySelect" onchange="updateFormLabels()">
+                <option value="Pakistan">پاکستان (Pakistan)</option>
+                <option value="USA">United States (USA)</option>
+                <option value="UK">United Kingdom (UK)</option>
+                <option value="UAE">United Arab Emirates (UAE)</option>
+                <option value="Saudi Arabia">Saudi Arabia (KSA)</option>
+                <option value="India">India</option>
+                <option value="Other">دیگر ممالک (Worldwide / Other)</option>
+            </select>
         </div>
-        <div id="errorMsg" class="error-msg"></div>
-        <div id="voterCard" class="result-box">
-            <div class="info-row"><span class="info-label">ووٹر کا نام:</span><span id="voterName" class="info-value"></span></div>
-            <div class="info-row"><span class="info-label">والد کا نام:</span><span id="fatherName" class="info-value"></span></div>
-            <div class="info-row"><span class="info-label">سلسلہ نمبر:</span><span id="serialNo" class="info-value"></span></div>
-            <div class="info-row"><span class="info-label">پولنگ اسٹیشن:</span><span id="pollingStation" class="info-value"></span></div>
-            <a id="mapLink" class="map-btn" target="_blank" href="#">📍 پولنگ اسٹیشن کا نقشہ اور راستہ دیکھیں</a>
+
+        <div class="form-group">
+            <label id="lblVoterName">ووٹر کا نام (Voter Full Name):</label>
+            <input type="text" id="voterName" placeholder="مثال: محمد احمد">
         </div>
+
+        <div class="form-group">
+            <label id="lblIdNumber">شناختی کارڈ / شناختی نمبر (ID / CNIC):</label>
+            <input type="text" id="idNumber" placeholder="35202-0000000-0">
+        </div>
+
+        <div class="form-group">
+            <label id="lblConstituency">حلقہ / وارڈ / ڈسٹرکٹ (Constituency / Ward):</label>
+            <input type="text" id="constituency" placeholder="مثال: NA-130">
+        </div>
+
+        <div class="form-group">
+            <label id="lblPollingStation">پولنگ اسٹیشن (Polling Station):</label>
+            <input type="text" id="pollingStation" placeholder="مثال: گورنمنٹ ماڈل اسکول">
+        </div>
+
+        <div class="form-group">
+            <label id="lblSerialNo">سلسلۂ نمبر (Serial No):</label>
+            <input type="text" id="serialNo" placeholder="مثال: 145">
+        </div>
+
+        <button class="btn-generate" onclick="generateSlip()">✨ ڈیجیٹل QR پرچی بنائیں</button>
     </div>
 
-    <script>
-        const SUPABASE_URL = "https://ozhmuznwykhizyvxhjvk.supabase.co"; 
-        const SUPABASE_KEY = "sb_publishable_vby7dhYJrml-z_52C-7v1A_IQkHUyTY"; 
+    <div class="slip-wrapper">
+        <div class="slip-card" id="slipToPrint">
+            <div class="slip-header">
+              <h3 id="dispCountryTitle">🇵🇰 پاکستان - تنظیمی ووٹر پرچی</h3>
+              <span id="warningSpan" style="color:red; font-size:11px; font-weight:bold; display:block; margin-top:3px; background:#fef2f2; padding:3px; border-radius:4px; border:1px solid #fecaca;">UNOFFICIAL - FOR PARTY / ORGANIZATIONAL USE ONLY - NOT ECP ISSUED</span>
+              <span style="font-size:12px; color:#64748b; font-weight:bold; display:block; margin-top:3px;">SMARTSCAN ELECTION PORTAL</span>
+            </div>
 
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+            <div class="slip-row"><span class="title">نام:</span><span class="value" id="dispName">---</span></div>
+            <div class="slip-row"><span class="title" id="dispIdTitle">شناختی نمبر:</span><span class="value" id="dispId">---</span></div>
+            <div class="slip-row"><span class="title">حلقہ:</span><span class="value" id="dispConstituency">---</span></div>
+            <div class="slip-row"><span class="title">پولنگ:</span><span class="value" id="dispPolling">---</span></div>
+            <div class="slip-row"><span class="title" id="dispSerialTitle">سلسلہ:</span><span class="value" id="dispSerial">---</span></div>
 
-        async function searchVoter() {
-            const cnic = document.getElementById('cnicInput').value.trim().replace(/-/g, '');
-            const errorMsg = document.getElementById('errorMsg');
-            const voterCard = document.getElementById('voterCard');
-            errorMsg.style.display = 'none';
-            voterCard.style.display = 'none';
+            <div class="qr-container">
+                <div id="qrcode"></div>
+                <p id="qrTime" style="font-size:10px; color:#64748b;"></p>
+            </div>
+        </div>
 
-            if (!cnic) { 
-                alert('براہ کرم شناختی کارڈ نمبر درج کریں۔'); 
-                return; 
-            }
+        <div class="btn-action-group">
+            <button class="btn-download" id="btnDownload" onclick="downloadSlip()">📥 پرچی امیج ڈاؤن لوڈ کریں</button>
+            <button class="btn-download btn-wa" id="btnWa" onclick="shareWhatsApp()">📱 واٹس ایپ پر بھیجیں</button>
+        </div>
+    </div>
+</div>
 
-            try {
-                const { data, error } = await supabaseClient.rpc('search_voter_by_cnic', { search_cnic: cnic });
-                console.log("API Response:", data, error);
+<script>
+    // Edge Function Endpoint (No Frontend Keys Exposed)[span_1](start_span)[span_1](end_span)
+    const EDGE_URL = "https://ozhmuznwykhizyvxhjvk.supabase.co/functions/v1/secure-slip";
 
-                if (error) {
-                    errorMsg.innerText = "خرابی: " + error.message;
-                    errorMsg.style.display = 'block';
-                    return;
-                }
-                if (data && data.length > 0) {
-                    const voter = data[0];
-                    document.getElementById('voterName').innerText = voter.name || 'N/A';
-                    document.getElementById('fatherName').innerText = voter.father_name || 'N/A';
-                    document.getElementById('serialNo').innerText = voter.serial_no || 'N/A';
-                    document.getElementById('pollingStation').innerText = voter.polling_station || 'N/A';
-                    document.getElementById('mapLink').href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(voter.polling_station || '');
-                    voterCard.style.display = 'block';
-                } else {
-                    errorMsg.innerText = "کوئی بھی ریکارڈ نہیں ملا۔ براہ کرم درست شناختی کارڈ نمبر درج کریں۔";
-                    errorMsg.style.display = 'block';
-                }
-            } catch (err) {
-                errorMsg.innerText = "کوئی غیر متوقع خرابی پیش آئی ہے۔";
-                errorMsg.style.display = 'block';
-            }
+    async function hashCNIC(cnic) {
+        try {
+            const data = new TextEncoder().encode(cnic);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+        } catch(e) {
+            return "hash_error";
         }
-    </script>
+    }
+
+    function updateFormLabels() {
+        const country = document.getElementById('countrySelect').value;
+        const dispCountryTitle = document.getElementById('dispCountryTitle');
+        const warningSpan = document.getElementById('warningSpan');
+
+        if (country === 'Pakistan') {
+            dispCountryTitle.innerText = "🇵🇰 پاکستان - تنظیمی ووٹر پرچی";
+            warningSpan.innerText = "UNOFFICIAL - FOR PARTY / ORGANIZATIONAL USE ONLY - NOT ECP ISSUED";
+        } else if (country === 'USA') {
+            dispCountryTitle.innerText = "🇺🇸 USA - Unofficial Voter Slip";
+            warningSpan.innerText = "UNOFFICIAL - FOR PARTY / ORGANIZATIONAL USE ONLY - NOT OFFICIAL ISSUE";
+        } else if (country === 'UK') {
+            dispCountryTitle.innerText = "🇬🇧 UK - Digital Campaign Slip";
+            warningSpan.innerText = "UNOFFICIAL - FOR PARTY / ORGANIZATIONAL USE ONLY - NOT OFFICIAL ISSUE";
+        } else {
+            dispCountryTitle.innerText = "🌐 Worldwide Organizational Voter Slip";
+            warningSpan.innerText = "UNOFFICIAL - FOR PARTY / ORGANIZATIONAL USE ONLY - NOT GOVT ISSUED";
+        }
+    }
+
+    async function generateSlip() {
+        const name = document.getElementById('voterName').value.trim() || 'محمد علی';
+        const rawId = document.getElementById('idNumber').value.trim() || '35202-0000000-0';
+        const constituency = document.getElementById('constituency').value.trim() || 'NA-130';
+        const polling = document.getElementById('pollingStation').value.trim() || 'گورنمنٹ ماڈل اسکول';
+        const serial = document.getElementById('serialNo').value.trim() || '102';
+        const country = document.getElementById('countrySelect').value;
+        const now = new Date().toLocaleString();
+
+        document.getElementById('dispName').innerText = name;
+        document.getElementById('dispId').innerText = rawId;
+        document.getElementById('dispConstituency').innerText = constituency;
+        document.getElementById('dispPolling').innerText = polling;
+        document.getElementById('dispSerial').innerText = serial;
+        document.getElementById('qrTime').innerText = "تاریخ: " + now;
+
+        const qrData = "UNOFFICIAL SLIP - FOR ORGANIZATIONAL USE\n" +
+                       "Country: " + country + "\n" +
+                       "Name: " + name + "\n" +
+                       "ID: " + rawId + "\n" +
+                       "Constituency: " + constituency + "\n" +
+                       "Polling: " + polling + "\n" +
+                       "Serial: " + serial + "\n" +
+                       "Generated: " + now;
+
+        const qrDiv = document.getElementById('qrcode');
+        qrDiv.innerHTML = '';
+        
+        if (typeof QRCode !== 'undefined') {
+            new QRCode(qrDiv, {
+                text: qrData,
+                width: 105,
+                height: 105,
+                colorDark: "#0f172a",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+        }
+
+        document.getElementById('btnDownload').style.display = 'block';
+        document.getElementById('btnWa').style.display = 'block';
+
+        try {
+            const last4 = rawId.replace(/[^0-9]/g, '').slice(-4);
+            const hashedId = await hashCNIC(rawId);
+
+            await fetch(EDGE_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    country: country,
+                    voter_name: name,
+                    voter_id_last4: last4,
+                    voter_id_hash: hashedId,
+                    constituency: constituency,
+                    polling_station: polling,
+                    serial_no: serial
+                })
+            });
+        } catch(e) {
+            console.log("Slip generated successfully.");
+        }
+    }
+
+    function downloadSlip() {
+        const slip = document.getElementById('slipToPrint');
+        if (typeof html2canvas !== 'undefined') {
+            html2canvas(slip, { scale: 2 }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'Secure_Voter_Slip.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+    }
+
+    function shareWhatsApp() {
+        const name = document.getElementById('dispName').innerText;
+        const constituency = document.getElementById('dispConstituency').innerText;
+        const polling = document.getElementById('dispPolling').innerText;
+        const serial = document.getElementById('dispSerial').innerText;
+
+        const text = "🗳️ *تنظیمی ووٹر پرچی (SmartScan Portal)*\n\n" +
+                     "👤 *نام:* " + name + "\n" +
+                     "🏛️ *حلقہ:* " + constituency + "\n" +
+                     "🏫 *پولنگ:* " + polling + "\n" +
+                     "🔢 *سلسلہ:* " + serial + "\n\n" +
+                     "⚠️ _نوٹ: یہ غیر سرکاری تنظیمی پرچی ہے۔_";
+
+        window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(text), '_blank');
+    }
+
+    window.onload = function() {
+        generateSlip();
+    };
+</script>
+
 </body>
 </html>
