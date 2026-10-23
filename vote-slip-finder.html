@@ -3,97 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ووٹ پرچی فائینڈر - SmartScan</title>
+    <title>ووٹ پرچی فائنڈر - SmartScan</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; direction: rtl; }
-        .container { max-width: 500px; margin: 0 auto; background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h2 { text-align: center; color: #1e293b; margin-bottom: 20px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f6f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 450px; text-align: center; }
+        h2 { margin-bottom: 20px; color: #1e293b; display: flex; align-items: center; justify-content: center; gap: 8px; }
         .input-group { display: flex; gap: 10px; margin-bottom: 20px; }
-        input { flex: 1; padding: 12px; font-size: 16px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; }
-        button { padding: 12px 20px; background-color: #2563eb; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
+        input[type="text"] { flex: 1; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 16px; outline: none; }
+        button { padding: 12px 20px; background-color: #2563eb; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; transition: 0.2s; }
         button:hover { background-color: #1d4ed8; }
-        .card { display: none; background: #f8fafc; border: 2px solid #2563eb; border-radius: 10px; padding: 20px; margin-top: 15px; }
-        .card-header { font-size: 18px; font-weight: bold; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 12px; color: #1e293b; }
-        .info-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 15px; }
-        .info-label { font-weight: bold; color: #64748b; }
-        .info-value { color: #0f172a; font-weight: 600; }
-        .map-btn { display: block; text-align: center; background-color: #16a34a; color: white; text-decoration: none; padding: 10px; border-radius: 6px; margin-top: 15px; font-weight: bold; }
+        .error-msg { color: #dc2626; margin-top: 10px; display: none; font-size: 14px; }
+        .result-box { margin-top: 20px; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; text-align: right; background-color: #f8fafc; display: none; }
+        .info-row { margin-bottom: 10px; display: flex; justify-content: space-between; border-bottom: 1px dashed #e2e8f0; padding-bottom: 5px; }
+        .info-label { font-weight: bold; color: #475569; }
+        .info-value { color: #0f172a; }
+        .map-btn { display: inline-block; width: 100%; padding: 10px; margin-top: 10px; background-color: #16a34a; color: white; text-decoration: none; border-radius: 6px; text-align: center; font-weight: bold; }
         .map-btn:hover { background-color: #15803d; }
-        .error-msg { display: none; color: #dc2626; text-align: center; margin-top: 15px; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>🗳️ ووٹ پرچی تلاش کریں</h2>
-    <div class="input-group">
-        <input type="text" id="cnicInput" placeholder="شناختی کارڈ نمبر (بغیر ڈیش)">
-        <button onclick="searchVoter()">تلاش کریں</button>
-    </div>
-
-    <div id="errorMsg" class="error-msg">کوئی بھی ریکارڈ نہیں ملا۔ براہِ کرم درست شناختی کارڈ نمبر درج کریں۔</div>
-
-    <div id="voterCard" class="card">
-        <div class="card-header">انتخابی پرچی کا خلاصہ</div>
-        <div class="info-row"><span class="info-label">ووٹر کا نام:</span><span id="voterName" class="info-value"></span></div>
-        <div class="info-row"><span class="info-label">والد کا نام:</span><span id="fatherName" class="info-value"></span></div>
-        <div class="info-row"><span class="info-label">سلسلہ نمبر:</span><span id="serialNo" class="info-value"></span></div>
-        <div class="info-row"><span class="info-label">پولنگ اسٹیشن:</span><span id="pollingStation" class="info-value"></span></div>
+    <div class="card">
+        <h2>📦 ووٹ پرچی فائنڈر</h2>
         
-        <a id="mapLink" class="map-btn" target="_blank" href="#">📍 پولنگ اسٹیشن کا نقشہ اور راستہ देखें</a>
+        <div class="input-group">
+            <input type="text" id="cnicInput" placeholder="3660114730363" maxlength="15">
+            <button onclick="searchVoter()">تلاش کریں</button>
+        </div>
+
+        <div id="errorMsg" class="error-msg">کوئی بھی ریکارڈ نہیں ملا۔ براہ کرم درست شناختی کارڈ نمبر درج کریں۔</div>
+
+        <div id="voterCard" class="result-box">
+            <div class="info-row"><span class="info-label">ووٹر کا نام:</span><span id="voterName" class="info-value"></span></div>
+            <div class="info-row"><span class="info-label">والد کا نام:</span><span id="fatherName" class="info-value"></span></div>
+            <div class="info-row"><span class="info-label">سلسلہ نمبر:</span><span id="serialNo" class="info-value"></span></div>
+            <div class="info-row"><span class="info-label">پولنگ اسٹیشن:</span><span id="pollingStation" class="info-value"></span></div>
+            
+            <a id="mapLink" class="map-btn" target="_blank" href="#">📍 پولنگ اسٹیشن کا نقشہ اور راستہ دیکھیں</a>
+        </div>
     </div>
-</div>
 
-<script>
-    const SUPABASE_URL = "https://cohmuqwnyqthcyxqylyk.supabase.co";
-    // नया Publishable Key यहाँ लगा दिया गया है:
-    const SUPABASE_KEY = "sb_publishable_vby7dhYJrml-z_52C-7v1A_IQKHU"; 
-    
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    <script>
+        const SUPABASE_URL = "https://ozhmuznwykhizyvxhjvk.supabase.co"; 
+        const SUPABASE_KEY = "sb_publishable_vby7dhyJrm1-z_52C-7v1A_IQKHU"; 
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    async function searchVoter() {
-        const cnicInput = document.getElementById('cnicInput');
-        const cnic = cnicInput.value.trim();
-        const errorMsg = document.getElementById('errorMsg');
-        const voterCard = document.getElementById('voterCard');
+        async function searchVoter() {
+            const cnicInput = document.getElementById('cnicInput');
+            // ڈیش ہٹا کر صاف CNIC
+            const cnic = cnicInput.value.trim().replace(/-/g, '');
+            const errorMsg = document.getElementById('errorMsg');
+            const voterCard = document.getElementById('voterCard');
 
-        errorMsg.style.display = 'none';
-        voterCard.style.display = 'none';
+            errorMsg.style.display = 'none';
+            voterCard.style.display = 'none';
 
-        if (!cnic) {
-            alert('براہِ کرم شناختی کارڈ نمبر درج کریں');
-            return;
-        }
+            if (!cnic) {
+                alert('براہ کرم شناختی کارڈ نمبر درج کریں۔');
+                return;
+            }
 
-        let { data, error } = await supabaseClient.rpc('search_voter_by_cnic', { search_cnic: cnic });
+            try {
+                const { data, error } = await supabaseClient.rpc('search_voter_by_cnic', { search_cnic: cnic });
 
-        if ((error || !data || data.length === 0) && !error?.message?.includes('network')) {
-            const res2 = await supabaseClient.rpc('search_voter_by_cnic', { p_cnic: cnic });
-            if (!res2.error && res2.data && res2.data.length > 0) {
-                data = res2.data;
-                error = null;
+                console.log("Result:", data, error);
+
+                if (error) {
+                    errorMsg.innerText = "سسٹم میں خرابی ہے: " + error.message;
+                    errorMsg.style.display = 'block';
+                    return;
+                }
+
+                if (data && data.length > 0) {
+                    const voter = data[0];
+                    document.getElementById('voterName').innerText = voter.name || 'N/A';
+                    document.getElementById('fatherName').innerText = voter.father_name || 'N/A';
+                    document.getElementById('serialNo').innerText = voter.serial_no || 'N/A';
+                    document.getElementById('pollingStation').innerText = voter.polling_station || 'N/A';
+                    document.getElementById('mapLink').href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(voter.polling_station || '');
+                    voterCard.style.display = 'block';
+                } else {
+                    errorMsg.innerText = "کوئی بھی ریکارڈ نہیں ملا۔ براہ کرم درست شناختی کارڈ نمبر درج کریں۔";
+                    errorMsg.style.display = 'block';
+                }
+            } catch (err) {
+                errorMsg.innerText = "کوئی غیر متوقع خرابی پیش آئی ہے۔";
+                errorMsg.style.display = 'block';
             }
         }
-
-        console.log("Data:", data, "Error:", error);
-
-        if (error || !data || data.length === 0) {
-            errorMsg.style.display = 'block';
-        } else {
-            const voter = data[0];
-            document.getElementById('voterName').innerText = voter.name || 'N/A';
-            document.getElementById('fatherName').innerText = voter.father_name || 'N/A';
-            document.getElementById('serialNo').innerText = voter.serial_no || 'N/A';
-            document.getElementById('pollingStation').innerText = voter.polling_station || 'N/A';
-            
-            const encodedAddress = encodeURIComponent(voter.polling_station);
-            document.getElementById('mapLink').href = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
-
-            voterCard.style.display = 'block';
-        }
-    }
-</script>
-
+    </script>
 </body>
 </html>
