@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartScan - GIS Polling Station Map</title>
+    <!-- Tailwind CSS & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-100 font-sans min-h-screen">
+
+    <!-- Header -->
+    <nav class="bg-indigo-900 text-white p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold"><i class="fa-solid fa-map-location-dot ml-2"></i> SmartScan - Polling Station GIS Map</h1>
+            <div class="flex gap-2">
+                <a href="admin-dashboard.html" class="bg-indigo-700 hover:bg-indigo-800 text-xs px-3 py-2 rounded-lg font-bold transition">
+                    <i class="fa-solid fa-chart-line ml-1"></i> ڈیش بورڈ
+                </a>
+                <a href="qr-voter-slip.html" class="bg-indigo-700 hover:bg-indigo-800 text-xs px-3 py-2 rounded-lg font-bold transition">
+                    <i class="fa-solid fa-qrcode ml-1"></i> کیو آر سلپ
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container mx-auto p-4 md:p-6 max-w-4xl">
+        
+        <!-- Search Section -->
+        <div class="bg-white p-6 rounded-2xl shadow-md mb-6">
+            <h2 class="text-lg font-bold text-gray-800 mb-3"><i class="fa-solid fa-compass text-indigo-600 ml-2"></i> اپنا پولنگ اسٹیشن یا بلاک کوڈ تلاش کریں:</h2>
+            <div class="flex gap-2">
+                <input type="text" id="map-search-input" placeholder="پولنگ اسٹیشن کا نام یا بلاک کوڈ درج کریں..." 
+                       class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none">
+                <button onclick="searchPollingMap()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3 rounded-xl shadow transition whitespace-nowrap">
+                    تلاش کریں
+                </button>
+            </div>
+        </div>
+
+        <!-- Result Box -->
+        <div id="map-result-container" class="hidden bg-white p-6 rounded-2xl shadow-xl border border-gray-200">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4 pb-4 border-b">
+                <div>
+                    <span class="bg-green-100 text-green-800 text-xs font-bold px-3 py-1 rounded-full uppercase">Verified Station</span>
+                    <h2 id="station-name-title" class="text-xl font-bold text-indigo-950 mt-1">-</h2>
+                    <p id="station-address" class="text-sm text-gray-500 mt-1">-</p>
+                </div>
+                <button onclick="openGoogleMaps()" class="bg-green-600 hover:bg-green-700 text-white font-bold px-5 py-3 rounded-xl shadow transition flex items-center gap-2 whitespace-nowrap">
+                    <i class="fa-solid fa-route"></i> گوگل میپس پر راستہ دیکھیں
+                </button>
+            </div>
+
+            <!-- Map View Frame -->
+            <div class="w-full h-80 bg-gray-200 rounded-xl overflow-hidden border">
+                <iframe id="google-map-frame" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script -->
+    <script>
+        const SUPABASE_URL = "https://ozhmuznwykhizyvxhjvk.supabase.co"; 
+        const SUPABASE_ANON_KEY = "sb_publishable_vby7dhYJrml-z_52C-7v1A_IQkHUyTY"; 
+
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function searchPollingMap() {
+            const query = document.getElementById('map-search-input').value.trim();
+            if (!query) return;
+
+            const { data, error } = await supabaseClient
+                .from('voters')
+                .select('polling_station')
+                .ilike('polling_station', `%${query}%`)
+                .limit(1);
+
+            const stationName = (data && data.length > 0) ? data[0].polling_station : query;
+
+            document.getElementById('station-name-title').innerText = stationName;
+            document.getElementById('station-address').innerText = "موقع اور راستے کی معلومات حاصل کی جا رہی ہیں...";
+
+            const mapUrl = `https://maps.google.com/maps?q=${encodeURIComponent(stationName)}&t=&z=15&ie=UTF-8&iwloc=&output=embed`;
+            document.getElementById('google-map-frame').src = mapUrl;
+
+            document.getElementById('map-result-container').classList.remove('hidden');
+        }
+
+        function openGoogleMaps() {
+            const station = document.getElementById('station-name-title').innerText;
+            window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(station)}`, '_blank');
+        }
+    </script>
+</body>
+</html>
