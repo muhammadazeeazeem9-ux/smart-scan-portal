@@ -67,8 +67,10 @@
         voteSlip.style.display = 'none';
         downloadBtn.style.display = 'none';
 
-        try {
-            const { data, error } = await supabaseClient.from('voters').select('*').eq('cnic', cnic).single();
+       const { data, error } = await supabaseClient
+  .rpc('search_voter_by_cnic', { 
+      search_cnic: cnicInput.value.trim() 
+  });
             if (error && error.code !== 'PGRST116') throw error;
             if (data) {
                 document.getElementById('slipName').innerText = data.full_name || 'N/A';
