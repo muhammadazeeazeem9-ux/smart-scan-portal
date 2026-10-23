@@ -3,105 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartScan - Instant Vote Slip Finder</title>
+    <title>ووٹ پرچی فائینڈر - SmartScan</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Arial, sans-serif; background: #f0f4ff; margin: 0; padding: 15px; direction: rtl; text-align: right; }
-        .container { max-width: 520px; margin: auto; }
-        .card { background: white; padding: 22px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); margin-bottom: 18px; border: 1px solid #e2e8f0; }
-        h2 { margin: 0 0 6px 0; color: #1e293b; font-size: 20px; }
-        .sub { color: #64748b; font-size: 13px; margin-bottom: 14px; line-height: 1.5; }
-        label { font-size: 13px; font-weight: bold; color: #334155; margin-top: 10px; display: block; }
-        input, select { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid #cbd5e1; font-size: 15px; box-sizing: border-box; margin-top: 6px; outline: none; }
-        .btn { background: linear-gradient(90deg, #4f46e5, #7c3aed); color: white; border: none; padding: 14px; width: 100%; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 16px; }
-        .btn-green { background: #16a34a; display: none; margin-top: 12px; }
-        .slip { border: 2px dashed #4f46e5; background: #ffffff; padding: 18px; border-radius: 14px; margin-top: 16px; display: none; color: #0f172a; }
-        .slip-header { text-align: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 12px; }
-        .slip-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; }
-        .status-msg { margin-top: 12px; font-size: 14px; text-align: center; font-weight: bold; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; direction: rtl; }
+        .container { max-width: 500px; margin: 0 auto; background: #ffffff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #1e293b; margin-bottom: 20px; }
+        .input-group { display: flex; gap: 10px; margin-bottom: 20px; }
+        input { flex: 1; padding: 12px; font-size: 16px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; }
+        button { padding: 12px 20px; background-color: #2563eb; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; }
+        button:hover { background-color: #1d4ed8; }
+        .card { display: none; background: #f8fafc; border: 2px solid #2563eb; border-radius: 10px; padding: 20px; margin-top: 15px; }
+        .card-header { font-size: 18px; font-weight: bold; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 12px; color: #1e293b; }
+        .info-row { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 15px; }
+        .info-label { font-weight: bold; color: #64748b; }
+        .info-value { color: #0f172a; font-weight: 600; }
+        .map-btn { display: block; text-align: center; background-color: #16a34a; color: white; text-decoration: none; padding: 10px; border-radius: 6px; margin-top: 15px; font-weight: bold; }
+        .map-btn:hover { background-color: #15803d; }
+        .error-msg { display: none; color: #dc2626; text-align: center; margin-top: 15px; font-weight: bold; }
     </style>
 </head>
 <body>
+
 <div class="container">
-    <div class="card">
-        <h2>🗳️ ووٹ پرچی فائنڈر</h2>
-        <div class="sub">شناختی کارڈ نمبر درج کریں اور اپنی ووٹ پرچی فوراً تلاش کرکے ڈاؤن لوڈ کریں۔</div>
-        <label for="country">ملک کا انتخاب کریں</label>
-        <select id="country"><option value="Pakistan">پاکستان (Pakistan)</option></select>
-        <label for="cnicInput">شناختی کارڈ نمبر (بغیر ڈیش کے)</label>
-        <input type="text" id="cnicInput" placeholder="مثال: 3520112345671" maxlength="15">
-        <button class="btn" id="searchBtn">پرچی تلاش کریں</button>
-        <div id="statusArea" class="status-msg"></div>
-        <div class="slip" id="voteSlip">
-            <div class="slip-header"><h3>🗳️ الیکشن کمیشن - ووٹ پرچی</h3></div>
-            <div class="slip-row"><strong>ووٹر کا نام:</strong> <span id="slipName">-</span></div>
-            <div class="slip-row"><strong>شناختی کارڈ:</strong> <span id="slipCnic">-</span></div>
-            <div class="slip-row"><strong>سلسل نمبر:</strong> <span id="slipSilsila">-</span></div>
-            <div class="slip-row"><strong>بلاک کوڈ:</strong> <span id="slipBlockCode">-</span></div>
-            <div class="slip-row"><strong>پولنگ اسٹیشن:</strong> <span id="slipPollingStation">-</span></div>
-            <div class="slip-row"><strong>حلقہ / علاقہ:</strong> <span id="slipHalqa">-</span></div>
-        </div>
-        <button class="btn btn-green" id="downloadBtn">📥 پرچی ڈاؤن لوڈ کریں (Image)</button>
+    <h2>🗳️ ووٹ پرچی تلاش کریں</h2>
+    <div class="input-group">
+        <input type="text" id="cnicInput" placeholder="شناختی کارڈ نمبر (بغیر ڈیش)">
+        <button onclick="searchVoter()">تلاش کریں</button>
+    </div>
+
+    <div id="errorMsg" class="error-msg">کوئی بھی ریکارڈ نہیں ملا۔ براہِ کرم درست شناختی کارڈ نمبر درج کریں۔</div>
+
+    <div id="voterCard" class="card">
+        <div class="card-header">انتخابی پرچی کا خلاصہ</div>
+        <div class="info-row"><span class="info-label">ووٹر کا نام:</span><span id="voterName" class="info-value"></span></div>
+        <div class="info-row"><span class="info-label">والد کا نام:</span><span id="fatherName" class="info-value"></span></div>
+        <div class="info-row"><span class="info-label">سلسلہ نمبر:</span><span id="serialNo" class="info-value"></span></div>
+        <div class="info-row"><span class="info-label">پولنگ اسٹیشن:</span><span id="pollingStation" class="info-value"></span></div>
+        
+        <a id="mapLink" class="map-btn" target="_blank" href="#">📍 پولنگ اسٹیشن کا نقشہ اور راستہ देखें</a>
     </div>
 </div>
+
 <script>
-    const SUPABASE_URL = 'https://ozhmuznwykhizyvxhjvk.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_vby7dhYJrml-z_52C-7v1A_IQkHUyTY';
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const SUPABASE_URL = "https://cohmuqwnyqthcyxqylyk.supabase.co";
+    // नया Publishable Key यहाँ लगा दिया गया है:
+    const SUPABASE_KEY = "sb_publishable_vby7dhYJrml-z_52C-7v1A_IQKHU"; 
+    
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    const searchBtn = document.getElementById('searchBtn');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const statusArea = document.getElementById('statusArea');
-    const voteSlip = document.getElementById('voteSlip');
+    async function searchVoter() {
+        const cnicInput = document.getElementById('cnicInput');
+        const cnic = cnicInput.value.trim();
+        const errorMsg = document.getElementById('errorMsg');
+        const voterCard = document.getElementById('voterCard');
 
-    searchBtn.addEventListener('click', async () => {
-        const cnic = document.getElementById('cnicInput').value.trim();
-        if (!cnic || cnic.length < 11) {
-            statusArea.style.color = '#ef4444';
-            statusArea.innerText = 'براہِ کرم درست شناختی کارڈ نمبر درج کریں۔';
+        errorMsg.style.display = 'none';
+        voterCard.style.display = 'none';
+
+        if (!cnic) {
+            alert('براہِ کرم شناختی کارڈ نمبر درج کریں');
             return;
         }
-        statusArea.style.color = '#4f46e5';
-        statusArea.innerText = 'پرچی کی تلاش جاری ہے...';
-        voteSlip.style.display = 'none';
-        downloadBtn.style.display = 'none';
 
-       const { data, error } = await supabaseClient
-  .rpc('search_voter_by_cnic', { 
-      search_cnic: cnicInput.value.trim() 
-  });
-            if (error && error.code !== 'PGRST116') throw error;
-            if (data) {
-                document.getElementById('slipName').innerText = data.full_name || 'N/A';
-                document.getElementById('slipCnic').innerText = data.cnic || cnic;
-                document.getElementById('slipSilsila').innerText = data.silsila_number || 'N/A';
-                document.getElementById('slipBlockCode').innerText = data.block_code || 'N/A';
-                document.getElementById('slipPollingStation').innerText = data.polling_station || 'N/A';
-                document.getElementById('slipHalqa').innerText = data.halqa || 'N/A';
-                statusArea.style.color = '#16a34a';
-                statusArea.innerText = 'پرچی کامیابی کے ساتھ مل گئی ہے!';
-                voteSlip.style.display = 'block';
-                downloadBtn.style.display = 'block';
-            } else {
-                statusArea.style.color = '#dc2626';
-                statusArea.innerText = 'اس شناختی کارڈ کا ووٹر ریکارڈ موجود نہیں ہے۔';
+        let { data, error } = await supabaseClient.rpc('search_voter_by_cnic', { search_cnic: cnic });
+
+        if ((error || !data || data.length === 0) && !error?.message?.includes('network')) {
+            const res2 = await supabaseClient.rpc('search_voter_by_cnic', { p_cnic: cnic });
+            if (!res2.error && res2.data && res2.data.length > 0) {
+                data = res2.data;
+                error = null;
             }
-        } catch (err) {
-            console.error(err);
-            statusArea.style.color = '#dc2626';
-            statusArea.innerText = 'سرچ کے دوران مسئلہ پیش آیا۔ دوبارہ کوشش کریں۔';
         }
-    });
 
-    downloadBtn.addEventListener('click', () => {
-        html2canvas(voteSlip).then(canvas => {
-            const link = document.createElement('a');
-            link.download = 'Vote_Slip.png';
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        });
-    });
+        console.log("Data:", data, "Error:", error);
+
+        if (error || !data || data.length === 0) {
+            errorMsg.style.display = 'block';
+        } else {
+            const voter = data[0];
+            document.getElementById('voterName').innerText = voter.name || 'N/A';
+            document.getElementById('fatherName').innerText = voter.father_name || 'N/A';
+            document.getElementById('serialNo').innerText = voter.serial_no || 'N/A';
+            document.getElementById('pollingStation').innerText = voter.polling_station || 'N/A';
+            
+            const encodedAddress = encodeURIComponent(voter.polling_station);
+            document.getElementById('mapLink').href = `https://www.google.com/maps/search/?api=1&query=${encodedAddress}`;
+
+            voterCard.style.display = 'block';
+        }
+    }
 </script>
+
 </body>
 </html>
