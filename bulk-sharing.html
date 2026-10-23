@@ -3,95 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartScan - Bulk Sharing Portal</title>
-    <!-- Tailwind CSS & FontAwesome -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Supabase JS Client -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-</head>
-<body class="bg-gray-100 font-sans min-h-screen">
-
-    <!-- Header -->
-    <nav class="bg-indigo-900 text-white p-4 shadow-lg">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold"><i class="fa-solid fa-share-nodes ml-2"></i> بلک شیئرنگ پورٹل (Bulk Sharing)</h1>
-            <div class="flex gap-2">
-                <a href="admin-dashboard.html" class="bg-indigo-700 hover:bg-indigo-800 text-xs px-3 py-2 rounded-lg font-bold transition">
-                    <i class="fa-solid fa-chart-line ml-1"></i> ڈیش بورڈ
-                </a>
-                <a href="field-agent.html" class="bg-indigo-700 hover:bg-indigo-800 text-xs px-3 py-2 rounded-lg font-bold transition">
-                    <i class="fa-solid fa-clipboard-user ml-1"></i> فیلڈ ایجنٹ
-                </a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Main Container -->
-    <div class="container mx-auto p-4 md:p-6 max-w-2xl">
+    <title>SmartScan - Global Bulk WhatsApp & Message Sharing</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .main-wrapper { display: flex; flex-wrap: wrap; gap: 30px; width: 100%; max-width: 1100px; justify-content: center; }
         
-        <!-- Bulk Info Box -->
-        <div class="bg-white p-6 rounded-2xl shadow-md mb-6">
-            <h2 class="text-lg font-bold text-gray-800 mb-3"><i class="fa-solid fa-bullhorn text-indigo-600 ml-2"></i> ووٹرز کو بلک میں اطلاعات بھیجیں:</h2>
-            <p class="text-sm text-gray-600 mb-4">یہ ٹول ڈیٹا بیس سے تمام رجسٹرڈ ووٹرز کا جائزہ لیتا ہے اور آپ کو ایک کلک پر مہماتی پیغامات یا اپ ڈیٹس تیار کرنے کی سہولت دیتا ہے۔</p>
-            
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase mb-1">پیغام کا متن (Campaign Message)</label>
-                    <textarea id="bulk-msg-text" rows="4" class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="اپنا پیغام یہاں لکھیں...">محترم ووٹر! SmartScan الیکشن پورٹل پر آپ کا پولنگ اسٹیشن کامیابی سے رجسٹر کر دیا گیا ہے۔ اپنا ووٹ وقت پر کاسٹ کریں۔</textarea>
-                </div>
-                <button onclick="triggerBulkProcess()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow transition flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-paper-plane"></i> بلک ڈیٹا لوڈ کریں اور تیار کریں
-                </button>
-            </div>
-            <p id="bulk-status" class="text-sm mt-3 hidden font-bold text-center"></p>
+        .card { background: #1e293b; border-radius: 16px; padding: 25px; border: 1px solid #334155; flex: 1; min-width: 320px; max-width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .card h2 { color: #38bdf8; margin-bottom: 8px; font-size: 22px; text-align: center; }
+        .card p { color: #94a3b8; font-size: 13px; margin-bottom: 20px; text-align: center; }
+        .form-group { margin-bottom: 14px; }
+        label { display: block; font-size: 13px; color: #cbd5e1; margin-bottom: 5px; font-weight: bold; }
+        input, textarea, select { width: 100%; padding: 11px; background: #0f172a; border: 1px solid #475569; border-radius: 8px; color: #fff; font-size: 14px; outline: none; }
+        input:focus, textarea:focus, select:focus { border-color: #38bdf8; }
+        textarea { resize: vertical; height: 120px; }
+        
+        .btn-action { width: 100%; padding: 13px; background: linear-gradient(135deg, #16a34a, #15803d); border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.3s; margin-top: 10px; text-align: center; display: inline-block; text-decoration: none; }
+        .btn-action:hover { background: linear-gradient(135deg, #15803d, #166534); }
+        
+        .disclaimer-box { margin-top: 15px; text-align: center; }
+        .disclaimer-text { color: red; font-size: 10px; background: #fef2f2; padding: 6px; border-radius: 4px; border: 1px solid #fecaca; display: inline-block; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div class="card" style="max-width: 600px; width: 100%;">
+        <h2>📢 گلوبال بلک واٹس ایپ شیئرنگ ٹول</h2>
+        <p>تنظیمی و انتخابی مہم کے لیے ووٹرز کو فوری پیغامات اور پرچیاں ارسال کریں</p>
+
+        <div class="disclaimer-box">
+            <span class="disclaimer-text">UNOFFICIAL - FOR PARTY / ORGANIZATIONAL USE ONLY - NOT ECP ISSUED</span>
         </div>
 
-        <!-- Result Stats Box -->
-        <div id="bulk-stats-card" class="hidden bg-white p-6 rounded-2xl shadow-xl border-2 border-indigo-500 text-center">
-            <div class="p-4 bg-indigo-50 rounded-full inline-block mb-3 text-indigo-600 text-3xl">
-                <i class="fa-solid fa-users-rectangle"></i>
-            </div>
-            <h3 class="text-xl font-bold text-gray-800 mb-1">ووٹرز کا ڈیٹا تیار ہے</h3>
-            <p class="text-gray-600 text-sm mb-4">کل <span id="voter-count-val" class="font-bold text-indigo-600">0</span> ووٹرز کے لیے مہماتی لنکس کامیابی سے تشکیل دے دیے گئے ہیں۔</p>
-            <button onclick="alert('تمام ووٹرز کو شیئرنگ کی صف تیار کی جا چکی ہے!')" class="bg-green-600 hover:bg-green-700 text-white font-bold px-6 py-3 rounded-xl shadow transition">
-                <i class="fa-solid fa-check ml-2"></i> مہم شروع کریں (Launch Campaign)
-            </button>
+        <div class="form-group" style="margin-top: 15px;">
+            <label>موبایل نمبر (مع کنٹری کوڈ، مثال: 923001234567):</label>
+            <input type="text" id="phoneNumber" placeholder="923001234567">
         </div>
 
+        <div class="form-group">
+            <label>میسج ٹیمپلیٹ (Message Template):</label>
+            <textarea id="msgTemplate">السلام علیکم! آپ کی انتخابی پرچی تیار ہے۔ 
+حلقہ: NA-128
+پولنگ بوتھ: نمبر 14
+نوٹ: یہ پرچی صرف تنظیمی و سیاسی استعمال کے لیے ہے۔</textarea>
+        </div>
+
+        <!-- Consent Checkbox -->
+        <div class="form-group" style="display:flex; gap:8px; align-items:center; background:#0f172a; padding:10px; border-radius:8px; border:1px solid #334155;">
+            <input type="checkbox" id="consentCheck" style="width:18px; height:18px; cursor:pointer;">
+            <label style="margin:0; font-size:12px; color:#cbd5e1; cursor:pointer;">میں تصدیق کرتا/کرتی ہوں کہ اس نمبر والے نے تنظیمی پیغامات وصول کرنے کی اجازت دی ہے۔</label>
+        </div>
+
+        <button class="btn-action" onclick="sendWhatsApp()">🚀 واٹس ایپ پر پیغام بھیجیں</button>
     </div>
+</div>
 
-    <!-- Script -->
-    <script>
-        const SUPABASE_URL = "https://ozhmuznwykhizyvxhjvk.supabase.co"; 
-        const SUPABASE_ANON_KEY = "sb_publishable_vby7dhYJrml-z_52C-7v1A_IQkHUyTY"; 
-
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        async function triggerBulkProcess() {
-            const status = document.getElementById('bulk-status');
-            status.innerText = "ڈیٹا بیس سے ووٹرز کا ریکارڈ چیک کیا جا رہا ہے...";
-            status.className = "text-indigo-600 text-sm mt-3 font-bold text-center";
-            status.classList.remove('hidden');
-            document.getElementById('bulk-stats-card').classList.add('hidden');
-
-            try {
-                const { data, error } = await supabaseClient.from('voters').select('id');
-                if (error) throw error;
-
-                const count = data ? data.length : 0;
-                document.getElementById('voter-count-val').innerText = count;
-
-                status.innerText = "کامیابی! تمام ریکارڈ فیچ ہو چکا ہے۔";
-                status.className = "text-green-600 text-sm mt-3 font-bold text-center";
-                document.getElementById('bulk-stats-card').classList.remove('hidden');
-
-            } catch (err) {
-                console.error("Bulk Error:", err);
-                status.innerText = "ڈیٹا لانے میں خرابی پیش آئی۔";
-                status.className = "text-red-500 text-sm mt-3 font-bold text-center";
-            }
+<script>
+    function sendWhatsApp() {
+        if (!document.getElementById('consentCheck').checked) {
+            alert('براہ کرم پہلے اجازت کی تصدیق کریں!');
+            return;
         }
-    </script>
+
+        let phone = document.getElementById('phoneNumber').value.trim();
+        let message = document.getElementById('msgTemplate').value.trim();
+
+        if (!phone) {
+            alert('براہ کرم درست موبائل نمبر درج کریں!');
+            return;
+        }
+
+        // Clean phone number (remove non-digits)
+        phone = phone.replace(/[^0-9]/g, '');
+
+        const encodedMessage = encodeURIComponent(message + "\n\n[UNOFFICIAL - FOR PARTY USE ONLY]");
+        const whatsappUrl = `https://wa.me/${phone}?text=${encodedMessage}`;
+        
+        window.open(whatsappUrl, '_blank');
+    }
+</script>
+
 </body>
 </html>
