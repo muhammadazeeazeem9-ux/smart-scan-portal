@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags for Global Reach -->
+    <title>SmartScan - Global AI Health & BMI Calculator Tool</title>
+    <meta name="description" content="Free online health and BMI calculator tool. Calculate your body mass index, daily calorie needs, and water intake instantly. 100% client-side privacy.">
+    <meta name="keywords" content="health calculator, BMI calculator, calorie calculator, free wellness tools, smartscan portal, client side tool">
+    <meta name="author" content="SmartScan Portal">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .main-wrapper { display: flex; flex-wrap: wrap; gap: 30px; width: 100%; max-width: 1100px; justify-content: center; }
+        
+        .card { background: #1e293b; border-radius: 16px; padding: 25px; border: 1px solid #334155; flex: 1; min-width: 320px; max-width: 550px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .card h2 { color: #38bdf8; margin-bottom: 8px; font-size: 22px; text-align: center; }
+        .card p { color: #94a3b8; font-size: 13px; margin-bottom: 20px; text-align: center; }
+        .form-group { margin-bottom: 14px; }
+        label { display: block; font-size: 13px; color: #cbd5e1; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 11px; background: #0f172a; border: 1px solid #475569; border-radius: 8px; color: #fff; font-size: 14px; outline: none; }
+        input:focus, select:focus { border-color: #38bdf8; }
+        
+        .result-box { margin-top: 20px; background: #0f172a; padding: 15px; border-radius: 10px; border: 1px solid #334155; text-align: center; }
+        .result-box h4 { color: #38bdf8; margin-bottom: 5px; }
+        .result-text { color: #34d399; font-size: 16px; font-weight: bold; }
+        
+        .btn-action { width: 100%; padding: 13px; background: linear-gradient(135deg, #10b981, #059669); border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.3s; margin-top: 10px; text-align: center; }
+        .btn-action:hover { background: linear-gradient(135deg, #059669, #047857); }
+        
+        .disclaimer-box { margin-bottom: 15px; text-align: center; }
+        .disclaimer-text { color: red; font-size: 10px; background: #fef2f2; padding: 6px; border-radius: 4px; border: 1px solid #fecaca; display: inline-block; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div class="card">
+        <h2>🩺 گلوبال سمارٹ ہیلتھ اینڈ فٹنس کیلکولیٹر</h2>
+        <p>اپنا بی ایم آئی (BMI)، روزانہ کی کیلوریز اور پانی کی ضرورت کا فوری تخمینہ لگائیں</p>
+
+        <div class="disclaimer-box">
+            <span class="disclaimer-text">100% CLIENT-SIDE PRIVACY - NO MEDICAL DATA STORED ON SERVER</span>
+        </div>
+
+        <div class="form-group">
+            <label>وزن (کلوگرام میں - Weight in KG):</label>
+            <input type="number" id="weight" placeholder="مثال: 70">
+        </div>
+
+        <div class="form-group">
+            <label>قد (سینٹی میٹر میں - Height in CM):</label>
+            <input type="number" id="height" placeholder="مثال: 175">
+        </div>
+
+        <div class="form-group">
+            <label>عمر (Age in Years):</label>
+            <input type="number" id="age" placeholder="مثال: 25">
+        </div>
+
+        <div class="form-group">
+            <label>جسمانی سرگرمی (Activity Level):</label>
+            <select id="activity">
+                <option value="1.2">کم یا کوئی ورزش نہیں (Sedentary)</option>
+                <option value="1.375">ہلکی ورزش (Light Active)</option>
+                <option value="1.55">درمیانی ورزش (Moderate Active)</option>
+                <option value="1.725">سخت ورزش (Very Active)</option>
+            </select>
+        </div>
+
+        <button class="btn-action" onclick="calculateHealth()">📊 صحت کا تجزیہ کریں</button>
+
+        <div class="result-box">
+            <h4>📈 آپ کے نتائج (Health Results):</h4>
+            <p id="healthOutput" class="result-text">براہ کرم اوپر دی گئی معلومات درج کریں...</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function calculateHealth() {
+        const weight = parseFloat(document.getElementById('weight').value);
+        const heightCm = parseFloat(document.getElementById('height').value);
+        const age = parseInt(document.getElementById('age').value);
+        const activity = parseFloat(document.getElementById('activity').value);
+        const output = document.getElementById('healthOutput');
+
+        if (!weight || !heightCm || !age) {
+            alert('براہ کرم تمام خانے درست طریقے سے پر کریں!');
+            return;
+        }
+
+        // BMI Calculation
+        let heightM = heightCm / 100;
+        let bmi = (weight / (heightM * heightM)).toFixed(1);
+
+        let bmiStatus = "";
+        if (bmi < 18.5) {
+            bmiStatus = "وزن کم ہے (Underweight)";
+        } else if (bmi >= 18.5 && bmi <= 24.9) {
+            bmiStatus = "متوازن اور بہترین وزن (Normal Weight)";
+        } else if (bmi >= 25 && bmi <= 29.9) {
+            bmiStatus = "وزن زیادہ ہے (Overweight)";
+        } else {
+            bmiStatus = "موٹاپا (Obese)";
+        }
+
+        // Estimated Daily Calories (Mifflin-St Jeor simplified for general estimate)
+        let bmr = (10 * weight) + (6.25 * heightCm) - (5 * age) + 5;
+        let dailyCalories = Math.round(bmr * activity);
+
+        // Water intake estimate (approx 35ml per kg)
+        let waterLiters = (weight * 0.035).toFixed(1);
+
+        output.innerHTML = `BMI: ${bmi} (${bmiStatus})<br>
+                            روزانہ درکار کیلوریز: ${dailyCalories} kcal<br>
+                            پانی کی یومیہ ضرورت: ${waterLiters} لیٹر`;
+    }
+</script>
+
+</body>
+</html>
