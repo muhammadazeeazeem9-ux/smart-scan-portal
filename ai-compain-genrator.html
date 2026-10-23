@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartScan - Global AI Campaign & Voter Engagement Generator</title>
+    <!-- html2canvas for Image Download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .main-wrapper { display: flex; flex-wrap: wrap; gap: 30px; width: 100%; max-width: 1200px; justify-content: center; }
+        
+        /* Form Card */
+        .form-card { background: #1e293b; border-radius: 16px; padding: 25px; border: 1px solid #334155; flex: 1; min-width: 320px; max-width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .form-card h2 { color: #38bdf8; margin-bottom: 8px; font-size: 22px; text-align: center; }
+        .form-card p { color: #94a3b8; font-size: 13px; margin-bottom: 20px; text-align: center; }
+        .form-group { margin-bottom: 14px; }
+        label { display: block; font-size: 13px; color: #cbd5e1; margin-bottom: 5px; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 11px; background: #0f172a; border: 1px solid #475569; border-radius: 8px; color: #fff; font-size: 14px; outline: none; }
+        input:focus, select:focus, textarea:focus { border-color: #38bdf8; }
+        textarea { resize: vertical; height: 80px; }
+        .btn-generate { width: 100%; padding: 13px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .btn-generate:hover { background: linear-gradient(135deg, #0369a1, #1d4ed8); }
+
+        /* Output Card / Preview */
+        .preview-wrapper { flex: 1; min-width: 320px; max-width: 550px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        
+        .campaign-card { background: linear-gradient(135deg, #1e293b, #0f172a); color: #f8fafc; border-radius: 16px; padding: 25px; width: 100%; box-shadow: 0 15px 35px rgba(0,0,0,0.5); border: 2px solid #38bdf8; text-align: right; position: relative; overflow: hidden; }
+        .campaign-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed #334155; padding-bottom: 15px; margin-bottom: 15px; }
+        .candidate-info h3 { font-size: 20px; color: #38bdf8; }
+        .candidate-info p { font-size: 13px; color: #94a3b8; }
+        .symbol-badge { background: #0284c7; color: white; padding: 8px 14px; border-radius: 10px; font-size: 24px; font-weight: bold; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        
+        .campaign-section { margin-bottom: 12px; font-size: 13px; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 8px; border-right: 3px solid #38bdf8; }
+        .campaign-section strong { display: block; color: #38bdf8; margin-bottom: 4px; font-size: 14px; }
+        
+        .btn-action-group { width: 100%; display: flex; gap: 10px; }
+        .btn-action { flex: 1; padding: 12px; border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s; text-align: center; }
+        .btn-download { background: #16a34a; }
+        .btn-download:hover { background: #15803d; }
+        .btn-wa { background: #25d366; }
+        .btn-wa:hover { background: #1eb954; }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <!-- Form Inputs -->
+    <div class="form-card">
+        <h2>🌍 گلوبال AI انتخابی مہم جنریٹر</h2>
+        <p>150+ ممالک کے لیے خودکار اور محفوظ مہم کا مواد بنائیں</p>
+
+        <div class="form-group">
+            <label>ملک منتخب کریں (Select Country):</label>
+            <select id="countrySelect">
+                <optgroup label="برصغیر و مشرق وسطیٰ (South Asia & Middle East)">
+                    <option value="Pakistan">پاکستان (Pakistan)</option>
+                    <option value="India">بھارت (India)</option>
+                    <option value="Bangladesh">بنگلہ دیش (Bangladesh)</option>
+                    <option value="UAE">متحدہ عرب امارات (UAE)</option>
+                    <option value="Saudi Arabia">سعودی عرب (Saudi Arabia)</option>
+                    <option value="UK">برطانیہ (United Kingdom)</option>
+                </optgroup>
+                <optgroup label="شمالی امریکہ و یورپ (North America & Europe)">
+                    <option value="USA">ریاستہائے متحدہ امریکہ (USA)</option>
+                    <option value="Canada">کینیڈا (Canada)</option>
+                    <option value="Germany">جرمنی (Germany)</option>
+                    <option value="France">فرانس (France)</option>
+                    <option value="Italy">اٹلی (Italy)</option>
+                    <option value="Spain">سپین (Spain)</option>
+                </optgroup>
+                <optgroup label="دیگر تمام ممالک (Worldwide / 150+ Countries)">
+                    <option value="Australia">آسٹریلیا (Australia)</option>
+                    <option value="South Africa">جنوبی افریقہ (South Africa)</option>
+                    <option value="Malaysia">ملائیشیا (Malaysia)</option>
+                    <option value="Turkey">ترکیہ (Turkey)</option>
+                    <option value="Global / Other">🌐 دیگر تمام بین الاقوامی ممالک (Global)</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>امیدوار یا رہنما کا نام (Candidate Name):</label>
+            <input type="text" id="candName" placeholder="مثال: میاں طارق محمود / John Smith">
+        </div>
+
+        <div class="form-group">
+            <label>حلقہ / ریاست / علاقہ (Constituency / State / Area):</label>
+            <input type="text" id="candConstituency" placeholder="مثال: NA-130 لاہور / New York Dist 5">
+        </div>
+
+        <div class="form-group">
+            <label>انتخابی نشان / لوگو ایموجی (Symbol / Emblem):</label>
+            <select id="candSymbol">
+                <option value="🦁 شیر (Lion)">🦁 شیر (Lion)</option>
+                <option value="🏏 بللا (Bat)">🏏 بللا (Bat)</option>
+                <option value="🦅 عقاب (Eagle)">🦅 عقاب (Eagle)</option>
+                <option value="⚖️ ترازو (Scales)">⚖️ ترازو (Scales)</option>
+                <option value="⭐ ستارہ (Star)">⭐ ستارہ (Star)</option>
+                <option value="🌳 درخت (Tree)">🌳 درخت (Tree)</option>
+                <option value="🔑 چابی (Key)">🔑 چابی (Key)</option>
+                <option value="💡 بلب (Bulb)">💡 بلب (Bulb)</option>
+                <option value="🏹 تیر (Arrow)">🏹 تیر (Arrow)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>اہم ترجیحات / منشور کے نکات (Key Focus / Manifesto):</label>
+            <textarea id="candManifesto" placeholder="مثال: معاشی ترقی، بہترین تعلیم، صحت کی سہولیات اور روزگار۔">تعلیم، صحت، اور نوجوانوں کے لیے روزگار کی فراہمی۔</textarea>
+        </div>
+
+        <button class="btn-generate" onclick="generateCampaign()">🚀 AI مہم کا مواد تیار کریں</button>
+    </div>
+
+    <!-- Live Preview Wrapper -->
+    <div class="preview-wrapper">
+        <div class="campaign-card" id="campaignToPrint">
+            <div class="campaign-header">
+                <div class="candidate-info">
+                    <h3 id="previewName">میاں طارق محمود</h3>
+                    <p id="previewConstituency">حلقہ: NA-130 لاہور | پاکستان</p>
+                    <span style="font-size: 11px; color: #38bdf8; font-weight: bold; display: block; margin-top: 4px;">SMARTSCAN GLOBAL CAMPAIGN PORTAL</span>
+                </div>
+                <div class="symbol-badge" id="previewSymbol">🦁</div>
+            </div>
+
+            <div class="campaign-section">
+                <strong>📢 انتخابی نعرہ (Slogan):</strong>
+                <span id="previewSlogan">ترقی، خوشحالی اور عوام کی خدمت - اب کی بار پکا وار!</span>
+            </div>
+
+            <div class="campaign-section">
+                <strong>📱 واٹس ایپ مہم کا پیغام (WhatsApp Broadcast):</strong>
+                <span id="previewWaMsg">عزیزعوام! آنے والے انتخاب میں اپنے مستقبل کی بہتری کے لیے باہر نکلیں اور میاں طارق محمود کو کامیاب بنائیں۔</span>
+            </div>
+
+            <div class="campaign-section">
+                <strong>🎯 ووٹرز کے لیے اپیل (Voter Appeal):</strong>
+                <span id="previewAppeal">آپ کا ایک ووٹ علاقے کی تقدیر بدل سکتا ہے۔ پولنگ کے دن اپنے انتخابی نشان پر مہر لگائیں۔</span>
+            </div>
+        </div>
+
+        <div class="btn-action-group">
+            <button class="btn-action btn-download" onclick="downloadCard()">📥 کارڈ بطور امیج ڈاؤن لوڈ کریں</button>
+            <button class="btn-action btn-wa" onclick="shareCampaignWA()">📱 واٹس ایپ پر شیئر کریں</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function generateCampaign() {
+        const name = document.getElementById('candName').value.trim() || 'میاں طارق محمود';
+        const country = document.getElementById('countrySelect').value;
+        const constituency = document.getElementById('candConstituency').value.trim() || 'NA-130 لاہور';
+        const symbolSelect = document.getElementById('candSymbol').value;
+        const manifesto = document.getElementById('candManifesto').value.trim() || 'تعلیم اور ترقی';
+
+        const symbolEmoji = symbolSelect.split(' ')[0];
+
+        // Update Preview UI
+        document.getElementById('previewName').innerText = name;
+        document.getElementById('previewConstituency').innerText = `حلقہ: ${constituency} (${country})`;
+        document.getElementById('previewSymbol').innerText = symbolEmoji;
+
+        // Dynamic AI Smart Generation based on inputs & selected country
+        document.getElementById('previewSlogan').innerText = `"${name} کا عزم - روشن مستقبل اور بہترین قیادت (${country} Edition)!"`;
+        document.getElementById('previewWaMsg').innerText = `عزیز ووٹرز اور سپورٹرز! حلقہ ${constituency} (${country}) کی پائیدار ترقی کے لیے ${name} کو آپ کے تعاون کی ضرورت ہے۔ ہمارے منشور (${manifesto}) کی کامیابی کے لیے آگے بڑھیں۔`;
+        document.getElementById('previewAppeal').innerText = `آنے والے انتخابات میں ترقی، امن اور خوشحالی کے لیے اپنے انتخابی نشان (${symbolSelect}) پر بھرپور مہر ثبت کریں۔ آپ کا ووٹ ہماری طاقت ہے!`;
+    }
+
+    function downloadCard() {
+        const card = document.getElementById('campaignToPrint');
+        if (typeof html2canvas !== 'undefined') {
+            html2canvas(card, { scale: 2, backgroundColor: null }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'Global_AI_Campaign_Card.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+    }
+
+    function shareCampaignWA() {
+        const name = document.getElementById('previewName').innerText;
+        const constituency = document.getElementById('previewConstituency').innerText;
+        const slogan = document.getElementById('previewSlogan').innerText;
+        const waMsg = document.getElementById('previewWaMsg').innerText;
+        const appeal = document.getElementById('previewAppeal').innerText;
+
+        const fullText = `🗳️ *گلوبال ڈیجیٹل انتخابی مہم (SmartScan AI Portal)*\n\n` +
+                         `👤 *امیدوار:* ${name}\n` +
+                         `🏛️ *${constituency}*\n\n` +
+                         `📢 *نعرہ:* ${slogan}\n\n` +
+                         `💬 *پیغام:* ${waMsg}\n\n` +
+                         `🎯 *اپیل:* ${appeal}\n\n` +
+                         `✨ _SmartScan AI کے ذریعے تیار کردہ۔_`;
+
+        window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(fullText), '_blank');
+    }
+
+    window.onload = function() {
+        generateCampaign();
+    };
+</script>
+
+</body>
+</html>
