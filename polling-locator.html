@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartScan - Global Polling Station & District Locator</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .main-wrapper { display: flex; flex-wrap: wrap; gap: 30px; width: 100%; max-width: 900px; justify-content: center; }
+        
+        .locator-card { background: #1e293b; border-radius: 16px; padding: 25px; border: 1px solid #334155; width: 100%; max-width: 550px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); text-align: center; }
+        .locator-card h2 { color: #38bdf8; margin-bottom: 8px; font-size: 22px; }
+        .locator-card p { color: #94a3b8; font-size: 13px; margin-bottom: 20px; }
+        
+        .form-group { margin-bottom: 14px; text-align: right; }
+        label { display: block; font-size: 13px; color: #cbd5e1; margin-bottom: 5px; font-weight: bold; }
+        select, input { width: 100%; padding: 12px; background: #0f172a; border: 1px solid #475569; border-radius: 8px; color: #fff; font-size: 14px; outline: none; }
+        select:focus, input:focus { border-color: #38bdf8; }
+        
+        .btn-search { width: 100%; padding: 13px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .btn-search:hover { background: linear-gradient(135deg, #0369a1, #1d4ed8); }
+
+        .result-box { margin-top: 20px; padding: 15px; border-radius: 10px; font-size: 13px; text-align: right; background: rgba(255,255,255,0.03); border: 1px solid #334155; display: none; }
+        .result-box h4 { color: #38bdf8; margin-bottom: 8px; font-size: 15px; }
+        .result-item { margin-bottom: 6px; color: #cbd5e1; }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div class="locator-card">
+        <h2>📍 گلوبال پولنگ اسٹیشن اور زون گائیڈ</h2>
+        <p>اپنے ملک اور حلقے کے انتخاب کے ذریعے پولنگ گائیڈ لائنز حاصل کریں</p>
+
+        <div class="form-group">
+            <label>ملک کا انتخاب کریں (Select Country):</label>
+            <select id="locatorCountry">
+                <option value="Pakistan">پاکستان (Pakistan)</option>
+                <option value="USA">ریاستہائے متحدہ امریکہ (USA)</option>
+                <option value="UK">برطانیہ (United Kingdom)</option>
+                <option value="Canada">کینیڈا (Canada)</option>
+                <option value="UAE">متحدہ عرب امارات (UAE)</option>
+                <option value="Global">🌐 دیگر بین الاقوامی ممالک (Global)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>اپنا شہر یا حلقہ درج کریں (City / Constituency):</label>
+            <input type="text" id="locatorArea" placeholder="مثال: لاہور / New York / London">
+        </div>
+
+        <button class="btn-search" onclick="searchPollingInfo()">🔍 معلومات تلاش کریں</button>
+
+        <div id="locatorResult" class="result-box">
+            <h4>📋 پولنگ اور انتخابی معلومات:</h4>
+            <div class="result-item" id="resCountry">---</div>
+            <div class="result-item" id="resArea">---</div>
+            <div class="result-item" id="resTiming">⏰ پولنگ کے اوقات: صبح 8:00 سے شام 5:00 بجے تک</div>
+            <div class="result-item" id="resAdvice">💡 ہدایت: اپنے ساتھ اصل شناختی کارڈ یا پاسپورٹ لازمی رکھیں۔</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function searchPollingInfo() {
+        const country = document.getElementById('locatorCountry').value;
+        const area = document.getElementById('locatorArea').value.trim();
+        const resultBox = document.getElementById('locatorResult');
+
+        if (!area) {
+            alert('براہ کرم اپنا شہر یا حلقہ درج کریں!');
+            return;
+        }
+
+        resultBox.style.display = 'block';
+        document.getElementById('resCountry').innerHTML = `🌍 <strong>ملک:</strong> ${country}`;
+        document.getElementById('resArea').innerHTML = `📍 <strong>علاقہ/حلقہ:</strong> ${area}`;
+    }
+</script>
+
+</body>
+</html>
