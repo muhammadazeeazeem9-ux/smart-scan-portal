@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartScan - Instant Vote Slip Finder</title>
+    <!-- Supabase JavaScript SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- html2canvas Library for downloading slip as image -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Arial, sans-serif; background: #f0f4ff; margin: 0; padding: 15px; direction: rtl; text-align: right; }
+        .container { max-width: 520px; margin: auto; }
+        .card { background: white; padding: 22px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); margin-bottom: 18px; border: 1px solid #e2e8f0; }
+        h2 { margin: 0 0 6px 0; color: #1e293b; font-size: 20px; }
+        .sub { color: #64748b; font-size: 13px; margin-bottom: 14px; line-height: 1.5; }
+        label { font-size: 13px; font-weight: bold; color: #334155; margin-top: 10px; display: block; }
+        input, select { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1.5px solid #cbd5e1; font-size: 15px; box-sizing: border-box; margin-top: 6px; outline: none; }
+        input:focus, select:focus { border-color: #4f46e5; }
+        .btn { background: linear-gradient(90deg, #4f46e5, #7c3aed); color: white; border: none; padding: 14px; width: 100%; border-radius: 12px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 16px; transition: 0.3s; }
+        .btn:hover { opacity: 0.95; }
+        .btn-green { background: #16a34a; display: none; margin-top: 12px; }
+        
+        /* Voting Slip Design */
+        .slip { border: 2px dashed #4f46e5; background: #ffffff; padding: 18px; border-radius: 14px; margin-top: 16px; display: none; color: #0f172a; }
+        .slip-header { text-align: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 12px; }
+        .slip-header h3 { margin: 0; color: #4f46e5; font-size: 18px; }
+        .slip-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px transparent #f1f5f9; font-size: 14px; }
+        .slip-row strong { color: #475569; }
+        .slip-row span { font-weight: bold; color: #0f172a; }
+        
+        .status-msg { margin-top: 12px; font-size: 14px; text-align: center; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <h2>🗳️ ووٹ پرچی فائنڈر</h2>
+        <div class="sub">شناختی کارڈ نمبر درج کریں اور اپنی ووٹ پرچی فوراً تلاش کر کے موبائل میں ڈاؤن لوڈ کریں۔</div>
+        
+        <label for="country">ملک کا انتخاب کریں</label>
+        <select id="country">
+            <option value="Pakistan">پاکستان (Pakistan)</option>
+        </select>
+
+        <label for="cnicInput">شناختی کارڈ نمبر (بغیر ڈیش کے)</label>
+        <input type="text" id="cnicInput" placeholder="مثال: 3520112345671" maxlength="15">
+
+        <button class="btn" id="searchBtn">پرچی تلاش کریں</button>
+        <div id="statusArea" class="status-msg"></div>
+
+        <!-- Voting Slip Display Container -->
+        <div class="slip" id="voteSlip">
+            <div class="slip-header">
+                <h3>🗳️ الیکشن کمیشن - ووٹ پرچی</h3>
+                <small style="color:#64748b;">SmartScan Portal</small>
+            </div>
+            <div class="slip-row"><strong>ووٹر کا نام:</strong> <span id="slipName">-</span></div>
+            <div class="slip-row"><strong>شناختی کارڈ:</strong> <span id="slipCnic">-</span></div>
+            <div class="slip-row"><strong>سلسل نمبر:</strong> <span id="slipSilsila">-</span></div>
+            <div class="slip-row"><strong>بلاک کوڈ:</strong> <span id="slipBlockCode">-</span></div>
+            <div class="slip-row"><strong>پولنگ اسٹیشن:</strong> <span id="slipPollingStation">-</span></div>
+            <div class="slip-row"><strong>حلقہ / علاقہ:</strong> <span id="slipHalqa">-</span></div>
+        </div>
+
+        <button class="btn btn-green" id="downloadBtn">📥 پرچی ڈاؤن لوڈ کریں (Image)</button>
+    </div>
+</div>
+
+<script>
+    // Supabase Configuration
+    const SUPABASE_URL = 'https://ozhmuznwykhizyvxhjvk.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_vby7dhYJrml-z_52C-7v1A_IQkHUyTY';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const searchBtn = document.getElementById('searchBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const statusArea = document.getElementById('statusArea');
+    const voteSlip = document.getElementById('voteSlip');
+
+    // Search Vote Slip Logic
+    searchBtn.addEventListener('click', async () => {
+        const cnic = document.getElementById('cnicInput').value.trim();
+
+        if (!cnic || cnic.length < 11) {
+            statusArea.style.color = '#ef4444';
+            statusArea.innerText = 'براہِ کرم درست شناختی کارڈ نمبر درج کریں۔';
+            return;
+        }
+
+        statusArea.style.color = '#4f46e5';
+        statusArea.innerText = 'پرچی کی تلاش جاری ہے...';
+        voteSlip.style.display = 'none';
+        downloadBtn.style.display = 'none';
+
+        try {
+            // Fetching voter data from Supabase 'voters' table
+            const { data, error } = await supabaseClient
+                .from('voters')
+                .select('*')
+                .eq('cnic', cnic)
+                .single();
+
+            if (error && error.code !== 'PGRST116') {
+                throw error;
+            }
+
+            if (data) {
+                // Populate Slip Data
+                document.getElementById('slipName').innerText = data.full_name || 'N/A';
+                document.getElementById('slipCnic').innerText = data.cnic || cnic;
+                document.getElementById('slipSilsila').innerText = data.silsila_number || 'N/A';
+                document.getElementById('slipBlockCode').innerText = data.block_code || 'N/A';
+                document.getElementById('slipPollingStation').innerText = data.polling_station || 'N/A';
+                document.getElementById('slipHalqa').innerText = data.halqa || 'N/A';
+
+                statusArea.style.color = '#16a34a';
+                statusArea.innerText = 'پرچی کامیابی کے ساتھ مل گئی ہے!';
+                voteSlip.style.display = 'block';
+                downloadBtn.style.display = 'block';
+            } else {
+                statusArea.style.color = '#dc2626';
+                statusArea.innerText = 'اس شناختی کارڈ کا ووٹر ریکارڈ موجود نہیں ہے۔';
+            }
+        } catch (err) {
+            console.error(err);
+            statusArea.style.color = '#dc2626';
+            statusArea.innerText = 'سرچ کے دوران مسلہ پیش آیا۔ دوبارہ کوشش کریں۔';
+        }
+    });
+
+    // Download Slip as Image Logic
+    downloadBtn.addEventListener('click', () => {
+        html2canvas(voteSlip).then(canvas => {
+            const link = document.createElement('a');
+            link.download = 'Vote_Slip.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+    });
+</script>
+
+</body>
+</html>
