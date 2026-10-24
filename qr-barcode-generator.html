@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags for Global Reach -->
+    <title>SmartScan - Global Free QR Code & Barcode Generator Tool</title>
+    <meta name="description" content="Free online QR code generator tool. Create custom QR codes for links, text, WiFi, and contact info instantly. 100% client-side privacy.">
+    <meta name="keywords" content="qr code generator, free qr maker, barcode generator, client side qr tool, smartscan portal">
+    <meta name="author" content="SmartScan Portal">
+
+    <!-- Lightweight Client-Side QR Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .main-wrapper { display: flex; flex-wrap: wrap; gap: 30px; width: 100%; max-width: 1100px; justify-content: center; }
+        
+        .card { background: #1e293b; border-radius: 16px; padding: 25px; border: 1px solid #334155; flex: 1; min-width: 320px; max-width: 550px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); text-align: center; }
+        .card h2 { color: #38bdf8; margin-bottom: 8px; font-size: 22px; }
+        .card p { color: #94a3b8; font-size: 13px; margin-bottom: 20px; }
+        
+        .form-group { margin-bottom: 14px; text-align: left; }
+        label { display: block; font-size: 13px; color: #cbd5e1; margin-bottom: 5px; font-weight: bold; }
+        input { width: 100%; padding: 11px; background: #0f172a; border: 1px solid #475569; border-radius: 8px; color: #fff; font-size: 14px; outline: none; }
+        input:focus { border-color: #38bdf8; }
+        
+        .qr-output-box { margin: 20px auto; padding: 15px; background: #ffffff; border-radius: 12px; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        
+        .btn-action { width: 100%; padding: 13px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .btn-action:hover { background: linear-gradient(135deg, #0369a1, #1d4ed8); }
+        
+        .disclaimer-box { margin-bottom: 15px; text-align: center; }
+        .disclaimer-text { color: red; font-size: 10px; background: #fef2f2; padding: 6px; border-radius: 4px; border: 1px solid #fecaca; display: inline-block; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div class="card">
+        <h2>📷 Global Free Instant QR Generator</h2>
+        <p>Generate secure QR codes for websites, text, or contacts directly in your browser</p>
+
+        <div class="disclaimer-box">
+            <span class="disclaimer-text">100% CLIENT-SIDE PRIVACY - NO DATA STORED ON SERVER</span>
+        </div>
+
+        <div class="form-group">
+            <label>Enter URL, Text, or Data / کوئی بھی لنک یا ٹیکسٹ درج کریں:</label>
+            <input type="text" id="qrInput" placeholder="https://example.com or Type your message..." value="https://smartscan.portal">
+        </div>
+
+        <button class="btn-action" onclick="generateQR()">✨ Generate QR Code / کیو آر کوڈ بنائیں</button>
+
+        <div style="margin-top: 20px;">
+            <div id="qrcode" class="qr-output-box"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let qrcodeObj = null;
+
+    function generateQR() {
+        const text = document.getElementById('qrInput').value.trim();
+        const qrContainer = document.getElementById('qrcode');
+        
+        if (!text) {
+            alert('Please enter valid text or URL!');
+            return;
+        }
+
+        qrContainer.innerHTML = "";
+
+        qrcodeObj = new QRCode(qrContainer, {
+            text: text,
+            width: 180,
+            height: 180,
+            colorDark : "#0f172a",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+    }
+
+    window.onload = function() {
+        generateQR();
+    };
+</script>
+
+</body>
+</html>
