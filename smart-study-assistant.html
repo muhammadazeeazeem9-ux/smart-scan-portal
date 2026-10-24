@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags for Global Academic Reach -->
+    <title>SmartScan - Global Smart GPA & Grade Calculator Tool</title>
+    <meta name="description" content="Free online GPA and Grade Calculator tool for students worldwide. Calculate your Semester GPA and CGPA instantly with 100% client-side privacy.">
+    <meta name="keywords" content="GPA calculator, Grade calculator, CGPA calculator, college GPA tool, free online tools, smartscan portal">
+    <meta name="author" content="SmartScan Portal">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .main-wrapper { display: flex; flex-wrap: wrap; gap: 30px; width: 100%; max-width: 1100px; justify-content: center; }
+        
+        .card { background: #1e293b; border-radius: 16px; padding: 25px; border: 1px solid #334155; flex: 1; min-width: 320px; max-width: 650px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .card h2 { color: #38bdf8; margin-bottom: 8px; font-size: 22px; text-align: center; }
+        .card p { color: #94a3b8; font-size: 13px; margin-bottom: 20px; text-align: center; }
+        
+        .subject-row { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
+        input, select { padding: 10px; background: #0f172a; border: 1px solid #475569; border-radius: 8px; color: #fff; font-size: 14px; outline: none; }
+        input[type="text"] { flex: 2; }
+        input[type="number"] { flex: 1; }
+        select { flex: 1; }
+        input:focus, select:focus { border-color: #38bdf8; }
+        
+        .btn-add { background: #334155; color: #38bdf8; border: 1px solid #475569; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: bold; margin-bottom: 15px; }
+        .btn-add:hover { background: #475569; }
+        
+        .result-box { margin-top: 15px; background: #0f172a; padding: 15px; border-radius: 10px; border: 1px solid #334155; text-align: center; }
+        .result-box h4 { color: #38bdf8; margin-bottom: 5px; font-size: 14px; }
+        .result-text { color: #34d399; font-size: 22px; font-weight: bold; }
+        
+        .btn-action { width: 100%; padding: 13px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .btn-action:hover { background: linear-gradient(135deg, #0369a1, #1d4ed8); }
+        
+        .disclaimer-box { margin-bottom: 15px; text-align: center; }
+        .disclaimer-text { color: red; font-size: 10px; background: #fef2f2; padding: 6px; border-radius: 4px; border: 1px solid #fecaca; display: inline-block; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div class="card">
+        <h2>🎓 Global Smart GPA & Grade Calculator</h2>
+        <p>Calculate your semester GPA quickly and accurately with total privacy</p>
+
+        <div class="disclaimer-box">
+            <span class="disclaimer-text">100% CLIENT-SIDE PRIVACY - NO ACADEMIC DATA STORED</span>
+        </div>
+
+        <div id="subjectsContainer">
+            <div class="subject-row">
+                <input type="text" placeholder="Subject Name (optional)">
+                <input type="number" class="credit-hours" placeholder="Credits (e.g. 3)" min="1">
+                <select class="grade-select">
+                    <option value="4.0">A (4.0)</option>
+                    <option value="3.7">A- (3.7)</option>
+                    <option value="3.3">B+ (3.3)</option>
+                    <option value="3.0">B (3.0)</option>
+                    <option value="2.7">B- (2.7)</option>
+                    <option value="2.3">C+ (2.3)</option>
+                    <option value="2.0">C (2.0)</option>
+                    <option value="1.0">D (1.0)</option>
+                    <option value="0.0">F (0.0)</option>
+                </select>
+            </div>
+        </div>
+
+        <button class="btn-add" onclick="addSubject()">+ Add Another Subject</button>
+        <button class="btn-action" onclick="calculateGPA()">📊 Calculate GPA</button>
+
+        <div class="result-box">
+            <h4>Your Calculated GPA / آپ کا جی پی اے:</h4>
+            <div id="gpaOutput" class="result-text">0.00</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function addSubject() {
+        const container = document.getElementById('subjectsContainer');
+        const row = document.createElement('div');
+        row.className = 'subject-row';
+        row.innerHTML = `
+            <input type="text" placeholder="Subject Name (optional)">
+            <input type="number" class="credit-hours" placeholder="Credits (e.g. 3)" min="1">
+            <select class="grade-select">
+                <option value="4.0">A (4.0)</option>
+                <option value="3.7">A- (3.7)</option>
+                <option value="3.3">B+ (3.3)</option>
+                <option value="3.0">B (3.0)</option>
+                <option value="2.7">B- (2.7)</option>
+                <option value="2.3">C+ (2.3)</option>
+                <option value="2.0">C (2.0)</option>
+                <option value="1.0">D (1.0)</option>
+                <option value="0.0">F (0.0)</option>
+            </select>
+        `;
+        container.appendChild(row);
+    }
+
+    function calculateGPA() {
+        const credits = document.querySelectorAll('.credit-hours');
+        const grades = document.querySelectorAll('.grade-select');
+        
+        let totalPoints = 0;
+        let totalCredits = 0;
+
+        for (let i = 0; i < credits.length; i++) {
+            const creditVal = parseFloat(credits[i].value);
+            const gradeVal = parseFloat(grades[i].value);
+
+            if (!isNaN(creditVal) && creditVal > 0) {
+                totalPoints += creditVal * gradeVal;
+                totalCredits += creditVal;
+            }
+        }
+
+        if (totalCredits === 0) {
+            alert('Please enter valid credit hours for at least one subject!');
+            return;
+        }
+
+        const gpa = (totalPoints / totalCredits).toFixed(2);
+        document.getElementById('gpaOutput').innerText = gpa;
+    }
+</script>
+
+</body>
+</html>
