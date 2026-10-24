@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags for Global Reach -->
+    <title>SmartScan - Global Markdown to HTML Converter Tool</title>
+    <meta name="description" content="Free online Markdown to HTML converter tool. Instantly convert markdown syntax into clean HTML code with 100% client-side privacy.">
+    <meta name="keywords" content="markdown to html, markdown converter, html generator, developer tools, smartscan portal">
+    <meta name="author" content="SmartScan Portal">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .main-wrapper { display: flex; flex-wrap: wrap; gap: 30px; width: 100%; max-width: 1100px; justify-content: center; }
+        
+        .card { background: #1e293b; border-radius: 16px; padding: 25px; border: 1px solid #334155; flex: 1; min-width: 320px; max-width: 800px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .card h2 { color: #38bdf8; margin-bottom: 8px; font-size: 22px; text-align: center; }
+        .card p { color: #94a3b8; font-size: 13px; margin-bottom: 20px; text-align: center; }
+        
+        .grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        @media (max-width: 600px) { .grid-container { grid-template-columns: 1fr; } }
+        
+        label { display: block; font-size: 13px; color: #cbd5e1; margin-bottom: 5px; font-weight: bold; }
+        textarea { width: 100%; height: 180px; padding: 12px; background: #0f172a; border: 1px solid #475569; border-radius: 8px; color: #38bdf8; font-size: 13px; outline: none; font-family: monospace; resize: vertical; }
+        textarea:focus { border-color: #38bdf8; }
+        
+        .btn-action { width: 100%; padding: 12px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s; text-align: center; }
+        .btn-action:hover { background: linear-gradient(135deg, #0369a1, #1d4ed8); }
+        
+        .disclaimer-box { margin-bottom: 15px; text-align: center; }
+        .disclaimer-text { color: red; font-size: 10px; background: #fef2f2; padding: 6px; border-radius: 4px; border: 1px solid #fecaca; display: inline-block; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div class="card">
+        <h2>📝 Global Markdown to HTML Converter</h2>
+        <p>Convert Markdown syntax to raw HTML instantly with full client-side privacy</p>
+
+        <div class="disclaimer-box">
+            <span class="disclaimer-text">100% CLIENT-SIDE PRIVACY - NO DATA SENT TO SERVER</span>
+        </div>
+
+        <div class="grid-container">
+            <div>
+                <label>Markdown Input / مارک ڈاؤن درج کریں:</label>
+                <textarea id="mdInput" placeholder="# Heading 1&#10;**Bold text** and *italic text*&#10;- Bullet point" oninput="convertMarkdown()"></textarea>
+            </div>
+            <div>
+                <label>HTML Output / تبدیل شدہ ایچ ٹی ایم ایل:</label>
+                <textarea id="htmlOutput" placeholder="HTML code will appear here..." readonly></textarea>
+            </div>
+        </div>
+
+        <button class="btn-action" onclick="convertMarkdown()">🔄 Convert to HTML</button>
+    </div>
+</div>
+
+<script>
+    function convertMarkdown() {
+        let md = document.getElementById('mdInput').value;
+        
+        if (!md) {
+            document.getElementById('htmlOutput').value = "";
+            return;
+        }
+
+        // Headers
+        md = md.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+        md = md.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+        md = md.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+        
+        // Bold & Italic
+        md = md.replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>');
+        md = md.replace(/\*(.*)\*/gim, '<em>$1</em>');
+        
+        // Links
+        md = md.replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2">$1</a>');
+        
+        // Line breaks / Paragraphs
+        md = md.replace(/\n$/gim, '<br />');
+
+        document.getElementById('htmlOutput').value = md.trim();
+    }
+</script>
+
+</body>
+</html>
