@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>OmniShield - Client-Side Image to Text OCR Tool</title>
+    <meta name="description" content="Free online image to text tool. Extract text from images instantly in your browser using OCR technology with 100% privacy.">
+    
+    <!-- Tesseract.js v4 (Stable & Reliable CDN) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.1.1/tesseract.min.js"></script>
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        
+        .card { background: #1e293b; border-radius: 16px; padding: 30px; border: 1px solid #334155; width: 100%; max-width: 750px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); text-align: center; }
+        .card h2 { color: #38bdf8; margin-bottom: 8px; font-size: 24px; }
+        .card p { color: #94a3b8; font-size: 13px; margin-bottom: 20px; }
+        
+        .disclaimer-text { color: #ef4444; font-size: 11px; background: #450a0a; padding: 6px 12px; border-radius: 6px; border: 1px solid #991b1b; display: inline-block; font-weight: bold; margin-bottom: 20px; }
+        
+        .drop-zone { border: 2px dashed #475569; border-radius: 12px; padding: 35px 20px; background: #0f172a; cursor: pointer; transition: all 0.3s ease; margin-bottom: 20px; }
+        .drop-zone:hover, .drop-zone.dragover { border-color: #38bdf8; background: #1e293b; transform: scale(1.01); }
+        .drop-zone p { color: #cbd5e1; margin-bottom: 6px; font-size: 15px; font-weight: 500; }
+        .drop-zone span { color: #64748b; font-size: 12px; }
+        
+        #fileInput { display: none; }
+        
+        .preview-container { margin-top: 20px; display: none; text-align: center; }
+        img#preview { max-width: 100%; max-height: 280px; border-radius: 10px; border: 1px solid #475569; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+
+        .form-group { margin-top: 20px; text-align: left; }
+        label { display: block; font-size: 13px; color: #cbd5e1; margin-bottom: 6px; font-weight: 600; }
+        textarea { width: 100%; height: 160px; padding: 12px; background: #0f172a; border: 1px solid #475569; border-radius: 8px; color: #38bdf8; font-size: 13px; outline: none; font-family: monospace; resize: vertical; }
+        textarea:focus { border-color: #38bdf8; }
+        
+        .status-box { margin-top: 20px; padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; display: none; text-align: center; }
+        .status-success { background: #064e3b; color: #34d399; border: 1px solid #059669; display: block; }
+        .status-error { background: #7f1d1d; color: #f87171; border: 1px solid #dc2626; display: block; }
+        div.status-box.loading { background: #0284c7; color: white; display: block; }
+        
+        .btn-copy { margin-top: 8px; padding: 8px 14px; background: #334155; border: 1px solid #475569; border-radius: 6px; color: white; font-size: 12px; font-weight: bold; cursor: pointer; transition: 0.2s; float: right; }
+        .btn-copy:hover { background: #0284c7; border-color: #0284c7; }
+
+        .trust-note { font-size: 11px; color: #64748b; margin-top: 20px; text-align: center; clear: both; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>🖼️ OmniShield Image to Text Extractor (OCR)</h2>
+    <p>Extract typed text from images instantly inside your browser</p>
+    
+    <span class="disclaimer-text">🔒 PRIVACY FOCUSED — OCR RUNS IN BROWSER, IMAGE NOT STORED ON SERVER</span>
+
+    <div class="drop-zone" id="dropZone">
+        <p>📁 Click here or drag & drop your image</p>
+        <span>Supports JPG, PNG, WEBP</span>
+        <input type="file" id="fileInput" accept="image/jpeg, image/png, image/webp">
+    </div>
+
+    <div class="preview-container" id="previewContainer">
+        <img id="preview" alt="Image to extract text from" />
+    </div>
+
+    <div id="statusOutput" class="status-box"></div>
+
+    <div class="form-group" id="resultContainer" style="display: none;">
+        <label>Extracted Text:</label>
+        <textarea id="textOutput" readonly></textarea>
+        <button class="btn-copy" id="copyBtn" onclick="copyOutput()">📋 Copy Text</button>
+    </div>
+
+    <p class="trust-note">OCR processing happens in your browser using WebAssembly. Your image is not uploaded to our servers, but OCR engine loads language data from CDN.</p>
+</div>
+
+<script>
+    const fileInput = document.getElementById('fileInput');
+    const dropZone = document.getElementById('dropZone');
+    const statusBox = document.getElementById('statusOutput');
+    const preview = document.getElementById('preview');
+    const previewContainer = document.getElementById('previewContainer');
+    const resultContainer = document.getElementById('resultContainer');
+    const textOutput = document.getElementById('textOutput');
+
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', (e) => { 
+        e.preventDefault(); 
+        dropZone.classList.remove('dragover'); 
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            processImage(e.dataTransfer.files[0]); 
+        }
+    });
+
+    fileInput.addEventListener('change', () => { 
+        if (fileInput.files && fileInput.files[0]) {
+            processImage(fileInput.files[0]); 
+        }
+    });
+
+    function processImage(file) {
+        statusBox.className = "status-box loading";
+        statusBox.innerText = "⏳ Initializing OCR Engine & reading image...";
+        previewContainer.style.display = "none";
+        resultContainer.style.display = "none";
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            previewContainer.style.display = "block";
+            
+            // Running Tesseract OCR safely
+            Tesseract.recognize(
+                e.target.result,
+                'eng',
+                { 
+                    logger: m => {
+                        if (m.status === 'recognizing text') {
+                            statusBox.innerText = `⏳ Processing: ${(m.progress * 100).toFixed(0)}%`;
+                        } else {
+                            statusBox.innerText = `⏳ ${m.status}...`;
+                        }
+                    } 
+                }
+            ).then(({ data: { text } }) => {
+                textOutput.value = text ? text.trim() : "No text found in the image.";
+                resultContainer.style.display = "block";
+                statusBox.className = "status-box status-success";
+                statusBox.innerText = "✔ Success! Text successfully extracted.";
+            }).catch(err => {
+                console.error(err);
+                statusBox.className = "status-box status-error";
+                statusBox.innerText = "❌ Error processing image. Make sure it's a valid image file.";
+            });
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function copyOutput() {
+        const val = textOutput.value;
+        if (!val) return;
+        navigator.clipboard.writeText(val).then(() => {
+            const btn = document.getElementById('copyBtn');
+            const originalText = btn.innerText;
+            btn.innerText = "✔ Copied!";
+            setTimeout(() => { btn.innerText = originalText; }, 1500);
+        });
+    }
+</script>
+
+</body>
+</html>
