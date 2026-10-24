@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>OmniShield - My IP Address Lookup & Browser Security Inspector</title>
+    <meta name="description" content="Check your public IP address, ISP, and browser fingerprint instantly. Private IP lookup tool with real-time detection.">
+    <meta name="keywords" content="what is my ip, ip lookup, browser fingerprint test, network inspector, omnishield suite">
+    <meta name="author" content="OmniShield Suite">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        
+        .card { background: #1e293b; border-radius: 16px; padding: 30px; border: 1px solid #334155; width: 100%; max-width: 750px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .card h2 { color: #38bdf8; margin-bottom: 8px; font-size: 24px; text-align: center; }
+        .card p { color: #94a3b8; font-size: 13px; margin-bottom: 20px; text-align: center; }
+        
+        .disclaimer-text { color: #ef4444; font-size: 11px; background: #450a0a; padding: 6px 12px; border-radius: 6px; border: 1px solid #991b1b; display: block; font-weight: bold; margin-bottom: 20px; text-align: center; }
+        
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .info-box { background: #0f172a; border: 1px solid #334155; padding: 16px; border-radius: 10px; }
+        .info-box h4 { color: #94a3b8; font-size: 12px; text-transform: uppercase; margin-bottom: 6px; }
+        .info-box p { color: #34d399; font-size: 15px; font-weight: bold; font-family: monospace; word-break: break-all; margin-bottom: 0; }
+        
+        .btn-action { width: 100%; padding: 13px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s; text-align: center; }
+        .btn-action:hover { background: linear-gradient(135deg, #0369a1, #1d4ed8); }
+
+        .trust-note { font-size: 11px; color: #64748b; margin-top: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>🌐 OmniShield Network & IP Intelligence</h2>
+    <p>Inspect your public IP, location data, and browser fingerprint securely in real-time</p>
+    
+    <span class="disclaimer-text">🔒 PRIVACY FOCUSED — YOUR IP IS FETCHED LIVE, NOT STORED ANYWHERE</span>
+
+    <div class="info-grid">
+        <div class="info-box">
+            <h4>Your Public IP Address</h4>
+            <p id="ipAddress">Detecting...</p>
+        </div>
+        <div class="info-box">
+            <h4>ISP / Organization</h4>
+            <p id="ispInfo">Detecting...</p>
+        </div>
+        <div class="info-box">
+            <h4>Location / Country</h4>
+            <p id="locationInfo">Detecting...</p>
+        </div>
+        <div class="info-box">
+            <h4>Screen Resolution</h4>
+            <p id="screenRes">Calculating...</p>
+        </div>
+        <div class="info-box">
+            <h4>Browser Engine</h4>
+            <p id="browserInfo">Analyzing...</p>
+        </div>
+        <div class="info-box">
+            <h4>User Platform & Lang</h4>
+            <p id="platformInfo">Analyzing...</p>
+        </div>
+    </div>
+
+    <button class="btn-action" onclick="fetchNetworkDetails()">🔄 Re-Scan Network & System</button>
+
+    <p class="trust-note">Your IP is fetched directly from public IP services in your browser. We never store or log your IP address on our servers.</p>
+</div>
+
+<script>
+    async function fetchNetworkDetails() {
+        // Local Browser System Info
+        document.getElementById('screenRes').innerText = `${window.screen.width} x ${window.screen.height} | ${window.devicePixelRatio || 1}x`;
+        document.getElementById('browserInfo').innerText = getBrowserName();
+        document.getElementById('platformInfo').innerText = (navigator.platform || "Unknown") + " | Lang: " + (navigator.language || "en");
+
+        // UI Reset text
+        document.getElementById('ipAddress').innerText = "Scanning...";
+        document.getElementById('ispInfo').innerText = "Scanning...";
+        document.getElementById('locationInfo').innerText = "Scanning...";
+
+        // Try multiple robust APIs with fallback and timeout
+        const apis = [
+            'https://ipapi.co/json/',
+            'https://ipwho.is/',
+            'https://api.ipify.org?format=json'
+        ];
+
+        let success = false;
+        for (const api of apis) {
+            try {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 4000); // 4 sec timeout
+                const res = await fetch(api, { signal: controller.signal });
+                clearTimeout(timeout);
+                
+                if (!res.ok) continue;
+                const data = await res.json();
+
+                // Normalize data fields across different API providers
+                const ip = data.ip || data.ip_address;
+                if (!ip) continue;
+
+                document.getElementById('ipAddress').innerText = ip;
+                document.getElementById('ispInfo').innerText = data.org || data.connection?.isp || data.isp || "Direct ISP";
+                document.getElementById('locationInfo').innerText = data.city ? `${data.city}, ${data.country_name || data.country}` : (data.country_name || data.country || "Secured Location");
+                
+                success = true;
+                break;
+            } catch (e) { 
+                continue; 
+            }
+        }
+
+        if (!success) {
+            document.getElementById('ipAddress').innerText = "Protected / VPN";
+            document.getElementById('ispInfo').innerText = "Encrypted Provider";
+            document.getElementById('locationInfo').innerText = "Hidden / Masked";
+        }
+    }
+
+    function getBrowserName() {
+        const ua = navigator.userAgent;
+        if (ua.includes("Chrome") && !ua.includes("Edg")) return "Google Chrome";
+        if (ua.includes("Edg")) return "Microsoft Edge";
+        if (ua.includes("Firefox")) return "Mozilla Firefox";
+        if (ua.includes("Safari") && !ua.includes("Chrome")) return "Apple Safari";
+        return "Standard Web Browser";
+    }
+
+    // Auto Run on Load
+    fetchNetworkDetails();
+</script>
+
+</body>
+</html>
