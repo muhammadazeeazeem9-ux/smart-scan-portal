@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags for Global Reach -->
+    <title>SmartScan - Global HTML Entity Encoder & Decoder Tool</title>
+    <meta name="description" content="Free online HTML entity encoder and decoder tool. Convert special characters to HTML entities safely with 100% client-side privacy.">
+    <meta name="keywords" content="html entity encoder, html decoder, special characters converter, web developer tools, smartscan portal">
+    <meta name="author" content="SmartScan Portal">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .main-wrapper { display: flex; flex-wrap: wrap; gap: 30px; width: 100%; max-width: 1100px; justify-content: center; }
+        
+        .card { background: #1e293b; border-radius: 16px; padding: 25px; border: 1px solid #334155; flex: 1; min-width: 320px; max-width: 750px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+        .card h2 { color: #38bdf8; margin-bottom: 8px; font-size: 22px; text-align: center; }
+        .card p { color: #94a3b8; font-size: 13px; margin-bottom: 20px; text-align: center; }
+        
+        .form-group { margin-bottom: 14px; }
+        label { display: block; font-size: 13px; color: #cbd5e1; margin-bottom: 5px; font-weight: bold; }
+        textarea { width: 100%; height: 130px; padding: 12px; background: #0f172a; border: 1px solid #475569; border-radius: 8px; color: #38bdf8; font-size: 13px; outline: none; font-family: monospace; resize: vertical; }
+        textarea:focus { border-color: #38bdf8; }
+        
+        .btn-row { display: flex; gap: 10px; margin-bottom: 15px; }
+        .btn-action { flex: 1; padding: 12px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s; text-align: center; }
+        .btn-action:hover { background: linear-gradient(135deg, #0369a1, #1d4ed8); }
+        .btn-decode { background: linear-gradient(135deg, #059669, #047857); }
+        .btn-decode:hover { background: linear-gradient(135deg, #047857, #065f46); }
+        
+        .status-box { margin-top: 15px; padding: 12px; border-radius: 8px; font-size: 13px; font-weight: bold; text-align: center; }
+        .status-success { background: #064e3b; color: #34d399; border: 1px solid #059669; }
+        .status-error { background: #7f1d1d; color: #f87171; border: 1px solid #dc2626; }
+
+        .disclaimer-box { margin-bottom: 15px; text-align: center; }
+        .disclaimer-text { color: red; font-size: 10px; background: #fef2f2; padding: 6px; border-radius: 4px; border: 1px solid #fecaca; display: inline-block; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="main-wrapper">
+    <div class="card">
+        <h2>🌐 Global HTML Entity Encoder & Decoder</h2>
+        <p>Encode special characters into HTML entities or decode them safely in your browser</p>
+
+        <div class="disclaimer-box">
+            <span class="disclaimer-text">100% CLIENT-SIDE PRIVACY - NO DATA SENT TO SERVER</span>
+        </div>
+
+        <div class="form-group">
+            <label>Input Text or HTML Code / یہاں کوڈ یا ٹیکسٹ درج کریں:</label>
+            <textarea id="htmlInput" placeholder="Type text or html entities here..."></textarea>
+        </div>
+
+        <div class="btn-row">
+            <button class="btn-action" onclick="encodeHTML()">🌐 Encode Entities</button>
+            <button class="btn-action btn-decode" onclick="decodeHTML()">🔓 Decode Entities</button>
+        </div>
+
+        <div id="statusOutput"></div>
+    </div>
+</div>
+
+<script>
+    function encodeHTML() {
+        const input = document.getElementById('htmlInput').value;
+        const statusBox = document.getElementById('statusOutput');
+
+        if (!input) {
+            statusBox.className = "status-box status-error";
+            statusBox.innerText = "Please enter text to encode!";
+            return;
+        }
+
+        try {
+            const div = document.createElement('div');
+            div.innerText = input;
+            document.getElementById('htmlInput').value = div.innerHTML;
+            
+            statusBox.className = "status-box status-success";
+            statusBox.innerText = "✔ Successfully Encoded to HTML Entities!";
+        } catch (e) {
+            statusBox.className = "status-box status-error";
+            statusBox.innerText = "❌ Encoding Error: " + e.message;
+        }
+    }
+
+    function decodeHTML() {
+        const input = document.getElementById('htmlInput').value;
+        const statusBox = document.getElementById('statusOutput');
+
+        if (!input) {
+            statusBox.className = "status-box status-error";
+            statusBox.innerText = "Please enter HTML entities to decode!";
+            return;
+        }
+
+        try {
+            const div = document.createElement('div');
+            div.innerHTML = input;
+            document.getElementById('htmlInput').value = div.innerText;
+            
+            statusBox.className = "status-box status-success";
+            statusBox.innerText = "✔ Successfully Decoded HTML Entities!";
+        } catch (e) {
+            statusBox.className = "status-box status-error";
+            statusBox.innerText = "❌ Decoding Error: " + e.message;
+        }
+    }
+</script>
+
+</body>
+</html>
