@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>OmniShield - Client-Side Photo EXIF & Metadata Remover Tool</title>
+    <meta name="description" content="Free online EXIF metadata remover. Strip GPS location and hidden EXIF metadata from photos securely with 100% client-side privacy.">
+    <meta name="keywords" content="exif remover, metadata stripper, photo privacy, clean metadata, omnishield suite">
+    <meta name="author" content="OmniShield Suite">
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        
+        .card { background: #1e293b; border-radius: 16px; padding: 30px; border: 1px solid #334155; width: 100%; max-width: 720px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); text-align: center; }
+        .card h2 { color: #38bdf8; margin-bottom: 8px; font-size: 24px; }
+        .card p { color: #94a3b8; font-size: 13px; margin-bottom: 20px; }
+        
+        .disclaimer-text { color: #ef4444; font-size: 11px; background: #450a0a; padding: 6px 12px; border-radius: 6px; border: 1px solid #991b1b; display: inline-block; font-weight: bold; margin-bottom: 20px; }
+        
+        .drop-zone { border: 2px dashed #475569; border-radius: 12px; padding: 35px 20px; background: #0f172a; cursor: pointer; transition: all 0.3s ease; margin-bottom: 20px; }
+        .drop-zone:hover, .drop-zone.dragover { border-color: #38bdf8; background: #1e293b; transform: scale(1.01); }
+        .drop-zone p { color: #cbd5e1; margin-bottom: 6px; font-size: 15px; font-weight: 500; }
+        .drop-zone span { color: #64748b; font-size: 12px; }
+        
+        #fileInput { display: none; }
+        
+        .preview-container { margin-top: 20px; display: none; text-align: center; }
+        img#preview { max-width: 100%; max-height: 280px; border-radius: 10px; border: 1px solid #475569; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        
+        .status-box { margin-top: 20px; padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; display: none; text-align: center; }
+        .status-success { background: #064e3b; color: #34d399; border: 1px solid #059669; display: block; }
+        .status-error { background: #7f1d1d; color: #f87171; border: 1px solid #dc2626; display: block; }
+        
+        .btn-action { width: 100%; padding: 14px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 15px; cursor: pointer; display: none; margin-top: 20px; text-decoration: none; text-align: center; transition: 0.3s; }
+        .btn-action:hover { background: linear-gradient(135deg, #0369a1, #1d4ed8); }
+
+        .trust-note { font-size: 11px; color: #64748b; margin-top: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>🛡️ OmniShield Photo Privacy & EXIF Remover</h2>
+    <p>Strip hidden GPS locations, camera tags, and metadata instantly in your browser</p>
+    
+    <span class="disclaimer-text">🔒 100% CLIENT-SIDE PRIVACY — YOUR PHOTOS NEVER LEAVE YOUR DEVICE</span>
+
+    <div class="drop-zone" id="dropZone">
+        <p>📁 Click here or drag & drop your image</p>
+        <span>Supports JPG, JPEG, PNG — Max Size: 10MB</span>
+        <input type="file" id="fileInput" accept="image/jpeg, image/png, image/jpg">
+    </div>
+
+    <div class="preview-container" id="previewContainer">
+        <img id="preview" alt="Protected Clean Image Preview" />
+    </div>
+
+    <div id="statusOutput" class="status-box"></div>
+
+    <a id="downloadBtn" class="btn-action" download>📥 Download Clean Protected Image</a>
+
+    <p class="trust-note">This tool works 100% offline in your browser. No image is uploaded to any server.</p>
+</div>
+
+<script>
+    const fileInput = document.getElementById('fileInput');
+    const dropZone = document.getElementById('dropZone');
+    const statusBox = document.getElementById('statusOutput');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const preview = document.getElementById('preview');
+    const previewContainer = document.getElementById('previewContainer');
+
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', (e) => { 
+        e.preventDefault(); 
+        dropZone.classList.remove('dragover'); 
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            processImage(e.dataTransfer.files[0]); 
+        }
+    });
+
+    fileInput.addEventListener('change', () => { 
+        if (fileInput.files && fileInput.files[0]) {
+            processImage(fileInput.files[0]); 
+        }
+    });
+
+    function processImage(file) {
+        if (file.size > 10 * 1024 * 1024) {
+            statusBox.className = "status-box status-error";
+            statusBox.innerText = "❌ File too large! Please upload an image under 10MB.";
+            previewContainer.style.display = "none";
+            downloadBtn.style.display = "none";
+            return;
+        }
+
+        const validTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+        if (!validTypes.includes(file.type)) {
+            statusBox.className = "status-box status-error";
+            statusBox.innerText = "❌ Invalid file format! Only JPG, JPEG, and PNG images are allowed.";
+            previewContainer.style.display = "none";
+            downloadBtn.style.display = "none";
+            return;
+        }
+
+        statusBox.className = "status-box status-success";
+        statusBox.innerText = "⏳ Loading securely into browser memory and removing metadata...";
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                canvas.width = img.width;
+                canvas.height = img.height;
+                
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0);
+
+                const isPng = file.type === 'image/png';
+                const outputMime = isPng ? 'image/png' : 'image/jpeg';
+                const cleanDataUrl = canvas.toDataURL(outputMime, 0.95);
+
+                preview.src = cleanDataUrl;
+                previewContainer.style.display = "block";
+
+                const originalName = file.name.substring(0, file.name.lastIndexOf('.')) || 'image';
+                const extension = isPng ? '.png' : '.jpg';
+                downloadBtn.href = cleanDataUrl;
+                downloadBtn.download = `${originalName}_clean${extension}`;
+                downloadBtn.style.display = "block";
+
+                statusBox.className = "status-box status-success";
+                statusBox.innerText = `✔ Success! Cleared metadata for ${img.width}x${img.height} image. All GPS & EXIF data stripped.`;
+            };
+
+            img.onerror = function() {
+                statusBox.className = "status-box status-error";
+                statusBox.innerText = "❌ Failed to render image. File might be corrupted.";
+            };
+
+            img.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+    }
+</script>
+
+</body>
+</html>
