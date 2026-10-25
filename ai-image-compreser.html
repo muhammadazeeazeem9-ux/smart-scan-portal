@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniShield AI Image Compressor - International VIP Edition</title>
+    <meta name="description" content="Free AI Image Compressor & Resizer - Compress JPEG, PNG, WEBP images 100% privately in browser.">
+    <script type="application/ld+json">
+    {"@type":"SoftwareApplication","name":"OmniShield AI Image Compressor","applicationCategory":"MultimediaApplication","offers":{"@type":"Offer","price":"0"}}
+    </script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background: radial-gradient(circle at center, #0f172a 0%, #0b0f19 100%); color: #f8fafc; padding: 25px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        
+        .card { background: rgba(30, 41, 59, 0.75); backdrop-filter: blur(20px); border-radius: 24px; padding: 36px; border: 1px solid rgba(51, 65, 85, 0.8); width: 100%; max-width: 1050px; box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8); }
+        .card h2 { color: #38bdf8; text-align: center; font-size: 30px; font-weight: 800; letter-spacing: -0.5px; }
+        .card p { color: #94a3b8; font-size: 14px; text-align: center; margin: 8px 0 20px; }
+        
+        .badge { background: linear-gradient(90deg, #065f46, #047857); color: #34d399; font-size: 11px; padding: 8px 18px; border-radius: 50px; border: 1px solid #059669; display: block; text-align: center; font-weight: 700; margin: 0 auto 26px; width: max-content; letter-spacing: 0.5px; text-transform: uppercase; box-shadow: 0 4px 12px rgba(4, 120, 87, 0.3); }
+        
+        .upload-section { border: 2px dashed #475569; padding: 40px 20px; border-radius: 18px; text-align: center; background: #0f172a; cursor: pointer; transition: all 0.3s ease; }
+        .upload-section:hover { border-color: #38bdf8; background: #172033; transform: translateY(-2px); }
+        .upload-section input { display: none; }
+        
+        .workspace { display: grid; grid-template-columns: 320px 1fr; gap: 24px; margin-top: 24px; }
+        @media(max-width: 850px) { .workspace { grid-template-columns: 1fr; } }
+
+        .sidebar { background: #0f172a; padding: 20px; border-radius: 18px; border: 1px solid #334155; display: flex; flex-direction: column; gap: 16px; }
+        .control-group label { display: flex; justify-content: space-between; font-size: 12px; color: #cbd5e1; margin-bottom: 8px; font-weight: 700; }
+        .control-group input[type="range"] { width: 100%; accent-color: #38bdf8; cursor: pointer; background: #1e293b; }
+        .control-group select { width: 100%; background: #1e293b; border: 1px solid #475569; color: white; padding: 10px; border-radius: 10px; outline: none; font-size: 13px; }
+
+        .preview-area { background: #0f172a; border: 1px solid #334155; border-radius: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 400px; padding: 20px; position: relative; overflow: hidden; }
+        .image-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; align-items: center; }
+        @media(max-width: 600px) { .image-compare { grid-template-columns: 1fr; } }
+        
+        .img-box { text-align: center; background: #1e293b; padding: 12px; border-radius: 12px; border: 1px solid #334155; }
+        .img-box img { max-width: 100%; max-height: 250px; border-radius: 8px; object-fit: contain; display: block; margin: 0 auto 8px; }
+        .img-box span { font-size: 12px; color: #38bdf8; font-weight: 600; }
+
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .btn-primary { background: linear-gradient(135deg, #0284c7, #6366f1); color: white; }
+        .btn-primary:hover { opacity: 0.92; }
+        .btn-down { background: #059669; color: white; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4); }
+        .btn-down:hover { background: #047857; }
+
+        .stats-box { background: #1e293b; padding: 14px; border-radius: 12px; border: 1px solid #334155; font-size: 13px; color: #cbd5e1; text-align: center; line-height: 1.6; }
+        .stats-box span { color: #34d399; font-weight: 700; }
+
+        .trust-note { font-size: 11px; color: #64748b; text-align: center; margin-top: 24px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>⚡ OmniShield AI Image Compressor Pro</h2>
+    <p>Shrink image file size intelligently without losing quality — 100% Private</p>
+    <span class="badge">🔒 Zero Server Upload • Instant Browser Compression</span>
+
+    <div class="upload-section" id="dropZone" onclick="document.getElementById('fileIn').click()">
+        <input type="file" id="fileIn" accept="image/*">
+        <span style="font-size: 40px; display: block; margin-bottom: 10px;">📉</span>
+        <div style="color:#38bdf8; font-weight:700; font-size:16px">Click or Drop Image Here to Compress</div>
+        <div style="font-size:12px; color:#64748b; margin-top:6px">Supports PNG, JPEG, WEBP • 100% Local Processing</div>
+    </div>
+
+    <div class="workspace" id="editorWorkspace" style="display: none;">
+        <div class="sidebar">
+            <div class="control-group">
+                <label>Quality Level <span id="qualityVal" style="color:#38bdf8">80%</span></label>
+                <input type="range" id="qualityRange" min="10" max="95" value="80" oninput="compressImage()">
+            </div>
+
+            <div class="control-group">
+                <label>Output Format</label>
+                <select id="formatSelect" onchange="compressImage()">
+                    <option value="image/jpeg">JPEG (Best for Photos)</option>
+                    <option value="image/webp">WEBP (Modern & Small)</option>
+                    <option value="image/png">PNG (Lossless)</option>
+                </select>
+            </div>
+
+            <div class="stats-box" id="statsBox">
+                Original: <span id="origSize">0 KB</span><br>
+                Compressed: <span id="compSize">0 KB</span><br>
+                Saved: <span id="savedSize" style="color:#38bdf8">0%</span>
+            </div>
+
+            <a id="downloadBtn" class="btn btn-down" download="compressed-image.jpg">💾 Download Compressed Image</a>
+            <button class="btn btn-primary" onclick="resetAll()">🔄 Upload Another</button>
+        </div>
+
+        <div class="preview-area">
+            <div class="image-compare">
+                <div class="img-box">
+                    <img id="origImg" alt="Original">
+                    <span>Original Image</span>
+                </div>
+                <div class="img-box">
+                    <img id="compImg" alt="Compressed">
+                    <span>Compressed Result</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="trust-note">Processed locally via HTML5 Canvas matrix optimization. Absolute privacy guaranteed.</p>
+</div>
+
+<script>
+    let originalFile = null;
+    let originalImage = new Image();
+    let dropZone = document.getElementById('dropZone');
+
+    document.getElementById('fileIn').addEventListener('change', (e) => {
+        if(e.target.files[0]) handleFile(e.target.files[0]);
+    });
+
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.style.borderColor = '#38bdf8'; });
+    dropZone.addEventListener('dragleave', () => dropZone.style.borderColor = '#475569');
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.style.borderColor = '#475569';
+        if(e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    });
+
+    function handleFile(file) {
+        if(!file.type.startsWith('image/')) {
+            alert('براہ کرم درست امیج فائل منتخب کریں!');
+            return;
+        }
+        originalFile = file;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            originalImage.src = e.target.result;
+            originalImage.onload = function() {
+                document.getElementById('dropZone').style.display = 'none';
+                document.getElementById('editorWorkspace').style.display = 'grid';
+                document.getElementById('origImg').src = e.target.result;
+                document.getElementById('origSize').innerText = formatBytes(file.size);
+                compressImage();
+            }
+        }
+        reader.readAsDataURL(file);
+    }
+
+    function compressImage() {
+        if(!originalFile) return;
+        
+        let quality = parseInt(document.getElementById('qualityRange').value) / 100;
+        document.getElementById('qualityVal').innerText = document.getElementById('qualityRange').value + '%';
+        let format = document.getElementById('formatSelect').value;
+
+        let canvas = document.createElement('canvas');
+        let ctx = canvas.getContext('2d');
+        canvas.width = originalImage.width;
+        canvas.height = originalImage.height;
+        
+        ctx.drawImage(originalImage, 0, 0);
+
+        canvas.toBlob((blob) => {
+            let compUrl = URL.createObjectURL(blob);
+            document.getElementById('compImg').src = compUrl;
+            document.getElementById('compSize').innerText = formatBytes(blob.size);
+            
+            let saved = ((originalFile.size - blob.size) / originalFile.size) * 100;
+            document.getElementById('savedSize').innerText = (saved > 0 ? saved.toFixed(1) : 0) + '%';
+
+            let ext = format.split('/')[1];
+            let downloadBtn = document.getElementById('downloadBtn');
+            downloadBtn.href = compUrl;
+            downloadBtn.download = `omnishield-compressed.${ext}`;
+        }, format, quality);
+    }
+
+    function formatBytes(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        let k = 1024, sizes = ['Bytes', 'KB', 'MB'], i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+
+    function resetAll() {
+        originalFile = null;
+        document.getElementById('editorWorkspace').style.display = 'none';
+        document.getElementById('dropZone').style.display = 'block';
+        document.getElementById('fileIn').value = '';
+    }
+</script>
+
+</body>
+</html>
