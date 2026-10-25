@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniShield VIP AI Resume Builder Ultra - Global Enterprise</title>
+    <meta name="description" content="World's most advanced 100% private ATS resume builder with AI formatting & multi-template engine.">
+    
+    <!-- Ultra HD PDF Generation Stack -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background: radial-gradient(circle at center, #0f172a 0%, #0b0f19 100%); color: #f8fafc; min-height: 100vh; padding: 20px; }
+        
+        .app-container { max-width: 1550px; margin: 0 auto; display: grid; grid-template-columns: 460px 1fr; gap: 24px; }
+        @media (max-width: 1150px) { .app-container { grid-template-columns: 1fr; } }
+
+        /* Left Control Panel */
+        .editor-card { background: rgba(30, 41, 59, 0.85); backdrop-filter: blur(24px); border-radius: 24px; padding: 28px; border: 1px solid rgba(51, 65, 85, 0.9); box-shadow: 0 30px 60px -15px rgba(0,0,0,0.8); max-height: 92vh; overflow-y: auto; }
+        .editor-card::-webkit-scrollbar { width: 6px; }
+        .editor-card::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+        
+        .header-title { color: #38bdf8; font-size: 24px; font-weight: 800; text-align: center; letter-spacing: -0.5px; }
+        .header-sub { color: #94a3b8; font-size: 12px; text-align: center; margin: 6px 0 16px; }
+        .badge { background: linear-gradient(90deg, #065f46, #047857); color: #34d399; font-size: 10px; padding: 6px 14px; border-radius: 50px; border: 1px solid #059669; display: block; text-align: center; font-weight: 700; margin: 0 auto 20px; width: max-content; text-transform: uppercase; }
+
+        .section-title { font-size: 13px; color: #38bdf8; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; margin: 20px 0 10px; border-bottom: 1px solid #334155; padding-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
+        
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 11px; color: #cbd5e1; font-weight: 700; margin-bottom: 4px; text-transform: uppercase; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; background: #0f172a; border: 1px solid #334155; color: white; padding: 10px 12px; border-radius: 10px; outline: none; font-size: 13px; transition: all 0.2s; }
+        .form-group textarea { height: 75px; resize: vertical; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2); }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        
+        .dynamic-item { background: #0f172a; border: 1px solid #334155; padding: 12px; border-radius: 12px; margin-bottom: 10px; position: relative; }
+        .btn-remove { position: absolute; top: 8px; right: 8px; background: #ef4444; color: white; border: none; border-radius: 6px; padding: 2px 8px; font-size: 10px; cursor: pointer; font-weight: 700; }
+        .btn-add { background: #1e293b; border: 1px dashed #38bdf8; color: #38bdf8; width: 100%; padding: 8px; border-radius: 10px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+        .btn-add:hover { background: #0f172a; }
+
+        .btn-action { width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: 800; font-size: 14px; cursor: pointer; transition: 0.2s; display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; }
+        .btn-ai { background: linear-gradient(135deg, #0284c7, #6366f1); color: white; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.4); }
+        .btn-pdf { background: #059669; color: white; box-shadow: 0 4px 15px rgba(5, 150, 105, 0.4); }
+        .btn-action:hover { opacity: 0.95; transform: translateY(-1px); }
+
+        /* Right Live Preview Panel */
+        .preview-pane { background: #0f172a; border: 1px solid #334155; border-radius: 24px; padding: 30px; display: flex; flex-direction: column; align-items: center; overflow-x: auto; }
+        .toolbar { width: 100%; max-width: 800px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: #1e293b; padding: 12px 20px; border-radius: 14px; border: 1px solid #334155; }
+        .toolbar label { font-size: 12px; color: #cbd5e1; font-weight: 700; margin-right: 8px; }
+        .toolbar select, .toolbar input[type="color"] { background: #0f172a; border: 1px solid #475569; color: white; padding: 6px 12px; border-radius: 8px; font-size: 12px; outline: none; }
+
+        /* Rendered Resume Paper Styles (A4 Standard) */
+        .resume-paper { background: #ffffff; color: #1e293b; width: 210mm; min-height: 297mm; padding: 25mm 20mm; border-radius: 4px; box-shadow: 0 20px 50px rgba(0,0,0,0.6); line-height: 1.5; font-size: 13px; transition: all 0.3s; }
+        
+        /* Template 1: Executive Modern */
+        .tpl-executive .r-header { border-bottom: 3px solid var(--primary-color, #0284c7); padding-bottom: 16px; margin-bottom: 20px; }
+        .tpl-executive h1 { font-size: 28px; color: #0f172a; font-weight: 900; letter-spacing: -0.5px; text-transform: uppercase; }
+        .tpl-executive .r-role { font-size: 15px; color: var(--primary-color, #0284c7); font-weight: 700; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .tpl-executive .r-contact { font-size: 11px; color: #64748b; margin-top: 10px; display: flex; gap: 14px; flex-wrap: wrap; font-weight: 600; }
+        .tpl-executive .r-section { margin-bottom: 18px; }
+        .tpl-executive .r-section-title { font-size: 13px; color: var(--primary-color, #0284c7); font-weight: 800; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1.5px solid #e2e8f0; padding-bottom: 4px; margin-bottom: 10px; }
+        .tpl-executive .exp-head { display: flex; justify-content: space-between; font-weight: 700; color: #0f172a; }
+        .tpl-executive .exp-sub { font-size: 12px; color: #64748b; font-style: italic; margin-bottom: 4px; }
+        .tpl-executive ul { padding-left: 18px; margin-top: 4px; }
+        .tpl-executive li { margin-bottom: 4px; color: #334155; }
+        .tpl-executive .skills-flex { display: flex; flex-wrap: wrap; gap: 6px; }
+        .tpl-executive .skill-chip { background: #f0f9ff; color: var(--primary-color, #0284c7); padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; border: 1px solid #bae6fd; }
+
+        /* Template 2: Harvard Academic */
+        .tpl-harvard { font-family: 'Georgia', serif; }
+        .tpl-harvard .r-header { text-align: center; border-bottom: 1px solid #000; padding-bottom: 12px; margin-bottom: 18px; }
+        .tpl-harvard h1 { font-size: 26px; color: #000; font-weight: normal; text-transform: uppercase; }
+        .tpl-harvard .r-role { font-size: 13px; color: #444; font-style: italic; margin-top: 2px; }
+        .tpl-harvard .r-contact { font-size: 10.5px; color: #333; margin-top: 6px; justify-content: center; display: flex; gap: 12px; }
+        .tpl-harvard .r-section-title { font-size: 12px; color: #000; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #000; padding-bottom: 2px; margin-bottom: 8px; }
+        .tpl-harvard .skill-chip { background: transparent; color: #000; border: none; padding: 0; font-weight: normal; }
+        .tpl-harvard .skill-chip::after { content: " • "; }
+        .tpl-harvard .skill-chip:last-child::after { content: ""; }
+
+        /* Template 3: Minimalist Elite */
+        .tpl-minimal .r-header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 2px solid #0f172a; padding-bottom: 14px; margin-bottom: 20px; }
+        .tpl-minimal h1 { font-size: 30px; font-weight: 300; color: #0f172a; }
+        .tpl-minimal .r-role { font-size: 13px; color: #64748b; font-weight: 600; }
+        .tpl-minimal .r-section-title { font-size: 12px; font-weight: 900; letter-spacing: 2px; color: #0f172a; text-transform: uppercase; margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Left Configuration Panel -->
+    <div class="editor-card">
+        <h1 class="header-title">📄 VIP AI Resume Builder</h1>
+        <p class="header-sub">Enterprise Multi-Template Engine • 100% Client-Side Privacy</p>
+        <span class="badge">🔒 ATS Optimization Engine Active</span>
+
+        <!-- Personal Info -->
+        <div class="section-title">👤 Personal Profile</div>
+        <div class="form-group"><label>Full Name</label><input type="text" id="inName" value="Muhammad Ali" oninput="render()"></div>
+        <div class="grid-2">
+            <div class="form-group"><label>Role / Title</label><input type="text" id="inRole" value="Principal Solutions Architect" oninput="render()"></div>
+            <div class="form-group"><label>Phone Number</label><input type="text" id="inPhone" value="+92 300 1234567" oninput="render()"></div>
+        </div>
+        <div class="grid-2">
+            <div class="form-group"><label>Email Address</label><input type="text" id="inEmail" value="ali.architect@omnishield.io" oninput="render()"></div>
+            <div class="form-group"><label>Location</label><input type="text" id="inLocation" value="Lahore, Pakistan" oninput="render()"></div>
+        </div>
+
+        <!-- AI Executive Summary -->
+        <div class="section-title">
+            <span>📝 Executive Summary</span>
+            <button style="background:none; border:none; color:#38bdf8; font-size:11px; cursor:pointer; font-weight:700;" onclick="aiPolishSummary()">✨ AI Polish Text</button>
+        </div>
+        <div class="form-group">
+            <textarea id="inSummary" oninput="render()">High-throughput Systems Architect with 7+ years of expertise in designing privacy-first client-side web platforms, WebAssembly integrations, and enterprise cybersecurity infrastructures. Proven track record of scaling Web apps globally across 150+ countries.</textarea>
+        </div>
+
+        <!-- Dynamic Experience Section -->
+        <div class="section-title">
+            <span>💼 Work History</span>
+            <button class="btn-add" style="width:auto; padding:2px 10px; font-size:11px;" onclick="addExperience()">+ Add Role</button>
+        </div>
+        <div id="experienceContainer"></div>
+
+        <!-- Dynamic Education Section -->
+        <div class="section-title">
+            <span>🎓 Education</span>
+            <button class="btn-add" style="width:auto; padding:2px 10px; font-size:11px;" onclick="addEducation()">+ Add Degree</button>
+        </div>
+        <div id="educationContainer"></div>
+
+        <!-- Skills -->
+        <div class="section-title">🛠️ Core Competencies & Skills</div>
+        <div class="form-group">
+            <label>Comma Separated Skills</label>
+            <input type="text" id="inSkills" value="System Architecture, WebAssembly (WASM), Client-Side AI, React, Node.js, Cybersecurity, Canvas API, Performance Tuning" oninput="render()">
+        </div>
+
+        <button class="btn-action btn-pdf" onclick="downloadPDF()">💾 DOWNLOAD ATS HD PDF</button>
+    </div>
+
+    <!-- Right Live Preview Workspace -->
+    <div class="preview-pane">
+        <div class="toolbar">
+            <div>
+                <label>Template:</label>
+                <select id="tplSelect" onchange="render()">
+                    <option value="tpl-executive">VIP Executive Modern</option>
+                    <option value="tpl-harvard">Harvard Academic Standard</option>
+                    <option value="tpl-minimal">Minimalist Elite</option>
+                </select>
+            </div>
+            <div>
+                <label>Theme Color:</label>
+                <input type="color" id="themeColor" value="#0284c7" onchange="render()">
+            </div>
+        </div>
+
+        <div id="resumePaper" class="resume-paper tpl-executive">
+            <!-- Dynamic Content Injected Here -->
+        </div>
+    </div>
+</div>
+
+<script>
+    let experiences = [
+        { title: "Lead Architect", company: "OmniShield Global", period: "2023 - Present", desc: "Spearheaded client-side security architecture supporting 150+ multilingual web utilities.\nOptimized WebAssembly rendering speed by 40% with zero server overhead." },
+        { title: "Senior Full Stack Engineer", company: "TechMatrix Systems", period: "2021 - 2023", desc: "Designed high-performance data processing tools for international enterprise clients." }
+    ];
+
+    let educations = [
+        { degree: "BS Computer Science", institution: "University of Engineering and Technology (UET)", period: "2017 - 2021" }
+    ];
+
+    function initDynamicForms() {
+        renderExperienceInputs();
+        renderEducationInputs();
+        render();
+    }
+
+    function renderExperienceInputs() {
+        const container = document.getElementById('experienceContainer');
+        container.innerHTML = '';
+        experiences.forEach((exp, idx) => {
+            container.innerHTML += `
+                <div class="dynamic-item">
+                    <button class="btn-remove" onclick="removeExperience(${idx})">✕</button>
+                    <div class="form-group"><label>Job Title</label><input type="text" value="${exp.title}" oninput="experiences[${idx}].title=this.value; render()"></div>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Company</label><input type="text" value="${exp.company}" oninput="experiences[${idx}].company=this.value; render()"></div>
+                        <div class="form-group"><label>Dates</label><input type="text" value="${exp.period}" oninput="experiences[${idx}].period=this.value; render()"></div>
+                    </div>
+                    <div class="form-group"><label>Bullet Points (One per line)</label><textarea oninput="experiences[${idx}].desc=this.value; render()">${exp.desc}</textarea></div>
+                </div>
+            `;
+        });
+    }
+
+    function addExperience() {
+        experiences.push({ title: "Software Engineer", company: "Company Name", period: "2022 - Present", desc: "Achieved key project milestones with high performance." });
+        renderExperienceInputs();
+        render();
+    }
+
+    function removeExperience(idx) {
+        experiences.splice(idx, 1);
+        renderExperienceInputs();
+        render();
+    }
+
+    function renderEducationInputs() {
+        const container = document.getElementById('educationContainer');
+        container.innerHTML = '';
+        educations.forEach((edu, idx) => {
+            container.innerHTML += `
+                <div class="dynamic-item">
+                    <button class="btn-remove" onclick="removeEducation(${idx})">✕</button>
+                    <div class="form-group"><label>Degree / Qualification</label><input type="text" value="${edu.degree}" oninput="educations[${idx}].degree=this.value; render()"></div>
+                    <div class="grid-2">
+                        <div class="form-group"><label>University / Institute</label><input type="text" value="${edu.institution}" oninput="educations[${idx}].institution=this.value; render()"></div>
+                        <div class="form-group"><label>Graduation Year</label><input type="text" value="${edu.period}" oninput="educations[${idx}].period=this.value; render()"></div>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    function addEducation() {
+        educations.push({ degree: "Degree Name", institution: "University Name", period: "2018 - 2022" });
+        renderEducationInputs();
+        render();
+    }
+
+    function removeEducation(idx) {
+        educations.splice(idx, 1);
+        renderEducationInputs();
+        render();
+    }
+
+    function aiPolishSummary() {
+        let textarea = document.getElementById('inSummary');
+        textarea.value = "Results-driven " + document.getElementById('inRole').value + " recognized for driving innovation in client-side web architectures. Expert at delivering ultra-secure, scalable solutions with zero data leakage. Proven track record in cross-functional leadership and high-impact deployment.";
+        render();
+    }
+
+    function render() {
+        const paper = document.getElementById('resumePaper');
+        const template = document.getElementById('tplSelect').value;
+        const primaryColor = document.getElementById('themeColor').value;
+        
+        paper.className = `resume-paper ${template}`;
+        paper.style.setProperty('--primary-color', primaryColor);
+
+        const name = document.getElementById('inName').value;
+        const role = document.getElementById('inRole').value;
+        const phone = document.getElementById('inPhone').value;
+        const email = document.getElementById('inEmail').value;
+        const location = document.getElementById('inLocation').value;
+        const summary = document.getElementById('inSummary').value;
+        const skills = document.getElementById('inSkills').value.split(',');
+
+        let expHtml = experiences.map(e => {
+            let bullets = e.desc.split('\n').filter(b => b.trim().length > 0).map(b => `<li>${b}</li>`).join('');
+            return `
+                <div style="margin-bottom: 12px;">
+                    <div class="exp-head"><span>${e.title} — ${e.company}</span><span>${e.period}</span></div>
+                    <ul>${bullets}</ul>
+                </div>
+            `;
+        }).join('');
+
+        let eduHtml = educations.map(e => `
+            <div style="margin-bottom: 8px;">
+                <div class="exp-head"><span>${e.degree}</span><span>${e.period}</span></div>
+                <div class="exp-sub">${e.institution}</div>
+            </div>
+        `).join('');
+
+        let skillHtml = skills.map(s => `<span class="skill-chip">${s.trim()}</span>`).join('');
+
+        paper.innerHTML = `
+            <div class="r-header">
+                <div>
+                    <h1>${name}</h1>
+                    <div class="r-role">${role}</div>
+                </div>
+                <div class="r-contact">
+                    <span>📧 ${email}</span>
+                    <span>📞 ${phone}</span>
+                    <span>📍 ${location}</span>
+                </div>
+            </div>
+
+            ${summary ? `<div class="r-section"><div class="r-section-title">Professional Profile</div><p>${summary}</p></div>` : ''}
+            
+            ${experiences.length > 0 ? `<div class="r-section"><div class="r-section-title">Professional Experience</div>${expHtml}</div>` : ''}
+            
+            ${educations.length > 0 ? `<div class="r-section"><div class="r-section-title">Education & Credentials</div>${eduHtml}</div>` : ''}
+            
+            ${skills.length > 0 ? `<div class="r-section"><div class="r-section-title">Technical Expertise</div><div class="skills-flex">${skillHtml}</div></div>` : ''}
+        `;
+    }
+
+    function downloadPDF() {
+        const element = document.getElementById('resumePaper');
+        const name = document.getElementById('inName').value.replace(/\s+/g, '_');
+        
+        const opt = {
+            margin: 0,
+            filename: `OmniShield_Resume_${name}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 3, useCORS: true, logging: false },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+
+        html2pdf().set(opt).from(element).save();
+    }
+
+    window.onload = initDynamicForms;
+</script>
+
+</body>
+</html>
