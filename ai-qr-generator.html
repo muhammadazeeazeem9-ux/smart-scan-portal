@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniShield AI QR Code Generator - VIP International Edition</title>
+    <meta name="description" content="Generate high-resolution custom QR codes 100% locally in your browser with zero data leakage.">
+    
+    <!-- QRCodeJS Native Browser Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+        body { background: radial-gradient(circle at center, #0f172a 0%, #0b0f19 100%); color: #f8fafc; padding: 25px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        
+        .card { background: rgba(30, 41, 59, 0.75); backdrop-filter: blur(20px); border-radius: 24px; padding: 36px; border: 1px solid rgba(51, 65, 85, 0.8); width: 100%; max-width: 950px; box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8); }
+        .card h2 { color: #38bdf8; text-align: center; font-size: 30px; font-weight: 800; letter-spacing: -0.5px; }
+        .card p { color: #94a3b8; font-size: 14px; text-align: center; margin: 8px 0 20px; }
+        
+        .badge { background: linear-gradient(90deg, #065f46, #047857); color: #34d399; font-size: 11px; padding: 8px 18px; border-radius: 50px; border: 1px solid #059669; display: block; text-align: center; font-weight: 700; margin: 0 auto 26px; width: max-content; letter-spacing: 0.5px; text-transform: uppercase; box-shadow: 0 4px 12px rgba(4, 120, 87, 0.3); }
+        
+        .workspace { display: grid; grid-template-columns: 1fr 340px; gap: 24px; }
+        @media(max-width: 800px) { .workspace { grid-template-columns: 1fr; } }
+
+        .pane { background: #0f172a; border: 1px solid #334155; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; gap: 16px; }
+        .group label { display: block; font-size: 12px; color: #cbd5e1; margin-bottom: 8px; font-weight: 700; }
+        .group input, .group select, .group textarea { width: 100%; background: #1e293b; border: 1px solid #475569; color: white; padding: 12px; border-radius: 12px; outline: none; font-size: 14px; transition: all 0.2s; }
+        .group input:focus, .group select:focus, .group textarea:focus { border-color: #38bdf8; box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2); }
+        
+        .color-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .color-grid input[type="color"] { height: 45px; cursor: pointer; padding: 4px; }
+
+        .preview-pane { background: #0f172a; border: 1px solid #334155; border-radius: 18px; padding: 22px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 16px; }
+        .qr-box { background: #ffffff; padding: 18px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; min-height: 240px; min-width: 240px; }
+        .qr-box canvas, .qr-box img { max-width: 100%; height: auto; display: block; }
+
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.2s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        .btn-gen { background: linear-gradient(135deg, #0284c7, #6366f1); color: white; }
+        .btn-gen:hover { opacity: 0.92; transform: translateY(-1px); }
+        .btn-down { background: #059669; color: white; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4); }
+        .btn-down:hover { background: #047857; }
+
+        .trust-note { font-size: 11px; color: #64748b; text-align: center; margin-top: 24px; grid-column: 1 / -1; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>🔲 OmniShield AI QR Code Generator</h2>
+    <p>Enterprise VIP QR Code Generator — 100% In-Browser Local Processing</p>
+    <span class="badge">🔒 ZERO EXTERNAL API • ABSOLUTE PRIVACY GUARANTEED</span>
+
+    <div class="workspace">
+        <div class="pane">
+            <div class="group">
+                <label>QR Data Category</label>
+                <select id="qrType" onchange="updatePlaceholder()">
+                    <option value="url">🌐 Website URL / Link</option>
+                    <option value="text">📄 Plain Text Message</option>
+                    <option value="email">📧 Email Contact</option>
+                    <option value="phone">📞 Phone / WhatsApp Number</option>
+                </select>
+            </div>
+
+            <div class="group">
+                <label>Target Input Content (متن یا لنک)</label>
+                <textarea id="qrText" rows="3" placeholder="https://omnishield.com"></textarea>
+            </div>
+
+            <div class="color-grid">
+                <div class="group">
+                    <label>QR Code Color</label>
+                    <input type="color" id="fgColor" value="#000000">
+                </div>
+                <div class="group">
+                    <label>Background Color</label>
+                    <input type="color" id="bgColor" value="#ffffff">
+                </div>
+            </div>
+
+            <div class="group">
+                <label>Canvas Resolution Size</label>
+                <select id="qrSize">
+                    <option value="200">200 x 200 px</option>
+                    <option value="300" selected>300 x 300 px (Recommended)</option>
+                    <option value="400">400 x 400 px (High Definition)</option>
+                </select>
+            </div>
+
+            <button class="btn btn-gen" onclick="generateQRCode()">⚡ Generate Instant QR Code</button>
+        </div>
+
+        <div class="preview-pane">
+            <div class="qr-box" id="qrContainer">
+                <div style="color: #64748b; font-size: 13px;">QR Code will render here</div>
+            </div>
+            <button id="downloadBtn" class="btn btn-down" style="display: none;" onclick="downloadQR()">💾 Download HD PNG</button>
+        </div>
+
+        <p class="trust-note">Executes entirely inside your local browser matrix using native client-side rendering.</p>
+    </div>
+</div>
+
+<script>
+    let qrcodeInstance = null;
+
+    function updatePlaceholder() {
+        let type = document.getElementById('qrType').value;
+        let txtArea = document.getElementById('qrText');
+        if(type === 'url') txtArea.placeholder = 'https://omnishield.com';
+        else if(type === 'text') txtArea.placeholder = 'Enter your private message here...';
+        else if(type === 'email') txtArea.placeholder = 'admin@omnishield.com';
+        else if(type === 'phone') txtArea.placeholder = '+923001234567';
+    }
+
+    function generateQRCode() {
+        let text = document.getElementById('qrText').value.trim();
+        let size = parseInt(document.getElementById('qrSize').value);
+        let fg = document.getElementById('fgColor').value;
+        let bg = document.getElementById('bgColor').value;
+
+        if(!text) {
+            alert('براہ کرم کچھ مواد یا لنک درج کریں!');
+            return;
+        }
+
+        let container = document.getElementById('qrContainer');
+        container.innerHTML = ''; // Clear existing canvas/img
+
+        qrcodeInstance = new QRCode(container, {
+            text: text,
+            width: size,
+            height: size,
+            colorDark: fg,
+            colorLight: bg,
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+        document.getElementById('downloadBtn').style.display = 'inline-flex';
+    }
+
+    function downloadQR() {
+        let container = document.getElementById('qrContainer');
+        let canvas = container.querySelector('canvas');
+        let img = container.querySelector('img');
+
+        let dataUrl = '';
+        if (canvas) {
+            dataUrl = canvas.toDataURL('image/png');
+        } else if (img) {
+            dataUrl = img.src;
+        }
+
+        if (dataUrl) {
+            let a = document.createElement('a');
+            a.href = dataUrl;
+            a.download = 'omnishield-qrcode.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } else {
+            alert('کیو آر کوڈ ڈاؤن لوڈ نہیں ہو سکا۔ پریس کریں اور دوبارہ ٹرائی کریں۔');
+        }
+    }
+
+    // Default generate on page load
+    window.onload = function() {
+        generateQRCode();
+    };
+</script>
+
+</body>
+</html>
