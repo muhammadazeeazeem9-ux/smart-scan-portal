@@ -1,98 +1,212 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ur" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags for Global Reach -->
-    <title>SmartScan - Global JSON Formatter & Validator Tool</title>
-    <meta name="description" content="Free online JSON formatter, validator, and beautifier tool. Format and check JSON syntax instantly with 100% client-side privacy.">
-    <meta name="keywords" content="json formatter, json validator, json beautifier, developer tools, smartscan portal">
-    <meta name="author" content="SmartScan Portal">
-
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #0f172a; color: #f8fafc; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .main-wrapper { display: flex; flex-wrap: wrap; gap: 30px; width: 100%; max-width: 1100px; justify-content: center; }
-        
-        .card { background: #1e293b; border-radius: 16px; padding: 25px; border: 1px solid #334155; flex: 1; min-width: 320px; max-width: 750px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-        .card h2 { color: #38bdf8; margin-bottom: 8px; font-size: 22px; text-align: center; }
-        .card p { color: #94a3b8; font-size: 13px; margin-bottom: 20px; text-align: center; }
-        
-        .form-group { margin-bottom: 14px; }
-        label { display: block; font-size: 13px; color: #cbd5e1; margin-bottom: 5px; font-weight: bold; }
-        textarea { width: 100%; height: 160px; padding: 12px; background: #0f172a; border: 1px solid #475569; border-radius: 8px; color: #38bdf8; font-size: 13px; outline: none; font-family: monospace; resize: vertical; }
-        textarea:focus { border-color: #38bdf8; }
-        
-        .btn-row { display: flex; gap: 10px; margin-bottom: 15px; }
-        .btn-action { flex: 1; padding: 12px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s; text-align: center; }
-        .btn-action:hover { background: linear-gradient(135deg, #0369a1, #1d4ed8); }
-        .btn-clear { background: #334155; }
-        .btn-clear:hover { background: #475569; }
-        
-        .status-box { margin-top: 15px; padding: 12px; border-radius: 8px; font-size: 13px; font-weight: bold; text-align: center; }
-        .status-success { background: #064e3b; color: #34d399; border: 1px solid #059669; }
-        .status-error { background: #7f1d1d; color: #f87171; border: 1px solid #dc2626; }
-
-        .disclaimer-box { margin-bottom: 15px; text-align: center; }
-        .disclaimer-text { color: red; font-size: 10px; background: #fef2f2; padding: 6px; border-radius: 4px; border: 1px solid #fecaca; display: inline-block; font-weight: bold; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sovereign Global Enterprise JSON Studio 2030</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',system-ui,sans-serif}
+body{background:#020617;color:#f8fafc;min-height:100vh;padding:20px;background:radial-gradient(150% 150% at 50% 0%, #0f172a 0%, #020617 70%, #000 100%)}
+.header{max-width:1600px;margin:0 auto 20px;display:flex;justify-content:space-between;align-items:center;padding:18px 28px;background:rgba(15,23,42,0.9);border:1px solid #1e293b;border-radius:20px;backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+.logo{font-weight:900;background:linear-gradient(90deg,#38bdf8,#a78bfa,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:18px}
+.badge{font-size:11px;padding:6px 16px;border-radius:50px;background:linear-gradient(90deg,#059669,#10b981);font-weight:900;color:#fff;box-shadow:0 0 20px rgba(16,185,129,0.4)}
+.workspace{max-width:1600px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:1100px){.workspace{grid-template-columns:1fr}}
+.card{background:rgba(15,23,42,0.85);border:1px solid #1e293b;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:14px;backdrop-filter:blur(12px);box-shadow:0 10px 40px rgba(0,0,0,0.4)}
+.card h3{font-size:14px;color:#38bdf8;font-weight:800;display:flex;justify-content:space-between;align-items:center}
+textarea{width:100%;padding:16px;border-radius:14px;border:1px solid #334155;background:#020617;color:#34d399;outline:none;font-size:13px;min-height:280px;resize:vertical;font-family:'Courier New',monospace;line-height:1.6;white-space:pre}
+textarea:focus{border-color:#38bdf8;box-shadow:0 0 0 4px rgba(56,189,248,0.2)}
+.btn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
+.btn{padding:12px;border:none;border-radius:12px;font-weight:800;font-size:11px;cursor:pointer;background:linear-gradient(135deg,#0284c7,#38bdf8);color:#fff;box-shadow:0 4px 15px rgba(56,189,248,0.25);transition:0.2s}
+.btn:hover{opacity:0.92;transform:translateY(-2px)}
+.btn-sec{background:#1e293b;border:1px solid #334155;color:#cbd5e1}
+.btn-success{background:linear-gradient(135deg,#059669,#10b981);box-shadow:0 4px 15px rgba(16,185,129,0.3)}
+.stats{display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;background:#020617;padding:10px 14px;border-radius:10px;border:1px solid #1e293b;font-family:monospace}
+.valid{color:#34d399;font-weight:700}
+.invalid{color:#f87171;font-weight:700}
+.tree-view{background:#020617;border:1px solid #334155;border-radius:14px;padding:16px;min-height:280px;max-height:350px;overflow:auto;font-family:'Courier New',monospace;font-size:12px;color:#38bdf8;line-height:1.5}
+.json-key{color:#93c5fd}
+.json-string{color:#34d399}
+.json-number{color:#ffb86c}
+.json-boolean{color:#ff79c6}
+</style>
 </head>
 <body>
 
-<div class="main-wrapper">
-    <div class="card">
-        <h2>🛠️ Global JSON Formatter & Validator</h2>
-        <p>Format, beautify, and validate your JSON data securely in your browser</p>
+<div class="header">
+<div class="logo">👑 SOVEREIGN GLOBAL ENTERPRISE JSON STUDIO 2030</div>
+<div class="badge">🟢 155+ COUNTRIES COMPLIANT</div>
+</div>
 
-        <div class="disclaimer-box">
-            <span class="disclaimer-text">100% CLIENT-SIDE PRIVACY - NO DATA STORED ON SERVER</span>
-        </div>
+<div class="workspace">
+<!-- INPUT PANEL -->
+<div class="card">
+<h3><span>📥 ENTERPRISE INPUT STREAM</span><span id="inStat" class="valid">Ready</span></h3>
+<textarea id="inp" placeholder='Paste JSON here...'>{"app":"Sovereign Empire","version":"2030.1.0","target_nations":155,"developer":{"name":"Muhammad Azeem","base":"Lahore"},"features":["Offline-First","Zero-Server","Enterprise-Grade"]}</textarea>
+<div class="btn-grid">
+<button class="btn" onclick="processJSON('beautify')">✨ BEAUTIFY</button>
+<button class="btn btn-sec" onclick="processJSON('minify')">📦 MINIFY</button>
+<button class="btn btn-sec" onclick="convertCSV()">📊 TO CSV</button>
+<button class="btn btn-sec" onclick="clearAll()">🗑️ CLEAR</button>
+</div>
+<div class="stats"><span id="charCount">Chars: 0</span><span id="lineCount">Lines: 0</span></div>
+</div>
 
-        <div class="form-group">
-            <label>Paste JSON Data / یہاں JSON ڈیٹا درج کریں:</label>
-            <textarea id="jsonInput" placeholder='{"name": "SmartScan", "version": 1.0}'></textarea>
-        </div>
+<!-- OUTPUT & TREE VIEW PANEL -->
+<div class="card">
+<h3>
+<span>📤 FORMATTED & TREE VIEWER</span>
+<div style="display:flex;gap:6px">
+<button class="btn btn-sec" style="padding:4px 10px;font-size:10px" onclick="switchView('text')">Text</button>
+<button class="btn btn-sec" style="padding:4px 10px;font-size:10px" onclick="switchView('tree')">Tree View</button>
+</div>
+</h3>
 
-        <div class="btn-row">
-            <button class="btn-action" onclick="formatJSON()">✨ Format & Beautify</button>
-            <button class="btn-action btn-clear" onclick="clearJSON()">Clear</button>
-        </div>
+<div id="textMode">
+<textarea id="out" readonly placeholder="Processed international output stream..."></textarea>
+</div>
+<div id="treeMode" style="display:none">
+<div id="treeView" class="tree-view">Click Beautify to render interactive tree structure...</div>
+</div>
 
-        <div id="statusOutput"></div>
-    </div>
+<div class="btn-grid">
+<button class="btn btn-success" onclick="copyOut()">📋 COPY OUTPUT</button>
+<button class="btn btn-sec" onclick="downloadJSON()">💾 EXPORT JSON</button>
+</div>
+<div class="stats"><span id="outCharCount">Chars: 0</span><span id="outStat" class="valid">Idle</span></div>
+</div>
 </div>
 
 <script>
-    function formatJSON() {
-        const input = document.getElementById('jsonInput').value.trim();
-        const statusBox = document.getElementById('statusOutput');
+let lastParsedObj = null;
 
-        if (!input) {
-            statusBox.className = "status-box status-error";
-            statusBox.innerText = "Please enter JSON data to format!";
-            return;
-        }
+function updateStats(text, charEl, lineEl){
+ document.getElementById(charEl).innerText = `Chars: ${text.length}`;
+ if(lineEl) document.getElementById(lineEl).innerText = `Lines: ${text.split('\n').length}`;
+}
 
-        try {
-            const parsed = JSON.parse(input);
-            const formatted = JSON.stringify(parsed, null, 4);
-            document.getElementById('jsonInput').value = formatted;
-            
-            statusBox.className = "status-box status-success";
-            statusBox.innerText = "✔ Valid JSON! Successfully formatted.";
-        } catch (e) {
-            statusBox.className = "status-box status-error";
-            statusBox.innerText = "❌ Invalid JSON: " + e.message;
-        }
-    }
+function processJSON(mode){
+ let val = document.getElementById('inp').value;
+ updateStats(val, 'charCount', 'lineCount');
+ if(!val.trim()){
+  document.getElementById('out').value = '';
+  document.getElementById('inStat').innerText = 'Empty';
+  document.getElementById('outStat').innerText = 'Idle';
+  return;
+ }
+ try {
+  lastParsedObj = JSON.parse(val);
+  let res = '';
+  if(mode === 'beautify') res = JSON.stringify(lastParsedObj, null, 2);
+  else if(mode === 'minify') res = JSON.stringify(lastParsedObj);
 
-    function clearJSON() {
-        document.getElementById('jsonInput').value = "";
-        document.getElementById('statusOutput').innerText = "";
-        document.getElementById('statusOutput').className = "";
-    }
+  document.getElementById('out').value = res;
+  updateStats(res, 'outCharCount');
+  renderTree(lastParsedObj);
+  
+  document.getElementById('inStat').className = 'valid';
+  document.getElementById('inStat').innerText = 'Valid JSON ✅ (155 Nations Ready)';
+  document.getElementById('outStat').className = 'valid';
+  document.getElementById('outStat').innerText = 'Processed OK';
+ } catch(e) {
+  document.getElementById('out').value = `[INTERNATIONAL PARSE ERROR]:\n${e.message}`;
+  document.getElementById('inStat').className = 'invalid';
+  document.getElementById('inStat').innerText = 'Syntax Error ❌';
+  document.getElementById('outStat').className = 'invalid';
+  document.getElementById('outStat').innerText = 'Failed';
+  document.getElementById('treeView').innerHTML = `<span style="color:#f87171">${e.message}</span>`;
+ }
+}
+
+function switchView(mode){
+ if(mode === 'text'){
+  document.getElementById('textMode').style.display = 'block';
+  document.getElementById('treeMode').style.display = 'none';
+ } else {
+  document.getElementById('textMode').style.display = 'none';
+  document.getElementById('treeMode').style.display = 'block';
+  if(lastParsedObj) renderTree(lastParsedObj);
+ }
+}
+
+function renderTree(obj){
+ let container = document.getElementById('treeView');
+ container.innerHTML = syntaxHighlight(JSON.stringify(obj, null, 2));
+}
+
+function syntaxHighlight(json) {
+ json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+ return json.replace(/("(\\u[a-fA-F0-9]{4}|\\[^u]|[^\\"])*"(\s*:\s*)?|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+  let cls = 'json-number';
+  if (/^"/.test(match)) {
+   if (/:$/.test(match)) {
+    cls = 'json-key';
+   } else {
+    cls = 'json-string';
+   }
+  } else if (/true|false/.test(match)) {
+   cls = 'json-boolean';
+  } else if (/null/.test(match)) {
+   cls = 'json-null';
+  }
+  return '<span class="' + cls + '">' + match + '</span>';
+ });
+}
+
+function convertCSV(){
+ if(!lastParsedObj){ processJSON('beautify'); }
+ try {
+  let items = Array.isArray(lastParsedObj) ? lastParsedObj : [lastParsedObj];
+  let keys = Object.keys(items[0] || {});
+  let csv = keys.join(',') + '\n';
+  items.forEach(row => {
+   csv += keys.map(k => JSON.stringify(row[k] || '')).join(',') + '\n';
+  });
+  document.getElementById('out').value = csv;
+  document.getElementById('outStat').innerText = 'Converted to CSV';
+  switchView('text');
+ } catch(e) {
+  alert('CSV Conversion Error: ' + e.message);
+ }
+}
+
+function copyOut(){
+ let out = document.getElementById('out');
+ if(!out.value) return;
+ out.select();
+ navigator.clipboard.writeText(out.value);
+ document.getElementById('outStat').innerText = 'Copied to Global Clipboard! 📋';
+}
+
+function downloadJSON(){
+ let content = document.getElementById('out').value;
+ if(!content) return;
+ let blob = new Blob([content], {type: 'application/json'});
+ let url = URL.createObjectURL(blob);
+ let a = document.createElement('a');
+ a.href = url;
+ a.download = `Sovereign-Enterprise-JSON-${Date.now()}.json`;
+ a.click();
+ URL.revokeObjectURL(url);
+}
+
+function clearAll(){
+ document.getElementById('inp').value = '';
+ document.getElementById('out').value = '';
+ document.getElementById('treeView').innerHTML = '';
+ lastParsedObj = null;
+ updateStats('', 'charCount', 'lineCount');
+ updateStats('', 'outCharCount');
+ document.getElementById('inStat').innerText = 'Cleared';
+ document.getElementById('outStat').innerText = 'Idle';
+}
+
+document.getElementById('inp').addEventListener('input', () => {
+ clearTimeout(window._t);
+ window._t = setTimeout(() => processJSON('beautify'), 300);
+});
+
+window.addEventListener('load', () => setTimeout(() => processJSON('beautify'), 200));
 </script>
-
 </body>
 </html>
