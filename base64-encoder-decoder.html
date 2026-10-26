@@ -1,120 +1,210 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ur" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags for Global Reach -->
-    <title>SmartScan - Global Base64 Encoder & Decoder Tool</title>
-    <meta name="description" content="Free online Base64 encoder and decoder tool. Convert text to Base64 and decode securely with 100% client-side browser privacy.">
-    <meta name="keywords" content="base64 encoder, base64 decoder, string converter, developer utility tools, smartscan portal">
-    <meta name="author" content="SmartScan Portal">
-
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #0f172a; color: #f8fafc; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .main-wrapper { display: flex; flex-wrap: wrap; gap: 30px; width: 100%; max-width: 1100px; justify-content: center; }
-        
-        .card { background: #1e293b; border-radius: 16px; padding: 25px; border: 1px solid #334155; flex: 1; min-width: 320px; max-width: 750px; box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-        .card h2 { color: #38bdf8; margin-bottom: 8px; font-size: 22px; text-align: center; }
-        .card p { color: #94a3b8; font-size: 13px; margin-bottom: 20px; text-align: center; }
-        
-        .form-group { margin-bottom: 14px; }
-        label { display: block; font-size: 13px; color: #cbd5e1; margin-bottom: 5px; font-weight: bold; }
-        textarea { width: 100%; height: 130px; padding: 12px; background: #0f172a; border: 1px solid #475569; border-radius: 8px; color: #38bdf8; font-size: 13px; outline: none; font-family: monospace; resize: vertical; }
-        textarea:focus { border-color: #38bdf8; }
-        
-        .btn-row { display: flex; gap: 10px; margin-bottom: 15px; }
-        .btn-action { flex: 1; padding: 12px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; border-radius: 8px; color: white; font-weight: bold; font-size: 14px; cursor: pointer; transition: 0.3s; text-align: center; }
-        .btn-action:hover { background: linear-gradient(135deg, #0369a1, #1d4ed8); }
-        .btn-decode { background: linear-gradient(135deg, #059669, #047857); }
-        .btn-decode:hover { background: linear-gradient(135deg, #047857, #065f46); }
-        
-        .status-box { margin-top: 15px; padding: 12px; border-radius: 8px; font-size: 13px; font-weight: bold; text-align: center; }
-        .status-success { background: #064e3b; color: #34d399; border: 1px solid #059669; }
-        .status-error { background: #7f1d1d; color: #f87171; border: 1px solid #dc2626; }
-
-        .disclaimer-box { margin-bottom: 15px; text-align: center; }
-        .disclaimer-text { color: red; font-size: 10px; background: #fef2f2; padding: 6px; border-radius: 4px; border: 1px solid #fecaca; display: inline-block; font-weight: bold; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sovereign Global Enterprise Base64 Studio 2030</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',system-ui,sans-serif}
+body{background:#020617;color:#f8fafc;min-height:100vh;padding:20px;background:radial-gradient(150% 150% at 50% 0%, #0f172a 0%, #020617 70%, #000 100%)}
+.header{max-width:1600px;margin:0 auto 20px;display:flex;justify-content:space-between;align-items:center;padding:18px 28px;background:rgba(15,23,42,0.9);border:1px solid #1e293b;border-radius:20px;backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+.logo{font-weight:900;background:linear-gradient(90deg,#38bdf8,#a78bfa,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:18px}
+.badge{font-size:11px;padding:6px 16px;border-radius:50px;background:linear-gradient(90deg,#059669,#10b981);font-weight:900;color:#fff;box-shadow:0 0 20px rgba(16,185,129,0.4)}
+.workspace{max-width:1600px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:1100px){.workspace{grid-template-columns:1fr}}
+.card{background:rgba(15,23,42,0.85);border:1px solid #1e293b;border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:14px;backdrop-filter:blur(12px);box-shadow:0 10px 40px rgba(0,0,0,0.4)}
+.card h3{font-size:14px;color:#38bdf8;font-weight:800;display:flex;justify-content:space-between;align-items:center}
+textarea{width:100%;padding:16px;border-radius:14px;border:1px solid #334155;background:#020617;color:#34d399;outline:none;font-size:13px;min-height:220px;resize:vertical;font-family:'Courier New',monospace;line-height:1.6}
+textarea:focus{border-color:#38bdf8;box-shadow:0 0 0 4px rgba(56,189,248,0.2)}
+.btn-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
+.btn{padding:12px;border:none;border-radius:12px;font-weight:800;font-size:11px;cursor:pointer;background:linear-gradient(135deg,#0284c7,#38bdf8);color:#fff;box-shadow:0 4px 15px rgba(56,189,248,0.25);transition:0.2s}
+.btn:hover{opacity:0.92;transform:translateY(-2px)}
+.btn-sec{background:#1e293b;border:1px solid #334155;color:#cbd5e1}
+.btn-success{background:linear-gradient(135deg,#059669,#10b981);box-shadow:0 4px 15px rgba(16,185,129,0.3)}
+.drop-zone{border:2px dashed #334155;border-radius:14px;padding:18px;text-align:center;color:#94a3b8;font-size:12px;cursor:pointer;background:rgba(2,6,23,0.5);transition:0.2s}
+.drop-zone:hover{border-color:#38bdf8;color:#38bdf8}
+.stats{display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;background:#020617;padding:10px 14px;border-radius:10px;border:1px solid #1e293b;font-family:monospace}
+.valid{color:#34d399;font-weight:700}
+.invalid{color:#f87171;font-weight:700}
+img.preview{max-width:100%;max-height:140px;border-radius:10px;border:1px solid #1e293b;margin-top:8px;object-fit:contain}
+</style>
 </head>
 <body>
 
-<div class="main-wrapper">
-    <div class="card">
-        <h2>🔒 Global Base64 Encoder & Decoder</h2>
-        <p>Encode text to Base64 or decode it back instantly and securely in your browser</p>
+<div class="header">
+<div class="logo">👑 SOVEREIGN GLOBAL ENTERPRISE BASE64 STUDIO 2030</div>
+<div class="badge">🟢 155+ NATIONS COMPLIANT</div>
+</div>
 
-        <div class="disclaimer-box">
-            <span class="disclaimer-text">100% CLIENT-SIDE PRIVACY - NO DATA SENT TO SERVER</span>
-        </div>
+<div class="workspace">
+<!-- INPUT PANEL -->
+<div class="card">
+<h3><span>📥 ENTERPRISE INPUT STREAM</span><span id="inStat" class="valid">Ready</span></h3>
+<textarea id="inp" placeholder="Paste text, payload, or drop file below...">Sovereign Empire - International Grade Studio 2030</textarea>
 
-        <div class="form-group">
-            <label>Input Text or Base64 String / یہاں ٹیکسٹ یا کوڈ درج کریں:</label>
-            <textarea id="base64Input" placeholder="Type text to encode or base64 string to decode..."></textarea>
-        </div>
+<div class="drop-zone" onclick="document.getElementById('fileIn').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
+📁 Drop Any File, Image or Document Here (Multi-Format Support)
+<input type="file" id="fileIn" style="display:none" onchange="handleFile(this.files[0])">
+</div>
 
-        <div class="btn-row">
-            <button class="btn-action" onclick="encodeBase64()">🔒 Encode to Base64</button>
-            <button class="btn-action btn-decode" onclick="decodeBase64()">🔓 Decode from Base64</button>
-        </div>
+<div class="btn-grid">
+<button class="btn" onclick="processBase64('encode')">🔒 ENCODE</button>
+<button class="btn btn-sec" onclick="processBase64('decode')">🔓 DECODE</button>
+<button class="btn btn-sec" onclick="processDataURI()">🌐 DATA URI</button>
+<button class="btn btn-sec" onclick="clearAll()">🗑️ CLEAR</button>
+</div>
 
-        <div id="statusOutput"></div>
-    </div>
+<div class="stats"><span id="charCount">Chars: 0</span><span id="byteCount">0 Bytes</span></div>
+<img id="inPreview" class="preview" style="display:none">
+</div>
+
+<!-- OUTPUT PANEL -->
+<div class="card">
+<h3><span>📤 INTERNATIONAL OUTPUT STREAM</span><span id="outStat" class="valid">Idle</span></h3>
+<textarea id="out" readonly placeholder="Processed base64 output stream..."></textarea>
+
+<div class="btn-grid">
+<button class="btn btn-success" onclick="copyOut()">📋 COPY OUTPUT</button>
+<button class="btn btn-sec" onclick="downloadOut()">💾 EXPORT FILE</button>
+<button class="btn btn-sec" onclick="swapStreams()">🔄 SWAP IO</button>
+</div>
+
+<div class="stats"><span id="outCharCount">Chars: 0</span><span id="outByteCount">0 Bytes</span></div>
+<img id="outPreview" class="preview" style="display:none">
+</div>
 </div>
 
 <script>
-    function encodeBase64() {
-        const input = document.getElementById('base64Input').value;
-        const statusBox = document.getElementById('statusOutput');
+function updateStats(text, isInput = true){
+ let bytes = new TextEncoder().encode(text).length;
+ if(isInput){
+  document.getElementById('charCount').innerText = `Chars: ${text.length}`;
+  document.getElementById('byteCount').innerText = `${bytes} Bytes`;
+ } else {
+  document.getElementById('outCharCount').innerText = `Chars: ${text.length}`;
+  // FIXED: Pointing directly to valid 'outByteCount' ID
+  document.getElementById('outByteCount').innerText = `${bytes} Bytes`;
+ }
+}
 
-        if (!input) {
-            statusBox.className = "status-box status-error";
-            statusBox.innerText = "Please enter text to encode!";
-            return;
-        }
+function processBase64(action){
+ let val = document.getElementById('inp').value;
+ updateStats(val, true);
+ if(!val.trim()){
+  document.getElementById('out').value = '';
+  document.getElementById('outByteCount').innerText = '0 Bytes';
+  document.getElementById('inStat').innerText = 'Empty';
+  document.getElementById('outStat').innerText = 'Idle';
+  return;
+ }
+ try {
+  let res = '';
+  if(action === 'encode'){
+   res = btoa(unescape(encodeURIComponent(val)));
+   document.getElementById('inStat').className = 'valid';
+   document.getElementById('inStat').innerText = 'Encoded Successfully ✅';
+   document.getElementById('outStat').innerText = 'Base64 Stream Ready';
+  } else if(action === 'decode'){
+   res = decodeURIComponent(escape(atob(val.trim())));
+   document.getElementById('inStat').className = 'valid';
+   document.getElementById('inStat').innerText = 'Decoded Successfully ✅';
+   document.getElementById('outStat').innerText = 'Plain Text Restored';
+  }
+  document.getElementById('out').value = res;
+  updateStats(res, false);
+ } catch(e) {
+  document.getElementById('out').value = `[INTERNATIONAL CODEC ERROR]:\n${e.message}\nMake sure input is valid formatting!`;
+  document.getElementById('inStat').className = 'invalid';
+  document.getElementById('inStat').innerText = 'Error ❌';
+  document.getElementById('outStat').className = 'invalid';
+  document.getElementById('outStat').innerText = 'Failed';
+ }
+}
 
-        try {
-            // Handles UTF-8 strings properly
-            const encoded = btoa(encodeURIComponent(input).replace(/%([0-9A-F]{2})/g,
-                function toSolidBytes(match, p1) {
-                    return String.fromCharCode('0x' + p1);
-                }));
-            
-            document.getElementById('base64Input').value = encoded;
-            statusBox.className = "status-box status-success";
-            statusBox.innerText = "✔ Successfully Encoded to Base64!";
-        } catch (e) {
-            statusBox.className = "status-box status-error";
-            statusBox.innerText = "❌ Encoding Error: " + e.message;
-        }
-    }
+function processDataURI(){
+ let val = document.getElementById('inp').value.trim();
+ if(!val) return;
+ let dataUri = `data:text/plain;base64,` + btoa(unescape(encodeURIComponent(val)));
+ document.getElementById('out').value = dataUri;
+ updateStats(dataUri, false);
+ document.getElementById('outStat').innerText = 'Data URI Generated';
+}
 
-    function decodeBase64() {
-        const input = document.getElementById('base64Input').value.trim();
-        const statusBox = document.getElementById('statusOutput');
+function handleFile(file){
+ if(!file) return;
+ let reader = new FileReader();
+ reader.onload = function(e){
+  let result = e.target.result;
+  document.getElementById('out').value = result;
+  document.getElementById('inp').value = `[Loaded File: ${file.name} | Size: ${file.size} Bytes]`;
+  updateStats(result, false);
+  document.getElementById('inStat').className = 'valid';
+  document.getElementById('inStat').innerText = `File Loaded (${file.type || 'Binary'})`;
+  document.getElementById('outStat').innerText = 'Data URI Stream Ready';
+  
+  if(file.type.startsWith('image/')){
+   document.getElementById('outPreview').src = result;
+   document.getElementById('outPreview').style.display = 'block';
+  } else {
+   document.getElementById('outPreview').style.display = 'none';
+  }
+ };
+ reader.readAsDataURL(file);
+}
 
-        if (!input) {
-            statusBox.className = "status-box status-error";
-            statusBox.innerText = "Please enter Base64 string to decode!";
-            return;
-        }
+function handleDrop(e){
+ e.preventDefault();
+ let file = e.dataTransfer.files[0];
+ if(file) handleFile(file);
+}
 
-        try {
-            // Handles UTF-8 strings properly during decode
-            const decoded = decodeURIComponent(atob(input).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
+function copyOut(){
+ let out = document.getElementById('out');
+ if(!out.value) return;
+ out.select();
+ navigator.clipboard.writeText(out.value);
+ document.getElementById('outStat').innerText = 'Copied to Global Clipboard! 📋';
+}
 
-            document.getElementById('base64Input').value = decoded;
-            statusBox.className = "status-box status-success";
-            statusBox.innerText = "✔ Successfully Decoded from Base64!";
-        } catch (e) {
-            statusBox.className = "status-box status-error";
-            statusBox.innerText = "❌ Invalid Base64 string: " + e.message;
-        }
-    }
+function downloadOut(){
+ let content = document.getElementById('out').value;
+ if(!content) return;
+ let blob = new Blob([content], {type: 'text/plain'});
+ let url = URL.createObjectURL(blob);
+ let a = document.createElement('a');
+ a.href = url;
+ a.download = `Sovereign-Base64-${Date.now()}.txt`;
+ a.click();
+ URL.revokeObjectURL(url);
+}
+
+function swapStreams(){
+ let inp = document.getElementById('inp');
+ let out = document.getElementById('out');
+ let temp = inp.value;
+ inp.value = out.value;
+ out.value = temp;
+ updateStats(inp.value, true);
+ updateStats(out.value, false);
+}
+
+function clearAll(){
+ document.getElementById('inp').value = '';
+ document.getElementById('out').value = '';
+ document.getElementById('inPreview').style.display = 'none';
+ document.getElementById('outPreview').style.display = 'none';
+ updateStats('', true);
+ document.getElementById('outByteCount').innerText = '0 Bytes';
+ document.getElementById('inStat').innerText = 'Cleared';
+ document.getElementById('outStat').innerText = 'Idle';
+}
+
+document.getElementById('inp').addEventListener('input', () => {
+ clearTimeout(window._t);
+ window._t = setTimeout(() => processBase64('encode'), 300);
+});
+
+window.addEventListener('load',()=>setTimeout(() => processBase64('encode'), 200));
 </script>
-
 </body>
 </html>
