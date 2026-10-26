@@ -1,63 +1,181 @@
 <!DOCTYPE html>
-<html lang="ur" dir="rtl">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartScan - Complete Election System</title>
-    <!-- Tailwind CSS & FontAwesome -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sovereign Empire 2030 - Enterprise AI Portal</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',system-ui,sans-serif}
+body{background:#020617;color:#f8fafc;min-height:100vh;padding:20px;background:radial-gradient(150% 150% at 50% 0%, #0f172a 0%, #020617 75%)}
+.header{max-width:1400px;margin:0 auto 24px;display:flex;justify-content:space-between;align-items:center;padding:20px 30px;background:rgba(15,23,42,0.9);border:1px solid #1e293b;border-radius:20px;backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+.logo{font-size:22px;font-weight:900;background:linear-gradient(90deg,#38bdf8,#a78bfa,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.badge{font-size:11px;padding:8px 18px;border-radius:50px;background:linear-gradient(90deg,#059669,#10b981);font-weight:900;color:#fff}
+.search-container{max-width:1400px;margin:0 auto 24px}
+.search-box{width:100%;padding:16px 22px;border-radius:14px;border:1px solid #334155;background:rgba(15,23,42,0.8);color:#f8fafc;font-size:15px;outline:none;backdrop-filter:blur(10px)}
+.search-box:focus{border-color:#38bdf8;box-shadow:0 0 0 4px rgba(56,189,248,0.2)}
+.grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.card{background:rgba(15,23,42,0.85);border:1px solid #1e293b;border-radius:20px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;text-decoration:none;color:inherit;transition:all 0.3s ease;backdrop-filter:blur(12px)}
+.card:hover{transform:translateY(-5px);border-color:#38bdf8;box-shadow:0 10px 30px rgba(56,189,248,0.2)}
+.card-icon{font-size:32px;margin-bottom:8px}
+.card-title{font-size:16px;font-weight:800;color:#38bdf8}
+.card-desc{font-size:12px;color:#94a3b8;line-height:1.6}
+.btn-launch{display:inline-block;padding:10px 16px;background:linear-gradient(135deg,#0284c7,#38bdf8);color:#fff;font-size:12px;font-weight:800;border-radius:10px;text-align:center;margin-top:auto}
+</style>
 </head>
-<body class="bg-gray-100 min-h-screen font-sans">
-    
-    <!-- Header -->
-    <nav class="bg-indigo-900 text-white p-4 shadow-lg">
-        <div class="container mx-auto text-center">
-            <h1 class="text-2xl font-bold"><i class="fa-solid fa-crown text-yellow-400 ml-2"></i> SmartScan - مکمل الیکشن سسٹم</h1>
-            <p class="text-xs text-indigo-200 mt-1">آپ کے تمام پورٹل ایک ہی مرکزی جگہ پر</p>
-        </div>
-    </nav>
+<body>
 
-    <!-- Main Grid Container -->
-    <div class="container mx-auto p-6 max-w-4xl">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            
-            <a href="vote-slip-finder.html" class="bg-white p-5 rounded-2xl shadow hover:shadow-xl border-r-4 border-blue-600 transition block">
-                <h3 class="font-bold text-gray-800"><i class="fa-solid fa-magnifying-glass text-blue-600 ml-2"></i> 1. ووٹ پرچی فائنڈر</h3>
-                <p class="text-xs text-gray-500 mt-1">عوام کے لیے آن لائن تلاش</p>
-            </a>
+<div class="header">
+<div class="logo">👑 SOVEREIGN EMPIRE 2030</div>
+<div class="badge">🟢 155+ NATIONS COMPLIANT</div>
+</div>
 
-            <a href="qr-voter-slip.html" class="bg-white p-5 rounded-2xl shadow hover:shadow-xl border-r-4 border-purple-600 transition block">
-                <h3 class="font-bold text-gray-800"><i class="fa-solid fa-qrcode text-purple-600 ml-2"></i> 2. QR والی پرچی</h3>
-                <p class="text-xs text-gray-500 mt-1">ڈیجیٹل سلپ اور واٹس ایپ شیئر</p>
-            </a>
+<div class="search-container">
+<input type="text" id="searchInput" class="search-box" placeholder="Search tool by name or feature..." onkeyup="filterTools()">
+</div>
 
-            <a href="polling-map.html" class="bg-white p-5 rounded-2xl shadow hover:shadow-xl border-r-4 border-green-600 transition block">
-                <h3 class="font-bold text-gray-800"><i class="fa-solid fa-map-location-dot text-green-600 ml-2"></i> 3. پولنگ نقشہ</h3>
-                <p class="text-xs text-gray-500 mt-1">گوگل میپ کے ذریعے سیدھا راستہ</p>
-            </a>
+<div class="grid" id="toolsGrid">
 
-            <a href="voter-dashboard.html" class="bg-white p-5 rounded-2xl shadow hover:shadow-xl border-r-4 border-indigo-600 transition block">
-                <h3 class="font-bold text-gray-800"><i class="fa-solid fa-chart-line text-indigo-600 ml-2"></i> 4. ووٹر ڈیش بورڈ</h3>
-                <p class="text-xs text-gray-500 mt-1">لائیو گراف اور اعداد و شمار</p>
-            </a>
-
-            <a href="field-agent.html" class="bg-white p-5 rounded-2xl shadow hover:shadow-xl border-r-4 border-orange-600 transition block">
-                <h3 class="font-bold text-gray-800"><i class="fa-solid fa-clipboard-user text-orange-600 ml-2"></i> 5. فیلڈ ایجنٹ</h3>
-                <p class="text-xs text-gray-500 mt-1">پولنگ ڈے پر لائیو حاضری اور چیکنگ</p>
-            </a>
-
-            <a href="bulk-sharing.html" class="bg-white p-5 rounded-2xl shadow hover:shadow-xl border-r-4 border-pink-600 transition block">
-                <h3 class="font-bold text-gray-800"><i class="fa-solid fa-share-nodes text-pink-600 ml-2"></i> 6. بلک شیئرنگ</h3>
-                <p class="text-xs text-gray-500 mt-1">ایک کلک میں مہماتی پیغام رسائی</p>
-            </a>
-
-            <a href="security-scanner.html" class="bg-gradient-to-r from-indigo-900 to-indigo-950 text-white p-5 rounded-2xl shadow-xl hover:shadow-2xl border-2 border-green-400 transition block md:col-span-2">
-                <h3 class="font-bold text-lg"><i class="fa-solid fa-shield-halved text-green-400 ml-2"></i> 7. AI سیکیورٹی سکینر</h3>
-                <p class="text-xs text-indigo-200 mt-1">محفوظ ترین اور تصدیق شدہ ووٹر سیکیورٹی سسٹم</p>
-            </a>
-
-        </div>
+  <!-- AI Text Summarizer -->
+  <a href="ai-text-summarizer.html" class="card">
+    <div>
+      <div class="card-icon">⚡</div>
+      <div class="card-title">AI Text Summarizer</div>
+      <div class="card-desc">VIP++ God mode text summarization with sentiment analysis and keywords.</div>
     </div>
+    <div class="btn-launch">Launch Tool 🚀</div>
+  </a>
+
+  <!-- Base64 Encoder / Decoder -->
+  <a href="base64-encoder-decoder.html" class="card">
+    <div>
+      <div class="card-icon">🔒</div>
+      <div class="card-title">Base64 Studio</div>
+      <div class="card-desc">Client-side Base64 text and image encoding/decoding suite.</div>
+    </div>
+    <div class="btn-launch">Launch Tool 🚀</div>
+  </a>
+
+  <!-- AI Text to Speech -->
+  <a href="ai-text-to-speech.html" class="card">
+    <div>
+      <div class="card-icon">🔊</div>
+      <div class="card-title">AI Text-to-Speech</div>
+      <div class="card-desc">Multi-lingual private text to voice speech synthesizer.</div>
+    </div>
+    <div class="btn-launch">Launch Tool 🚀</div>
+  </a>
+
+  <!-- Audio Enhancer Pro -->
+  <a href="audio-enhancer-pro.html" class="card">
+    <div>
+      <div class="card-icon">🎙️</div>
+      <div class="card-title">Audio Enhancer Pro</div>
+      <div class="card-desc">Studio quality audio filter, noise reducer, and EQ tool.</div>
+    </div>
+    <div class="btn-launch">Launch Tool 🚀</div>
+  </a>
+
+  <!-- AI Password Generator -->
+  <a href="ai-password-generator.html" class="card">
+    <div>
+      <div class="card-icon">🔑</div>
+      <div class="card-title">AI Password Generator</div>
+      <div class="card-desc">High-entropy cryptographic password generator.</div>
+    </div>
+    <div class="btn-launch">Launch Tool 🚀</div>
+  </a>
+
+  <!-- AI Image Enhancer -->
+  <a href="ai-image-enhancer.html" class="card">
+    <div>
+      <div class="card-icon">🖼️</div>
+      <div class="card-title">AI Image Enhancer</div>
+      <div class="card-desc">Image upscale, sharpening, and color enhancement studio.</div>
+    </div>
+    <div class="btn-launch">Launch Tool 🚀</div>
+  </a>
+
+  <!-- AI Image Compressor -->
+  <a href="ai-image-compressor.html" class="card">
+    <div>
+      <div class="card-icon">📦</div>
+      <div class="card-title">AI Image Compressor</div>
+      <div class="card-desc">Client-side lossless image compression tool.</div>
+    </div>
+    <div class="btn-launch">Launch Tool 🚀</div>
+  </a>
+
+  <!-- AI Background Remover -->
+  <a href="ai-bg-remover.html" class="card">
+    <div>
+      <div class="card-icon">✂️</div>
+      <div class="card-title">AI Background Remover</div>
+      <div class="card-desc">Remove background from photos directly in browser.</div>
+    </div>
+    <div class="btn-launch">Launch Tool 🚀</div>
+  </a>
+
+  <!-- AI Paraphraser -->
+  <a href="ai-paraphraser.html" class="card">
+    <div>
+      <div class="card-icon">✍️</div>
+      <div class="card-title">AI Paraphraser</div>
+      <div class="card-desc">Smart sentence rewriter and paraphrasing engine.</div>
+    </div>
+    <div class="btn-launch">Launch Tool 🚀</div>
+  </a>
+
+  <!-- AI QR Generator -->
+  <a href="ai-qr-generator.html" class="card">
+    <div>
+      <div class="card-icon">📱</div>
+      <div class="card-title">AI QR Generator</div>
+      <div class="card-desc">Custom high-resolution QR code generator.</div>
+    </div>
+    <div class="btn-launch">Launch Tool 🚀</div>
+  </a>
+
+  <!-- Age Calculator -->
+  <a href="age-calculator.html" class="card">
+    <div>
+      <div class="card-icon">🎂</div>
+      <div class="card-title">Age Calculator</div>
+      <div class="card-desc">Precise date of birth and exact age computation.</div>
+    </div>
+    <div class="btn-launch">Launch Tool 🚀</div>
+  </a>
+
+  <!-- AI Age Calculator -->
+  <a href="ai-age-calculator.html" class="card">
+    <div>
+      <div class="card-icon">🧠</div>
+      <div class="card-title">AI Age Calculator</div>
+      <div class="card-desc">Advanced life analytics and age calculation suite.</div>
+    </div>
+    <div class="btn-launch">Launch Tool 🚀</div>
+  </a>
+
+  <!-- AI Resume Builder -->
+  <a href="ai-resume-builder.html" class="card">
+    <div>
+      <div class="card-icon">📄</div>
+      <div class="card-title">AI Resume Builder</div>
+      <div class="card-desc">Professional international CV and resume builder.</div>
+    </div>
+    <div class="btn-launch">Launch Tool 🚀</div>
+  </a>
+
+</div>
+
+<script>
+function filterTools() {
+  let input = document.getElementById('searchInput').value.toLowerCase();
+  let cards = document.getElementsByClassName('card');
+  for (let card of cards) {
+    let text = card.innerText.toLowerCase();
+    card.style.display = text.includes(input) ? "flex" : "none";
+  }
+}
+</script>
 </body>
 </html>
