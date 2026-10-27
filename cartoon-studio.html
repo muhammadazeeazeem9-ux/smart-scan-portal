@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sovereign VIP++ AI Cartoon Animation Studio 2030</title>
+<title>Sovereign VIP++ Dynamic Animated Cartoon Studio 2030</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
@@ -24,9 +24,9 @@
       </div>
       <div>
         <h1 class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400">
-          SOVEREIGN CARTOON ANIMATION ENGINE <span class="text-[10px] bg-pink-600 px-2 py-0.5 rounded-full text-white font-mono">VIP++ 2030</span>
+          DYNAMIC CARTOON ANIMATION ENGINE <span class="text-[10px] bg-pink-600 px-2 py-0.5 rounded-full text-white font-mono">VIP++ 2030</span>
         </h1>
-        <p class="text-[11px] text-slate-400">AI Script Director, Voice-Sync & Professional Animation Generator</p>
+        <p class="text-[11px] text-slate-400">Live Character Overlay & Animated GIF / Scene Compositor</p>
       </div>
     </div>
     <div class="flex items-center gap-3 mt-3 md:mt-0">
@@ -41,55 +41,57 @@
     <!-- Left Controls Panel -->
     <section class="glass-panel p-5 rounded-2xl lg:col-span-1 space-y-4">
       <h2 class="text-xs font-bold uppercase tracking-wider text-pink-400 border-b border-slate-800 pb-2 flex items-center justify-between">
-        <span><i class="fa-solid fa-clapperboard"></i> Director Control Hub</span>
-        <span class="text-[10px] text-cyan-400 font-mono">Pro Studio v3.0</span>
+        <span><i class="fa-solid fa-clapperboard"></i> Character & Scene Director</span>
+        <span class="text-[10px] text-cyan-400 font-mono">v4.0 Live Sprite</span>
       </h2>
 
-      <!-- Animation Style Selector -->
+      <!-- Art Style Selector -->
       <div>
-        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Cartoon & Animation Art Style</label>
+        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Cartoon Art Style</label>
         <select id="artStyleSelect" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-pink-400 font-bold focus:border-pink-500 focus:outline-none">
-          <option value="disney">✨ 3D Disney/Pixar Animated Movie Style</option>
-          <option value="anime">⛩️ Japanese Anime Series (Studio Ghibli Art)</option>
+          <option value="disney">✨ 3D Animated Movie Style</option>
+          <option value="anime">⛩️ Japanese Anime Series Style</option>
           <option value="cartoon2d">🎨 Classic 2D Cartoon Series Style</option>
-          <option value="cyberpunk">🚀 3D Sci-Fi Animated Cyberpunk</option>
         </select>
       </div>
 
       <!-- Script Input -->
       <div>
-        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Cartoon Story Script & Dialogues (Any Language)</label>
-        <textarea id="scriptInput" rows="4" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-pink-400 transition" placeholder="Scene 1: ایک خوبصورت اینیمیٹڈ جنگل میں شیرا نامی شیر اپنے دوستوں سے ملتا ہے..."></textarea>
+        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Story Script & Dialogues</label>
+        <textarea id="scriptInput" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-pink-400 transition" placeholder="Scene 1: اینیمیٹڈ خرگوش دوڑتا ہوا جنگل میں آتا ہے..."></textarea>
       </div>
-
-      <!-- AI Prompt Generation Action -->
-      <button id="generatePromptBtn" class="w-full py-2.5 bg-purple-950/80 hover:bg-purple-900 border border-purple-500/40 rounded-xl text-xs font-bold text-purple-200 transition flex items-center justify-center gap-2">
-        <i class="fa-solid fa-robot"></i> GENERATE AI PROMPTS & STORYBOARD
-      </button>
 
       <!-- Voiceover Upload -->
       <div class="border-2 border-dashed border-slate-700 hover:border-pink-400/50 rounded-xl p-3 text-center cursor-pointer transition bg-slate-950/40" onclick="document.getElementById('audioInput').click()">
         <i class="fa-solid fa-microphone-lines text-xl text-pink-400 mb-1"></i>
-        <p id="audioStatus" class="text-xs font-bold text-slate-200">Upload Voiceover Audio (.MP3 / .WAV)</p>
+        <p id="audioStatus" class="text-xs font-bold text-slate-200">1. Upload Voiceover Audio (.MP3)</p>
         <input type="file" id="audioInput" class="hidden" accept="audio/*">
       </div>
       <audio id="bgAudio" class="hidden"></audio>
 
-      <!-- Character Visual Assets Upload -->
-      <div class="border-2 border-dashed border-pink-500/40 hover:border-pink-400 rounded-xl p-3 text-center cursor-pointer transition bg-pink-950/20" onclick="document.getElementById('imgInput').click()">
-        <i class="fa-solid fa-child-reaching text-xl text-pink-400 mb-1"></i>
-        <p id="imgStatus" class="text-xs font-bold text-pink-200">Upload Cartoon Characters / AI Art Frames</p>
-        <input type="file" id="imgInput" class="hidden" accept="image/*" multiple>
+      <!-- Background Image Upload -->
+      <div class="border-2 border-dashed border-cyan-500/40 hover:border-cyan-400 rounded-xl p-3 text-center cursor-pointer transition bg-cyan-950/20" onclick="document.getElementById('bgImgInput').click()">
+        <i class="fa-solid fa-image text-xl text-cyan-400 mb-1"></i>
+        <p id="bgImgStatus" class="text-xs font-bold text-cyan-200">2. Upload Background Scenes</p>
+        <input type="file" id="bgImgInput" class="hidden" accept="image/*" multiple>
+      </div>
+
+      <!-- Animated Character / GIF Upload (NEW FEATURE) -->
+      <div class="border-2 border-dashed border-pink-500/60 hover:border-pink-400 rounded-xl p-3 text-center cursor-pointer transition bg-pink-950/30" onclick="document.getElementById('charInput').click()">
+        <i class="fa-solid fa-person-running text-xl text-pink-400 mb-1"></i>
+        <p id="charStatus" class="text-xs font-bold text-pink-300">3. Upload Animated Character (.GIF / Transparent PNG)</p>
+        <p class="text-[9px] text-slate-400 mt-0.5">Character moves & acts automatically on canvas!</p>
+        <input type="file" id="charInput" class="hidden" accept="image/*" multiple>
       </div>
 
       <!-- Duration -->
       <div>
-        <label class="block text-[10px] text-slate-400 mb-1">Animation Video Duration</label>
+        <label class="block text-[10px] text-slate-400 mb-1">Video Duration</label>
         <select id="durationSelect" class="w-full bg-slate-950 rounded-xl px-2 py-2 text-xs border border-slate-700 text-pink-400 font-bold">
-          <option value="30">30 Seconds Short</option>
-          <option value="60">1 Minute Episode</option>
+          <option value="30">30 Seconds</option>
+          <option value="60">1 Minute</option>
           <option value="300" selected>5 Minutes Cartoon Episode</option>
-          <option value="600">10 Minutes Full Cartoon Movie</option>
+          <option value="600">10 Minutes Cartoon Movie</option>
         </select>
       </div>
 
@@ -99,15 +101,14 @@
       </button>
     </section>
 
-    <!-- Right Preview & AI Prompt Hub Panel -->
+    <!-- Right Preview & Canvas Hub -->
     <section class="glass-panel p-5 rounded-2xl lg:col-span-2 flex flex-col justify-between space-y-4">
       
-      <!-- Top Canvas Controls -->
       <div class="flex justify-between items-center border-b border-slate-800 pb-2">
         <h2 class="text-xs font-bold text-cyan-400 flex items-center gap-2">
-          <i class="fa-solid fa-display"></i> Cartoon Animation Engine Preview
+          <i class="fa-solid fa-display"></i> Dynamic Character Compositor Preview
         </h2>
-        <span id="renderStatus" class="text-xs text-emerald-400 font-mono">Engine Status: Ready</span>
+        <span id="renderStatus" class="text-xs text-emerald-400 font-mono">Status: Ready</span>
       </div>
 
       <!-- Canvas Box -->
@@ -116,7 +117,7 @@
 
         <div id="statusOverlay" class="absolute inset-0 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center text-pink-400 hidden z-20">
           <i class="fa-solid fa-gear fa-spin text-4xl mb-3 text-cyan-400"></i>
-          <p id="overlayText" class="text-xs font-bold">Rendering AI Cartoon Animation & Audio Sync Stream...</p>
+          <p id="overlayText" class="text-xs font-bold">Rendering Dynamic Cartoon & Character Sync...</p>
           <p id="frameProgressText" class="text-[11px] text-slate-400 mt-1 font-mono">0 / 0 Frames (0%)</p>
         </div>
       </div>
@@ -125,34 +126,22 @@
       <div class="space-y-2 pt-1 border-t border-slate-800">
         <div class="flex justify-between text-[11px] text-slate-400 font-mono">
           <span id="timelineProgress">Timeline: 00:00 / 05:00</span>
-          <span id="fpsCount">FPS: 30 | Active Style: Pixar/3D</span>
+          <span id="fpsCount">FPS: 30 | Dynamic Sprite Layering</span>
         </div>
         <div class="w-full bg-slate-950 h-2.5 rounded-full overflow-hidden border border-slate-800">
           <div id="progressBar" class="bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 h-full w-0 transition-all duration-150"></div>
         </div>
       </div>
 
-      <!-- AI Prompt & Integration Generator Box -->
-      <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-4 space-y-3">
-        <div class="flex justify-between items-center">
-          <h3 class="text-xs font-bold text-purple-400 flex items-center gap-2">
-            <i class="fa-solid fa-microchip"></i> AI Animation Prompts & External Generator Links
-          </h3>
-          <span class="text-[9px] bg-purple-900/60 text-purple-300 px-2 py-0.5 rounded border border-purple-500/30">Auto AI Director</span>
+      <!-- Quick AI Prompts Generator Box -->
+      <div class="bg-slate-950/80 border border-slate-800 rounded-xl p-3">
+        <div class="flex justify-between items-center mb-1">
+          <span class="text-xs font-bold text-purple-400"><i class="fa-solid fa-microchip"></i> External AI Animation Engines</span>
         </div>
-        <div id="promptOutput" class="bg-slate-900 border border-slate-800 rounded-lg p-3 text-[11px] text-slate-300 font-mono overflow-y-auto max-h-24">
-          Click "GENERATE AI PROMPTS & STORYBOARD" to create cinematic prompts for AI video generators...
-        </div>
-        <div class="flex flex-wrap gap-2 pt-1">
-          <a href="https://runwayml.com" target="_blank" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg text-[10px] text-cyan-400 font-semibold flex items-center gap-1 border border-slate-700">
-            <i class="fa-solid fa-up-right-from-square"></i> Runway ML
-          </a>
-          <a href="https://pika.art" target="_blank" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg text-[10px] text-pink-400 font-semibold flex items-center gap-1 border border-slate-700">
-            <i class="fa-solid fa-up-right-from-square"></i> Pika Art
-          </a>
-          <a href="https://hailuoai.video" target="_blank" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg text-[10px] text-purple-400 font-semibold flex items-center gap-1 border border-slate-700">
-            <i class="fa-solid fa-up-right-from-square"></i> Hailuo AI
-          </a>
+        <div class="flex gap-2">
+          <a href="https://runwayml.com" target="_blank" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded text-[10px] text-cyan-400 border border-slate-700">Runway ML</a>
+          <a href="https://pika.art" target="_blank" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded text-[10px] text-pink-400 border border-slate-700">Pika Art</a>
+          <a href="https://hailuoai.video" target="_blank" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 rounded text-[10px] text-purple-400 border border-slate-700">Hailuo AI</a>
         </div>
       </div>
 
@@ -161,20 +150,21 @@
   </main>
 
 <script>
-let loadedImages = [];
+let bgImages = [];
+let charImages = [];
 let audioBlob = null;
 
 const scriptInput = document.getElementById('scriptInput');
 const audioInput = document.getElementById('audioInput');
 const audioStatus = document.getElementById('audioStatus');
 const bgAudio = document.getElementById('bgAudio');
-const imgInput = document.getElementById('imgInput');
-const imgStatus = document.getElementById('imgStatus');
+const bgImgInput = document.getElementById('bgImgInput');
+const bgImgStatus = document.getElementById('bgImgStatus');
+const charInput = document.getElementById('charInput');
+const charStatus = document.getElementById('charStatus');
 const renderBtn = document.getElementById('renderBtn');
 const durationSelect = document.getElementById('durationSelect');
 const artStyleSelect = document.getElementById('artStyleSelect');
-const generatePromptBtn = document.getElementById('generatePromptBtn');
-const promptOutput = document.getElementById('promptOutput');
 const cinemaCanvas = document.getElementById('cinemaCanvas');
 const ctx = cinemaCanvas.getContext('2d');
 const statusOverlay = document.getElementById('statusOverlay');
@@ -182,14 +172,13 @@ const frameProgressText = document.getElementById('frameProgressText');
 const progressBar = document.getElementById('progressBar');
 const timelineProgress = document.getElementById('timelineProgress');
 const renderStatus = document.getElementById('renderStatus');
-const fpsCount = document.getElementById('fpsCount');
 
 cinemaCanvas.width = 1920;
 cinemaCanvas.height = 1080;
 
-scriptInput.value = `Scene 1: اک پیارے سے اینیمیٹڈ خرگوش کا جادوئی جنگل میں صبح کا سفر۔
-Scene 2: شریر لومڑی کی آمد اور خرگوش کی چالاکی۔
-Scene 3: تمام جنگلی جانوروں کی فتح کی جشن منائی۔`;
+scriptInput.value = `Scene 1: اینیمیٹڈ خرگوش کا جادوئی جنگل میں صبح کا سفر۔
+Scene 2: شریر لومڑی کی آمد اور خرگوش کا ایکشن۔
+Scene 3: تمام کارٹون کرداروں کا فتح کا جشن۔`;
 
 function formatTime(s) {
   let m = Math.floor(s/60);
@@ -201,42 +190,39 @@ function drawCartoonIdle() {
   ctx.fillStyle = '#0f172a';
   ctx.fillRect(0, 0, 1920, 1080);
   ctx.fillStyle = '#ec4899';
-  ctx.font = 'bold 48px sans-serif';
+  ctx.font = 'bold 45px sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('SOVEREIGN CARTOON ANIMATION ENGINE', 960, 490);
+  ctx.fillText('DYNAMIC CARTOON ANIMATION ENGINE', 960, 490);
   ctx.fillStyle = '#38bdf8';
   ctx.font = '24px sans-serif';
-  ctx.fillText('Ready: Script Director, Voiceover Sync & Dynamic Render Active', 960, 550);
+  ctx.fillText('Upload Backgrounds & Character GIFs for Live Character Action', 960, 550);
 }
 drawCartoonIdle();
 
-artStyleSelect.onchange = () => {
-  fpsCount.innerText = `FPS: 30 | Style: ${artStyleSelect.options[artStyleSelect.selectedIndex].text.split(' ')[1]}`;
-};
-
-generatePromptBtn.onclick = () => {
-  let text = scriptInput.value.trim();
-  let style = artStyleSelect.value;
-  if(!text) { alert('Please enter a story script first!'); return; }
-  
-  let lines = text.split('\n').filter(l => l.trim().length > 0);
-  let prompts = lines.map((line, idx) => {
-    return `[Scene ${idx+1} Prompt]: High quality 8k render, ${style} style animation, highly detailed animated characters, vibrant lighting, ultra cinematic camera movement -- ${line}`;
-  }).join('\n\n');
-  
-  promptOutput.innerText = prompts;
-};
-
-imgInput.onchange = e => {
-  loadedImages = [];
+bgImgInput.onchange = e => {
+  bgImages = [];
   let files = Array.from(e.target.files);
   if(files.length > 0) {
-    imgStatus.innerText = `${files.length} Cartoon Visual Assets Loaded!`;
-    imgStatus.classList.add('text-emerald-400');
+    bgImgStatus.innerText = `${files.length} Background Scenes Loaded!`;
+    bgImgStatus.classList.add('text-emerald-400');
     files.forEach(file => {
       let img = new Image();
       img.src = URL.createObjectURL(file);
-      loadedImages.push(img);
+      bgImages.push(img);
+    });
+  }
+};
+
+charInput.onchange = e => {
+  charImages = [];
+  let files = Array.from(e.target.files);
+  if(files.length > 0) {
+    charStatus.innerText = `${files.length} Character Sprites Loaded!`;
+    charStatus.classList.add('text-emerald-400');
+    files.forEach(file => {
+      let img = new Image();
+      img.src = URL.createObjectURL(file);
+      charImages.push(img);
     });
   }
 };
@@ -246,21 +232,21 @@ audioInput.onchange = e => {
   if(file) {
     audioBlob = URL.createObjectURL(file);
     bgAudio.src = audioBlob;
-    audioStatus.innerText = `Voiceover Sync Loaded: ${file.name}`;
+    audioStatus.innerText = `Voiceover Loaded: ${file.name}`;
     audioStatus.classList.add('text-emerald-400');
   }
 };
 
 renderBtn.onclick = async () => {
   let scriptText = scriptInput.value.trim();
-  if(!scriptText) { alert('Please enter your cartoon script!'); return; }
+  if(!scriptText) { alert('Please enter your script!'); return; }
 
   let totalDurationSec = parseInt(durationSelect.value);
   let sentences = scriptText.split(/\n/).filter(s => s.trim().length > 0);
   if(sentences.length === 0) sentences = [scriptText];
 
   renderBtn.disabled = true;
-  renderStatus.innerText = 'Engine Status: Rendering Animated Cartoon Movie...';
+  renderStatus.innerText = 'Status: Compositing Animated Cartoon...';
   statusOverlay.classList.remove('hidden');
 
   if(bgAudio.src) {
@@ -295,14 +281,14 @@ renderBtn.onclick = async () => {
     let finalBlob = new Blob(recordedChunks, { type: 'video/webm' });
     let downloadLink = document.createElement('a');
     downloadLink.href = URL.createObjectURL(finalBlob);
-    downloadLink.download = `Sovereign-Cartoon-Movie-${Date.now()}.webm`;
+    downloadLink.download = `Dynamic-Cartoon-Movie-${Date.now()}.webm`;
     downloadLink.click();
 
     statusOverlay.classList.add('hidden');
     renderBtn.disabled = false;
-    renderStatus.innerText = 'Engine Status: Render Complete ✅';
+    renderStatus.innerText = 'Status: Render Complete ✅';
     drawCartoonIdle();
-    alert('🎉 Success! Your Animated Cartoon Movie has been rendered & downloaded!');
+    alert('🎉 Success! Your Dynamic Character Animated Movie has been rendered!');
   };
 
   mediaRecorder.start();
@@ -324,25 +310,47 @@ renderBtn.onclick = async () => {
     if(sentenceIdx >= sentences.length) sentenceIdx = sentences.length - 1;
     let currentSentence = sentences[sentenceIdx];
 
-    let pulse = Math.sin(currentFrame * 0.08) * 20;
-
-    if(loadedImages.length > 0) {
-      let imgIdx = sentenceIdx % loadedImages.length;
-      ctx.drawImage(loadedImages[imgIdx], 0, 0, 1920, 1080);
-      ctx.fillStyle = 'rgba(15, 23, 42, 0.4)';
-      ctx.fillRect(0, 0, 1920, 1080);
+    // Background Layer Rendering
+    if(bgImages.length > 0) {
+      let bgIdx = sentenceIdx % bgImages.length;
+      ctx.drawImage(bgImages[bgIdx], 0, 0, 1920, 1080);
     } else {
       let grad = ctx.createLinearGradient(0, 0, 1920, 1080);
-      grad.addColorStop(0, '#312e81');
-      grad.addColorStop(0.5, '#831843');
+      grad.addColorStop(0, '#1e1b4b');
+      grad.addColorStop(0.5, '#4c1d95');
       grad.addColorStop(1, '#0f172a');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, 1920, 1080);
+    }
 
-      // Character Action Glow Effect
-      ctx.fillStyle = 'rgba(236, 72, 153, 0.35)';
+    // Live Animated Character Movement Simulation
+    let posX = 400 + Math.sin(currentFrame * 0.04) * 350;
+    let posY = 480 + Math.abs(Math.cos(currentFrame * 0.1)) * -60;
+
+    if(charImages.length > 0) {
+      let charIdx = sentenceIdx % charImages.length;
+      let charImg = charImages[charIdx];
+      let charWidth = 450;
+      let charHeight = (charImg.height / charImg.width) * charWidth || 450;
+      ctx.drawImage(charImg, posX, posY, charWidth, charHeight);
+    } else {
+      // Fallback Procedural Cartoon Character Sprite
+      ctx.fillStyle = '#ec4899';
       ctx.beginPath();
-      ctx.arc(960 + pulse, 450, 140, 0, Math.PI * 2);
+      ctx.arc(posX + 200, posY + 150, 80, 0, Math.PI * 2);
+      ctx.fill();
+      
+      // Eyes
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(posX + 180, posY + 130, 18, 0, Math.PI * 2);
+      ctx.arc(posX + 220, posY + 130, 18, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#000000';
+      ctx.beginPath();
+      ctx.arc(posX + 180, posY + 130, 8, 0, Math.PI * 2);
+      ctx.arc(posX + 220, posY + 130, 8, 0, Math.PI * 2);
       ctx.fill();
     }
 
