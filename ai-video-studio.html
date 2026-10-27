@@ -1,37 +1,31 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sovereign Empire 2030 - Global AI Cinema Studio VIP++</title>
+<title>Sovereign Global AI Cinema Studio VIP++ 2030</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-  :root {
-    --bg-main: #020617;
-    --panel-bg: rgba(15, 23, 42, 0.85);
-    --border-color: rgba(56, 189, 248, 0.3);
-  }
-  body { background: radial-gradient(circle at center, #020617 0%, #0f172a 100%); color: #f8fafc; font-family: 'Segoe UI', system-ui, sans-serif; }
-  .glass-panel { background: var(--panel-bg); backdrop-filter: blur(20px); border: 1px solid var(--border-color); box-shadow: 0 25px 60px rgba(0,0,0,0.9); }
+  body { background: #020617; color: #f8fafc; font-family: 'Segoe UI', system-ui, sans-serif; }
+  .glass-panel { background: rgba(15, 23, 42, 0.92); backdrop-filter: blur(20px); border: 1px solid rgba(56, 189, 248, 0.35); box-shadow: 0 25px 50px rgba(0,0,0,0.85); }
   .btn-god { background: linear-gradient(135deg, #0284c7 0%, #7c3aed 50%, #db2777 100%); transition: all 0.3s ease; }
-  .btn-god:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(219, 39, 119, 0.8); }
+  .btn-god:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(219, 39, 119, 0.85); }
 </style>
 </head>
 <body class="min-h-screen p-4 md:p-6">
 
-  <!-- Universal Header -->
-  <header class="max-w-7xl mx-auto mb-6 flex flex-col md:flex-row justify-between items-center p-5 glass-panel rounded-2xl">
-    <div class="flex items-center gap-3 mb-4 md:mb-0">
-      <div class="p-3 bg-cyan-500/20 border border-cyan-400/40 rounded-xl text-cyan-400">
-        <i class="fa-solid fa-clapperboard text-2xl"></i>
+  <!-- Header -->
+  <header class="max-w-7xl mx-auto mb-5 flex flex-col md:flex-row justify-between items-center p-4 glass-panel rounded-2xl">
+    <div class="flex items-center gap-3">
+      <div class="p-2.5 bg-cyan-500/20 border border-cyan-400/40 rounded-xl text-cyan-400">
+        <i class="fa-solid fa-clapperboard text-xl"></i>
       </div>
       <div>
-        <h1 class="text-xl md:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-500">
-          GLOBAL AI CINEMA STUDIO <span class="text-xs bg-pink-600 px-2 py-0.5 rounded-full text-white font-mono">1-HOUR VIP++</span>
+        <h1 class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-500">
+          SOVEREIGN UNIVERSAL AI CINEMA STUDIO <span class="text-[10px] bg-pink-600 px-2 py-0.5 rounded-full text-white">VIP++ ALL-IN-ONE</span>
         </h1>
-        <p class="text-xs text-slate-400 mt-0.5">Multi-Lingual 60-Min Movie & Documentary Engine (150+ Nations)</p>
+        <p class="text-[11px] text-slate-400">Create Documentaries, Animations, Politics, News & Dramas Automatically</p>
       </div>
     </div>
     <a href="index.html" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-xs font-semibold transition flex items-center gap-2">
@@ -39,109 +33,90 @@
     </a>
   </header>
 
-  <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-5">
 
     <!-- Left Controls Panel -->
     <section class="glass-panel p-5 rounded-2xl lg:col-span-1 space-y-4">
-      <h2 class="text-base font-bold border-b border-slate-800 pb-3 flex items-center justify-between text-cyan-400">
-        <span><i class="fa-solid fa-sliders ml-1"></i> Production Controls</span>
-        <span class="text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full">Pro Studio</span>
+      <h2 class="text-xs font-bold uppercase tracking-wider text-cyan-400 border-b border-slate-800 pb-2 flex items-center gap-2">
+        <i class="fa-solid fa-sliders"></i> Universal Production Controls
       </h2>
 
-      <!-- Style / Format Selector -->
+      <!-- Video Category / Genre Selector (New Feature) -->
       <div>
-        <label class="block text-xs font-semibold text-slate-300 mb-1">Cinema Format / Style</label>
-        <select id="styleSelect" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-cyan-400 font-bold">
-          <option value="documentary">🎞️ Documentary (سینماٹک ڈاکومنٹری)</option>
-          <option value="news">📰 Global News / Broadcast (خبریں)</option>
-          <option value="shorts">📱 YouTube Shorts / Reels (عمودی 9:16)</option>
-          <option value="film">🎬 Hollywood Feature Film (ہالی ووڈ انداز)</option>
-          <option value="podcast">🎙️ Audio-Visual Podcast (پوڈکاسٹ)</option>
+        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Select Video Category / Genre</label>
+        <select id="genreSelect" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-cyan-400 font-bold">
+          <option value="documentary">🎞️ Cinematic Documentary (डॉक्यूमेंट्री)</option>
+          <option value="animation">🎨 Animation & Cartoon Drama (एनीमेशन / कार्टून)</option>
+          <option value="politics">📢 Politics & News Broadcast (सियासत और न्यूज)</option>
+          <option value="drama">🎬 Cinematic Movie & Story (सिनेमा ड्रामा)</option>
         </select>
       </div>
 
-      <!-- Universal Script Input -->
+      <!-- Script Input -->
       <div>
-        <label class="block text-xs font-semibold text-slate-300 mb-1">Universal Script / Narration (Any Language)</label>
-        <textarea id="scriptInput" rows="5" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-cyan-400 transition" placeholder="Paste your 1-hour story, script, or documentary text in any language here..."></textarea>
+        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Script / Subtitles (Any Language)</label>
+        <textarea id="scriptInput" rows="4" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-cyan-400 transition" placeholder="Enter your script for politics, animation, documentary or drama here..."></textarea>
       </div>
 
-      <!-- Voiceover Audio Upload -->
-      <div class="border-2 border-dashed border-slate-700 hover:border-cyan-400/50 rounded-xl p-3.5 text-center cursor-pointer transition bg-slate-950/40" onclick="document.getElementById('audioInput').click()">
-        <i class="fa-solid fa-microphone-lines text-2xl text-pink-400 mb-1"></i>
-        <p id="audioStatus" class="text-xs font-bold text-slate-200">Upload Full Voiceover Audio (.MP3 / .WAV / .AAC)</p>
-        <p class="text-[10px] text-slate-500 mt-0.5">Auto-synced with canvas video stream</p>
+      <!-- Voiceover Upload -->
+      <div class="border-2 border-dashed border-slate-700 hover:border-cyan-400/50 rounded-xl p-3 text-center cursor-pointer transition bg-slate-950/40" onclick="document.getElementById('audioInput').click()">
+        <i class="fa-solid fa-microphone-lines text-xl text-pink-400 mb-1"></i>
+        <p id="audioStatus" class="text-xs font-bold text-slate-200">Upload Voiceover Audio (.MP3 / .WAV)</p>
         <input type="file" id="audioInput" class="hidden" accept="audio/*">
       </div>
       <audio id="bgAudio" class="hidden"></audio>
 
-      <!-- Duration Selection (Up to 1 Hour) -->
-      <div class="grid grid-cols-2 gap-2">
-        <div>
-          <label class="block text-[11px] font-semibold text-slate-400 mb-1">Duration</label>
-          <select id="durationSelect" class="w-full bg-slate-950 rounded-xl px-2.5 py-2 text-xs border border-slate-700 text-cyan-400 font-bold">
-            <option value="60">1 Minute</option>
-            <option value="300">5 Minutes</option>
-            <option value="600">10 Minutes</option>
-            <option value="1800">30 Minutes</option>
-            <option value="3600" selected>1 Hour (60 Mins)</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-[11px] font-semibold text-slate-400 mb-1">Quality</label>
-          <select id="qualitySelect" class="w-full bg-slate-950 rounded-xl px-2.5 py-2 text-xs border border-slate-700 text-pink-400 font-bold">
-            <option value="1080" selected>Full HD 1080p</option>
-            <option value="720">HD 720p</option>
-            <option value="2160">4K Ultra HD</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Image / Asset Upload -->
-      <div>
-        <button onclick="document.getElementById('imgInput').click()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 rounded-xl text-xs font-semibold border border-slate-700 transition flex items-center justify-center gap-2">
-          <i class="fa-solid fa-images text-cyan-400"></i> Import B-Roll Images / Slides
-        </button>
+      <!-- Multi-Slide B-Roll Image Upload -->
+      <div class="border-2 border-dashed border-cyan-500/40 hover:border-cyan-400 rounded-xl p-3 text-center cursor-pointer transition bg-cyan-950/20" onclick="document.getElementById('imgInput').click()">
+        <i class="fa-solid fa-images text-xl text-cyan-400 mb-1"></i>
+        <p id="imgStatus" class="text-xs font-bold text-cyan-200">Upload Custom Visuals / Slides (Multiple)</p>
         <input type="file" id="imgInput" class="hidden" accept="image/*" multiple>
-        <div id="imgStatus" class="text-[10px] text-slate-400 bg-slate-950/50 p-2 rounded-lg text-center mt-1">
-          No images uploaded. (AI Procedural Motion Background will be used)
-        </div>
       </div>
 
-      <!-- Master Render Button -->
-      <button id="renderBtn" class="w-full py-3.5 rounded-xl font-black btn-god text-white shadow-xl flex items-center justify-center gap-2 text-sm mt-2">
-        <i class="fa-solid fa-wand-magic-sparkles"></i> RENDER 1-HOUR FULL MOVIE (.WEBM)
+      <!-- Duration -->
+      <div>
+        <label class="block text-[10px] text-slate-400 mb-1">Video Duration (Up to 1 Hour)</label>
+        <select id="durationSelect" class="w-full bg-slate-950 rounded-xl px-2 py-2 text-xs border border-slate-700 text-cyan-400 font-bold">
+          <option value="60">1 Minute</option>
+          <option value="300">5 Minutes</option>
+          <option value="600" selected>10 Minutes</option>
+          <option value="1800">30 Minutes</option>
+          <option value="3600">1 Hour (60 Mins)</option>
+        </select>
+      </div>
+
+      <!-- Render Button -->
+      <button id="renderBtn" class="w-full py-3.5 rounded-xl font-black btn-god text-white shadow-xl flex items-center justify-center gap-2 text-xs">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> RENDER UNIVERSAL MOVIE (.WEBM)
       </button>
     </section>
 
-    <!-- Right Canvas & Render Output -->
+    <!-- Right Canvas Preview -->
     <section class="glass-panel p-5 rounded-2xl lg:col-span-2 flex flex-col justify-between space-y-4">
-      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-        <h2 class="text-base font-bold text-pink-400 flex items-center gap-2">
-          <i class="fa-solid fa-desktop"></i> Live Cinema Studio Canvas
+      <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+        <h2 class="text-xs font-bold text-pink-400 flex items-center gap-2">
+          <i class="fa-solid fa-display"></i> Universal Studio Canvas Preview
         </h2>
-        <span id="renderStatus" class="text-xs text-emerald-400 font-mono">Status: Studio Ready</span>
+        <span id="renderStatus" class="text-xs text-emerald-400 font-mono">Status: Ready</span>
       </div>
 
-      <!-- Screen Preview Box -->
-      <div class="relative rounded-2xl overflow-hidden border border-slate-800 bg-black aspect-video flex items-center justify-center shadow-2xl">
+      <div class="relative rounded-xl overflow-hidden border border-slate-800 bg-black aspect-video flex items-center justify-center shadow-inner">
         <canvas id="cinemaCanvas" class="w-full h-full block"></canvas>
 
         <div id="statusOverlay" class="absolute inset-0 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center text-cyan-400 hidden z-20">
-          <i class="fa-solid fa-compact-disc fa-spin text-5xl mb-3 text-pink-500"></i>
-          <p id="overlayText" class="text-sm font-bold">Rendering 1-Hour Cinema Video & Audio Stream...</p>
-          <p id="frameProgressText" class="text-xs text-slate-400 mt-1 font-mono">0 / 0 Frames (0%)</p>
+          <i class="fa-solid fa-circle-notch fa-spin text-4xl mb-3 text-pink-500"></i>
+          <p id="overlayText" class="text-xs font-bold">Rendering Universal Video & Audio Stream...</p>
+          <p id="frameProgressText" class="text-[11px] text-slate-400 mt-1 font-mono">0 / 0 Frames (0%)</p>
         </div>
       </div>
 
-      <!-- Timeline Progress Bar -->
-      <div class="space-y-2 pt-2 border-t border-slate-800">
-        <div class="flex justify-between text-xs text-slate-400 font-mono">
-          <span id="timelineProgress">Timeline: 00:00:00 / 01:00:00</span>
-          <span id="fpsCount">FPS: 30 | Engine: WebM Ultra</span>
+      <div class="space-y-2 pt-1 border-t border-slate-800">
+        <div class="flex justify-between text-[11px] text-slate-400 font-mono">
+          <span id="timelineProgress">Timeline: 00:00 / 10:00</span>
+          <span id="fpsCount">FPS: 30 | All-Genre Engine Active</span>
         </div>
-        <div class="w-full bg-slate-950 h-3 rounded-full overflow-hidden border border-slate-800 p-0.5">
-          <div id="progressBar" class="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 h-full w-0 rounded-full transition-all duration-150"></div>
+        <div class="w-full bg-slate-950 h-2.5 rounded-full overflow-hidden border border-slate-800">
+          <div id="progressBar" class="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 h-full w-0 transition-all duration-150"></div>
         </div>
       </div>
     </section>
@@ -160,7 +135,7 @@ const imgInput = document.getElementById('imgInput');
 const imgStatus = document.getElementById('imgStatus');
 const renderBtn = document.getElementById('renderBtn');
 const durationSelect = document.getElementById('durationSelect');
-const styleSelect = document.getElementById('styleSelect');
+const genreSelect = document.getElementById('genreSelect');
 const cinemaCanvas = document.getElementById('cinemaCanvas');
 const ctx = cinemaCanvas.getContext('2d');
 const statusOverlay = document.getElementById('statusOverlay');
@@ -172,27 +147,25 @@ const renderStatus = document.getElementById('renderStatus');
 cinemaCanvas.width = 1920;
 cinemaCanvas.height = 1080;
 
-// Universal Placeholder
-scriptInput.value = `Enter any script in any language (Urdu, English, Arabic, Hindi, Spanish, Mandarin).
-This studio automatically synchronizes subtitles, background motion graphics, and audio narration up to 1 Hour!`;
+scriptInput.value = `Scene 1: Universal AI Studio supports all genres: Documentaries, Animations, Politics, and Dramas.
+Scene 2: Select your category, paste any script in any language, and generate professional videos!`;
 
-function formatHHMMSS(seconds) {
-  let h = Math.floor(seconds / 3600);
-  let m = Math.floor((seconds % 3600) / 60);
-  let s = Math.floor(seconds % 60);
-  return `${h<10?'0':''}${h}:${m<10?'0':''}${m}:${s<10?'0':''}${s}`;
+function formatTime(s) {
+  let m = Math.floor(s/60);
+  let sc = Math.floor(s%60);
+  return (m<10?'0':'')+m+':'+(sc<10?'0':'')+sc;
 }
 
 function drawIdleCanvas() {
   ctx.fillStyle = '#020617';
   ctx.fillRect(0, 0, 1920, 1080);
   ctx.fillStyle = '#38bdf8';
-  ctx.font = 'bold 50px sans-serif';
+  ctx.font = 'bold 45px sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('GLOBAL AI CINEMA STUDIO VIP++', 960, 500);
+  ctx.fillText('SOVEREIGN UNIVERSAL AI CINEMA STUDIO', 960, 500);
   ctx.fillStyle = '#94a3b8';
-  ctx.font = '28px sans-serif';
-  ctx.fillText('Universal 1-Hour AI Video & Audio Sync Engine', 960, 570);
+  ctx.font = '24px sans-serif';
+  ctx.fillText('Select Category, Add Script & Audio, Render Any Video!', 960, 560);
 }
 drawIdleCanvas();
 
@@ -200,8 +173,8 @@ imgInput.onchange = e => {
   loadedImages = [];
   let files = Array.from(e.target.files);
   if(files.length > 0) {
-    imgStatus.innerText = `${files.length} Slides/B-Roll Images Uploaded Successfully!`;
-    imgStatus.classList.add('text-cyan-400');
+    imgStatus.innerText = `${files.length} Visual Slides Loaded!`;
+    imgStatus.classList.add('text-emerald-400');
     files.forEach(file => {
       let img = new Image();
       img.src = URL.createObjectURL(file);
@@ -215,7 +188,7 @@ audioInput.onchange = e => {
   if(file) {
     audioBlob = URL.createObjectURL(file);
     bgAudio.src = audioBlob;
-    audioStatus.innerText = `Audio Synced: ${file.name}`;
+    audioStatus.innerText = `Voiceover Loaded: ${file.name}`;
     audioStatus.classList.add('text-emerald-400');
   }
 };
@@ -225,11 +198,12 @@ renderBtn.onclick = async () => {
   if(!scriptText) { alert('Please enter your script!'); return; }
 
   let totalDurationSec = parseInt(durationSelect.value);
-  let sentences = scriptText.split(/\n|\.|۔|\?|!/).filter(s => s.trim().length > 0);
+  let genre = genreSelect.value;
+  let sentences = scriptText.split(/\n/).filter(s => s.trim().length > 0);
   if(sentences.length === 0) sentences = [scriptText];
 
   renderBtn.disabled = true;
-  renderStatus.innerText = 'Status: Rendering 1-Hour Cinema...';
+  renderStatus.innerText = `Status: Rendering ${genre.toUpperCase()} Video...`;
   statusOverlay.classList.remove('hidden');
 
   if(bgAudio.src) {
@@ -264,14 +238,14 @@ renderBtn.onclick = async () => {
     let finalBlob = new Blob(recordedChunks, { type: 'video/webm' });
     let downloadLink = document.createElement('a');
     downloadLink.href = URL.createObjectURL(finalBlob);
-    downloadLink.download = `Sovereign-Global-Cinema-Movie-${Date.now()}.webm`;
+    downloadLink.download = `Universal-${genre}-Movie-${Date.now()}.webm`;
     downloadLink.click();
 
     statusOverlay.classList.add('hidden');
     renderBtn.disabled = false;
     renderStatus.innerText = 'Status: Render Complete ✅';
     drawIdleCanvas();
-    alert('🎉 Congratulations! Your 1-Hour Cinema Video with Full Audio Sync has been exported successfully!');
+    alert('🎉 Success! Your universal video has been downloaded!');
   };
 
   mediaRecorder.start();
@@ -286,42 +260,49 @@ renderBtn.onclick = async () => {
     let currentSec = Math.floor(progressRatio * totalDurationSec);
 
     progressBar.style.width = (progressRatio * 100) + '%';
-    timelineProgress.innerText = `Timeline: ${formatHHMMSS(currentSec)} / ${formatHHMMSS(totalDurationSec)}`;
+    timelineProgress.innerText = `Timeline: ${formatTime(currentSec)} / ${formatTime(totalDurationSec)}`;
     frameProgressText.innerText = `${currentFrame} / ${totalFrames} Frames (${Math.floor(progressRatio * 100)}%)`;
 
-    let sentenceIdx = Math.floor(progressRatio * sentences.length) % sentences.length;
+    let sentenceIdx = Math.floor(progressRatio * sentences.length);
+    if(sentenceIdx >= sentences.length) sentenceIdx = sentences.length - 1;
     let currentSentence = sentences[sentenceIdx];
 
-    // Canvas Motion Graphics Rendering
+    // Dynamic Genre-based Background Theme
     if(loadedImages.length > 0) {
-      let imgIdx = Math.floor(progressRatio * loadedImages.length) % loadedImages.length;
+      let imgIdx = sentenceIdx % loadedImages.length;
       ctx.drawImage(loadedImages[imgIdx], 0, 0, 1920, 1080);
-      ctx.fillStyle = 'rgba(2, 6, 23, 0.6)';
+      ctx.fillStyle = 'rgba(2, 6, 23, 0.55)';
       ctx.fillRect(0, 0, 1920, 1080);
     } else {
       let grad = ctx.createLinearGradient(0, 0, 1920, 1080);
-      grad.addColorStop(0, '#020617');
-      grad.addColorStop(0.5, '#0f172a');
-      grad.addColorStop(1, '#0284c7');
+      if(genre === 'politics') {
+        grad.addColorStop(0, '#450a0a'); grad.addColorStop(0.5, '#1e1b4b'); grad.addColorStop(1, '#020617'); // News/Politics Theme (Red/Dark Blue)
+      } else if(genre === 'animation') {
+        grad.addColorStop(0, '#831843'); grad.addColorStop(0.5, '#312e81'); grad.addColorStop(1, '#0f172a'); // Cartoon/Animation Theme (Pink/Purple)
+      } else if(genre === 'drama') {
+        grad.addColorStop(0, '#78350f'); grad.addColorStop(0.5, '#1e293b'); grad.addColorStop(1, '#020617'); // Drama Theme (Amber/Dark)
+      } else {
+        grad.addColorStop(0, '#020617'); grad.addColorStop(0.5, '#0f172a'); grad.addColorStop(1, '#0e7490'); // Documentary Theme
+      }
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, 1920, 1080);
     }
 
-    // Subtitle Container Box
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
-    ctx.fillRect(100, 800, 1720, 180);
+    // Subtitle Box
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+    ctx.fillRect(100, 820, 1720, 160);
 
     ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 42px sans-serif';
+    ctx.font = 'bold 36px sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(currentSentence.substring(0, 85), 960, 900);
+    ctx.fillText(currentSentence, 960, 915);
 
-    ctx.font = 'bold 28px sans-serif';
+    ctx.font = 'bold 24px sans-serif';
     ctx.fillStyle = '#38bdf8';
-    ctx.fillText('👑 SOVEREIGN GLOBAL AI CINEMA STUDIO VIP++', 960, 80);
+    ctx.fillText(`👑 SOVEREIGN UNIVERSAL STUDIO [MODE: ${genre.toUpperCase()}]`, 960, 70);
 
-    ctx.fillStyle = '#db2777';
-    ctx.fillRect(0, 1065, 1920 * progressRatio, 15);
+    ctx.fillStyle = '#ec4899';
+    ctx.fillRect(0, 1070, 1920 * progressRatio, 10);
 
     if(currentFrame >= totalFrames) {
       clearInterval(renderTimer);
