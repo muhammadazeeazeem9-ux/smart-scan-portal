@@ -1,334 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sovereign Empire 2030 - Global AI Cinema Studio VIP++</title>
+<title>Sovereign Master Portal - AI Studios</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-  :root {
-    --bg-main: #020617;
-    --panel-bg: rgba(15, 23, 42, 0.85);
-    --border-color: rgba(56, 189, 248, 0.3);
-  }
   body { background: radial-gradient(circle at center, #020617 0%, #0f172a 100%); color: #f8fafc; font-family: 'Segoe UI', system-ui, sans-serif; }
-  .glass-panel { background: var(--panel-bg); backdrop-filter: blur(20px); border: 1px solid var(--border-color); box-shadow: 0 25px 60px rgba(0,0,0,0.9); }
-  .btn-god { background: linear-gradient(135deg, #0284c7 0%, #7c3aed 50%, #db2777 100%); transition: all 0.3s ease; }
-  .btn-god:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(219, 39, 119, 0.8); }
+  .glass-panel { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9); }
 </style>
 </head>
-<body class="min-h-screen p-4 md:p-6">
+<body class="min-h-screen p-4 md:p-10 flex flex-col justify-between">
 
-  <!-- Universal Header -->
-  <header class="max-w-7xl mx-auto mb-6 flex flex-col md:flex-row justify-between items-center p-5 glass-panel rounded-2xl">
+  <header class="max-w-5xl mx-auto w-full mb-10 p-6 glass-panel rounded-2xl flex flex-col md:flex-row justify-between items-center text-center md:text-right">
     <div class="flex items-center gap-3 mb-4 md:mb-0">
-      <div class="p-3 bg-cyan-500/20 border border-cyan-400/40 rounded-xl text-cyan-400">
-        <i class="fa-solid fa-clapperboard text-2xl"></i>
+      <div class="p-3 bg-blue-600/30 border border-blue-400/40 rounded-xl">
+        <i class="fa-solid fa-crown text-yellow-400 text-3xl"></i>
       </div>
       <div>
-        <h1 class="text-xl md:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-500">
-          GLOBAL AI CINEMA STUDIO <span class="text-xs bg-pink-600 px-2 py-0.5 rounded-full text-white font-mono">1-HOUR VIP++</span>
+        <h1 class="text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-500">
+          Sovereign Master Portal
         </h1>
-        <p class="text-xs text-slate-400 mt-0.5">Multi-Lingual 60-Min Movie & Documentary Engine (150+ Nations)</p>
+        <p class="text-xs text-slate-400 mt-1">انٹرنیشنل اے آئی اسٹوڈیوز اور ویڈیو پروڈکشن کا مرکزی دروازہ</p>
       </div>
     </div>
-    <a href="index.html" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-xs font-semibold transition flex items-center gap-2">
-      <i class="fa-solid fa-arrow-right"></i> Master Portal
-    </a>
+    <div class="text-xs font-mono bg-slate-900 border border-slate-700 px-4 py-2 rounded-xl text-cyan-400">
+      سسٹم اسٹیٹس: ایکٹو (2030)
+    </div>
   </header>
 
-  <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-    <!-- Left Controls Panel -->
-    <section class="glass-panel p-5 rounded-2xl lg:col-span-1 space-y-4">
-      <h2 class="text-base font-bold border-b border-slate-800 pb-3 flex items-center justify-between text-cyan-400">
-        <span><i class="fa-solid fa-sliders ml-1"></i> Production Controls</span>
-        <span class="text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full">Pro Studio</span>
-      </h2>
-
-      <!-- Style / Format Selector -->
+  <!-- Studios Grid (Both Options Clearly Available) -->
+  <main class="max-w-5xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+    
+    <!-- Option 1: Global AI Cinema Studio (Documentary, Politics, News, Dramas) -->
+    <a href="ai-video-studio.html" class="glass-panel p-6 rounded-2xl hover:border-cyan-400 transition group flex flex-col justify-between">
       <div>
-        <label class="block text-xs font-semibold text-slate-300 mb-1">Cinema Format / Style</label>
-        <select id="styleSelect" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-cyan-400 font-bold">
-          <option value="documentary">🎞️ Documentary (سینماٹک ڈاکومنٹری)</option>
-          <option value="news">📰 Global News / Broadcast (خبریں)</option>
-          <option value="shorts">📱 YouTube Shorts / Reels (عمودی 9:16)</option>
-          <option value="film">🎬 Hollywood Feature Film (ہالی ووڈ انداز)</option>
-          <option value="podcast">🎙️ Audio-Visual Podcast (پوڈکاسٹ)</option>
-        </select>
+        <div class="flex items-center justify-between mb-4">
+          <div class="p-3 bg-cyan-600/20 border border-cyan-400/30 rounded-xl text-cyan-400 group-hover:scale-110 transition">
+            <i class="fa-solid fa-film text-2xl"></i>
+          </div>
+          <span class="text-xs bg-cyan-950 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded-full font-bold">سینما & ڈاکومنٹری اسٹوڈیو</span>
+        </div>
+        <h2 class="text-xl font-bold text-white mb-2">Global AI Cinema Studio</h2>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          سیاसत، نیوز، فلموں اور طویل ڈاکومنٹریز کے لیے—جس میں آپ اپنی مرضی کی کیٹیگری اور سکرپٹ کے ساتھ ایچ ڈی ویڈیو بنا سکتے ہیں۔
+        </p>
       </div>
+      <div class="mt-6 flex items-center gap-2 text-xs font-bold text-cyan-400">
+        سینما اسٹوڈیو کھولیں <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 transition"></i>
+      </div>
+    </a>
 
-      <!-- Universal Script Input -->
+    <!-- Option 2: Cartoon & Animation Studio (Dedicated Cartoon/Animation Option) -->
+    <a href="cartoon-studio.html" class="glass-panel p-6 rounded-2xl hover:border-pink-400 transition group flex flex-col justify-between">
       <div>
-        <label class="block text-xs font-semibold text-slate-300 mb-1">Universal Script / Narration (Any Language)</label>
-        <textarea id="scriptInput" rows="5" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-cyan-400 transition" placeholder="Paste your 1-hour story, script, or documentary text in any language here..."></textarea>
-      </div>
-
-      <!-- Voiceover Audio Upload -->
-      <div class="border-2 border-dashed border-slate-700 hover:border-cyan-400/50 rounded-xl p-3.5 text-center cursor-pointer transition bg-slate-950/40" onclick="document.getElementById('audioInput').click()">
-        <i class="fa-solid fa-microphone-lines text-2xl text-pink-400 mb-1"></i>
-        <p id="audioStatus" class="text-xs font-bold text-slate-200">Upload Full Voiceover Audio (.MP3 / .WAV / .AAC)</p>
-        <p class="text-[10px] text-slate-500 mt-0.5">Auto-synced with canvas video stream</p>
-        <input type="file" id="audioInput" class="hidden" accept="audio/*">
-      </div>
-      <audio id="bgAudio" class="hidden"></audio>
-
-      <!-- Duration Selection (Up to 1 Hour) -->
-      <div class="grid grid-cols-2 gap-2">
-        <div>
-          <label class="block text-[11px] font-semibold text-slate-400 mb-1">Duration</label>
-          <select id="durationSelect" class="w-full bg-slate-950 rounded-xl px-2.5 py-2 text-xs border border-slate-700 text-cyan-400 font-bold">
-            <option value="60">1 Minute</option>
-            <option value="300">5 Minutes</option>
-            <option value="600">10 Minutes</option>
-            <option value="1800">30 Minutes</option>
-            <option value="3600" selected>1 Hour (60 Mins)</option>
-          </select>
+        <div class="flex items-center justify-between mb-4">
+          <div class="p-3 bg-pink-600/20 border border-pink-400/30 rounded-xl text-pink-400 group-hover:scale-110 transition">
+            <i class="fa-solid fa-wand-magic-sparkles text-2xl"></i>
+          </div>
+          <span class="text-xs bg-pink-950 text-pink-400 border border-pink-500/30 px-3 py-1 rounded-full font-bold">کارٹون & اینیمیشن اسٹوڈیو</span>
         </div>
-        <div>
-          <label class="block text-[11px] font-semibold text-slate-400 mb-1">Quality</label>
-          <select id="qualitySelect" class="w-full bg-slate-950 rounded-xl px-2.5 py-2 text-xs border border-slate-700 text-pink-400 font-bold">
-            <option value="1080" selected>Full HD 1080p</option>
-            <option value="720">HD 720p</option>
-            <option value="2160">4K Ultra HD</option>
-          </select>
-        </div>
+        <h2 class="text-xl font-bold text-white mb-2">CARTOON STUDIO</h2>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          مکمل کارٹون اینیمیشن اور کہانیوں پر مبنی ویڈیوز بنانے کا الگ اور مخصوص اسٹوڈیو[span_1](start_span)[span_1](end_span)۔
+        </p>
       </div>
-
-      <!-- Image / Asset Upload -->
-      <div>
-        <button onclick="document.getElementById('imgInput').click()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 rounded-xl text-xs font-semibold border border-slate-700 transition flex items-center justify-center gap-2">
-          <i class="fa-solid fa-images text-cyan-400"></i> Import B-Roll Images / Slides
-        </button>
-        <input type="file" id="imgInput" class="hidden" accept="image/*" multiple>
-        <div id="imgStatus" class="text-[10px] text-slate-400 bg-slate-950/50 p-2 rounded-lg text-center mt-1">
-          No images uploaded. (AI Procedural Motion Background will be used)
-        </div>
+      <div class="mt-6 flex items-center gap-2 text-xs font-bold text-pink-400">
+        کارٹون اسٹوڈیو کھولیں <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 transition"></i>
       </div>
-
-      <!-- Master Render Button -->
-      <button id="renderBtn" class="w-full py-3.5 rounded-xl font-black btn-god text-white shadow-xl flex items-center justify-center gap-2 text-sm mt-2">
-        <i class="fa-solid fa-wand-magic-sparkles"></i> RENDER 1-HOUR FULL MOVIE (.WEBM)
-      </button>
-    </section>
-
-    <!-- Right Canvas & Render Output -->
-    <section class="glass-panel p-5 rounded-2xl lg:col-span-2 flex flex-col justify-between space-y-4">
-      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-        <h2 class="text-base font-bold text-pink-400 flex items-center gap-2">
-          <i class="fa-solid fa-desktop"></i> Live Cinema Studio Canvas
-        </h2>
-        <span id="renderStatus" class="text-xs text-emerald-400 font-mono">Status: Studio Ready</span>
-      </div>
-
-      <!-- Screen Preview Box -->
-      <div class="relative rounded-2xl overflow-hidden border border-slate-800 bg-black aspect-video flex items-center justify-center shadow-2xl">
-        <canvas id="cinemaCanvas" class="w-full h-full block"></canvas>
-
-        <div id="statusOverlay" class="absolute inset-0 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center text-cyan-400 hidden z-20">
-          <i class="fa-solid fa-compact-disc fa-spin text-5xl mb-3 text-pink-500"></i>
-          <p id="overlayText" class="text-sm font-bold">Rendering 1-Hour Cinema Video & Audio Stream...</p>
-          <p id="frameProgressText" class="text-xs text-slate-400 mt-1 font-mono">0 / 0 Frames (0%)</p>
-        </div>
-      </div>
-
-      <!-- Timeline Progress Bar -->
-      <div class="space-y-2 pt-2 border-t border-slate-800">
-        <div class="flex justify-between text-xs text-slate-400 font-mono">
-          <span id="timelineProgress">Timeline: 00:00:00 / 01:00:00</span>
-          <span id="fpsCount">FPS: 30 | Engine: WebM Ultra</span>
-        </div>
-        <div class="w-full bg-slate-950 h-3 rounded-full overflow-hidden border border-slate-800 p-0.5">
-          <div id="progressBar" class="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 h-full w-0 rounded-full transition-all duration-150"></div>
-        </div>
-      </div>
-    </section>
+    </a>
 
   </main>
 
-<script>
-let loadedImages = [];
-let audioBlob = null;
-
-const scriptInput = document.getElementById('scriptInput');
-const audioInput = document.getElementById('audioInput');
-const audioStatus = document.getElementById('audioStatus');
-const bgAudio = document.getElementById('bgAudio');
-const imgInput = document.getElementById('imgInput');
-const imgStatus = document.getElementById('imgStatus');
-const renderBtn = document.getElementById('renderBtn');
-const durationSelect = document.getElementById('durationSelect');
-const styleSelect = document.getElementById('styleSelect');
-const cinemaCanvas = document.getElementById('cinemaCanvas');
-const ctx = cinemaCanvas.getContext('2d');
-const statusOverlay = document.getElementById('statusOverlay');
-const frameProgressText = document.getElementById('frameProgressText');
-const progressBar = document.getElementById('progressBar');
-const timelineProgress = document.getElementById('timelineProgress');
-const renderStatus = document.getElementById('renderStatus');
-
-cinemaCanvas.width = 1920;
-cinemaCanvas.height = 1080;
-
-// Universal Placeholder
-scriptInput.value = `Enter any script in any language (Urdu, English, Arabic, Hindi, Spanish, Mandarin).
-This studio automatically synchronizes subtitles, background motion graphics, and audio narration up to 1 Hour!`;
-
-function formatHHMMSS(seconds) {
-  let h = Math.floor(seconds / 3600);
-  let m = Math.floor((seconds % 3600) / 60);
-  let s = Math.floor(seconds % 60);
-  return `${h<10?'0':''}${h}:${m<10?'0':''}${m}:${s<10?'0':''}${s}`;
-}
-
-function drawIdleCanvas() {
-  ctx.fillStyle = '#020617';
-  ctx.fillRect(0, 0, 1920, 1080);
-  ctx.fillStyle = '#38bdf8';
-  ctx.font = 'bold 50px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('GLOBAL AI CINEMA STUDIO VIP++', 960, 500);
-  ctx.fillStyle = '#94a3b8';
-  ctx.font = '28px sans-serif';
-  ctx.fillText('Universal 1-Hour AI Video & Audio Sync Engine', 960, 570);
-}
-drawIdleCanvas();
-
-imgInput.onchange = e => {
-  loadedImages = [];
-  let files = Array.from(e.target.files);
-  if(files.length > 0) {
-    imgStatus.innerText = `${files.length} Slides/B-Roll Images Uploaded Successfully!`;
-    imgStatus.classList.add('text-cyan-400');
-    files.forEach(file => {
-      let img = new Image();
-      img.src = URL.createObjectURL(file);
-      loadedImages.push(img);
-    });
-  }
-};
-
-audioInput.onchange = e => {
-  let file = e.target.files[0];
-  if(file) {
-    audioBlob = URL.createObjectURL(file);
-    bgAudio.src = audioBlob;
-    audioStatus.innerText = `Audio Synced: ${file.name}`;
-    audioStatus.classList.add('text-emerald-400');
-  }
-};
-
-renderBtn.onclick = async () => {
-  let scriptText = scriptInput.value.trim();
-  if(!scriptText) { alert('Please enter your script!'); return; }
-
-  let totalDurationSec = parseInt(durationSelect.value);
-  let sentences = scriptText.split(/\n|\.|۔|\?|!/).filter(s => s.trim().length > 0);
-  if(sentences.length === 0) sentences = [scriptText];
-
-  renderBtn.disabled = true;
-  renderStatus.innerText = 'Status: Rendering 1-Hour Cinema...';
-  statusOverlay.classList.remove('hidden');
-
-  if(bgAudio.src) {
-    bgAudio.currentTime = 0;
-    bgAudio.play().catch(e => console.log('Audio autoplay info:', e));
-  }
-
-  let canvasStream = cinemaCanvas.captureStream(30);
-  let combinedStream = canvasStream;
-
-  if(bgAudio.src && bgAudio.captureStream) {
-    try {
-      let audioStream = bgAudio.captureStream();
-      combinedStream = new MediaStream([...canvasStream.getVideoTracks(), ...audioStream.getAudioTracks()]);
-    } catch(err) {
-      console.log('Audio capture stream fallback');
-    }
-  }
-
-  let mediaRecorder;
-  try {
-    mediaRecorder = new MediaRecorder(combinedStream, { mimeType: 'video/webm;codecs=vp9,opus' });
-  } catch(e) {
-    mediaRecorder = new MediaRecorder(canvasStream, { mimeType: 'video/webm' });
-  }
-
-  let recordedChunks = [];
-  mediaRecorder.ondataavailable = e => { if(e.data.size > 0) recordedChunks.push(e.data); };
-
-  mediaRecorder.onstop = () => {
-    if(bgAudio) bgAudio.pause();
-    let finalBlob = new Blob(recordedChunks, { type: 'video/webm' });
-    let downloadLink = document.createElement('a');
-    downloadLink.href = URL.createObjectURL(finalBlob);
-    downloadLink.download = `Sovereign-Global-Cinema-Movie-${Date.now()}.webm`;
-    downloadLink.click();
-
-    statusOverlay.classList.add('hidden');
-    renderBtn.disabled = false;
-    renderStatus.innerText = 'Status: Render Complete ✅';
-    drawIdleCanvas();
-    alert('🎉 Congratulations! Your 1-Hour Cinema Video with Full Audio Sync has been exported successfully!');
-  };
-
-  mediaRecorder.start();
-
-  let fps = 30;
-  let totalFrames = totalDurationSec * fps;
-  let currentFrame = 0;
-
-  let renderTimer = setInterval(() => {
-    currentFrame++;
-    let progressRatio = currentFrame / totalFrames;
-    let currentSec = Math.floor(progressRatio * totalDurationSec);
-
-    progressBar.style.width = (progressRatio * 100) + '%';
-    timelineProgress.innerText = `Timeline: ${formatHHMMSS(currentSec)} / ${formatHHMMSS(totalDurationSec)}`;
-    frameProgressText.innerText = `${currentFrame} / ${totalFrames} Frames (${Math.floor(progressRatio * 100)}%)`;
-
-    let sentenceIdx = Math.floor(progressRatio * sentences.length) % sentences.length;
-    let currentSentence = sentences[sentenceIdx];
-
-    // Canvas Motion Graphics Rendering
-    if(loadedImages.length > 0) {
-      let imgIdx = Math.floor(progressRatio * loadedImages.length) % loadedImages.length;
-      ctx.drawImage(loadedImages[imgIdx], 0, 0, 1920, 1080);
-      ctx.fillStyle = 'rgba(2, 6, 23, 0.6)';
-      ctx.fillRect(0, 0, 1920, 1080);
-    } else {
-      let grad = ctx.createLinearGradient(0, 0, 1920, 1080);
-      grad.addColorStop(0, '#020617');
-      grad.addColorStop(0.5, '#0f172a');
-      grad.addColorStop(1, '#0284c7');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 1920, 1080);
-    }
-
-    // Subtitle Container Box
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
-    ctx.fillRect(100, 800, 1720, 180);
-
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 42px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText(currentSentence.substring(0, 85), 960, 900);
-
-    ctx.font = 'bold 28px sans-serif';
-    ctx.fillStyle = '#38bdf8';
-    ctx.fillText('👑 SOVEREIGN GLOBAL AI CINEMA STUDIO VIP++', 960, 80);
-
-    ctx.fillStyle = '#db2777';
-    ctx.fillRect(0, 1065, 1920 * progressRatio, 15);
-
-    if(currentFrame >= totalFrames) {
-      clearInterval(renderTimer);
-      mediaRecorder.stop();
-    }
-  }, 1000 / fps);
-};
-</script>
+  <footer class="max-w-5xl mx-auto w-full text-center text-xs text-slate-500 py-4 border-t border-slate-800">
+    Sovereign Empire © 2030 - All Rights Reserved.
+  </footer>
 
 </body>
 </html>
