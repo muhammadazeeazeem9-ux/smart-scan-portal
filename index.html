@@ -1,181 +1,354 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ur" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sovereign Empire 2030 - Enterprise AI Portal</title>
+<title>Sovereign AI Video Studio VIP++ ULTRA-GOD 2030</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:'Segoe UI',system-ui,sans-serif}
-body{background:#020617;color:#f8fafc;min-height:100vh;padding:20px;background:radial-gradient(150% 150% at 50% 0%, #0f172a 0%, #020617 75%)}
-.header{max-width:1400px;margin:0 auto 24px;display:flex;justify-content:space-between;align-items:center;padding:20px 30px;background:rgba(15,23,42,0.9);border:1px solid #1e293b;border-radius:20px;backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,0.5)}
-.logo{font-size:22px;font-weight:900;background:linear-gradient(90deg,#38bdf8,#a78bfa,#34d399);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.badge{font-size:11px;padding:8px 18px;border-radius:50px;background:linear-gradient(90deg,#059669,#10b981);font-weight:900;color:#fff}
-.search-container{max-width:1400px;margin:0 auto 24px}
-.search-box{width:100%;padding:16px 22px;border-radius:14px;border:1px solid #334155;background:rgba(15,23,42,0.8);color:#f8fafc;font-size:15px;outline:none;backdrop-filter:blur(10px)}
-.search-box:focus{border-color:#38bdf8;box-shadow:0 0 0 4px rgba(56,189,248,0.2)}
-.grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
-.card{background:rgba(15,23,42,0.85);border:1px solid #1e293b;border-radius:20px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:16px;text-decoration:none;color:inherit;transition:all 0.3s ease;backdrop-filter:blur(12px)}
-.card:hover{transform:translateY(-5px);border-color:#38bdf8;box-shadow:0 10px 30px rgba(56,189,248,0.2)}
-.card-icon{font-size:32px;margin-bottom:8px}
-.card-title{font-size:16px;font-weight:800;color:#38bdf8}
-.card-desc{font-size:12px;color:#94a3b8;line-height:1.6}
-.btn-launch{display:inline-block;padding:10px 16px;background:linear-gradient(135deg,#0284c7,#38bdf8);color:#fff;font-size:12px;font-weight:800;border-radius:10px;text-align:center;margin-top:auto}
+  body { background: radial-gradient(circle at center, #020617 0%, #0f172a 100%); color: #f8fafc; font-family: 'Segoe UI', system-ui, sans-serif; }
+  .glass-panel { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9); }
+  .btn-god { background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #db2777 100%); transition: all 0.3s ease; }
+  .btn-god:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(219, 39, 119, 0.8); }
 </style>
 </head>
-<body>
+<body class="min-h-screen p-4 md:p-8">
 
-<div class="header">
-<div class="logo">👑 SOVEREIGN EMPIRE 2030</div>
-<div class="badge">🟢 155+ NATIONS COMPLIANT</div>
-</div>
-
-<div class="search-container">
-<input type="text" id="searchInput" class="search-box" placeholder="Search tool by name or feature..." onkeyup="filterTools()">
-</div>
-
-<div class="grid" id="toolsGrid">
-
-  <!-- AI Text Summarizer -->
-  <a href="ai-text-summarizer.html" class="card">
-    <div>
-      <div class="card-icon">⚡</div>
-      <div class="card-title">AI Text Summarizer</div>
-      <div class="card-desc">VIP++ God mode text summarization with sentiment analysis and keywords.</div>
+  <!-- Header -->
+  <header class="max-w-7xl mx-auto mb-6 flex flex-col md:flex-row justify-between items-center p-5 glass-panel rounded-2xl">
+    <div class="flex items-center gap-3 mb-4 md:mb-0">
+      <div class="p-3 bg-blue-600/30 border border-blue-400/40 rounded-xl">
+        <i class="fa-solid fa-crown text-yellow-400 text-2xl"></i>
+      </div>
+      <div>
+        <h1 class="text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-500">
+          Sovereign AI Video Studio <span class="text-xs bg-pink-600 px-2 py-1 rounded-full text-white ml-2">TALKING MOVIE 2030</span>
+        </h1>
+        <p class="text-xs text-slate-400 mt-1">اردو • हिंदी • English • العربية — بولتی فلم والا رننگ اسٹوڈیو</p>
+      </div>
     </div>
-    <div class="btn-launch">Launch Tool 🚀</div>
-  </a>
+    <a href="index.html" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-sm font-semibold transition flex items-center gap-2">
+      <i class="fa-solid fa-arrow-right"></i> ماسٹر پورٹل پر واپس جائیں
+    </a>
+  </header>
 
-  <!-- Base64 Encoder / Decoder -->
-  <a href="base64-encoder-decoder.html" class="card">
-    <div>
-      <div class="card-icon">🔒</div>
-      <div class="card-title">Base64 Studio</div>
-      <div class="card-desc">Client-side Base64 text and image encoding/decoding suite.</div>
-    </div>
-    <div class="btn-launch">Launch Tool 🚀</div>
-  </a>
+  <!-- Main Controls & Canvas -->
+  <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
+    
+    <!-- Controls Panel -->
+    <section class="glass-panel p-6 rounded-2xl lg:col-span-1 space-y-4">
+      <h2 class="text-lg font-bold border-b border-slate-800 pb-3 flex items-center gap-2 text-cyan-400">
+        <i class="fa-solid fa-sliders"></i> اسٹوڈیو کنٹرولز
+      </h2>
 
-  <!-- AI Text to Speech -->
-  <a href="ai-text-to-speech.html" class="card">
-    <div>
-      <div class="card-icon">🔊</div>
-      <div class="card-title">AI Text-to-Speech</div>
-      <div class="card-desc">Multi-lingual private text to voice speech synthesizer.</div>
-    </div>
-    <div class="btn-launch">Launch Tool 🚀</div>
-  </a>
+      <!-- Language Selector -->
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">زبان منتخب کریں (Select Language)</label>
+        <select id="langSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-cyan-400 font-bold">
+          <option value="ur-PK" selected>اردو (Urdu)</option>
+          <option value="hi-IN">हिंदी (Hindi)</option>
+          <option value="en-US">English (US)</option>
+          <option value="ar-SA">العربية (Arabic)</option>
+        </select>
+      </div>
 
-  <!-- Audio Enhancer Pro -->
-  <a href="audio-enhancer-pro.html" class="card">
-    <div>
-      <div class="card-icon">🎙️</div>
-      <div class="card-title">Audio Enhancer Pro</div>
-      <div class="card-desc">Studio quality audio filter, noise reducer, and EQ tool.</div>
-    </div>
-    <div class="btn-launch">Launch Tool 🚀</div>
-  </a>
+      <!-- Script Input -->
+      <div>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">اسکرپٹ یا کہانی درج کریں</label>
+        <textarea id="tInput" rows="4" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-cyan-400 transition" placeholder="یہاں اپنی کہانی یا لیرکس درج کریں..."></textarea>
+      </div>
 
-  <!-- AI Password Generator -->
-  <a href="ai-password-generator.html" class="card">
-    <div>
-      <div class="card-icon">🔑</div>
-      <div class="card-title">AI Password Generator</div>
-      <div class="card-desc">High-entropy cryptographic password generator.</div>
-    </div>
-    <div class="btn-launch">Launch Tool 🚀</div>
-  </a>
+      <!-- Action Buttons -->
+      <div class="grid grid-cols-2 gap-2">
+        <button id="vBtn" class="py-2.5 bg-slate-800 hover:bg-slate-700 rounded-xl text-xs font-semibold border border-slate-700 transition flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-microphone text-pink-400"></i> <span id="vBtnText">وائس ان پٹ</span>
+        </button>
+        <button onclick="document.getElementById('imgInput').click()" class="py-2.5 bg-slate-800 hover:bg-slate-700 rounded-xl text-xs font-semibold border border-slate-700 transition flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-image text-cyan-400"></i> تصاویر شامل کریں
+        </button>
+        <input type="file" id="imgInput" class="hidden" accept="image/*" multiple>
+      </div>
 
-  <!-- AI Image Enhancer -->
-  <a href="ai-image-enhancer.html" class="card">
-    <div>
-      <div class="card-icon">🖼️</div>
-      <div class="card-title">AI Image Enhancer</div>
-      <div class="card-desc">Image upscale, sharpening, and color enhancement studio.</div>
-    </div>
-    <div class="btn-launch">Launch Tool 🚀</div>
-  </a>
+      <div id="imgStatus" class="text-[10px] text-slate-400 bg-slate-950/50 p-2 rounded-lg text-center">
+        کوئی تصویر منتخب نہیں ہوئی۔ (خودکار اینیمیٹڈ بیک گراؤنڈ استعمال ہوگا)
+      </div>
 
-  <!-- AI Image Compressor -->
-  <a href="ai-image-compressor.html" class="card">
-    <div>
-      <div class="card-icon">📦</div>
-      <div class="card-title">AI Image Compressor</div>
-      <div class="card-desc">Client-side lossless image compression tool.</div>
-    </div>
-    <div class="btn-launch">Launch Tool 🚀</div>
-  </a>
+      <!-- Options -->
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-[11px] font-semibold text-slate-300 mb-1">دورانیہ (Duration)</label>
+          <select id="dSelect" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2 text-xs text-white">
+            <option value="15">15 سیکنڈ (Quick Test)</option>
+            <option value="30">30 سیکنڈ</option>
+            <option value="60">1 منٹ</option>
+            <option value="300">5 منٹ</option>
+            <option value="600" selected>10 منٹ</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-[11px] font-semibold text-slate-300 mb-1">بیک گراؤنڈ تھیم</label>
+          <select id="themeSelect" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2 text-xs text-white">
+            <option value="cyber">سائبر سائین (Cyber Cyan)</option>
+            <option value="neon">نیون ڈارک (Neon Pink)</option>
+            <option value="gold">رائل گولڈ (Royal Gold)</option>
+          </select>
+        </div>
+      </div>
 
-  <!-- AI Background Remover -->
-  <a href="ai-bg-remover.html" class="card">
-    <div>
-      <div class="card-icon">✂️</div>
-      <div class="card-title">AI Background Remover</div>
-      <div class="card-desc">Remove background from photos directly in browser.</div>
-    </div>
-    <div class="btn-launch">Launch Tool 🚀</div>
-  </a>
+      <button id="gBtn" class="w-full py-3.5 rounded-xl font-bold btn-god text-white shadow-lg flex items-center justify-center gap-2 text-sm mt-2">
+        <i class="fa-solid fa-film"></i> بولتی فلم بنائیں اور ڈاؤن لوڈ کریں (.WEBM)
+      </button>
+    </section>
 
-  <!-- AI Paraphraser -->
-  <a href="ai-paraphraser.html" class="card">
-    <div>
-      <div class="card-icon">✍️</div>
-      <div class="card-title">AI Paraphraser</div>
-      <div class="card-desc">Smart sentence rewriter and paraphrasing engine.</div>
-    </div>
-    <div class="btn-launch">Launch Tool 🚀</div>
-  </a>
+    <!-- Canvas Preview & Render Output -->
+    <section class="glass-panel p-6 rounded-2xl lg:col-span-2 flex flex-col justify-between space-y-4">
+      <div>
+        <h2 class="text-lg font-bold border-b border-slate-800 pb-3 flex items-center justify-between text-pink-400">
+          <span><i class="fa-solid fa-display"></i> رینڈرنگ کینوس اسکرین</span>
+          <span id="renderStatus" class="text-xs text-cyan-400 font-mono">حالت: تیار</span>
+        </h2>
+      </div>
 
-  <!-- AI QR Generator -->
-  <a href="ai-qr-generator.html" class="card">
-    <div>
-      <div class="card-icon">📱</div>
-      <div class="card-title">AI QR Generator</div>
-      <div class="card-desc">Custom high-resolution QR code generator.</div>
-    </div>
-    <div class="btn-launch">Launch Tool 🚀</div>
-  </a>
+      <div class="relative rounded-2xl overflow-hidden border border-slate-800 bg-black aspect-video flex items-center justify-center">
+        <canvas id="cv" class="w-full h-full block"></canvas>
+        <div id="statusOverlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center text-cyan-400 hidden z-20">
+          <i class="fa-solid fa-circle-notch fa-spin text-5xl mb-3"></i>
+          <p id="overlayText" class="text-sm font-bold">بولتی فلم رینڈرنگ جاری ہے...</p>
+          <p id="frameProgressText" class="text-xs text-slate-400 mt-1 font-mono">0 / 0 فریمز</p>
+        </div>
+      </div>
 
-  <!-- Age Calculator -->
-  <a href="age-calculator.html" class="card">
-    <div>
-      <div class="card-icon">🎂</div>
-      <div class="card-title">Age Calculator</div>
-      <div class="card-desc">Precise date of birth and exact age computation.</div>
-    </div>
-    <div class="btn-launch">Launch Tool 🚀</div>
-  </a>
+      <div class="space-y-3 pt-2 border-t border-slate-800">
+        <div class="flex justify-between text-xs text-slate-400 font-mono">
+          <span id="timelineProgress">ٹائم لائن: 00:00 / 10:00</span>
+          <span id="fpsCount">FPS: 30</span>
+        </div>
+        <div class="w-full bg-slate-950 h-2.5 rounded-full overflow-hidden border border-slate-800">
+          <div id="progressBar" class="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 h-full w-0 transition-all duration-200"></div>
+        </div>
+      </div>
+    </section>
 
-  <!-- AI Age Calculator -->
-  <a href="ai-age-calculator.html" class="card">
-    <div>
-      <div class="card-icon">🧠</div>
-      <div class="card-title">AI Age Calculator</div>
-      <div class="card-desc">Advanced life analytics and age calculation suite.</div>
-    </div>
-    <div class="btn-launch">Launch Tool 🚀</div>
-  </a>
-
-  <!-- AI Resume Builder -->
-  <a href="ai-resume-builder.html" class="card">
-    <div>
-      <div class="card-icon">📄</div>
-      <div class="card-title">AI Resume Builder</div>
-      <div class="card-desc">Professional international CV and resume builder.</div>
-    </div>
-    <div class="btn-launch">Launch Tool 🚀</div>
-  </a>
-
-</div>
+  </main>
 
 <script>
-function filterTools() {
-  let input = document.getElementById('searchInput').value.toLowerCase();
-  let cards = document.getElementsByClassName('card');
-  for (let card of cards) {
-    let text = card.innerText.toLowerCase();
-    card.style.display = text.includes(input) ? "flex" : "none";
+let loadedImages = [];
+let voiceEnabled = true;
+
+const imgInput = document.getElementById('imgInput');
+const imgStatus = document.getElementById('imgStatus');
+const tInput = document.getElementById('tInput');
+const vBtn = document.getElementById('vBtn');
+const vBtnText = document.getElementById('vBtnText');
+const gBtn = document.getElementById('gBtn');
+const langSelect = document.getElementById('langSelect');
+const dSelect = document.getElementById('dSelect');
+const themeSelect = document.getElementById('themeSelect');
+const cv = document.getElementById('cv');
+const ctx = cv.getContext('2d');
+const statusOverlay = document.getElementById('statusOverlay');
+const overlayText = document.getElementById('overlayText');
+const frameProgressText = document.getElementById('frameProgressText');
+const progressBar = document.getElementById('progressBar');
+const timelineProgress = document.getElementById('timelineProgress');
+const renderStatus = document.getElementById('renderStatus');
+
+// Canvas dimensions setup (16:9 HD)
+cv.width = 1280;
+cv.height = 720;
+
+// Default script templates
+const defaultScripts = {
+  'ur-PK': 'ایک قدیم قلعے میں رات کے وقت پراسرار روشنی نمودار ہوتی ہے۔ لوگ حیران رہ جاتے ہیں۔',
+  'hi-IN': 'एक प्राचीन महल में रात के समय रहस्यमयी रोशनी दिखाई देती है। लोग हैरान रह जाते हैं।',
+  'en-US': 'A mysterious light appears over an ancient castle at midnight. Everyone is astonished.',
+  'ar-SA': 'ظهرت إضاءة غامضة فوق قلعة قديمة في منتصف الليل. وذهل الجميع.'
+};
+
+tInput.value = defaultScripts['ur-PK'];
+
+langSelect.addEventListener('change', () => {
+  tInput.value = defaultScripts[langSelect.value] || defaultScripts['en-US'];
+});
+
+// Speech Synthesis Engine Function
+function speakSentence(text, lang){
+  if(!voiceEnabled) return;
+  if('speechSynthesis' in window){
+    window.speechSynthesis.cancel();
+    let utter = new SpeechSynthesisUtterance(text);
+    utter.lang = lang;
+    utter.rate = 0.9;
+    utter.pitch = 1;
+    window.speechSynthesis.speak(utter);
   }
 }
+
+// Draw initial cover
+function drawCover() {
+  ctx.fillStyle = '#0f172a';
+  ctx.fillRect(0, 0, 1280, 720);
+  ctx.fillStyle = '#38bdf8';
+  ctx.font = 'bold 38px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Sovereign Talking Movie Studio 2030', 640, 340);
+  ctx.fillStyle = '#94a3b8';
+  ctx.font = '20px sans-serif';
+  ctx.fillText('Ready to render talking video (.webm)', 640, 390);
+}
+drawCover();
+
+// Handle Image selection
+imgInput.onchange = e => {
+  loadedImages = [];
+  let files = Array.from(e.target.files);
+  if(files.length > 0) {
+    imgStatus.innerText = `مبارک ہو! ${files.length} تصاویر اپ لوڈ ہو گئیں۔`;
+    imgStatus.classList.remove('text-slate-400');
+    imgStatus.classList.add('text-cyan-400');
+    files.forEach(file => {
+      let img = new Image();
+      img.src = URL.createObjectURL(file);
+      loadedImages.push(img);
+    });
+  }
+};
+
+// Multi-language Voice Input
+vBtn.onclick = () => {
+  if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
+    alert('آپ کا براؤزر وائس ان پٹ کو سپورٹ نہیں کرتا۔');
+    return;
+  }
+  let Speech = window.SpeechRecognition || webkitSpeechRecognition;
+  let R = new Speech();
+  R.lang = langSelect.value;
+  
+  R.onstart = () => { vBtnText.innerText = 'سن رہا ہوں...'; };
+  R.onresult = x => { tInput.value += ' ' + x.results[0][0].transcript; };
+  R.onend = () => { vBtnText.innerText = 'وائس ان پٹ'; };
+  R.start();
+};
+
+function formatTime(s) {
+  let m = Math.floor(s/60);
+  let sc = Math.floor(s%60);
+  return (m<10?'0':'')+m+':'+(sc<10?'0':'')+sc;
+}
+
+// Real Video Generator with Talking Movie Engine
+gBtn.onclick = () => {
+  let text = tInput.value.trim();
+  if(!text) { alert('براہ کرم سکرپٹ درج کریں!'); return; }
+
+  let durationSec = parseInt(dSelect.value);
+  let sentences = text.split(/۔|\.|\n|!|\?/).filter(s => s.trim().length > 0);
+  if(sentences.length === 0) sentences = [text];
+
+  gBtn.disabled = true;
+  renderStatus.innerText = 'حالت: بولتی فلم رینڈر ہو رہی ہے...';
+  statusOverlay.classList.remove('hidden');
+
+  let stream = cv.captureStream(30);
+  let mediaRecorder;
+
+  try {
+    mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9' });
+  } catch(e) {
+    mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+  }
+
+  let chunks = [];
+  mediaRecorder.ondataavailable = e => { if(e.data.size > 0) chunks.push(e.data); };
+
+  mediaRecorder.onstop = () => {
+    if('speechSynthesis' in window) window.speechSynthesis.cancel();
+    let blob = new Blob(chunks, { type: 'video/webm' });
+    let a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `Sovereign-Talking-Movie-${Date.now()}.webm`;
+    a.click();
+
+    statusOverlay.classList.add('hidden');
+    gBtn.disabled = false;
+    renderStatus.innerText = 'حالت: مکمل ✅';
+    drawCover();
+    alert('✅ مبارک ہو بھائی جان! بولتی فلم فائل (.webm) کامیابی سے ڈاؤن لوڈ ہو چکی ہے۔');
+  };
+
+  mediaRecorder.start();
+
+  let fps = 30;
+  let totalFrames = durationSec * fps;
+  let currentFrame = 0;
+  let lastSentenceIdx = -1;
+
+  let renderTimer = setInterval(() => {
+    currentFrame++;
+    let progressRatio = currentFrame / totalFrames;
+    let currentSec = Math.floor(progressRatio * durationSec);
+
+    // Update UI elements
+    progressBar.style.width = (progressRatio * 100) + '%';
+    timelineProgress.innerText = `ٹائم لائن: ${formatTime(currentSec)} / ${formatTime(durationSec)}`;
+    frameProgressText.innerText = `${currentFrame} / ${totalFrames} فریمز (${Math.floor(progressRatio * 100)}%)`;
+
+    // Render Canvas Frame
+    let sentenceIdx = Math.floor(progressRatio * sentences.length) % sentences.length;
+    let currentSentence = sentences[sentenceIdx];
+
+    // Trigger Talking Voice Engine on sentence change
+    if(sentenceIdx !== lastSentenceIdx){
+      speakSentence(currentSentence, langSelect.value);
+      lastSentenceIdx = sentenceIdx;
+    }
+
+    // Draw Background
+    if(loadedImages.length > 0) {
+      let imgIdx = Math.floor(progressRatio * loadedImages.length) % loadedImages.length;
+      ctx.drawImage(loadedImages[imgIdx], 0, 0, 1280, 720);
+      ctx.fillStyle = 'rgba(2, 6, 23, 0.55)';
+      ctx.fillRect(0, 0, 1280, 720);
+    } else {
+      let grad = ctx.createLinearGradient(0, 0, 1280, 720);
+      if(themeSelect.value === 'cyber') {
+        grad.addColorStop(0, '#020617'); grad.addColorStop(0.5, '#0f172a'); grad.addColorStop(1, '#0e7490');
+      } else if(themeSelect.value === 'neon') {
+        grad.addColorStop(0, '#020617'); grad.addColorStop(0.5, '#31103f'); grad.addColorStop(1, '#831843');
+      } else {
+        grad.addColorStop(0, '#020617'); grad.addColorStop(0.5, '#451a03'); grad.addColorStop(1, '#78350f');
+      }
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 1280, 720);
+    }
+
+    // Draw Text Box Overlay
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.75)';
+    ctx.fillRect(80, 500, 1120, 140);
+
+    // Text Subtitles
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 30px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(currentSentence.substring(0, 75), 640, 580);
+
+    // Watermark Top Center
+    ctx.font = 'bold 22px sans-serif';
+    ctx.fillStyle = '#38bdf8';
+    ctx.fillText('👑 Sovereign Empire 2030 - Talking Movie Studio', 640, 70);
+
+    // Dynamic Progress Bar on Canvas
+    ctx.fillStyle = '#ec4899';
+    ctx.fillRect(0, 710, 1280 * progressRatio, 10);
+
+    if(currentFrame >= totalFrames) {
+      clearInterval(renderTimer);
+      mediaRecorder.stop();
+    }
+  }, 1000 / fps);
+};
 </script>
+
 </body>
 </html>
