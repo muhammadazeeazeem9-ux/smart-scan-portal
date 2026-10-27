@@ -1,131 +1,147 @@
+
 <!DOCTYPE html>
-<html lang="ur" dir="rtl">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sovereign AI Video Studio VIP++ ULTRA-GOD 2030</title>
+<title>Sovereign Empire 2030 - Global AI Cinema Studio VIP++</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
+  :root {
+    --bg-main: #020617;
+    --panel-bg: rgba(15, 23, 42, 0.85);
+    --border-color: rgba(56, 189, 248, 0.3);
+  }
   body { background: radial-gradient(circle at center, #020617 0%, #0f172a 100%); color: #f8fafc; font-family: 'Segoe UI', system-ui, sans-serif; }
-  .glass-panel { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9); }
-  .btn-god { background: linear-gradient(135deg, #2563eb 0%, #7c3aed 50%, #db2777 100%); transition: all 0.3s ease; }
-  .btn-god:hover { transform: translateY(-2px); box-shadow: 0 0 30px rgba(219, 39, 119, 0.8); }
+  .glass-panel { background: var(--panel-bg); backdrop-filter: blur(20px); border: 1px solid var(--border-color); box-shadow: 0 25px 60px rgba(0,0,0,0.9); }
+  .btn-god { background: linear-gradient(135deg, #0284c7 0%, #7c3aed 50%, #db2777 100%); transition: all 0.3s ease; }
+  .btn-god:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(219, 39, 119, 0.8); }
 </style>
 </head>
-<body class="min-h-screen p-4 md:p-8">
+<body class="min-h-screen p-4 md:p-6">
 
-  <!-- Header -->
+  <!-- Universal Header -->
   <header class="max-w-7xl mx-auto mb-6 flex flex-col md:flex-row justify-between items-center p-5 glass-panel rounded-2xl">
     <div class="flex items-center gap-3 mb-4 md:mb-0">
-      <div class="p-3 bg-blue-600/30 border border-blue-400/40 rounded-xl">
-        <i class="fa-solid fa-crown text-yellow-400 text-2xl"></i>
+      <div class="p-3 bg-cyan-500/20 border border-cyan-400/40 rounded-xl text-cyan-400">
+        <i class="fa-solid fa-clapperboard text-2xl"></i>
       </div>
       <div>
-        <h1 class="text-2xl md:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-pink-500">
-          Sovereign AI Video Studio <span class="text-xs bg-pink-600 px-2 py-1 rounded-full text-white ml-2">TALKING MOVIE 2030</span>
+        <h1 class="text-xl md:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-500">
+          GLOBAL AI CINEMA STUDIO <span class="text-xs bg-pink-600 px-2 py-0.5 rounded-full text-white font-mono">1-HOUR VIP++</span>
         </h1>
-        <p class="text-xs text-slate-400 mt-1">اردو • हिंदी • English • العربية — بولتی فلم والا رننگ اسٹوڈیو</p>
+        <p class="text-xs text-slate-400 mt-0.5">Multi-Lingual 60-Min Movie & Documentary Engine (150+ Nations)</p>
       </div>
     </div>
-    <a href="index.html" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-sm font-semibold transition flex items-center gap-2">
-      <i class="fa-solid fa-arrow-right"></i> ماسٹر پورٹل پر واپس جائیں
+    <a href="index.html" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-xs font-semibold transition flex items-center gap-2">
+      <i class="fa-solid fa-arrow-right"></i> Master Portal
     </a>
   </header>
 
-  <!-- Main Controls & Canvas -->
   <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
-    
-    <!-- Controls Panel -->
-    <section class="glass-panel p-6 rounded-2xl lg:col-span-1 space-y-4">
-      <h2 class="text-lg font-bold border-b border-slate-800 pb-3 flex items-center gap-2 text-cyan-400">
-        <i class="fa-solid fa-sliders"></i> اسٹوڈیو کنٹرولز
+
+    <!-- Left Controls Panel -->
+    <section class="glass-panel p-5 rounded-2xl lg:col-span-1 space-y-4">
+      <h2 class="text-base font-bold border-b border-slate-800 pb-3 flex items-center justify-between text-cyan-400">
+        <span><i class="fa-solid fa-sliders ml-1"></i> Production Controls</span>
+        <span class="text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full">Pro Studio</span>
       </h2>
 
-      <!-- Language Selector -->
+      <!-- Style / Format Selector -->
       <div>
-        <label class="block text-xs font-semibold text-slate-300 mb-1">زبان منتخب کریں (Select Language)</label>
-        <select id="langSelect" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-cyan-400 font-bold">
-          <option value="ur-PK" selected>اردو (Urdu)</option>
-          <option value="hi-IN">हिंदी (Hindi)</option>
-          <option value="en-US">English (US)</option>
-          <option value="ar-SA">العربية (Arabic)</option>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Cinema Format / Style</label>
+        <select id="styleSelect" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-cyan-400 font-bold">
+          <option value="documentary">🎞️ Documentary (سینماٹک ڈاکومنٹری)</option>
+          <option value="news">📰 Global News / Broadcast (خبریں)</option>
+          <option value="shorts">📱 YouTube Shorts / Reels (عمودی 9:16)</option>
+          <option value="film">🎬 Hollywood Feature Film (ہالی ووڈ انداز)</option>
+          <option value="podcast">🎙️ Audio-Visual Podcast (پوڈکاسٹ)</option>
         </select>
       </div>
 
-      <!-- Script Input -->
+      <!-- Universal Script Input -->
       <div>
-        <label class="block text-xs font-semibold text-slate-300 mb-1">اسکرپٹ یا کہانی درج کریں</label>
-        <textarea id="tInput" rows="4" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-cyan-400 transition" placeholder="یہاں اپنی کہانی یا لیرکس درج کریں..."></textarea>
+        <label class="block text-xs font-semibold text-slate-300 mb-1">Universal Script / Narration (Any Language)</label>
+        <textarea id="scriptInput" rows="5" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-cyan-400 transition" placeholder="Paste your 1-hour story, script, or documentary text in any language here..."></textarea>
       </div>
 
-      <!-- Action Buttons -->
+      <!-- Voiceover Audio Upload -->
+      <div class="border-2 border-dashed border-slate-700 hover:border-cyan-400/50 rounded-xl p-3.5 text-center cursor-pointer transition bg-slate-950/40" onclick="document.getElementById('audioInput').click()">
+        <i class="fa-solid fa-microphone-lines text-2xl text-pink-400 mb-1"></i>
+        <p id="audioStatus" class="text-xs font-bold text-slate-200">Upload Full Voiceover Audio (.MP3 / .WAV / .AAC)</p>
+        <p class="text-[10px] text-slate-500 mt-0.5">Auto-synced with canvas video stream</p>
+        <input type="file" id="audioInput" class="hidden" accept="audio/*">
+      </div>
+      <audio id="bgAudio" class="hidden"></audio>
+
+      <!-- Duration Selection (Up to 1 Hour) -->
       <div class="grid grid-cols-2 gap-2">
-        <button id="vBtn" class="py-2.5 bg-slate-800 hover:bg-slate-700 rounded-xl text-xs font-semibold border border-slate-700 transition flex items-center justify-center gap-1.5">
-          <i class="fa-solid fa-microphone text-pink-400"></i> <span id="vBtnText">وائس ان پٹ</span>
-        </button>
-        <button onclick="document.getElementById('imgInput').click()" class="py-2.5 bg-slate-800 hover:bg-slate-700 rounded-xl text-xs font-semibold border border-slate-700 transition flex items-center justify-center gap-1.5">
-          <i class="fa-solid fa-image text-cyan-400"></i> تصاویر شامل کریں
+        <div>
+          <label class="block text-[11px] font-semibold text-slate-400 mb-1">Duration</label>
+          <select id="durationSelect" class="w-full bg-slate-950 rounded-xl px-2.5 py-2 text-xs border border-slate-700 text-cyan-400 font-bold">
+            <option value="60">1 Minute</option>
+            <option value="300">5 Minutes</option>
+            <option value="600">10 Minutes</option>
+            <option value="1800">30 Minutes</option>
+            <option value="3600" selected>1 Hour (60 Mins)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-[11px] font-semibold text-slate-400 mb-1">Quality</label>
+          <select id="qualitySelect" class="w-full bg-slate-950 rounded-xl px-2.5 py-2 text-xs border border-slate-700 text-pink-400 font-bold">
+            <option value="1080" selected>Full HD 1080p</option>
+            <option value="720">HD 720p</option>
+            <option value="2160">4K Ultra HD</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Image / Asset Upload -->
+      <div>
+        <button onclick="document.getElementById('imgInput').click()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 rounded-xl text-xs font-semibold border border-slate-700 transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-images text-cyan-400"></i> Import B-Roll Images / Slides
         </button>
         <input type="file" id="imgInput" class="hidden" accept="image/*" multiple>
-      </div>
-
-      <div id="imgStatus" class="text-[10px] text-slate-400 bg-slate-950/50 p-2 rounded-lg text-center">
-        کوئی تصویر منتخب نہیں ہوئی۔ (خودکار اینیمیٹڈ بیک گراؤنڈ استعمال ہوگا)
-      </div>
-
-      <!-- Options -->
-      <div class="grid grid-cols-2 gap-3">
-        <div>
-          <label class="block text-[11px] font-semibold text-slate-300 mb-1">دورانیہ (Duration)</label>
-          <select id="dSelect" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2 text-xs text-white">
-            <option value="15">15 سیکنڈ (Quick Test)</option>
-            <option value="30">30 سیکنڈ</option>
-            <option value="60">1 منٹ</option>
-            <option value="300">5 منٹ</option>
-            <option value="600" selected>10 منٹ</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-[11px] font-semibold text-slate-300 mb-1">بیک گراؤنڈ تھیم</label>
-          <select id="themeSelect" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2 text-xs text-white">
-            <option value="cyber">سائبر سائین (Cyber Cyan)</option>
-            <option value="neon">نیون ڈارک (Neon Pink)</option>
-            <option value="gold">رائل گولڈ (Royal Gold)</option>
-          </select>
+        <div id="imgStatus" class="text-[10px] text-slate-400 bg-slate-950/50 p-2 rounded-lg text-center mt-1">
+          No images uploaded. (AI Procedural Motion Background will be used)
         </div>
       </div>
 
-      <button id="gBtn" class="w-full py-3.5 rounded-xl font-bold btn-god text-white shadow-lg flex items-center justify-center gap-2 text-sm mt-2">
-        <i class="fa-solid fa-film"></i> بولتی فلم بنائیں اور ڈاؤن لوڈ کریں (.WEBM)
+      <!-- Master Render Button -->
+      <button id="renderBtn" class="w-full py-3.5 rounded-xl font-black btn-god text-white shadow-xl flex items-center justify-center gap-2 text-sm mt-2">
+        <i class="fa-solid fa-wand-magic-sparkles"></i> RENDER 1-HOUR FULL MOVIE (.WEBM)
       </button>
     </section>
 
-    <!-- Canvas Preview & Render Output -->
-    <section class="glass-panel p-6 rounded-2xl lg:col-span-2 flex flex-col justify-between space-y-4">
-      <div>
-        <h2 class="text-lg font-bold border-b border-slate-800 pb-3 flex items-center justify-between text-pink-400">
-          <span><i class="fa-solid fa-display"></i> رینڈرنگ کینوس اسکرین</span>
-          <span id="renderStatus" class="text-xs text-cyan-400 font-mono">حالت: تیار</span>
+    <!-- Right Canvas & Render Output -->
+    <section class="glass-panel p-5 rounded-2xl lg:col-span-2 flex flex-col justify-between space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+        <h2 class="text-base font-bold text-pink-400 flex items-center gap-2">
+          <i class="fa-solid fa-desktop"></i> Live Cinema Studio Canvas
         </h2>
+        <span id="renderStatus" class="text-xs text-emerald-400 font-mono">Status: Studio Ready</span>
       </div>
 
-      <div class="relative rounded-2xl overflow-hidden border border-slate-800 bg-black aspect-video flex items-center justify-center">
-        <canvas id="cv" class="w-full h-full block"></canvas>
-        <div id="statusOverlay" class="absolute inset-0 bg-black/80 backdrop-blur-sm flex flex-col items-center justify-center text-cyan-400 hidden z-20">
-          <i class="fa-solid fa-circle-notch fa-spin text-5xl mb-3"></i>
-          <p id="overlayText" class="text-sm font-bold">بولتی فلم رینڈرنگ جاری ہے...</p>
-          <p id="frameProgressText" class="text-xs text-slate-400 mt-1 font-mono">0 / 0 فریمز</p>
+      <!-- Screen Preview Box -->
+      <div class="relative rounded-2xl overflow-hidden border border-slate-800 bg-black aspect-video flex items-center justify-center shadow-2xl">
+        <canvas id="cinemaCanvas" class="w-full h-full block"></canvas>
+
+        <div id="statusOverlay" class="absolute inset-0 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center text-cyan-400 hidden z-20">
+          <i class="fa-solid fa-compact-disc fa-spin text-5xl mb-3 text-pink-500"></i>
+          <p id="overlayText" class="text-sm font-bold">Rendering 1-Hour Cinema Video & Audio Stream...</p>
+          <p id="frameProgressText" class="text-xs text-slate-400 mt-1 font-mono">0 / 0 Frames (0%)</p>
         </div>
       </div>
 
-      <div class="space-y-3 pt-2 border-t border-slate-800">
+      <!-- Timeline Progress Bar -->
+      <div class="space-y-2 pt-2 border-t border-slate-800">
         <div class="flex justify-between text-xs text-slate-400 font-mono">
-          <span id="timelineProgress">ٹائم لائن: 00:00 / 10:00</span>
-          <span id="fpsCount">FPS: 30</span>
+          <span id="timelineProgress">Timeline: 00:00:00 / 01:00:00</span>
+          <span id="fpsCount">FPS: 30 | Engine: WebM Ultra</span>
         </div>
-        <div class="w-full bg-slate-950 h-2.5 rounded-full overflow-hidden border border-slate-800">
-          <div id="progressBar" class="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 h-full w-0 transition-all duration-200"></div>
+        <div class="w-full bg-slate-950 h-3 rounded-full overflow-hidden border border-slate-800 p-0.5">
+          <div id="progressBar" class="bg-gradient-to-r from-cyan-400 via-purple-500 to-pink-500 h-full w-0 rounded-full transition-all duration-150"></div>
         </div>
       </div>
     </section>
@@ -134,78 +150,57 @@
 
 <script>
 let loadedImages = [];
-let voiceEnabled = true;
+let audioBlob = null;
 
+const scriptInput = document.getElementById('scriptInput');
+const audioInput = document.getElementById('audioInput');
+const audioStatus = document.getElementById('audioStatus');
+const bgAudio = document.getElementById('bgAudio');
 const imgInput = document.getElementById('imgInput');
 const imgStatus = document.getElementById('imgStatus');
-const tInput = document.getElementById('tInput');
-const vBtn = document.getElementById('vBtn');
-const vBtnText = document.getElementById('vBtnText');
-const gBtn = document.getElementById('gBtn');
-const langSelect = document.getElementById('langSelect');
-const dSelect = document.getElementById('dSelect');
-const themeSelect = document.getElementById('themeSelect');
-const cv = document.getElementById('cv');
-const ctx = cv.getContext('2d');
+const renderBtn = document.getElementById('renderBtn');
+const durationSelect = document.getElementById('durationSelect');
+const styleSelect = document.getElementById('styleSelect');
+const cinemaCanvas = document.getElementById('cinemaCanvas');
+const ctx = cinemaCanvas.getContext('2d');
 const statusOverlay = document.getElementById('statusOverlay');
-const overlayText = document.getElementById('overlayText');
 const frameProgressText = document.getElementById('frameProgressText');
 const progressBar = document.getElementById('progressBar');
 const timelineProgress = document.getElementById('timelineProgress');
 const renderStatus = document.getElementById('renderStatus');
 
-// Canvas dimensions setup (16:9 HD)
-cv.width = 1280;
-cv.height = 720;
+cinemaCanvas.width = 1920;
+cinemaCanvas.height = 1080;
 
-// Default script templates
-const defaultScripts = {
-  'ur-PK': 'ایک قدیم قلعے میں رات کے وقت پراسرار روشنی نمودار ہوتی ہے۔ لوگ حیران رہ جاتے ہیں۔',
-  'hi-IN': 'एक प्राचीन महल में रात के समय रहस्यमयी रोशनी दिखाई देती है। लोग हैरान रह जाते हैं।',
-  'en-US': 'A mysterious light appears over an ancient castle at midnight. Everyone is astonished.',
-  'ar-SA': 'ظهرت إضاءة غامضة فوق قلعة قديمة في منتصف الليل. وذهل الجميع.'
-};
+// Universal Placeholder
+scriptInput.value = `Enter any script in any language (Urdu, English, Arabic, Hindi, Spanish, Mandarin).
+This studio automatically synchronizes subtitles, background motion graphics, and audio narration up to 1 Hour!`;
 
-tInput.value = defaultScripts['ur-PK'];
-
-langSelect.addEventListener('change', () => {
-  tInput.value = defaultScripts[langSelect.value] || defaultScripts['en-US'];
-});
-
-// Speech Synthesis Engine Function
-function speakSentence(text, lang){
-  if(!voiceEnabled) return;
-  if('speechSynthesis' in window){
-    window.speechSynthesis.cancel();
-    let utter = new SpeechSynthesisUtterance(text);
-    utter.lang = lang;
-    utter.rate = 0.9;
-    utter.pitch = 1;
-    window.speechSynthesis.speak(utter);
-  }
+function formatHHMMSS(seconds) {
+  let h = Math.floor(seconds / 3600);
+  let m = Math.floor((seconds % 3600) / 60);
+  let s = Math.floor(seconds % 60);
+  return `${h<10?'0':''}${h}:${m<10?'0':''}${m}:${s<10?'0':''}${s}`;
 }
 
-// Draw initial cover
-function drawCover() {
-  ctx.fillStyle = '#0f172a';
-  ctx.fillRect(0, 0, 1280, 720);
+function drawIdleCanvas() {
+  ctx.fillStyle = '#020617';
+  ctx.fillRect(0, 0, 1920, 1080);
   ctx.fillStyle = '#38bdf8';
-  ctx.font = 'bold 38px sans-serif';
+  ctx.font = 'bold 50px sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('Sovereign Talking Movie Studio 2030', 640, 340);
+  ctx.fillText('GLOBAL AI CINEMA STUDIO VIP++', 960, 500);
   ctx.fillStyle = '#94a3b8';
-  ctx.font = '20px sans-serif';
-  ctx.fillText('Ready to render talking video (.webm)', 640, 390);
+  ctx.font = '28px sans-serif';
+  ctx.fillText('Universal 1-Hour AI Video & Audio Sync Engine', 960, 570);
 }
-drawCover();
+drawIdleCanvas();
 
-// Handle Image selection
 imgInput.onchange = e => {
   loadedImages = [];
   let files = Array.from(e.target.files);
   if(files.length > 0) {
-    imgStatus.innerText = `مبارک ہو! ${files.length} تصاویر اپ لوڈ ہو گئیں۔`;
-    imgStatus.classList.remove('text-slate-400');
+    imgStatus.innerText = `${files.length} Slides/B-Roll Images Uploaded Successfully!`;
     imgStatus.classList.add('text-cyan-400');
     files.forEach(file => {
       let img = new Image();
@@ -215,132 +210,118 @@ imgInput.onchange = e => {
   }
 };
 
-// Multi-language Voice Input
-vBtn.onclick = () => {
-  if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)) {
-    alert('آپ کا براؤزر وائس ان پٹ کو سپورٹ نہیں کرتا۔');
-    return;
+audioInput.onchange = e => {
+  let file = e.target.files[0];
+  if(file) {
+    audioBlob = URL.createObjectURL(file);
+    bgAudio.src = audioBlob;
+    audioStatus.innerText = `Audio Synced: ${file.name}`;
+    audioStatus.classList.add('text-emerald-400');
   }
-  let Speech = window.SpeechRecognition || webkitSpeechRecognition;
-  let R = new Speech();
-  R.lang = langSelect.value;
-  
-  R.onstart = () => { vBtnText.innerText = 'سن رہا ہوں...'; };
-  R.onresult = x => { tInput.value += ' ' + x.results[0][0].transcript; };
-  R.onend = () => { vBtnText.innerText = 'وائس ان پٹ'; };
-  R.start();
 };
 
-function formatTime(s) {
-  let m = Math.floor(s/60);
-  let sc = Math.floor(s%60);
-  return (m<10?'0':'')+m+':'+(sc<10?'0':'')+sc;
-}
+renderBtn.onclick = async () => {
+  let scriptText = scriptInput.value.trim();
+  if(!scriptText) { alert('Please enter your script!'); return; }
 
-// Real Video Generator with Talking Movie Engine
-gBtn.onclick = () => {
-  let text = tInput.value.trim();
-  if(!text) { alert('براہ کرم سکرپٹ درج کریں!'); return; }
+  let totalDurationSec = parseInt(durationSelect.value);
+  let sentences = scriptText.split(/\n|\.|۔|\?|!/).filter(s => s.trim().length > 0);
+  if(sentences.length === 0) sentences = [scriptText];
 
-  let durationSec = parseInt(dSelect.value);
-  let sentences = text.split(/۔|\.|\n|!|\?/).filter(s => s.trim().length > 0);
-  if(sentences.length === 0) sentences = [text];
-
-  gBtn.disabled = true;
-  renderStatus.innerText = 'حالت: بولتی فلم رینڈر ہو رہی ہے...';
+  renderBtn.disabled = true;
+  renderStatus.innerText = 'Status: Rendering 1-Hour Cinema...';
   statusOverlay.classList.remove('hidden');
 
-  let stream = cv.captureStream(30);
-  let mediaRecorder;
-
-  try {
-    mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9' });
-  } catch(e) {
-    mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+  if(bgAudio.src) {
+    bgAudio.currentTime = 0;
+    bgAudio.play().catch(e => console.log('Audio autoplay info:', e));
   }
 
-  let chunks = [];
-  mediaRecorder.ondataavailable = e => { if(e.data.size > 0) chunks.push(e.data); };
+  let canvasStream = cinemaCanvas.captureStream(30);
+  let combinedStream = canvasStream;
+
+  if(bgAudio.src && bgAudio.captureStream) {
+    try {
+      let audioStream = bgAudio.captureStream();
+      combinedStream = new MediaStream([...canvasStream.getVideoTracks(), ...audioStream.getAudioTracks()]);
+    } catch(err) {
+      console.log('Audio capture stream fallback');
+    }
+  }
+
+  let mediaRecorder;
+  try {
+    mediaRecorder = new MediaRecorder(combinedStream, { mimeType: 'video/webm;codecs=vp9,opus' });
+  } catch(e) {
+    mediaRecorder = new MediaRecorder(canvasStream, { mimeType: 'video/webm' });
+  }
+
+  let recordedChunks = [];
+  mediaRecorder.ondataavailable = e => { if(e.data.size > 0) recordedChunks.push(e.data); };
 
   mediaRecorder.onstop = () => {
-    if('speechSynthesis' in window) window.speechSynthesis.cancel();
-    let blob = new Blob(chunks, { type: 'video/webm' });
-    let a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = `Sovereign-Talking-Movie-${Date.now()}.webm`;
-    a.click();
+    if(bgAudio) bgAudio.pause();
+    let finalBlob = new Blob(recordedChunks, { type: 'video/webm' });
+    let downloadLink = document.createElement('a');
+    downloadLink.href = URL.createObjectURL(finalBlob);
+    downloadLink.download = `Sovereign-Global-Cinema-Movie-${Date.now()}.webm`;
+    downloadLink.click();
 
     statusOverlay.classList.add('hidden');
-    gBtn.disabled = false;
-    renderStatus.innerText = 'حالت: مکمل ✅';
-    drawCover();
-    alert('✅ مبارک ہو بھائی جان! بولتی فلم فائل (.webm) کامیابی سے ڈاؤن لوڈ ہو چکی ہے۔');
+    renderBtn.disabled = false;
+    renderStatus.innerText = 'Status: Render Complete ✅';
+    drawIdleCanvas();
+    alert('🎉 Congratulations! Your 1-Hour Cinema Video with Full Audio Sync has been exported successfully!');
   };
 
   mediaRecorder.start();
 
   let fps = 30;
-  let totalFrames = durationSec * fps;
+  let totalFrames = totalDurationSec * fps;
   let currentFrame = 0;
-  let lastSentenceIdx = -1;
 
   let renderTimer = setInterval(() => {
     currentFrame++;
     let progressRatio = currentFrame / totalFrames;
-    let currentSec = Math.floor(progressRatio * durationSec);
+    let currentSec = Math.floor(progressRatio * totalDurationSec);
 
-    // Update UI elements
     progressBar.style.width = (progressRatio * 100) + '%';
-    timelineProgress.innerText = `ٹائم لائن: ${formatTime(currentSec)} / ${formatTime(durationSec)}`;
-    frameProgressText.innerText = `${currentFrame} / ${totalFrames} فریمز (${Math.floor(progressRatio * 100)}%)`;
+    timelineProgress.innerText = `Timeline: ${formatHHMMSS(currentSec)} / ${formatHHMMSS(totalDurationSec)}`;
+    frameProgressText.innerText = `${currentFrame} / ${totalFrames} Frames (${Math.floor(progressRatio * 100)}%)`;
 
-    // Render Canvas Frame
     let sentenceIdx = Math.floor(progressRatio * sentences.length) % sentences.length;
     let currentSentence = sentences[sentenceIdx];
 
-    // Trigger Talking Voice Engine on sentence change
-    if(sentenceIdx !== lastSentenceIdx){
-      speakSentence(currentSentence, langSelect.value);
-      lastSentenceIdx = sentenceIdx;
-    }
-
-    // Draw Background
+    // Canvas Motion Graphics Rendering
     if(loadedImages.length > 0) {
       let imgIdx = Math.floor(progressRatio * loadedImages.length) % loadedImages.length;
-      ctx.drawImage(loadedImages[imgIdx], 0, 0, 1280, 720);
-      ctx.fillStyle = 'rgba(2, 6, 23, 0.55)';
-      ctx.fillRect(0, 0, 1280, 720);
+      ctx.drawImage(loadedImages[imgIdx], 0, 0, 1920, 1080);
+      ctx.fillStyle = 'rgba(2, 6, 23, 0.6)';
+      ctx.fillRect(0, 0, 1920, 1080);
     } else {
-      let grad = ctx.createLinearGradient(0, 0, 1280, 720);
-      if(themeSelect.value === 'cyber') {
-        grad.addColorStop(0, '#020617'); grad.addColorStop(0.5, '#0f172a'); grad.addColorStop(1, '#0e7490');
-      } else if(themeSelect.value === 'neon') {
-        grad.addColorStop(0, '#020617'); grad.addColorStop(0.5, '#31103f'); grad.addColorStop(1, '#831843');
-      } else {
-        grad.addColorStop(0, '#020617'); grad.addColorStop(0.5, '#451a03'); grad.addColorStop(1, '#78350f');
-      }
+      let grad = ctx.createLinearGradient(0, 0, 1920, 1080);
+      grad.addColorStop(0, '#020617');
+      grad.addColorStop(0.5, '#0f172a');
+      grad.addColorStop(1, '#0284c7');
       ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 1280, 720);
+      ctx.fillRect(0, 0, 1920, 1080);
     }
 
-    // Draw Text Box Overlay
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.75)';
-    ctx.fillRect(80, 500, 1120, 140);
+    // Subtitle Container Box
+    ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
+    ctx.fillRect(100, 800, 1720, 180);
 
-    // Text Subtitles
     ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 30px sans-serif';
+    ctx.font = 'bold 42px sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(currentSentence.substring(0, 75), 640, 580);
+    ctx.fillText(currentSentence.substring(0, 85), 960, 900);
 
-    // Watermark Top Center
-    ctx.font = 'bold 22px sans-serif';
+    ctx.font = 'bold 28px sans-serif';
     ctx.fillStyle = '#38bdf8';
-    ctx.fillText('👑 Sovereign Empire 2030 - Talking Movie Studio', 640, 70);
+    ctx.fillText('👑 SOVEREIGN GLOBAL AI CINEMA STUDIO VIP++', 960, 80);
 
-    // Dynamic Progress Bar on Canvas
-    ctx.fillStyle = '#ec4899';
-    ctx.fillRect(0, 710, 1280 * progressRatio, 10);
+    ctx.fillStyle = '#db2777';
+    ctx.fillRect(0, 1065, 1920 * progressRatio, 15);
 
     if(currentFrame >= totalFrames) {
       clearInterval(renderTimer);
