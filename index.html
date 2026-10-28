@@ -1,286 +1,279 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sovereign Universal AI Studio Hub 2030</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-  body { background: #020617; color: #f8fafc; font-family: 'Segoe UI', system-ui, sans-serif; }
-  .glass-panel { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(25px); border: 1px solid rgba(56, 189, 248, 0.35); box-shadow: 0 25px 50px rgba(0,0,0,0.9); }
-  .btn-god { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%); transition: all 0.3s ease; }
-  .btn-god:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(56, 189, 248, 0.7); }
-  .glow-cyan { box-shadow: 0 0 25px rgba(56, 189, 248, 0.3); }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master AI Portal - Sovereign App Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background: #050811; color: #f8fafc; font-family: 'Segoe UI', system-ui, sans-serif; }
+        .glass-panel { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .tool-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .tool-card:hover { transform: translateY(-4px); border-color: rgba(6, 182, 212, 0.4); box-shadow: 0 12px 30px -10px rgba(6, 182, 212, 0.2); }
+    </style>
 </head>
-<body class="min-h-screen p-4 md:p-6">
+<body class="min-h-screen flex flex-col selection:bg-cyan-500 selection:text-black">
 
-  <!-- Header Section -->
-  <header class="max-w-7xl mx-auto mb-5 flex flex-col md:flex-row justify-between items-center p-4 glass-panel rounded-2xl gap-4">
-    <div class="flex items-center gap-3">
-      <div class="p-2.5 bg-cyan-500/20 border border-cyan-400/40 rounded-xl text-cyan-400">
-        <i class="fa-solid fa-clapperboard text-xl"></i>
-      </div>
-      <div>
-        <h1 class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400">
-          SOVEREIGN UNIVERSAL AI STUDIO <span class="text-[10px] bg-cyan-600 px-2 py-0.5 rounded-full text-white font-mono">150+ COUNTRIES HUB</span>
-        </h1>
-        <p class="text-[11px] text-slate-400">Create Documentaries, Animations, Politics, News & Cinematic Films</p>
-      </div>
-    </div>
+    <!-- Top Navigation / Header -->
+    <header class="glass-panel sticky top-0 z-50 border-b border-gray-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-black font-extrabold text-xl shadow-lg shadow-cyan-500/30">
+                    <i class="fa-solid fa-cube"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-black tracking-wider text-white">MASTER AI PORTAL</h1>
+                    <p class="text-xs text-cyan-400 font-mono tracking-widest">SOVEREIGN APP STORE V1.0</p>
+                </div>
+            </div>
 
-    <!-- Global Multi-Language Selector (Supports Urdu & 150+ Languages) -->
-    <div class="flex items-center gap-2 bg-slate-900 border border-slate-700 px-3 py-1.5 rounded-xl">
-      <i class="fa-solid fa-globe text-cyan-400"></i>
-      <div id="google_translate_element"></div>
-    </div>
+            <!-- Quick Search Bar -->
+            <div class="hidden md:flex items-center relative w-96">
+                <i class="fa-solid fa-search absolute left-4 text-gray-400 text-sm"></i>
+                <input type="text" id="searchInput" onkeyup="filterTools()" placeholder="Search independent tools..." class="w-full bg-gray-900/90 border border-gray-800 rounded-xl pl-11 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition-all">
+            </div>
 
-    <div class="flex items-center gap-3">
-      <a href="cartoon-studio.html" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-xs font-semibold transition flex items-center gap-2 text-pink-400">
-        <i class="fa-solid fa-child-reaching"></i> Cartoon Studio
-      </a>
-      <a href="global-cinema-studio.html" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-xs font-semibold transition flex items-center gap-2 text-cyan-400">
-        <i class="fa-solid fa-film"></i> Cinema Studio
-      </a>
-    </div>
-  </header>
-
-  <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-5">
-
-    <!-- Left Control Panel -->
-    <section class="glass-panel p-5 rounded-2xl lg:col-span-1 space-y-4">
-      <h2 class="text-xs font-bold uppercase tracking-wider text-cyan-400 border-b border-slate-800 pb-2 flex items-center justify-between">
-        <span><i class="fa-solid fa-sliders"></i> Universal Production Controls</span>
-        <span class="text-[10px] text-pink-400 font-mono">v11.0 Engine</span>
-      </h2>
-
-      <!-- Category Selector -->
-      <div>
-        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Select Video Category / Genre</label>
-        <select id="genreSelect" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-cyan-400 font-bold focus:border-cyan-500 focus:outline-none">
-          <option value="Cinematic Documentary style, professional storytelling, 8k resolution">Cinematic Documentary</option>
-          <option value="Animation and Cartoon Drama, vibrant colors, Disney Pixar style">Animation & Cartoon Drama</option>
-          <option value="Politics and News Broadcast, professional studio lighting, anchor view">Politics & News Broadcast</option>
-          <option value="Cinematic Movie and Story, Hollywood blockbuster style, dramatic lighting">Cinematic Movie & Story</option>
-        </select>
-      </div>
-
-      <!-- Script Input -->
-      <div>
-        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Master Production Script & Dialogues</label>
-        <textarea id="scriptInput" rows="4" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-cyan-400 transition" placeholder="Enter your script here to convert into professional AI prompts..."></textarea>
-      </div>
-
-      <!-- Generate Prompts Button -->
-      <button id="generatePromptBtn" class="w-full py-3 bg-cyan-950/90 hover:bg-cyan-900 border border-cyan-500/50 rounded-xl text-xs font-bold text-cyan-200 transition flex items-center justify-center gap-2 shadow-lg">
-        <i class="fa-solid fa-microchip text-pink-400"></i> GENERATE PROFESSIONAL AI PROMPTS
-      </button>
-
-      <!-- Audio Upload -->
-      <div class="border-2 border-dashed border-slate-700 hover:border-cyan-400/50 rounded-xl p-3 text-center cursor-pointer transition bg-slate-950/40" onclick="document.getElementById('audioInput').click()">
-        <i class="fa-solid fa-microphone-lines text-xl text-cyan-400 mb-1"></i>
-        <p id="audioStatus" class="text-xs font-bold text-slate-200">Upload Voiceover Audio (.MP3)</p>
-        <input type="file" id="audioInput" class="hidden" accept="audio/*">
-      </div>
-      <audio id="bgAudio" class="hidden"></audio>
-
-      <!-- Render Action Button -->
-      <button id="renderBtn" class="w-full py-3.5 rounded-xl font-black btn-god text-white shadow-xl flex items-center justify-center gap-2 text-xs glow-cyan">
-        <i class="fa-solid fa-wand-magic-sparkles"></i> RENDER MASTER PRODUCTION (.WEBM)
-      </button>
-    </section>
-
-    <!-- Right Panel: Canvas & Prompt Output Hub -->
-    <section class="glass-panel p-5 rounded-2xl lg:col-span-2 flex flex-col justify-between space-y-4">
-      
-      <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-        <h2 class="text-xs font-bold text-pink-400 flex items-center gap-2">
-          <i class="fa-solid fa-display"></i> Universal Studio Canvas Preview
-        </h2>
-        <span id="renderStatus" class="text-xs text-emerald-400 font-mono">Status: Ready</span>
-      </div>
-
-      <!-- Canvas Preview Box -->
-      <div class="relative rounded-xl overflow-hidden border border-slate-800 bg-black aspect-video flex items-center justify-center shadow-inner">
-        <canvas id="cinemaCanvas" class="w-full h-full block"></canvas>
-
-        <div id="statusOverlay" class="absolute inset-0 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center text-cyan-400 hidden z-20">
-          <i class="fa-solid fa-gear fa-spin text-4xl mb-3 text-pink-400"></i>
-          <p id="overlayText" class="text-xs font-bold">Rendering Universal Production Video...</p>
-          <p id="frameProgressText" class="text-[11px] text-slate-400 mt-1 font-mono">0 / 0 Frames (0%)</p>
+            <div class="flex items-center space-x-3">
+                <button onclick="triggerSystemScan()" class="px-4 py-2 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 rounded-xl text-xs font-bold transition-all flex items-center space-x-2">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span class="hidden sm:inline">System Audit</span>
+                </button>
+            </div>
         </div>
-      </div>
+    </header>
 
-      <!-- AI Prompts Result Output Box -->
-      <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-2">
-        <div class="flex justify-between items-center">
-          <h3 class="text-xs font-bold text-cyan-400 flex items-center gap-2">
-            <i class="fa-solid fa-terminal"></i> Generated Professional AI Prompts (For Pika / Runway / Sora)
-          </h3>
-          <button onclick="navigator.clipboard.writeText(document.getElementById('promptBox').innerText); alert('Prompts Copied Successfully!');" class="px-2.5 py-1 bg-cyan-600 hover:bg-cyan-500 rounded text-[10px] text-white font-bold transition">
-            <i class="fa-solid fa-copy"></i> Copy Prompts
-          </button>
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+        <!-- Hero Status & Live Scanner Widget -->
+        <section class="glass-panel rounded-3xl p-6 sm:p-8 relative overflow-hidden">
+            <div class="absolute -right-16 -top-16 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                <div class="space-y-2 max-w-2xl">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-bold">
+                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                        <span>ISOLATED DIRECTORY ARCHITECTURE ACTIVE</span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Independent Hub & Play Store</h2>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Every tool operates inside its own protected sub-directory with complete file isolation, zero cross-contamination, and standalone deployment ready for GitHub Pages.
+                    </p>
+                </div>
+
+                <!-- Mini Scanner Status Box -->
+                <div class="w-full lg:w-80 bg-gray-900/90 border border-gray-800 rounded-2xl p-4 space-y-3">
+                    <div class="flex items-center justify-between text-xs font-mono">
+                        <span class="text-gray-400">ISOLATION STATUS</span>
+                        <span id="scanBadge" class="text-[10px] px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 font-bold">SECURE & READY</span>
+                    </div>
+                    <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                        <div id="scanBar" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-full w-full transition-all duration-500"></div>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] text-gray-500 font-mono">
+                        <span>Integrity: 100%</span>
+                        <span id="scanPercent">100%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Filters -->
+        <div class="flex items-center space-x-3 overflow-x-auto pb-2 scrollbar-none">
+            <button onclick="filterCategory('all', this)" class="cat-tab px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-black shadow-lg shadow-cyan-500/20 font-bold text-sm transition-all">All Apps</button>
+            <button onclick="filterCategory('builder', this)" class="cat-tab px-4 py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-gray-300 hover:text-white border border-gray-800 text-sm font-medium transition-all">Builders & Studios</button>
+            <button onclick="filterCategory('security', this)" class="cat-tab px-4 py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-gray-300 hover:text-white border border-gray-800 text-sm font-medium transition-all">Security & Scanners</button>
         </div>
-        <div id="promptBox" class="bg-slate-900 border border-slate-800 rounded-lg p-3 text-[11px] text-slate-300 font-mono overflow-y-auto max-h-32">
-          Click "GENERATE PROFESSIONAL AI PROMPTS" above to automatically convert your script into professional English AI prompts!
+
+        <!-- Apps Catalog Grid (Play Store Style) -->
+        <section id="toolsSection" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Tool Card 1: Sovereign Global Builder -->
+            <div class="tool-card glass-panel rounded-3xl p-6 flex flex-col justify-between space-y-6" data-name="sovereign global builder supreme v6.1" data-category="builder">
+                <div class="space-y-4">
+                    <div class="flex items-start justify-between">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-2xl shadow-inner">
+                            <i class="fa-solid fa-globe"></i>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-mono text-xs font-bold">v6.1 Supreme</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white tracking-wide">Sovereign Global Builder</h3>
+                        <p class="text-xs text-gray-400 mt-1">Autonomous business & party deployment system with isolated folder structure.</p>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xs text-gray-500 font-mono pt-1">
+                        <i class="fa-solid fa-folder-tree text-cyan-400"></i>
+                        <span>Path: /global-builder/index.html</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-3 pt-4 border-t border-gray-800">
+                    <a href="./global-builder/index.html" class="flex-grow py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-black font-extrabold text-sm rounded-xl text-center shadow-lg shadow-cyan-500/20 transition-all flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-rocket"></i>
+                        <span>Launch Tool</span>
+                    </a>
+                    <button onclick="downloadManifest('Global Builder')" class="p-3 bg-gray-900 hover:bg-gray-800 border border-gray-800 text-gray-300 rounded-xl transition-all" title="Download Manifest">
+                        <i class="fa-solid fa-download"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tool Card 2: Universal AI Studio -->
+            <div class="tool-card glass-panel rounded-3xl p-6 flex flex-col justify-between space-y-6" data-name="universal ai studio" data-category="builder">
+                <div class="space-y-4">
+                    <div class="flex items-start justify-between">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-600/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-2xl shadow-inner">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 font-mono text-xs font-bold">v3.0 Hub</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white tracking-wide">Universal AI Studio</h3>
+                        <p class="text-xs text-gray-400 mt-1">Multi-modal generative AI studio environment with custom toolkits.</p>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xs text-gray-500 font-mono pt-1">
+                        <i class="fa-solid fa-folder-tree text-purple-400"></i>
+                        <span>Path: /ai-studio/index.html</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-3 pt-4 border-t border-gray-800">
+                    <a href="./ai-studio/index.html" class="flex-grow py-3 bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-400 hover:to-pink-500 text-white font-extrabold text-sm rounded-xl text-center shadow-lg shadow-purple-500/20 transition-all flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-rocket"></i>
+                        <span>Launch Tool</span>
+                    </a>
+                    <button onclick="downloadManifest('AI Studio')" class="p-3 bg-gray-900 hover:bg-gray-800 border border-gray-800 text-gray-300 rounded-xl transition-all" title="Download Manifest">
+                        <i class="fa-solid fa-download"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tool Card 3: Cyber Shield Security -->
+            <div class="tool-card glass-panel rounded-3xl p-6 flex flex-col justify-between space-y-6" data-name="cyber shield security verification" data-category="security">
+                <div class="space-y-4">
+                    <div class="flex items-start justify-between">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-600/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl shadow-inner">
+                            <i class="fa-solid fa-shield-cat"></i>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-xs font-bold">Active Shield</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white tracking-wide">Cyber Shield Verification</h3>
+                        <p class="text-xs text-gray-400 mt-1">Real-time vulnerability auditor and automated directory protection scanner.</p>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xs text-gray-500 font-mono pt-1">
+                        <i class="fa-solid fa-folder-tree text-emerald-400"></i>
+                        <span>Path: /cyber-shield/index.html</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-3 pt-4 border-t border-gray-800">
+                    <a href="./cyber-shield/index.html" class="flex-grow py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-black font-extrabold text-sm rounded-xl text-center shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center space-x-2">
+                        <i class="fa-solid fa-rocket"></i>
+                        <span>Launch Tool</span>
+                    </a>
+                    <button onclick="downloadManifest('Cyber Shield')" class="p-3 bg-gray-900 hover:bg-gray-800 border border-gray-800 text-gray-300 rounded-xl transition-all" title="Download Manifest">
+                        <i class="fa-solid fa-download"></i>
+                    </button>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800/80 bg-gray-950/90 py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg bg-cyan-500 flex items-center justify-center text-black font-extrabold text-sm">
+                    <i class="fa-solid fa-microchip"></i>
+                </div>
+                <span class="text-sm font-bold text-gray-300">Master AI Portal © 2026</span>
+            </div>
+            
+            <div class="flex items-center space-x-6 text-xs text-gray-400">
+                <a href="#toolsSection" class="hover:text-white transition-colors">Catalog</a>
+                <a href="./global-builder/index.html" class="hover:text-white transition-colors">Global Builder</a>
+                <span class="font-mono text-[11px] text-gray-500">masteraiportal.com</span>
+            </div>
         </div>
-        <div class="flex flex-wrap gap-2 pt-1">
-          <a href="https://create.pika.art" target="_blank" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg text-[10px] text-pink-400 font-semibold border border-slate-700 flex items-center gap-1">
-            <i class="fa-solid fa-up-right-from-square"></i> Open Pika Studio
-          </a>
-          <a href="https://runwayml.com" target="_blank" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg text-[10px] text-cyan-400 font-semibold border border-slate-700 flex items-center gap-1">
-            <i class="fa-solid fa-up-right-from-square"></i> Open Runway ML
-          </a>
-        </div>
-      </div>
+    </footer>
 
-    </section>
+    <!-- Interactive JavaScript Logic -->
+    <script>
+        function filterTools() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.tool-card');
 
-  </main>
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name') || '';
+                if (name.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
 
-<!-- Google Translate Widget for 150+ Countries including Urdu -->
-<script type="text/javascript">
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement({
-      pageLanguage: 'en',
-      includedLanguages: 'ur,ar,hi,es,fr,de,zh-CN,ja,ru,pt,en,it,ko,tr,fa,vi,th,id',
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-      autoDisplay: false
-    }, 'google_translate_element');
-  }
-</script>
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.cat-tab').forEach(tab => {
+                tab.className = 'cat-tab px-4 py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-gray-300 hover:text-white transition-all border border-gray-800 text-sm font-medium';
+            });
+            btn.className = 'cat-tab px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-black shadow-lg shadow-cyan-500/20 font-bold text-sm transition-all';
 
-<script>
-let audioBlob = null;
-const scriptInput = document.getElementById('scriptInput');
-const genreSelect = document.getElementById('genreSelect');
-const generatePromptBtn = document.getElementById('generatePromptBtn');
-const promptBox = document.getElementById('promptBox');
-const audioInput = document.getElementById('audioInput');
-const audioStatus = document.getElementById('audioStatus');
-const bgAudio = document.getElementById('bgAudio');
-const renderBtn = document.getElementById('renderBtn');
-const cinemaCanvas = document.getElementById('cinemaCanvas');
-const ctx = cinemaCanvas.getContext('2d');
-const statusOverlay = document.getElementById('statusOverlay');
-const renderStatus = document.getElementById('renderStatus');
+            const cards = document.querySelectorAll('.tool-card');
+            cards.forEach(card => {
+                const cardCat = card.getAttribute('data-category');
+                if (cat === 'all' || cardCat === cat) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
 
-cinemaCanvas.width = 1920;
-cinemaCanvas.height = 1080;
+        function triggerSystemScan() {
+            const bar = document.getElementById('scanBar');
+            const percent = document.getElementById('scanPercent');
+            const badge = document.getElementById('scanBadge');
 
-scriptInput.value = `Scene 1: Universal documentary intro showcasing futuristic global architecture.
-Scene 2: Dynamic cinematic narrative with professional lighting and depth.
-Scene 3: Grand finale sequence featuring high-end visual production.`;
+            badge.innerText = 'AUDITING...';
+            badge.className = 'text-[10px] px-2.5 py-1 rounded bg-amber-500/20 text-amber-400 font-mono font-bold animate-pulse';
+            
+            let val = 0;
+            bar.style.width = '0%';
+            
+            const interval = setInterval(() => {
+                val += 25;
+                bar.style.width = val + '%';
+                percent.innerText = val + '%';
+                
+                if (val >= 100) {
+                    clearInterval(interval);
+                    badge.innerText = 'SECURE & READY';
+                    badge.className = 'text-[10px] px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 font-mono font-bold';
+                }
+            }, 100);
+        }
 
-function drawIdle() {
-  ctx.fillStyle = '#0f172a';
-  ctx.fillRect(0, 0, 1920, 1080);
-  ctx.fillStyle = '#38bdf8';
-  ctx.font = 'bold 45px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('SOVEREIGN UNIVERSAL AI CINEMA STUDIO', 960, 490);
-  ctx.fillStyle = '#ec4899';
-  ctx.font = '24px sans-serif';
-  ctx.fillText('Select Category, Add Script & Audio, Render Any Video!', 960, 550);
-}
-drawIdle();
-
-generatePromptBtn.onclick = () => {
-  let text = scriptInput.value.trim();
-  let genre = genreSelect.value;
-  if(!text) { alert('Please enter your script first!'); return; }
-
-  let lines = text.split('\n').filter(l => l.trim().length > 0);
-  let prompts = lines.map((line, idx) => {
-    return `[Scene ${idx+1} Prompt]: Masterpiece 8k, ${genre}, high detail, cinematic lighting -- action: ${line}`;
-  }).join('\n\n');
-
-  promptBox.innerText = prompts;
-};
-
-audioInput.onchange = e => {
-  let file = e.target.files[0];
-  if(file) {
-    audioBlob = URL.createObjectURL(file);
-    bgAudio.src = audioBlob;
-    audioStatus.innerText = `Voiceover Loaded: ${file.name}`;
-    audioStatus.classList.add('text-emerald-400');
-  }
-};
-
-renderBtn.onclick = async () => {
-  let scriptText = scriptInput.value.trim();
-  if(!scriptText) { alert('Please enter your production script!'); return; }
-
-  let sentences = scriptText.split(/\n/).filter(s => s.trim().length > 0);
-  renderBtn.disabled = true;
-  renderStatus.innerText = 'Status: Rendering Master Production...';
-  statusOverlay.classList.remove('hidden');
-
-  if(bgAudio.src) {
-    bgAudio.currentTime = 0;
-    bgAudio.play().catch(e => console.log(e));
-  }
-
-  let canvasStream = cinemaCanvas.captureStream(30);
-  let mediaRecorder = new MediaRecorder(canvasStream, { mimeType: 'video/webm' });
-  let chunks = [];
-
-  mediaRecorder.ondataavailable = e => { if(e.data.size > 0) chunks.push(e.data); };
-  mediaRecorder.onstop = () => {
-    if(bgAudio) bgAudio.pause();
-    let blob = new Blob(chunks, { type: 'video/webm' });
-    let link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `Universal-Master-Production-${Date.now()}.webm`;
-    link.click();
-
-    statusOverlay.classList.add('hidden');
-    renderBtn.disabled = false;
-    renderStatus.innerText = 'Status: Render Complete ✅';
-    drawIdle();
-    alert('🎉 Master Video Rendered & Downloaded Successfully!');
-  };
-
-  mediaRecorder.start();
-
-  let totalFrames = 150;
-  let currentFrame = 0;
-
-  let timer = setInterval(() => {
-    currentFrame++;
-
-    let grad = ctx.createLinearGradient(0, 0, 1920, 1080);
-    grad.addColorStop(0, '#1e1b4b');
-    grad.addColorStop(1, '#020617');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 1920, 1080);
-
-    ctx.fillStyle = 'rgba(56, 189, 248, 0.3)';
-    ctx.beginPath();
-    ctx.arc(960, 450, 150, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.95)';
-    ctx.strokeStyle = '#38bdf8';
-    ctx.lineWidth = 3;
-    ctx.fillRect(100, 820, 1720, 160);
-    ctx.strokeRect(100, 820, 1720, 160);
-
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 36px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText(sentences[0] || 'Universal AI Studio Master Production Preview', 960, 915);
-
-    if(currentFrame >= totalFrames) {
-      clearInterval(timer);
-      mediaRecorder.stop();
-    }
-  }, 1000 / 30);
-};
-</script>
-
+        function downloadManifest(appName) {
+            const dummyManifest = {
+                name: appName,
+                short_name: appName,
+                start_url: "./index.html",
+                display: "standalone",
+                background_color: "#050811",
+                theme_color: "#00f2fe"
+            };
+            const blob = new Blob([JSON.stringify(dummyManifest, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${appName.toLowerCase().replace(/\s+/g, '-')}-manifest.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
 </body>
 </html>
