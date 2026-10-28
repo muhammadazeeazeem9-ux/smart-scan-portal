@@ -1,298 +1,535 @@
-,<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sovereign Ultimate AI Cartoon Studio 2030</title>
+<meta name="theme-color" content="#070b18">
+<title>Sovereign AI Cartoon Studio VIP</title>
+
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 <style>
-  body { background: #020617; color: #f8fafc; font-family: 'Segoe UI', system-ui, sans-serif; }
-  .glass-panel { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(236, 72, 153, 0.4); box-shadow: 0 25px 50px rgba(0,0,0,0.9); }
-  .btn-god { background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #3b82f6 100%); transition: all 0.3s ease; }
-  .btn-god:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(236, 72, 153, 0.85); }
-  .glow-pink { box-shadow: 0 0 25px rgba(236, 72, 153, 0.35); }
+:root{--bg:#070b18;--panel:#10182c;--border:#293650;--pink:#f472b6;--cyan:#67e8f9}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:#f8fafc;font-family:system-ui,"Segoe UI",sans-serif}
+.glass{background:linear-gradient(145deg,#141e36f7,#0a1020f7);border:1px solid var(--border);box-shadow:0 15px 40px #0005}
+.field{width:100%;background:#080e1e;border:1px solid #334155;border-radius:10px;padding:11px;color:#fff;outline:none;font-size:13px}
+.field:focus{border-color:var(--pink);box-shadow:0 0 0 2px #f472b622}
+select option{background:#10182c;color:white}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid #334155;border-radius:10px;padding:11px 13px;font-size:12px;font-weight:750;transition:.2s;cursor:pointer}
+.btn:hover:not(:disabled){transform:translateY(-1px);filter:brightness(1.12)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-main{background:linear-gradient(120deg,#db2777,#7c3aed,#2563eb);border:0}
+.btn-cyan{background:#083344;color:#a5f3fc;border-color:#155e75}
+.btn-muted{background:#172033}
+.btn-danger{background:#451a25;border-color:#7f1d1d}
+.label{display:block;color:#cbd5e1;font-size:12px;font-weight:700;margin-bottom:7px}
+.small{font-size:11px;color:#94a3b8;line-height:1.7}
+.panel-title{font-size:13px;font-weight:850;color:var(--cyan);margin:0 0 15px}
+.dropzone{display:block;border:1px dashed #475569;border-radius:12px;padding:14px;text-align:center;background:#0b1225;cursor:pointer}
+.dropzone:hover{border-color:var(--cyan)}
+#stage{display:block;width:100%;height:auto;background:#080d1b}
+#overlay{position:absolute;inset:0;background:#070b18ed;display:none;align-items:center;justify-content:center;flex-direction:column;z-index:5}
+#progressBar{height:7px;background:#243047;border-radius:20px;overflow:hidden}
+#progressFill{height:100%;width:0;background:linear-gradient(90deg,#ec4899,#8b5cf6,#22d3ee)}
+.tag{border:1px solid #334155;border-radius:20px;padding:5px 9px;font-size:10px;color:#cbd5e1}
+.scene-card{background:#0a1122;border:1px solid #263550;border-radius:10px;padding:10px;margin-top:8px}
+[hidden]{display:none!important}
+@media(max-width:640px){.btn{padding:10px;font-size:11px}}
 </style>
 </head>
-<body class="min-h-screen p-4 md:p-6">
 
-  <!-- Header -->
-  <header class="max-w-7xl mx-auto mb-5 flex flex-col md:flex-row justify-between items-center p-4 glass-panel rounded-2xl">
-    <div class="flex items-center gap-3">
-      <div class="p-2.5 bg-pink-500/20 border border-pink-400/40 rounded-xl text-pink-400">
-        <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
-      </div>
-      <div>
-        <h1 class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400">
-          SOVEREIGN AI CARTOON STUDIO <span class="text-[10px] bg-pink-600 px-2 py-0.5 rounded-full text-white font-mono">PROMPT & ANIMATION HUB</span>
-        </h1>
-        <p class="text-[11px] text-slate-400">Transform Scripts into Professional AI Prompts & Animated Scenes</p>
-      </div>
-    </div>
-    <a href="index.html" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-xs font-semibold transition flex items-center gap-2">
-      <i class="fa-solid fa-arrow-right"></i> Master Portal
-    </a>
-  </header>
+<body class="min-h-screen">
 
-  <main class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-5">
+<header class="max-w-7xl mx-auto px-4 pt-5">
+<div class="glass rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-xl bg-pink-500/15 border border-pink-400/30 flex items-center justify-center text-pink-400 text-2xl">
+<i class="fa-solid fa-clapperboard"></i>
+</div>
+<div>
+<h1 class="font-black text-lg md:text-xl text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-300">SOVEREIGN AI CARTOON STUDIO VIP</h1>
+<p class="text-xs text-slate-400 mt-1">Story · Characters · Animation · AI Prompts · Export</p>
+</div>
+</div>
+<a href="../index.html" class="btn btn-muted"><i class="fa-solid fa-house"></i> Master Portal</a>
+</div>
+</header>
 
-    <!-- Left Panel: Controls & Prompt Generator -->
-    <section class="glass-panel p-5 rounded-2xl lg:col-span-1 space-y-4">
-      <h2 class="text-xs font-bold uppercase tracking-wider text-pink-400 border-b border-slate-800 pb-2 flex items-center justify-between">
-        <span><i class="fa-solid fa-clapperboard"></i> Director Control Panel</span>
-        <span class="text-[10px] text-cyan-400 font-mono">v5.0 AI Engine</span>
-      </h2>
+<main class="max-w-7xl mx-auto p-4 md:p-5 grid grid-cols-1 lg:grid-cols-12 gap-5">
 
-      <!-- Art Style -->
-      <div>
-        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Cartoon Art Style</label>
-        <select id="artStyleSelect" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-xs text-pink-400 font-bold focus:border-pink-500 focus:outline-none">
-          <option value="disney pixar 3d animated movie style">✨ 3D Disney Pixar Animated Movie</option>
-          <option value="studio ghibli anime style">⛩️ Studio Ghibli Japanese Anime</option>
-          <option value="vibrant classic 2d cartoon series">🎨 Vibrant Classic 2D Cartoon Series</option>
-          <option value="ultra-realistic cinematic 3d render">🚀 Ultra-Realistic Cinematic 3D</option>
-        </select>
-      </div>
+<aside class="lg:col-span-4 space-y-5">
 
-      <!-- Script Input -->
-      <div>
-        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Story Script & Dialogues (Urdu / English)</label>
-        <textarea id="scriptInput" rows="4" class="w-full bg-slate-950 border border-slate-700 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-pink-400 transition" placeholder="Scene 1: ایک پیارے خرگوش کا جادوئی جنگل میں سفر..."></textarea>
-      </div>
+<section class="glass rounded-2xl p-4">
+<h2 class="panel-title"><i class="fa-solid fa-sliders"></i> Director Control Panel</h2>
 
-      <!-- Generate AI Prompts Button -->
-      <button id="generatePromptBtn" class="w-full py-3 bg-purple-950/90 hover:bg-purple-900 border border-purple-500/50 rounded-xl text-xs font-bold text-purple-200 transition flex items-center justify-center gap-2 shadow-lg">
-        <i class="fa-solid fa-microchip text-cyan-400"></i> GENERATE PROFESSIONAL AI PROMPTS
-      </button>
+<div class="space-y-4">
+<div>
+<label class="label" for="projectName">Project Name</label>
+<input id="projectName" class="field" maxlength="100" value="My Cartoon Story">
+</div>
 
-      <!-- Assets Upload -->
-      <div class="border-2 border-dashed border-cyan-500/40 hover:border-cyan-400 rounded-xl p-3 text-center cursor-pointer transition bg-cyan-950/20" onclick="document.getElementById('charInput').click()">
-        <i class="fa-solid fa-person-running text-xl text-cyan-400 mb-1"></i>
-        <p id="charStatus" class="text-xs font-bold text-cyan-200">Upload Character GIFs / Sprites</p>
-        <input type="file" id="charInput" class="hidden" accept="image/*" multiple>
-      </div>
+<div>
+<label class="label" for="artStyle">Cartoon Art Style</label>
+<select id="artStyle" class="field">
+<option value="original colorful 3D family animation">Colorful 3D Family Animation</option>
+<option value="cinematic stylized 3D animation">Cinematic 3D Animation</option>
+<option value="hand-drawn 2D cartoon">Classic 2D Cartoon</option>
+<option value="Japanese anime-inspired animation">Anime-Inspired Animation</option>
+<option value="storybook watercolor illustration">Watercolor Storybook</option>
+<option value="claymation stop-motion animation">Claymation</option>
+<option value="pixel art animation">Pixel Art</option>
+<option value="cinematic realistic 3D animation">Realistic 3D Animation</option>
+</select>
+</div>
 
-      <!-- Voiceover -->
-      <div class="border-2 border-dashed border-slate-700 hover:border-pink-400/50 rounded-xl p-3 text-center cursor-pointer transition bg-slate-950/40" onclick="document.getElementById('audioInput').click()">
-        <i class="fa-solid fa-microphone-lines text-xl text-pink-400 mb-1"></i>
-        <p id="audioStatus" class="text-xs font-bold text-slate-200">Upload Voiceover Audio (.MP3)</p>
-        <input type="file" id="audioInput" class="hidden" accept="audio/*">
-      </div>
-      <audio id="bgAudio" class="hidden"></audio>
+<div class="grid grid-cols-2 gap-3">
+<div>
+<label class="label" for="duration">Video Duration</label>
+<select id="duration" class="field">
+<option value="10">10 Seconds</option>
+<option value="30">30 Seconds</option>
+<option value="60" selected>1 Minute</option>
+<option value="180">3 Minutes</option>
+<option value="300">5 Minutes</option>
+</select>
+</div>
+<div>
+<label class="label" for="fps">Frame Rate</label>
+<select id="fps" class="field">
+<option value="15">15 FPS</option>
+<option value="24" selected>24 FPS</option>
+<option value="30">30 FPS</option>
+</select>
+</div>
+</div>
 
-      <!-- Render Button -->
-      <button id="renderBtn" class="w-full py-3.5 rounded-xl font-black btn-god text-white shadow-xl flex items-center justify-center gap-2 text-xs glow-pink">
-        <i class="fa-solid fa-wand-magic-sparkles"></i> RENDER LOCAL CARTOON MOVIE (.WEBM)
-      </button>
-    </section>
+<div>
+<label class="label" for="resolution">Export Resolution</label>
+<select id="resolution" class="field">
+<option value="1280x720" selected>HD · 1280 × 720</option>
+<option value="1920x1080">Full HD · 1920 × 1080</option>
+<option value="854x480">SD · 854 × 480</option>
+</select>
+</div>
 
-    <!-- Right Panel: Preview & AI Prompts Output Hub -->
-    <section class="glass-panel p-5 rounded-2xl lg:col-span-2 flex flex-col justify-between space-y-4">
-      
-      <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-        <h2 class="text-xs font-bold text-cyan-400 flex items-center gap-2">
-          <i class="fa-solid fa-display"></i> Canvas Preview & AI Prompt Director
-        </h2>
-        <span id="renderStatus" class="text-xs text-emerald-400 font-mono">Status: Ready</span>
-      </div>
+<div>
+<label class="label" for="aspect">Video Format</label>
+<select id="aspect" class="field">
+<option value="landscape" selected>16:9 — YouTube</option>
+<option value="portrait">9:16 — Shorts / Reels</option>
+<option value="square">1:1 — Square</option>
+</select>
+</div>
+</div>
+</section>
 
-      <!-- Canvas Box -->
-      <div class="relative rounded-xl overflow-hidden border border-slate-800 bg-black aspect-video flex items-center justify-center shadow-inner">
-        <canvas id="cinemaCanvas" class="w-full h-full block"></canvas>
+<section class="glass rounded-2xl p-4">
+<h2 class="panel-title"><i class="fa-solid fa-book-open"></i> Story & Dialogues</h2>
+<label class="label" for="script">Each non-empty line becomes a scene</label>
+<textarea id="script" class="field" rows="8" dir="auto" placeholder="Scene 1: A rabbit enters a magical forest."></textarea>
+<p class="small mt-2">Write each scene on a separate line. Include characters, actions, locations and dialogue.</p>
+<div class="grid grid-cols-2 gap-2 mt-3">
+<button id="sampleBtn" class="btn btn-muted"><i class="fa-solid fa-lightbulb"></i> Sample Story</button>
+<button id="sceneBtn" class="btn btn-cyan"><i class="fa-solid fa-list"></i> Build Scenes</button>
+</div>
+<div id="sceneList" class="mt-3"></div>
+</section>
 
-        <div id="statusOverlay" class="absolute inset-0 bg-slate-950/90 backdrop-blur-md flex flex-col items-center justify-center text-pink-400 hidden z-20">
-          <i class="fa-solid fa-gear fa-spin text-4xl mb-3 text-cyan-400"></i>
-          <p id="overlayText" class="text-xs font-bold">Rendering Animated Cartoon Video...</p>
-          <p id="frameProgressText" class="text-[11px] text-slate-400 mt-1 font-mono">0 / 0 Frames (0%)</p>
-        </div>
-      </div>
+<section class="glass rounded-2xl p-4">
+<h2 class="panel-title"><i class="fa-solid fa-users"></i> Characters & Audio</h2>
 
-      <!-- AI Prompts Result Box -->
-      <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-2">
-        <div class="flex justify-between items-center">
-          <h3 class="text-xs font-bold text-pink-400 flex items-center gap-2">
-            <i class="fa-solid fa-terminal"></i> Generated AI Prompts (For Pika / Runway / Sora)
-          </h3>
-          <button onclick="navigator.clipboard.writeText(document.getElementById('promptBox').innerText); alert('Prompts copied!');" class="px-2.5 py-1 bg-pink-600 hover:bg-pink-500 rounded text-[10px] text-white font-bold transition">
-            <i class="fa-solid fa-copy"></i> Copy All Prompts
-          </button>
-        </div>
-        <div id="promptBox" class="bg-slate-900 border border-slate-800 rounded-lg p-3 text-[11px] text-slate-300 font-mono overflow-y-auto max-h-32">
-          Click "GENERATE PROFESSIONAL AI PROMPTS" above to turn your script into cinematic AI video prompts instantly!
-        </div>
-        <div class="flex flex-wrap gap-2 pt-1">
-          <a href="https://create.pika.art" target="_blank" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg text-[10px] text-pink-400 font-semibold border border-slate-700 flex items-center gap-1">
-            <i class="fa-solid fa-up-right-from-square"></i> Open Pika Studio
-          </a>
-          <a href="https://runwayml.com" target="_blank" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-lg text-[10px] text-cyan-400 font-semibold border border-slate-700 flex items-center gap-1">
-            <i class="fa-solid fa-up-right-from-square"></i> Open Runway ML
-          </a>
-        </div>
-      </div>
+<label class="dropzone mb-3" for="characters">
+<i class="fa-solid fa-images text-2xl text-cyan-300"></i>
+<p class="text-sm font-bold mt-2">Upload Character Images</p>
+<p class="small">PNG, JPG, WEBP · Multiple files</p>
+<input id="characters" type="file" accept="image/*" multiple hidden>
+</label>
+<div id="characterList" class="space-y-2 mb-3"></div>
 
-    </section>
+<label class="dropzone mb-3" for="audioFile">
+<i class="fa-solid fa-microphone-lines text-2xl text-pink-300"></i>
+<p class="text-sm font-bold mt-2">Upload Voiceover Audio</p>
+<p class="small">MP3, WAV or supported audio format</p>
+<input id="audioFile" type="file" accept="audio/*" hidden>
+</label>
 
-  </main>
+<div id="audioInfo" class="small mb-3">No audio selected.</div>
+<audio id="audioPreview" controls class="w-full" hidden></audio>
+<button id="removeAudio" class="btn btn-muted w-full mt-2" hidden><i class="fa-solid fa-trash"></i> Remove Audio</button>
+</section>
+
+<section class="glass rounded-2xl p-4">
+<h2 class="panel-title"><i class="fa-solid fa-folder-open"></i> Project Manager</h2>
+<div class="grid grid-cols-2 gap-2">
+<button id="saveProject" class="btn btn-cyan"><i class="fa-solid fa-download"></i> Save Project</button>
+<button id="loadProjectBtn" class="btn btn-muted"><i class="fa-solid fa-upload"></i> Load Project</button>
+<input id="loadProjectFile" type="file" accept=".json,application/json" hidden>
+</div>
+<p class="small mt-2">Project settings and script can be saved as JSON. Character and audio files may need to be selected again.</p>
+</section>
+
+</aside>
+
+<section class="lg:col-span-8 space-y-5">
+
+<section class="glass rounded-2xl p-4">
+<div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+<div>
+<h2 class="text-sm font-black text-cyan-300"><i class="fa-solid fa-display"></i> Animation Preview</h2>
+<p class="small mt-1">Local 2D animation preview. Not a full AI-generated movie.</p>
+</div>
+<span id="status" class="tag">Ready</span>
+</div>
+
+<div class="relative rounded-xl overflow-hidden border border-slate-700 bg-black">
+<canvas id="stage" width="1280" height="720"></canvas>
+<div id="overlay">
+<i class="fa-solid fa-circle-notch fa-spin text-3xl text-cyan-300"></i>
+<p id="overlayMessage" class="font-bold text-sm mt-4">Rendering video...</p>
+<p id="overlayProgress" class="small mt-2">0%</p>
+<div class="w-3/4 mt-4" id="progressBar"><div id="progressFill"></div></div>
+</div>
+</div>
+
+<div class="flex flex-wrap gap-2 mt-4">
+<button id="previewBtn" class="btn btn-cyan"><i class="fa-solid fa-play"></i> Play Preview</button>
+<button id="pauseBtn" class="btn btn-muted"><i class="fa-solid fa-pause"></i> Pause</button>
+<button id="resetBtn" class="btn btn-muted"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+</div>
+
+<div class="mt-4 grid grid-cols-2 md:grid-cols-4 gap-3">
+<div class="bg-slate-950/70 rounded-xl p-3 border border-slate-800"><p class="small">Scenes</p><p id="sceneCount" class="text-xl font-black text-pink-300">0</p></div>
+<div class="bg-slate-950/70 rounded-xl p-3 border border-slate-800"><p class="small">Duration</p><p id="durationStat" class="text-xl font-black text-cyan-300">60s</p></div>
+<div class="bg-slate-950/70 rounded-xl p-3 border border-slate-800"><p class="small">Characters</p><p id="characterCount" class="text-xl font-black text-purple-300">0</p></div>
+<div class="bg-slate-950/70 rounded-xl p-3 border border-slate-800"><p class="small">Total Frames</p><p id="frameCount" class="text-xl font-black text-emerald-300">1440</p></div>
+</div>
+</section>
+
+<section class="glass rounded-2xl p-4">
+<div class="flex flex-wrap justify-between items-center gap-3 mb-3">
+<div>
+<h2 class="text-sm font-black text-pink-300"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Prompt Director</h2>
+<p class="small mt-1">Create prompts for external AI video tools.</p>
+</div>
+<button id="generatePrompts" class="btn btn-main"><i class="fa-solid fa-bolt"></i> Generate Prompts</button>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+<div>
+<label class="label" for="characterDescription">Consistent Character Description</label>
+<textarea id="characterDescription" class="field" rows="3" placeholder="Small brown rabbit, blue vest, large green eyes"></textarea>
+</div>
+<div>
+<label class="label" for="negativePrompt">Negative Prompt</label>
+<textarea id="negativePrompt" class="field" rows="3">blurry, distorted anatomy, inconsistent character, extra limbs, flickering, low quality</textarea>
+</div>
+</div>
+
+<div class="flex flex-wrap gap-2 mb-3">
+<button id="copyPrompts" class="btn btn-muted"><i class="fa-regular fa-copy"></i> Copy All</button>
+<button id="downloadPrompts" class="btn btn-muted"><i class="fa-solid fa-file-arrow-down"></i> Download TXT</button>
+</div>
+
+<textarea id="promptOutput" class="field" rows="10" dir="auto" placeholder="Generated scene prompts will appear here." readonly></textarea>
+</section>
+
+<section class="glass rounded-2xl p-4">
+<h2 class="panel-title"><i class="fa-solid fa-file-video"></i> Render & Export</h2>
+<div class="bg-slate-950 border border-slate-800 rounded-xl p-3 mb-4">
+<p class="text-xs font-bold">Important</p>
+<p class="small mt-2">This tool records browser Canvas animation as a WebM video. It does not generate AI scenes, translate dialogue, or create AI voices by itself. Audio export depends on browser support.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<button id="renderBtn" class="btn btn-main py-4"><i class="fa-solid fa-film"></i> Render Video</button>
+<button id="cancelBtn" class="btn btn-danger py-4" disabled><i class="fa-solid fa-stop"></i> Cancel Render</button>
+</div>
+<p id="renderMessage" class="small mt-3" aria-live="polite">Check your script and settings before rendering.</p>
+</section>
+
+</section>
+</main>
+
+<footer class="max-w-7xl mx-auto px-4 pb-6">
+<div class="glass rounded-xl p-4 text-center small">Sovereign AI Cartoon Studio VIP · Local-first creative tool · External AI services may require separate accounts or payment.</div>
+</footer>
 
 <script>
-let charImages = [];
-let audioBlob = null;
+"use strict";
 
-const scriptInput = document.getElementById('scriptInput');
-const artStyleSelect = document.getElementById('artStyleSelect');
-const generatePromptBtn = document.getElementById('generatePromptBtn');
-const promptBox = document.getElementById('promptBox');
-const charInput = document.getElementById('charInput');
-const charStatus = document.getElementById('charStatus');
-const audioInput = document.getElementById('audioInput');
-const audioStatus = document.getElementById('audioStatus');
-const bgAudio = document.getElementById('bgAudio');
-const renderBtn = document.getElementById('renderBtn');
-const cinemaCanvas = document.getElementById('cinemaCanvas');
-const ctx = cinemaCanvas.getContext('2d');
-const statusOverlay = document.getElementById('statusOverlay');
-const frameProgressText = document.getElementById('frameProgressText');
-const renderStatus = document.getElementById('renderStatus');
+const $ = id => document.getElementById(id);
 
-cinemaCanvas.width = 1920;
-cinemaCanvas.height = 1080;
+const state = {
+  characters: [],
+  audioUrl: null,
+  audioFile: null,
+  animationId: null,
+  previewing: false,
+  rendering: false,
+  cancelled: false,
+  recorder: null,
+  chunks: [],
+  audioContext: null,
+  audioDestination: null,
+  audioSource: null,
+  renderStream: null,
+  startTime: 0,
+  pausedAt: 0,
+  elapsedBeforePause: 0,
+  previewTime: 0,
+  lastRenderTime: 0
+};
 
-scriptInput.value = `Scene 1: ایک پیارے خرگوش کا جادوئی جنگل میں صبح کا شاندار سفر۔
-Scene 2: شریر لومڑی کی آمد اور خرگوش کا دلچسپ ایکشن۔
-Scene 3: تمام جنگلی جانوروں کا فتح کا خوشی منانا۔`;
+const canvas = $("stage");
+const ctx = canvas.getContext("2d", {alpha:false});
 
-function drawIdle() {
-  ctx.fillStyle = '#0f172a';
-  ctx.fillRect(0, 0, 1920, 1080);
-  ctx.fillStyle = '#ec4899';
-  ctx.font = 'bold 45px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('SOVEREIGN AI CARTOON STUDIO HUB', 960, 490);
-  ctx.fillStyle = '#38bdf8';
-  ctx.font = '24px sans-serif';
-  ctx.fillText('Ready for AI Prompt Generation & Character Animation', 960, 550);
+const SAMPLE_STORY =
+`Scene 1: A little rabbit enters a magical forest at sunrise.
+Scene 2: The rabbit discovers a small bird that needs help.
+Scene 3: The rabbit safely carries the bird to a cozy nest.
+Scene 4: All the forest animals celebrate their friendship.`;
+
+$("script").value =
+`سین 1: ایک پیارا خرگوش جادوئی جنگل میں صبح کے وقت داخل ہوتا ہے۔
+سین 2: اسے ایک چھوٹا پرندہ ملتا ہے جسے مدد کی ضرورت ہے۔
+سین 3: خرگوش پرندے کو محفوظ گھونسلے تک پہنچاتا ہے۔
+سین 4: جنگل کے تمام جانور خوشی مناتے ہیں۔`;
+
+function getScenes(){
+  return $("script").value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
 }
-drawIdle();
 
-// Automatic AI Prompt Generator Function
-generatePromptBtn.onclick = () => {
-  let text = scriptInput.value.trim();
-  let style = artStyleSelect.value;
-  if(!text) { alert('Please enter your script first!'); return; }
+function duration(){return Math.max(1,Number($("duration").value)||60);}
+function fps(){return Math.max(1,Number($("fps").value)||24);}
 
-  let lines = text.split('\n').filter(l => l.trim().length > 0);
-  let generated = lines.map((line, idx) => {
-    return `[Scene ${idx+1} AI Prompt]: High-end 8k resolution, ${style}, highly detailed characters, cinematic lighting, fluid motion, professional storytelling -- description: ${line}`;
-  }).join('\n\n');
+function getDimensions(){
+  const [rw,rh]=$("resolution").value.split("x").map(Number);
+  const aspect=$("aspect").value;
+  if(aspect==="portrait")return {width:Math.min(rw,720),height:Math.min(rw,720)*16/9};
+  if(aspect==="square")return {width:Math.min(rw,rh),height:Math.min(rw,rh)};
+  return {width:rw,height:rh};
+}
 
-  promptBox.innerText = generated;
-};
+function setStatus(text){$("status").textContent=text;}
 
-charInput.onchange = e => {
-  charImages = [];
-  let files = Array.from(e.target.files);
-  if(files.length > 0) {
-    charStatus.innerText = `${files.length} Character Sprites Loaded!`;
-    charStatus.classList.add('text-emerald-400');
-    files.forEach(file => {
-      let img = new Image();
-      img.src = URL.createObjectURL(file);
-      charImages.push(img);
-    });
+function message(text){$("renderMessage").textContent=text;}
+
+function updateStats(){
+  $("sceneCount").textContent=getScenes().length;
+  $("durationStat").textContent=duration()+"s";
+  $("characterCount").textContent=state.characters.length;
+  $("frameCount").textContent=duration()*fps();
+}
+
+function roundRect(c,x,y,w,h,r){
+  r=Math.min(r,w/2,h/2);
+  c.beginPath();
+  c.moveTo(x+r,y);
+  c.arcTo(x+w,y,x+w,y+h,r);
+  c.arcTo(x+w,y+h,x,y+h,r);
+  c.arcTo(x,y+h,x,y,r);
+  c.arcTo(x,y,x+w,y,r);
+  c.closePath();
+}
+
+function wrapText(c,text,maxWidth){
+  const words=String(text).split(/\s+/);
+  const lines=[];
+  let line="";
+  for(const word of words){
+    const test=line?line+" "+word:word;
+    if(c.measureText(test).width>maxWidth&&line){
+      lines.push(line);
+      line=word;
+    }else line=test;
   }
-};
+  if(line)lines.push(line);
+  return lines;
+}
 
-audioInput.onchange = e => {
-  let file = e.target.files[0];
-  if(file) {
-    audioBlob = URL.createObjectURL(file);
-    bgAudio.src = audioBlob;
-    audioStatus.innerText = `Voiceover Loaded: ${file.name}`;
-    audioStatus.classList.add('text-emerald-400');
+function drawBackground(t){
+  const w=canvas.width,h=canvas.height;
+  const g=ctx.createLinearGradient(0,0,w,h);
+  g.addColorStop(0,"#172554");
+  g.addColorStop(.55,"#312e81");
+  g.addColorStop(1,"#111827");
+  ctx.fillStyle=g;
+  ctx.fillRect(0,0,w,h);
+
+  for(let i=0;i<45;i++){
+    const x=(i*173)%w;
+    const y=(i*97)%Math.max(1,Math.floor(h*.65));
+    ctx.globalAlpha=.45+.35*Math.sin(t*2+i);
+    ctx.fillStyle="#dbeafe";
+    ctx.beginPath();
+    ctx.arc(x,y,1+(i%3),0,Math.PI*2);
+    ctx.fill();
   }
-};
+  ctx.globalAlpha=1;
 
-renderBtn.onclick = async () => {
-  let scriptText = scriptInput.value.trim();
-  if(!scriptText) { alert('Please enter your script!'); return; }
+  ctx.fillStyle="#14532d";
+  ctx.beginPath();
+  ctx.moveTo(0,h*.77);
+  for(let x=0;x<=w;x+=Math.max(1,w/50)){
+    ctx.lineTo(x,h*(.72+.035*Math.sin(x/w*8+t)));
+  }
+  ctx.lineTo(w,h);
+  ctx.lineTo(0,h);
+  ctx.closePath();
+  ctx.fill();
 
-  let sentences = scriptText.split(/\n/).filter(s => s.trim().length > 0);
-  renderBtn.disabled = true;
-  renderStatus.innerText = 'Status: Rendering Cartoon...';
-  statusOverlay.classList.remove('hidden');
+  ctx.fillStyle="#166534";
+  ctx.beginPath();
+  ctx.moveTo(0,h*.88);
+  for(let x=0;x<=w;x+=Math.max(1,w/50)){
+    ctx.lineTo(x,h*(.83+.025*Math.sin(x/w*10-t*.7)));
+  }
+  ctx.lineTo(w,h);
+  ctx.lineTo(0,h);
+  ctx.closePath();
+  ctx.fill();
 
-  if(bgAudio.src) {
-    bgAudio.currentTime = 0;
-    bgAudio.play().catch(e => console.log(e));
+  for(let i=0;i<7;i++){
+    const x=(i/6)*w,y=h*(.61+(i%2)*.04);
+    ctx.fillStyle="#713f12";
+    ctx.fillRect(x-w*.008,y,w*.016,h*.16);
+    ctx.fillStyle=i%2?"#15803d":"#166534";
+    ctx.beginPath();
+    ctx.arc(x,y-h*.035,w*.045,0,Math.PI*2);
+    ctx.fill();
+  }
+}
+
+function drawCharacter(t){
+  const w=canvas.width,h=canvas.height;
+  const entry=state.characters[0];
+  const image=entry&&entry.image;
+  const x=w*(.5+.16*Math.sin(t*1.1));
+  const y=h*.53+Math.abs(Math.sin(t*3))*h*.018;
+  const size=Math.min(w*.29,h*.43);
+
+  if(image&&image.complete&&image.naturalWidth){
+    const ratio=Math.min(size/image.naturalWidth,size/image.naturalHeight);
+    const iw=image.naturalWidth*ratio,ih=image.naturalHeight*ratio;
+    ctx.drawImage(image,x-iw/2,y-ih/2,iw,ih);
+    return;
   }
 
-  let canvasStream = cinemaCanvas.captureStream(30);
-  let mediaRecorder = new MediaRecorder(canvasStream, { mimeType: 'video/webm' });
-  let chunks = [];
+  ctx.save();
+  ctx.translate(x,y);
+  ctx.fillStyle="#f9a8d4";
+  ctx.beginPath();
+  ctx.ellipse(-size*.20,-size*.40,size*.11,size*.30,-.18,0,Math.PI*2);
+  ctx.ellipse(size*.20,-size*.40,size*.11,size*.30,.18,0,Math.PI*2);
+  ctx.fill();
 
-  mediaRecorder.ondataavailable = e => { if(e.data.size > 0) chunks.push(e.data); };
-  mediaRecorder.onstop = () => {
-    if(bgAudio) bgAudio.pause();
-    let blob = new Blob(chunks, { type: 'video/webm' });
-    let link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `Sovereign-Cartoon-${Date.now()}.webm`;
-    link.click();
+  ctx.fillStyle="#fce7f3";
+  ctx.beginPath();
+  ctx.ellipse(-size*.20,-size*.40,size*.045,size*.22,0,0,Math.PI*2);
+  ctx.ellipse(size*.20,-size*.40,size*.045,size*.22,0,0,Math.PI*2);
+  ctx.fill();
 
-    statusOverlay.classList.add('hidden');
-    renderBtn.disabled = false;
-    renderStatus.innerText = 'Status: Render Complete ✅';
-    drawIdle();
-    alert('🎉 Cartoon Video Rendered & Downloaded Successfully!');
-  };
+  ctx.fillStyle="#f0abfc";
+  ctx.beginPath();
+  ctx.ellipse(0,0,size*.38,size*.34,0,0,Math.PI*2);
+  ctx.fill();
 
-  mediaRecorder.start();
+  ctx.fillStyle="#fff";
+  ctx.beginPath();
+  ctx.arc(-size*.13,-size*.05,size*.09,0,Math.PI*2);
+  ctx.arc(size*.13,-size*.05,size*.09,0,Math.PI*2);
+  ctx.fill();
 
-  let totalFrames = 150; // 5 seconds test render
-  let currentFrame = 0;
+  ctx.fillStyle="#111827";
+  ctx.beginPath();
+  ctx.arc(-size*.11,-size*.04,size*.035,0,Math.PI*2);
+  ctx.arc(size*.15,-size*.04,size*.035,0,Math.PI*2);
+  ctx.fill();
 
-  let timer = setInterval(() => {
-    currentFrame++;
-    let ratio = currentFrame / totalFrames;
+  ctx.fillStyle="#be185d";
+  ctx.beginPath();
+  ctx.arc(0,size*.07,size*.045,0,Math.PI*2);
+  ctx.fill();
 
-    // Background Gradient
-    let grad = ctx.createLinearGradient(0, 0, 1920, 1080);
-    grad.addColorStop(0, '#1e1b4b');
-    grad.addColorStop(1, '#0f172a');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 1920, 1080);
+  ctx.strokeStyle="#9d174d";
+  ctx.lineWidth=Math.max(2,size*.012);
+  ctx.beginPath();
+  ctx.arc(0,size*.09,size*.10,.15,Math.PI-.15);
+  ctx.stroke();
 
-    // Animated Character
-    let px = 600 + Math.sin(currentFrame * 0.1) * 200;
-    let py = 500;
-    if(charImages.length > 0) {
-      ctx.drawImage(charImages[0], px, py, 400, 400);
-    } else {
-      ctx.fillStyle = '#ec4899';
-      ctx.beginPath();
-      ctx.arc(px + 200, py + 200, 100, 0, Math.PI * 2);
-      ctx.fill();
-    }
+  ctx.restore();
+}
 
-    // Subtitle
-    ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
-    ctx.strokeStyle = '#ec4899';
-    ctx.lineWidth = 3;
-    ctx.fillRect(100, 850, 1720, 130);
-    ctx.strokeRect(100, 850, 1720, 130);
+function drawScene(t,sceneIndex,idle=false){
+  const w=canvas.width,h=canvas.height;
+  drawBackground(t);
+  drawCharacter(t);
 
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 36px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText(sentences[0] || 'AI Cartoon Animation Preview', 960, 925);
+  const scenes=getScenes();
+  const text=idle
+    ? "SOVEREIGN AI CARTOON STUDIO"
+    : (scenes[sceneIndex]||"Your cartoon story");
 
-    if(currentFrame >= totalFrames) {
-      clearInterval(timer);
-      mediaRecorder.stop();
-    }
-  }, 1000 / 30);
-};
-</script>
+  const boxH=h*.19;
+  const boxY=h-boxH-h*.025;
 
-</body>
-</html>
+  ctx.fillStyle="rgba(2,6,23,.88)";
+  roundRect(ctx,w*.045,boxY,w*.91,boxH,Math.max(8,w*.012));
+  ctx.fill();
+
+  ctx.strokeStyle="#f472b6";
+  ctx.lineWidth=Math.max(1,w*.002);
+  ctx.stroke();
+
+  ctx.fillStyle="#67e8f9";
+  ctx.font=`bold ${Math.max(12,Math.round(w*.022))}px sans-serif`;
+  ctx.textAlign="center";
+  ctx.textBaseline="middle";
+  ctx.fillText(idle?"CARTOON STUDIO PREVIEW":`SCENE ${sceneIndex+1}`,w/2,boxY+boxH*.22);
+
+  ctx.fillStyle="#fff";
+  ctx.font=`${Math.max(12,Math.round(w*.024))}px sans-serif`;
+  const lines=wrapText(ctx,text,w*.82);
+  const lineH=Math.max(17,w*.031);
+  const maxLines=Math.max(1,Math.floor(boxH*.53/lineH));
+  const visible=lines.slice(0,maxLines);
+  visible.forEach((line,i)=>{
+    ctx.fillText(line,w/2,boxY+boxH*.56+(i-(visible.length-1)/2)*lineH);
+  });
+}
+
+function fitCanvas(){
+  const d=getDimensions();
+  canvas.width=Math.round(d.width);
+  canvas.height=Math.round(d.height);
+  drawScene(0,0,true);
+  updateStats();
+}
+
+function stopAnimation(){
+  if(state.animationId!==null){
+    cancelAnimationFrame(state.animationId);
+    state.animationId=null;
+  }
+  state.previewing=false;
+}
+
+function renderSceneList(){
+  const list=$("sceneList");
+  list.innerHTML="";
+  const scenes=getScenes();
+
+  scenes.forEach((scene,index)=>{
+    const card=document.createElement("div");
+    card.className="scene-card";
+    const title=document.createElement("p");
+    title.className="text-xs font-bold text-pink-300 mb-2";
+    title.textContent=`Scene ${index+1}`;
+
+    const body=document.createElement("p");
+    body.className="text-xs text-slate-200";
+    body.dir="auto";
+    body.textContent=scene;
+
+    const btn=documen
