@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#020617">
+<title>Sovereign Global Builder 2030 — Supreme V6.1</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+  color-scheme: dark;
+  --bg: #020617;
+  --panel: #0f172a;
+  --border: rgba(56,189,248,.3);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: #f8fafc;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+.glass {
+  background: rgba(15,23,42,.96);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+}
+.btn-main {
+  background: linear-gradient(135deg,#06b6d4,#8b5cf6,#ec4899);
+}
+.field {
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #020617;
+  color: #f8fafc;
+  outline: none;
+}
+.field:focus {
+  border-color: #22d3ee;
+  box-shadow: 0 0 0 2px rgba(34,211,238,.12);
+}
+label {
+  display: block;
+  font-size: 12px;
+  color: #cbd5e1;
+}
+button:focus-visible, a:focus-visible {
+  outline: 2px solid #67e8f9;
+  outline-offset: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar { width: 6px; }
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 6px;
+}
+#previewBox {
+  min-height: 580px;
+  background: #f8fafc;
+  color: #0f172a;
+}
+#previewFrame {
+  display: block;
+  width: 100%;
+  height: 680px;
+  border: 0;
+  background: #fff;
+}
+.status {
+  min-height: 20px;
+  font-size: 12px;
+  color: #67e8f9;
+}
+@media(max-width:640px) {
+  #previewFrame { height: 580px; }
+}
+</style>
+</head>
+
+<body class="min-h-screen p-3 md:p-6">
+
+<header class="max-w-[1500px] mx-auto glass p-4 rounded-2xl flex flex-wrap justify-between items-center gap-4 mb-6">
+  <div>
+    <h1 class="text-xl md:text-2xl font-black text-cyan-300">
+      SOVEREIGN GLOBAL BUILDER
+      <span class="text-xs text-amber-300">SUPREME V6.1</span>
+    </h1>
+    <p class="text-xs text-slate-400 mt-2">
+      عالمی سیاسی، سماجی اور کاروباری پورٹل بلڈر
+    </p>
+  </div>
+  <a href="index.html" class="px-4 py-2 bg-slate-800 rounded-xl text-xs font-bold border border-slate-700">
+    Master Portal
+  </a>
+</header>
+
+<main class="max-w-[1500px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+<section class="lg:col-span-5 glass p-5 md:p-6 rounded-2xl space-y-5">
+
+  <div class="border-b border-slate-700 pb-3">
+    <h2 class="text-sm font-bold text-cyan-400">
+      <i class="fa-solid fa-sliders"></i>
+      عالمی کنٹرول پینل
+    </h2>
+  </div>
+
+  <form id="builderForm" class="space-y-4">
+
+    <div>
+      <label for="bizName">پورٹل، پارٹی یا کاروبار کا نام</label>
+      <input id="bizName" class="field" maxlength="120"
+        placeholder="اپنی مرضی کا نام لکھیں"
+        value="عالمی پورٹل" required>
+    </div>
+
+    <div>
+      <label for="logoInput">لوگو اپ لوڈ کریں (اختیاری)</label>
+      <input id="logoInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif"
+        class="field text-xs">
+      <p class="text-xs text-slate-400 mt-1">
+        صرف تصویر منتخب کریں، زیادہ سے زیادہ 2 MB۔
+      </p>
+    </div>
+
+    <div>
+      <label for="bizType">پورٹل کی قسم</label>
+      <select id="bizType" class="field">
+        <optgroup label="امریکہ">
+          <option value="political">امریکی ڈیموکریٹک پارٹی طرز کا پورٹل</option>
+          <option value="political">امریکی ریپبلکن پارٹی طرز کا پورٹل</option>
+          <option value="political">امریکی آزاد امیدوار کا پورٹل</option>
+        </optgroup>
+        <optgroup label="چین">
+          <option value="political">چین طرز کا سرکاری یا سیاسی پورٹل</option>
+        </optgroup>
+        <optgroup label="برطانیہ">
+          <option value="political">برطانوی لیبر پارٹی طرز کا پورٹل</option>
+          <option value="political">برطانوی کنزرویٹو پارٹی طرز کا پورٹل</option>
+        </optgroup>
+        <optgroup label="پاکستان">
+          <option value="political">پاکستانی سیاسی پارٹی کا پورٹل</option>
+          <option value="political">پاکستانی آزاد امیدوار کا پورٹل</option>
+          <option value="community">عوامی و سماجی تنظیم کا پورٹل</option>
+        </optgroup>
+        <optgroup label="عالمی کاروبار">
+          <option value="business">ای کامرس اور ریٹیل اسٹور</option>
+          <option value="business">آئی ٹی اور سافٹ ویئر کمپنی</option>
+          <option value="business">رئیل اسٹیٹ کمپنی</option>
+          <option value="business">میڈیکل اور ہیلتھ کیئر سروس</option>
+          <option value="business">عام کاروباری پورٹل</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div>
+        <label for="waNumber">WhatsApp نمبر (ملکی کوڈ سمیت)</label>
+        <input id="waNumber" class="field" type="tel"
+          maxlength="20" placeholder="923001234567">
+      </div>
+      <div>
+        <label for="cityName">ملک، شہر یا علاقہ</label>
+        <input id="cityName" class="field" maxlength="120"
+          placeholder="اسلام آباد، پاکستان">
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div>
+        <label for="fbLink">Facebook یا سوشل لنک</label>
+        <input id="fbLink" class="field" type="url"
+          maxlength="500" placeholder="https://facebook.com/...">
+      </div>
+      <div>
+        <label for="ytLink">YouTube یا ویڈیو لنک</label>
+        <input id="ytLink" class="field" type="url"
+          maxlength="500" placeholder="https://youtube.com/...">
+      </div>
+    </div>
+
+    <div>
+      <label for="services">منشور، خدمات یا اہم نکات (ہر لائن میں ایک)</label>
+      <textarea id="services" class="field" rows="5" maxlength="5000">معاشی خوشحالی اور مضبوط معیشت
+عوامی حقوق، تعلیم اور مساوات کا فروغ
+عالمی تعاون اور شفاف طرز حکمرانی</textarea>
+    </div>
+
+    <div>
+      <label for="aboutText">پورٹل کا تعارف (اختیاری)</label>
+      <textarea id="aboutText" class="field" rows="3" maxlength="2000"
+        placeholder="اپنے پورٹل، ادارے یا کاروبار کے بارے میں لکھیں۔"></textarea>
+    </div>
+
+    <div class="bg-slate-950 border border-cyan-900 p-3 rounded-xl text-xs text-slate-300">
+      <p class="font-bold text-cyan-300 mb-2">ویب سائٹ ہوسٹنگ گائیڈ</p>
+      HTML فائل تیار ہونے کے بعد اسے کسی معاون مفت ہوسٹنگ سروس پر اپ لوڈ کیا جا سکتا ہے۔
+      کسٹم ڈومین کے DNS ریکارڈ ہمیشہ اپنے ہوسٹنگ فراہم کنندہ کی ہدایات کے مطابق ترتیب دیں۔
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <button id="buildBtn" type="submit"
+        class="btn-main rounded-xl py-4 font-black text-sm">
+        <i class="fa-solid fa-bolt"></i>
+        پورٹل تیار کریں
+      </button>
+
+      <button id="resetBtn" type="button"
+        class="rounded-xl py-4 font-bold text-sm bg-slate-800 border border-slate-700">
+        <i class="fa-solid fa-rotate-left"></i>
+        فارم صاف کریں
+      </button>
+    </div>
+
+    <p id="statusMessage" class="status" role="status" aria-live="polite"></p>
+
+  </form>
+</section>
+
+<section class="lg:col-span-7 glass p-4 rounded-2xl">
+
+  <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-700 pb-3 mb-3">
+    <h2 class="text-sm font-bold text-pink-300">
+      <i class="fa-solid fa-desktop"></i>
+      ویب سائٹ کا لائیو پری ویو
+    </h2>
+    <span class="text-xs text-slate-400">Preview</span>
+  </div>
+
+  <div id="previewBox" class="rounded-xl overflow-hidden custom-scrollbar">
+    <iframe id="previewFrame" title="ویب سائٹ پری ویو"
+      sandbox="allow-forms allow-popups"
+      referrerpolicy="no-referrer"></iframe>
+  </div>
+
+  <button id="downloadBtn" type="button"
+    class="mt-4 w-full py-3 bg-emerald-600 hover:bg-emerald-500 rounded-xl font-bold text-sm">
+    <i class="fa-solid fa-download"></i>
+    تیار شدہ HTML فائل ڈاؤن لوڈ کریں
+  </button>
+
+  <p class="text-xs text-slate-400 mt-3">
+    نوٹ: یہ بلڈر ایک بنیادی ویب سائٹ تیار کرتا ہے۔ حقیقی ممبر رجسٹریشن،
+    آن لائن ڈیٹا اسٹوریج، لاگ اِن اور خودکار پبلشنگ کے لیے الگ بیک اینڈ درکار ہوگا۔
+  </p>
+</section>
+
+</main>
+
+<footer class="max-w-[1500px] mx-auto text-center py-5 text-xs text-slate-500 mt-6 border-t border-slate-800">
+  Sovereign Global Builder 2030 — Supreme V6.1
+</footer>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+
+let uploadedLogo = "";
+let generatedHTML = "";
+let logoObjectURL = "";
+
+const form = $("builderForm");
+const previewFrame = $("previewFrame");
+const statusMessage = $("statusMessage");
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+}
+
+function safeURL(value, allowedProtocols = ["https:"]) {
+  const raw = String(value ?? "").trim();
+  if (!raw) return "";
+
+  try {
+    const url = new URL(raw);
+    if (!allowedProtocols.includes(url.protocol)) return "";
+    if (url.username || url.password) return "";
+    return url.href;
+  } catch {
+    return "";
+  }
+}
+
+function normalizePhone(value) {
+  return String(value ?? "").replace(/\D/g, "");
+}
+
+function makeWhatsAppURL(phone) {
+  const digits = normalizePhone(phone);
+  if (digits.length < 8 || digits.length > 15) return "";
+  return "https://wa.me/" + digits;
+}
+
+function makeQRURL(phone) {
+  const url = makeWhatsAppURL(phone);
+  if (!url) return "";
+
+  return "https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=" +
+    encodeURIComponent(url);
+}
+
+function getServices() {
+  const items = $("services").value
+    .split(/\r?\n/)
+    .map(item => item.trim())
+    .filter(Boolean)
+    .slice(0, 50);
+
+  return items.length ? items : [
+    "اصول اور منشور",
+    "عوامی فلاح و بہبود",
+    "رابطہ اور معلومات"
+  ];
+}
+
+function getLogoHTML() {
+  if (uploadedLogo) {
+    return `<img src="${uploadedLogo}" alt="پورٹل کا لوگو"
+      style="width:88px;height:88px;object-fit:contain;border-radius:50%;
+      border:3px solid #fbbf24;background:white;padding:4px;margin:auto;">`;
+  }
+
+  return `<div role="img" aria-label="پورٹل کا لوگو"
+    style="width:76px;height:76px;border-radius:50%;margin:auto;
+    display:flex;align-items:center;justify-content:center;
+    background:#1e293b;border:2px solid #fbbf24;font-size:32px;">🌐</div>`;
+}
+
+function getLinkHTML(url, label, background, icon) {
+  if (!url) return "";
+
+  return `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer"
+    style="display:inline-block;margin:4px;padding:10px 14px;border-radius:9px;
+    color:#fff;text-decoration:none;background:${background};font-size:13px;">
+    <span aria-hidden="true">${icon}</span> ${escapeHTML(label)}
+  </a>`;
+}
+
+function generateSite(data) {
+  const name = escapeHTML(data.name);
+  const type = escapeHTML(data.typeLabel);
+  const city = escapeHTML(data.city || "عالمی نیٹ ورک");
+  const about = escapeHTML(data.about || "");
+  const services = data.services.map(service =>
+    `<li style="margin:10px 0;padding:13px;border-radius:10px;
+    background:#172033;border:1px solid #334155;line-height:1.9;">
+    <span style="color:#fbbf24;font-weight:bold;">✦ </span>
+    ${escapeHTML(service)}</li>`
+  ).join("");
+
+  const logo = getLogoHTML();
+  const waURL = makeWhatsAppURL(data.phone);
+  const qrURL = makeQRURL(data.phone);
+  const fbURL = safeURL(data.facebook);
+  const ytURL = safeURL(data.youtube);
+  const isBusiness = data.category === "business";
+
+  const theme = isBusiness
+    ? { primary: "#0891b2", accent: "#67e8f9", background: "#ffffff", text: "#0f172a" }
+    : { primary: "#b45309", accent: "#fcd34d", background: "#020617", text: "#f8fafc" };
+
+  const contactButton = waURL
+    ? getLinkHTML(waURL, "WhatsApp رابطہ", "#16a34a", "✆")
+    : "";
+
+  const socialButtons =
+    getLinkHTML(fbURL, "Facebook", "#2563eb", "f") +
+    getLinkHTML(ytURL, "YouTube", "#dc2626", "▶");
+
+  const qrSection = qrURL
+    ? `<section style="text-align:center;padding:24px 12px;">
+       <img src="${escapeHTML(qrURL)}" alt="WhatsApp رابطے کا QR کوڈ"
+       loading="lazy" width="150" height="150"
+       style="max-width:100%;height:auto;background:#fff;padding:6px;border-radius:8px;">
+       <p style="font-size:12px;opacity:.75;margin-top:8px;">
+       WhatsApp رابطے کے لیے اسکین کریں</p></section>`
+    : "";
+
+  const contactSection = `
+    <section style="padding:18px;margin:16px auto;max-width:700px;text-align:center;">
+      ${contactButton}
+      ${socialButtons}
+    </section>`;
+
+  const aboutSection = about
+    ? `<section style="max-width:760px;margin:20px auto;padding:20px;">
+       <h2 style="font-size:20px;color:${theme.accent};">ہمارا تعارف</h2>
+       <p style="line-height:2;margin-top:10px;">${about}</p>
+       </section>`
+    : "";
+
+  const pageTitle = escapeHTML(data.name).replace(/[\r\n]/g, " ");
+
+  return `<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="${escapeHTML(data.about || data.name)}">
+<meta name="theme-color" content="${theme.primary}">
+<title>${pageTitle}</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Tahoma,"Segoe UI",sans-serif;
+background:${theme.background};color:${theme.text};line-height:1.7}
+header{text-align:center;padding:35px 16px 25px;
+background:linear-gradient(135deg,#0f172a,#1e293b);
+border-bottom:4px solid ${theme.primary}}
+h1{font-size:clamp(25px,5vw,38px);margin:16px 0 4px;overflow-wrap:anywhere}
+h2{font-size:19px}
+p{overflow-wrap:anywhere}
+.container{max-width:900px;margin:auto;padding:20px}
+ul{list-style:none;padding:0;margin:0}
+.services{max-width:760px;margin:24px auto;padding:0 16px}
+.service-title{text-align:center;color:${theme.accent};border-bottom:1px solid #334155;padding-bottom:10px}
+footer{text-align:center;padding:18px;font-size:12px;color:#94a3b8;border-top:1px solid #334155}
+a:focus-visible{outline:3px solid #22d3ee;outline-offset:3px}
+@media(max-width:600px){.container{padding:12px}.services{padding:0 12px}}
+</style>
+</head>
+<body>
+<header>
+  <div>${logo}</div>
+  <div style="margin-top:15px;font-size:12px;color:${theme.accent};">
+    ${type}
+  </div>
+  <h1>${name}</h1>
+  <p style="font-size:14px;color:#cbd5e1;">${city}</p>
+  ${contactSection}
+</header>
+
+${aboutSection}
+
+<main class="services">
+  <h2 class="service-title">${isBusiness ? "ہماری خدمات" : "بنیادی منشور اور اہداف"}</h2>
+  <ul>${services}</ul>
+</main>
+
+${qrSection}
+
+<footer>
+  © ${new Date().getFullYear()} ${name}
+  <p>یہ ویب سائٹ فراہم کردہ معلومات کی بنیاد پر تیار کی گئی ہے۔</p>
+</footer>
+</body>
+</html>`;
+}
+
+function buildSite() {
+  const name = $("bizName").value.trim();
+  const phone = $("waNumber").value.trim();
+  const category = $("bizType").value;
+  const typeLabel = $("bizType").selectedOptions[0].textContent.trim();
+
+  if (!name) {
+    statusMessage.textContent = "براہ کرم پورٹل کا نام درج کریں۔";
+    $("bizName").focus();
+    return false;
+  }
+
+  if (phone && !makeWhatsAppURL(phone)) {
+    statusMessage.textContent =
+      "WhatsApp نمبر درست درج کریں، ملکی کوڈ سمیت صرف 8 سے 15 ہندسے استعمال کریں۔";
+    $("waNumber").focus();
+    return false;
+  }
+
+  const facebook = $("fbLink").value.trim();
+  const youtube = $("ytLink").value.trim();
+
+  if (facebook && !safeURL(facebook)) {
+    statusMessage.textContent = "Facebook لنک درست HTTPS ویب لنک ہونا چاہیے۔";
+    $("fbLink").focus();
+    return false;
+  }
+
+  if (youtube && !safeURL(youtube)) {
+    statusMessage.textContent = "YouTube لنک درست HTTPS ویب لنک ہونا چاہیے۔";
+    $("ytLink").focus();
+    return false;
+  }
+
+  const data = {
+    name,
+    phone,
+    category,
+    typeLabel,
+    city: $("cityName").value.trim(),
+    facebook,
+    youtube,
+    about: $("aboutText").value.trim(),
+    services: getServices()
+  };
+
+  generatedHTML = generateSite(data);
+
+  previewFrame.srcdoc = generatedHTML;
+
+  statusMessage.textContent = "پورٹل کا پری ویو تیار ہو گیا ہے۔";
+  return true;
+}
+
+$("logoInput").addEventListener("change", function(event) {
+  const file = event.target.files && event.target.files[0];
+
+  uploadedLogo = "";
+
+  if (logoObjectURL) {
+    URL.revokeObjectURL(logoObjectURL);
+    logoObjectURL = "";
+  }
+
+  if (!file) {
+    buildSite();
+    return;
+  }
+
+  const allowedTypes = [
+    "image/png",
+    "image/jpeg",
+    "image/webp",
+    "image/gif"
+  ];
+
+  if (!allowedTypes.includes(file.type)) {
+    statusMessage.textContent = "براہ کرم PNG، JPG، WEBP یا GIF تصویر منتخب کریں۔";
+    event.target.value = "";
+    buildSite();
+    return;
+  }
+
+  if (file.size > 2 * 1024 * 1024) {
+    statusMessage.textContent = "لوگو کی فائل 2 MB سے چھوٹی ہونی چاہیے۔";
+    event.target.value = "";
+    buildSite();
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function() {
+    if (typeof reader.result !== "string") {
+      statusMessage.textContent = "لوگو پڑھنے میں مسئلہ پیش آیا۔";
+      return;
+    }
+
+    uploadedLogo = reader.result;
+    buildSite();
+  };
+
+  reader.onerror = function() {
+    statusMessage.textContent = "لوگو اپ لوڈ نہیں ہو سکا۔ دوبارہ کوشش کریں۔";
+  };
+
+  reader.readAsDataURL(file);
+});
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+  buildSite();
+});
+
+$("downloadBtn").addEventListener("click", function() {
+  if (!generatedHTML && !buildSite()) return;
+  if (!generatedHTML) return;
+
+  const blob = new Blob([generatedHTML], {
+    type: "text/html;charset=utf-8"
+  });
+
+  const objectURL = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  const baseName = $("bizName").value.trim()
+    .replace(/[\\/:*?"<>|]/g, "-")
+    .replace(/\s+/g, "-")
+    .slice(0, 80) || "global-portal";
+
+  link.href = objectURL;
+  link.download = baseName + ".html";
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+
+  setTimeout(() => URL.revokeObjectURL(objectURL), 1000);
+
+  statusMessage.textContent = "HTML فائل ڈاؤن لوڈ کے لیے تیار ہے۔";
+});
+
+$("resetBtn").addEventListener("click", function() {
+  form.reset();
+  uploadedLogo = "";
+
+  if (logoObjectURL) {
+    URL.revokeObjectURL(logoObjectURL);
+    logoObjectURL = "";
+  }
+
+  $("bizName").value = "عالمی پورٹل";
+  $("services").value =
+    "معاشی خوشحالی اور مضبوط معیشت\n" +
+    "عوامی حقوق، تعلیم اور مساوات کا فروغ\n" +
+    "عالمی تعاون اور شفاف طرز حکمرانی";
+
+  generatedHTML = "";
+  previewFrame.srcdoc = "<!DOCTYPE html><html lang='ur' dir='rtl'><meta charset='utf-8'><body style='font-family:Arial;padding:30px;text-align:center;color:#334155'><h2>پری ویو</h2><p>پورٹل دیکھنے کے لیے فارم پُر کرکے پورٹل تیار کریں۔</p></body></html>";
+
+  statusMessage.textContent = "فارم صاف کر دیا گیا ہے۔";
+});
+
+buildSite();
+</script>
+
+</body>
+</html>
