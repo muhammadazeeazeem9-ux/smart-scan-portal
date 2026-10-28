@@ -421,3 +421,48 @@ $('passwordBtn').addEventListener('click', passwordCheck);
 </script>
 </body>
 </html>
+<section class="card">
+  <h3>📱 فون نمبر فارمیٹ چیکر</h3>
+  <p class="desc">فون نمبر کے فارمیٹ کی بنیادی جانچ۔</p>
+
+  <label for="phoneNumber">فون نمبر</label>
+  <input
+    id="phoneNumber"
+    type="tel"
+    placeholder="+923001234567"
+    maxlength="20"
+  >
+
+  <button class="primary" id="phoneBtn" type="button">
+    نمبر چیک کریں
+  </button>
+
+  <div
+    class="result"
+    id="phoneResult"
+    role="status"
+    aria-live="polite"
+  ></div>
+</section>
+
+<script>
+document.getElementById("phoneBtn").addEventListener("click", function () {
+  const phone = document.getElementById("phoneNumber").value.trim();
+  const result = document.getElementById("phoneResult");
+  const digits = phone.replace(/\D/g, "");
+
+  result.className = "result";
+
+  if (!/^\+?[0-9\s()\-]+$/.test(phone) ||
+      digits.length < 7 ||
+      digits.length > 15) {
+    result.classList.add("bad");
+    result.textContent = "نمبر کا فارمیٹ درست نہیں۔ دوبارہ چیک کریں۔";
+    return;
+  }
+
+  result.classList.add("info");
+  result.textContent =
+    "فارمیٹ قابلِ قبول ہے۔ یہ چیک نمبر کے مالک، فعال ہونے یا فراڈ ریکارڈ کی تصدیق نہیں کرتا۔";
+});
+</script>
