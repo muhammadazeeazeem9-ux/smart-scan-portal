@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Cartoon Studio - Master Portal Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background: #050811; color: #f8fafc; font-family: 'Segoe UI', system-ui, sans-serif; }
+        .glass-panel { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-amber-500 selection:text-black">
+
+    <!-- Header Navigation -->
+    <header class="glass-panel sticky top-0 z-50 border-b border-gray-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <a href="../index.html" class="w-10 h-10 rounded-xl bg-gray-900 border border-gray-800 flex items-center justify-center text-gray-400 hover:text-white hover:border-amber-500 transition-all" title="Back to Master Portal">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-500 flex items-center justify-center text-black font-extrabold text-xl shadow-lg shadow-amber-500/30">
+                    <i class="fa-solid fa-wand-magic"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-black tracking-wider text-white">AI CARTOON STUDIO</h1>
+                    <p class="text-xs text-amber-400 font-mono tracking-widest">ISOLATED MODULE v2.0</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <span class="px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono text-xs font-bold">
+                    <i class="fa-solid fa-folder-tree mr-1"></i> /cartoon-studio/
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+        <div class="glass-panel rounded-3xl p-8 sm:p-12 relative overflow-hidden text-center space-y-6">
+            <div class="absolute -right-20 -top-20 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="w-20 h-20 mx-auto rounded-3xl bg-gradient-to-br from-amber-500/20 to-yellow-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 text-3xl shadow-xl">
+                <i class="fa-solid fa-face-smile-beam"></i>
+            </div>
+
+            <div class="space-y-3 max-w-2xl mx-auto">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">AI Cartoon & Character Generator</h2>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Dedicated workspace for generating custom 2D/3D cartoon characters, animated assets, and storyboards with full file independence.
+                </p>
+            </div>
+
+            <div class="pt-4 flex flex-wrap justify-center gap-4">
+                <button onclick="alert('Cartoon Studio Engine Initialized Successfully!')" class="px-6 py-3.5 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-black font-extrabold text-sm rounded-xl shadow-lg shadow-amber-500/25 transition-all flex items-center space-x-2">
+                    <i class="fa-solid fa-play"></i>
+                    <span>Launch Cartoon Generator</span>
+                </button>
+                <a href="../index.html" class="px-6 py-3.5 bg-gray-900 hover:bg-gray-800 border border-gray-800 text-gray-300 hover:text-white font-bold text-sm rounded-xl transition-all flex items-center space-x-2">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Return to Master Portal</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800/80 bg-gray-950/95 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-gray-500 font-mono">
+            Master AI Portal — Isolated Sub-Directory Architecture © 2026
+        </div>
+    </footer>
+
+</body>
+</html>
