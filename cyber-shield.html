@@ -121,6 +121,15 @@ button:disabled{opacity:.6;cursor:wait}
       <div class="notice">رازداری: اس صفحے میں کوئی بیک اینڈ یا ڈیٹا محفوظ کرنے کا کوڈ شامل نہیں۔ پاس ورڈ لیک چیک کے وقت صرف جزوی ہیش بیرونی سروس کو جاتا ہے۔ اگر آپ کو اس سروس سے رابطے پر اعتماد نہیں تو پاس ورڈ چیک استعمال نہ کریں۔</div>
     </section>
   </main>
+  <section class="card">
+  <h3>📱 فون نمبر فارمیٹ چیکر</h3>
+  <p class="desc">فون نمبر کے فارمیٹ کی بنیادی جانچ۔</p><label for="phoneNumber">فون نمبر</label>
+<input id="phoneNumber" type="tel" placeholder="+923001234567" maxlength="20">
+
+<button class="primary" id="phoneBtn" type="button">نمبر چیک کریں</button>
+
+  <div class="result" id="phoneResult" role="status" aria-live="polite"></div>
+</section>
   <footer class="footer">Cyber Shield Verification • ابتدائی حفاظتی ٹول — مکمل سکیورٹی آڈٹ یا حتمی فراڈ فیصلہ نہیں</footer>
 </div>
 
@@ -418,51 +427,25 @@ $('emailBtn').addEventListener('click', emailCheck);
 $('urlBtn').addEventListener('click', urlCheck);
 $('messageBtn').addEventListener('click', messageCheck);
 $('passwordBtn').addEventListener('click', passwordCheck);
+  $('phoneBtn').addEventListener('click', function () {
+const phone = $('phoneNumber').value.trim();
+const digits = phone.replace(/\D/g, '');
+
+if (!/^+?[0-9\s()-]+$/.test(phone) ||
+digits.length < 7 ||
+digits.length > 15) {
+showResult('phoneResult', 'bad', 'فون نمبر کا فارمیٹ درست نہیں۔', [
+'نمبر دوبارہ چیک کریں۔'
+]);
+return;
+}
+
+showResult('phoneResult', 'info', 'نمبر کا فارمیٹ قابلِ قبول ہے۔', [
+'یہ صرف فارمیٹ کی جانچ ہے۔',
+'نمبر کے مالک یا فراڈ ریکارڈ کی تصدیق نہیں ہوئی۔'
+]);
+});
 </script>
 </body>
 </html>
-<section class="card">
-  <h3>📱 فون نمبر فارمیٹ چیکر</h3>
-  <p class="desc">فون نمبر کے فارمیٹ کی بنیادی جانچ۔</p>
 
-  <label for="phoneNumber">فون نمبر</label>
-  <input
-    id="phoneNumber"
-    type="tel"
-    placeholder="+923001234567"
-    maxlength="20"
-  >
-
-  <button class="primary" id="phoneBtn" type="button">
-    نمبر چیک کریں
-  </button>
-
-  <div
-    class="result"
-    id="phoneResult"
-    role="status"
-    aria-live="polite"
-  ></div>
-</section>
-
-<script>
-document.getElementById("phoneBtn").addEventListener("click", function () {
-  const phone = document.getElementById("phoneNumber").value.trim();
-  const result = document.getElementById("phoneResult");
-  const digits = phone.replace(/\D/g, "");
-
-  result.className = "result";
-
-  if (!/^\+?[0-9\s()\-]+$/.test(phone) ||
-      digits.length < 7 ||
-      digits.length > 15) {
-    result.classList.add("bad");
-    result.textContent = "نمبر کا فارمیٹ درست نہیں۔ دوبارہ چیک کریں۔";
-    return;
-  }
-
-  result.classList.add("info");
-  result.textContent =
-    "فارمیٹ قابلِ قبول ہے۔ یہ چیک نمبر کے مالک، فعال ہونے یا فراڈ ریکارڈ کی تصدیق نہیں کرتا۔";
-});
-</script>
