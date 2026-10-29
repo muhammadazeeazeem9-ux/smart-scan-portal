@@ -1,0 +1,416 @@
+<section id="world-video-tool" style="max-width:900px;margin:25px auto;padding:20px;background:#0b1220;color:#fff;border:1px solid #2a3b55;border-radius:16px;font-family:system-ui,Arial,sans-serif">
+  <h2 style="color:#fbbf24">World Official Video Maker — V2.1</h2>
+  <p id="wovDesc">Create animated videos in your browser — no API required.</p>
+
+  <label for="wovLang">Language / زبان</label>
+  <select id="wovLang" style="display:block;width:100%;padding:10px;margin:6px 0 14px">
+    <option value="ur">اردو</option><option value="en">English</option>
+    <option value="hi">हिंदी</option><option value="ar">العربية</option>
+    <option value="zh">中文</option><option value="es">Español</option>
+    <option value="fr">Français</option><option value="de">Deutsch</option>
+    <option value="tr">Türkçe</option><option value="ru">Русский</option>
+    <option value="pt">Português</option><option value="bn">বাংলা</option>
+    <option value="id">Bahasa Indonesia</option><option value="ja">日本語</option>
+    <option value="ko">한국어</option><option value="it">Italiano</option>
+    <option value="nl">Nederlands</option><option value="fa">فارسی</option>
+    <option value="th">ไทย</option><option value="ms">Bahasa Melayu</option>
+  </select>
+
+  <label for="wovTitle" data-t="title">Video Title</label>
+  <input id="wovTitle" value="لاہور کی بارش میں چائے" maxlength="100"
+    style="display:block;width:100%;box-sizing:border-box;padding:12px;margin:6px 0 14px">
+
+  <label for="wovSubtitle" data-t="subtitle">Subtitle</label>
+  <input id="wovSubtitle" value="Create • Imagine • Share" maxlength="150"
+    style="display:block;width:100%;box-sizing:border-box;padding:12px;margin:6px 0 14px">
+
+  <label for="wovImage" data-t="image">Upload image</label>
+  <input id="wovImage" type="file" accept="image/*"
+    style="display:block;margin:8px 0 14px;max-width:100%">
+
+  <label for="wovMusic" data-t="music">Upload music (optional)</label>
+  <input id="wovMusic" type="file" accept="audio/*"
+    style="display:block;margin:8px 0 14px;max-width:100%">
+  <div id="wovWave" style="height:35px;display:flex;align-items:center;gap:2px;overflow:hidden;background:#020617;border-radius:8px"></div>
+
+  <label for="wovFormat" data-t="format">Video format</label>
+  <select id="wovFormat" style="display:block;width:100%;padding:10px;margin:6px 0 14px">
+    <option value="portrait">Vertical 9:16 — Reels / Shorts</option>
+    <option value="landscape">Landscape 16:9 — YouTube</option>
+    <option value="square">Square 1:1 — Instagram</option>
+    <option value="pack">Viral Pack — all 3 formats</option>
+  </select>
+
+  <label for="wovDuration" data-t="duration">Duration</label>
+  <select id="wovDuration" style="display:block;width:100%;padding:10px;margin:6px 0 14px">
+    <option value="8">8 seconds</option>
+    <option value="15" selected>15 seconds</option>
+    <option value="30">30 seconds</option>
+  </select>
+
+  <label for="wovTheme" data-t="theme">Theme</label>
+  <select id="wovTheme" style="display:block;width:100%;padding:10px;margin:6px 0 14px">
+    <option value="blue">Ocean Blue</option>
+    <option value="purple">Purple Glow</option>
+    <option value="sunset">Sunset</option>
+    <option value="green">Forest Green</option>
+    <option value="lahore">Lahore Sufi</option>
+  </select>
+
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <button id="wovPreview" type="button" data-t="preview">Preview</button>
+    <button id="wovStop" type="button" data-t="stop" disabled>Stop</button>
+    <button id="wovCreate" type="button" data-t="create"
+      style="padding:12px;background:linear-gradient(90deg,#f59e0b,#ef4444,#8b5cf6);color:white;border:0;border-radius:8px;font-weight:bold">
+      Create Video
+    </button>
+  </div>
+
+  <canvas id="wovCanvas" width="360" height="640"
+    style="display:block;width:100%;max-height:540px;object-fit:contain;background:#020617;border-radius:12px;margin-top:15px"></canvas>
+
+  <p id="wovStatus" role="status" aria-live="polite">Ready.</p>
+  <video id="wovResult" controls playsinline
+    style="display:none;width:100%;margin-top:12px;background:#000;border-radius:10px"></video>
+  <div id="wovDownloads" style="display:grid;gap:10px;margin-top:12px"></div>
+
+  <p style="font-size:12px;color:#94a3b8">
+    Browser-based motion graphics. WebM export depends on browser support.
+    Music is included when the browser successfully supports audio mixing.
+    This tool does not generate AI footage or perform AI face-lock.
+  </p>
+</section>
+
+<style>
+#world-video-tool button {cursor:pointer;padding:10px 14px;border-radius:8px;border:1px solid #475569;background:#172033;color:white}
+#world-video-tool button:disabled {opacity:.5;cursor:wait}
+#world-video-tool input,#world-video-tool select {background:#fff;color:#111827;border:1px solid #64748b;border-radius:8px}
+@media(max-width:600px){#world-video-tool{padding:12px!important;margin:10px!important}#world-video-tool h2{font-size:21px}}
+</style>
+
+<script>
+(() => {
+  "use strict";
+  const root = document.getElementById("world-video-tool");
+  if (!root || root.dataset.ready === "1") return;
+  root.dataset.ready = "1";
+
+  const $ = id => document.getElementById(id);
+  const canvas = $("wovCanvas");
+  const ctx = canvas.getContext("2d");
+
+  const themes = {
+    blue:["#082f49","#1d4ed8","#67e8f9"],
+    purple:["#1e1b4b","#7e22ce","#c4b5fd"],
+    sunset:["#431407","#be123c","#fbbf24"],
+    green:["#052e16","#15803d","#bef264"],
+    lahore:["#0f172a","#7c2d12","#fbbf24"]
+  };
+
+  const words = {
+    en:{desc:"Create animated videos in your browser — no API required.",title:"Video Title",subtitle:"Subtitle",image:"Upload image (optional)",music:"Upload music (optional)",format:"Video format",duration:"Duration",theme:"Theme",preview:"Preview",stop:"Stop",create:"Create Video",ready:"Ready.",rendering:"Rendering video. Keep this page open.",done:"Video ready. Download below.",error:"Video creation failed. Try Chrome or Edge and a shorter video.",unsupported:"Your browser does not support video export.",imageReady:"Image loaded.",musicReady:"Audio loaded. Music will be added during export when supported.",noMusic:"No music selected; video will be silent.",stopped:"Preview stopped.",playing:"Preview playing.",download:"Download"},
+    ur:{desc:"اپنے براؤزر میں متحرک ویڈیو بنائیں؛ API ضروری نہیں۔",title:"ویڈیو کا عنوان",subtitle:"ذیلی عنوان",image:"تصویر اپلوڈ کریں (اختیاری)",music:"موسیقی اپلوڈ کریں (اختیاری)",format:"ویڈیو فارمیٹ",duration:"دورانیہ",theme:"تھیم",preview:"پیش نظارہ",stop:"روکیں",create:"ویڈیو بنائیں",ready:"تیار ہے۔",rendering:"ویڈیو بن رہی ہے؛ صفحہ کھلا رکھیں۔",done:"ویڈیو تیار ہے۔ نیچے ڈاؤن لوڈ کریں۔",error:"ویڈیو نہیں بن سکی۔ Chrome یا Edge اور کم دورانیہ آزمائیں۔",unsupported:"آپ کا براؤزر ویڈیو ایکسپورٹ کی حمایت نہیں کرتا۔",imageReady:"تصویر لوڈ ہوگئی۔",musicReady:"آڈیو لوڈ ہوگئی؛ جہاں ممکن ہو موسیقی ویڈیو میں شامل ہوگی۔",noMusic:"موسیقی منتخب نہیں؛ ویڈیو خاموش ہوگی۔",stopped:"پیش نظارہ روک دیا گیا۔",playing:"پیش نظارہ چل رہا ہے۔",download:"ویڈیو ڈاؤن لوڈ"},
+    hi:{desc:"अपने ब्राउज़र में एनिमेटेड वीडियो बनाएँ। API की ज़रूरत नहीं।",title:"वीडियो शीर्षक",subtitle:"उपशीर्षक",image:"तस्वीर अपलोड करें (वैकल्पिक)",music:"संगीत अपलोड करें (वैकल्पिक)",format:"वीडियो फ़ॉर्मेट",duration:"अवधि",theme:"थीम",preview:"पूर्वावलोकन",stop:"रोकें",create:"वीडियो बनाएँ",ready:"तैयार।",rendering:"वीडियो बन रहा है; पेज खुला रखें।",done:"वीडियो तैयार है। नीचे डाउनलोड करें।",error:"वीडियो नहीं बन पाया। Chrome/Edge और कम अवधि आज़माएँ।",unsupported:"यह ब्राउज़र वीडियो एक्सपोर्ट नहीं करता।",imageReady:"तस्वीर लोड हो गई।",musicReady:"ऑडियो लोड हो गया।",noMusic:"संगीत नहीं चुना गया; वीडियो म्यूट रहेगा।",stopped:"पूर्वावलोकन रोक दिया गया।",playing:"पूर्वावलोकन चल रहा है।",download:"वीडियो डाउनलोड"},
+    ar:{desc:"أنشئ فيديوهات متحركة في المتصفح دون API.",title:"عنوان الفيديو",subtitle:"العنوان الفرعي",image:"تحميل صورة (اختياري)",music:"تحميل موسيقى (اختياري)",format:"تنسيق الفيديو",duration:"المدة",theme:"السمة",preview:"معاينة",stop:"إيقاف",create:"إنشاء فيديو",ready:"جاهز.",rendering:"جارٍ إنشاء الفيديو؛ اترك الصفحة مفتوحة.",done:"الفيديو جاهز. حمّله أدناه.",error:"تعذر إنشاء الفيديو؛ جرّب Chrome أو Edge.",unsupported:"هذا المتصفح لا يدعم تصدير الفيديو.",imageReady:"تم تحميل الصورة.",musicReady:"تم تحميل الصوت.",noMusic:"لم يتم اختيار موسيقى.",stopped:"تم إيقاف المعاينة.",playing:"المعاينة تعمل.",download:"تنزيل الفيديو"},
+    zh:{desc:"直接在浏览器中制作动画视频，无需 API。",title:"视频标题",subtitle:"副标题",image:"上传图片（可选）",music:"上传音乐（可选）",format:"视频格式",duration:"时长",theme:"主题",preview:"预览",stop:"停止",create:"创建视频",ready:"已就绪。",rendering:"正在生成视频，请保持页面打开。",done:"视频已就绪，请在下方下载。",error:"视频生成失败，请尝试新版 Chrome 或 Edge。",unsupported:"此浏览器不支持视频导出。",imageReady:"图片已加载。",musicReady:"音频已加载。",noMusic:"未选择音乐。",stopped:"预览已停止。",playing:"正在预览。",download:"下载视频"}
+  };
+
+  const t = key => (words[$("wovLang").value] || words.en)[key] || words.en[key] || key;
+  let photo = null, imageURL = null, musicFile = null, musicURL = null;
+  let preview = false, raf = 0, renderBusy = false, downloadURLs = [];
+
+  function status(message) { $("wovStatus").textContent = message; }
+
+  function dimensions(format) {
+    if (format === "landscape") return [640,360];
+    if (format === "square") return [480,480];
+    return [360,640];
+  }
+
+  function resize(format) {
+    const [w,h] = dimensions(format || $("wovFormat").value);
+    canvas.width = w; canvas.height = h;
+    draw(0);
+  }
+
+  function draw(time) {
+    const w=canvas.width, h=canvas.height;
+    const c=themes[$("wovTheme").value] || themes.blue;
+    const gradient=ctx.createLinearGradient(Math.sin(time*.3)*w,0,w,h);
+    gradient.addColorStop(0,c[0]);
+    gradient.addColorStop(.55,c[1]);
+    gradient.addColorStop(1,c[2]);
+    ctx.fillStyle=gradient;
+    ctx.fillRect(0,0,w,h);
+
+    if(photo) {
+      const scale=Math.max(w/photo.width,h/photo.height)*(1+.035*Math.sin(time*.35));
+      const iw=photo.width*scale, ih=photo.height*scale;
+      ctx.globalAlpha=.48;
+      ctx.drawImage(photo,(w-iw)/2,(h-ih)/2,iw,ih);
+      ctx.globalAlpha=1;
+    }
+
+    const shade=ctx.createLinearGradient(0,0,0,h);
+    shade.addColorStop(0,"rgba(0,0,0,.08)");
+    shade.addColorStop(1,"rgba(0,0,0,.82)");
+    ctx.fillStyle=shade;
+    ctx.fillRect(0,0,w,h);
+
+    for(let i=0;i<20;i++) {
+      const x=(Math.sin(i*13+time*.4)*.5+.5)*w;
+      const y=(i*79+time*13)%h;
+      ctx.beginPath();
+      ctx.arc(x,y,2+i%3,0,Math.PI*2);
+      ctx.fillStyle="rgba(255,255,255,.35)";
+      ctx.fill();
+    }
+
+    const title=$("wovTitle").value.trim() || "Your Story";
+    const subtitle=$("wovSubtitle").value.trim();
+    const font=Math.max(18,Math.round(w*.072));
+    ctx.font=`bold ${font}px system-ui,Arial,sans-serif`;
+    ctx.textAlign="center";
+    ctx.textBaseline="middle";
+
+    const lines=[];
+    let line="";
+    for(const word of title.split(/\s+/)) {
+      const test=line ? line+" "+word : word;
+      if(ctx.measureText(test).width>w*.84 && line) {
+        lines.push(line); line=word;
+      } else line=test;
+    }
+    if(line) lines.push(line);
+
+    const shown=lines.slice(0,3);
+    const start=h*.45-(shown.length-1)*font*.58;
+    ctx.fillStyle="#fff";
+    ctx.strokeStyle="rgba(0,0,0,.8)";
+    ctx.lineWidth=3;
+    shown.forEach((s,i)=>{
+      const y=start+i*font*1.16;
+      ctx.strokeText(s,w/2,y,w*.88);
+      ctx.fillText(s,w/2,y,w*.88);
+    });
+
+    ctx.font=`${Math.max(12,Math.round(font*.34))}px system-ui,Arial,sans-serif`;
+    ctx.fillStyle="#fff";
+    ctx.fillText(subtitle,w/2,start+shown.length*font*1.45,w*.86);
+
+    const duration=Number($("wovDuration").value);
+    const barWidth=w*.72, y=h*.92;
+    ctx.fillStyle="rgba(255,255,255,.3)";
+    ctx.fillRect((w-barWidth)/2,y,barWidth,4);
+    ctx.fillStyle=c[2];
+    ctx.fillRect((w-barWidth)/2,y,barWidth*Math.min(1,time/duration),4);
+  }
+
+  function stopPreview() {
+    preview=false;
+    if(raf) cancelAnimationFrame(raf);
+    raf=0;
+    $("wovStop").disabled=true;
+    draw(0);
+  }
+
+  function previewFrame(now) {
+    if(!preview) return;
+    draw(((now-previewStart)/1000)%Number($("wovDuration").value));
+    raf=requestAnimationFrame(previewFrame);
+  }
+  let previewStart=0;
+
+  function updateLanguage() {
+    const lang=$("wovLang").value;
+    const dict=words[lang] || words.en;
+    root.querySelectorAll("[data-t]").forEach(el=>{
+      const key=el.dataset.t;
+      if(dict[key]) el.textContent=dict[key];
+    });
+    $("wovDesc").textContent=dict.desc;
+    root.dir=["ur","ar","fa"].includes(lang)?"rtl":"ltr";
+    status(t("ready"));
+  }
+
+  $("wovImage").addEventListener("change",e=>{
+    const file=e.target.files && e.target.files[0];
+    if(imageURL) URL.revokeObjectURL(imageURL);
+    imageURL=null; photo=null;
+    if(!file) {draw(0);return;}
+    if(!file.type.startsWith("image/")) {status("Please select a valid image.");return;}
+    imageURL=URL.createObjectURL(file);
+    const img=new Image();
+    img.onload=()=>{photo=img;draw(0);status(t("imageReady"));};
+    img.onerror=()=>status("Could not load image.");
+    img.src=imageURL;
+  });
+
+  $("wovMusic").addEventListener("change",e=>{
+    const file=e.target.files && e.target.files[0];
+    if(musicURL) URL.revokeObjectURL(musicURL);
+    musicFile=file || null;
+    musicURL=file ? URL.createObjectURL(file) : null;
+    const wave=$("wovWave");
+    wave.innerHTML="";
+    if(!file) {status(t("noMusic"));return;}
+    if(!file.type.startsWith("audio/")) {musicFile=null;status("Please select an audio file.");return;}
+
+    // A lightweight waveform preview. The audio is actually mixed at export time.
+    const audio=new Audio();
+    audio.src=musicURL;
+    audio.addEventListener("loadedmetadata",()=>{
+      const count=48;
+      for(let i=0;i<count;i++) {
+        const bar=document.createElement("span");
+        const height=5+Math.abs(Math.sin(i*1.7)*Math.cos(i*.39))*27;
+        bar.style.cssText=`flex:1;min-width:2px;height:${height}px;background:linear-gradient(#f59e0b,#7c3aed);border-radius:2px`;
+        wave.appendChild(bar);
+      }
+      status(t("musicReady"));
+    },{once:true});
+    audio.addEventListener("error",()=>status("Audio preview unavailable; try another file."),{once:true});
+    audio.load();
+  });
+
+  ["wovTitle","wovSubtitle","wovTheme","wovDuration"].forEach(id=>{
+    $(id).addEventListener("input",()=>draw(0));
+    $(id).addEventListener("change",()=>draw(0));
+  });
+  $("wovFormat").addEventListener("change",()=>resize());
+  $("wovLang").addEventListener("change",updateLanguage);
+
+  $("wovPreview").addEventListener("click",()=>{
+    stopPreview();
+    preview=true;
+    previewStart=performance.now();
+    $("wovStop").disabled=false;
+    status(t("playing"));
+    raf=requestAnimationFrame(previewFrame);
+  });
+  $("wovStop").addEventListener("click",()=>{
+    stopPreview();
+    status(t("stopped"));
+  });
+
+  async function renderVideo(format) {
+    const [oldW,oldH]=[canvas.width,canvas.height];
+    const [w,h]=dimensions(format);
+    canvas.width=w; canvas.height=h;
+    let stream=null, recorder=null, audioCtx=null, source=null, destination=null, audioEl=null;
+    const chunks=[];
+    try {
+      stream=canvas.captureStream(30);
+
+      if(musicFile && musicURL) {
+        const AudioContextClass=window.AudioContext || window.webkitAudioContext;
+        if(AudioContextClass) {
+          audioCtx=new AudioContextClass();
+          await audioCtx.resume();
+          audioEl=new Audio();
+          audioEl.src=musicURL;
+          audioEl.loop=true;
+          source=audioCtx.createMediaElementSource(audioEl);
+          destination=audioCtx.createMediaStreamDestination();
+          source.connect(destination);
+          destination.stream.getAudioTracks().forEach(track=>stream.addTrack(track));
+          await audioEl.play();
+        }
+      }
+
+      const supported=[
+        "video/webm;codecs=vp9,opus",
+        "video/webm;codecs=vp8,opus",
+        "video/webm;codecs=vp9",
+        "video/webm;codecs=vp8",
+        "video/webm"
+      ];
+      const mime=supported.find(type=>MediaRecorder.isTypeSupported(type)) || "";
+      recorder=new MediaRecorder(stream,mime?{mimeType:mime}:{});
+      recorder.ondataavailable=e=>{if(e.data && e.data.size) chunks.push(e.data);};
+
+      const stopped=new Promise((resolve,reject)=>{
+        recorder.onstop=resolve;
+        recorder.onerror=()=>reject(new Error("Recorder failed"));
+      });
+
+      recorder.start(250);
+      const duration=Number($("wovDuration").value);
+      const started=performance.now();
+      await new Promise(resolve=>{
+        function frame(now) {
+          const elapsed=(now-started)/1000;
+          draw(Math.min(elapsed,duration));
+          if(elapsed>=duration) resolve();
+          else requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+      });
+      if(recorder.state!=="inactive") recorder.stop();
+      await stopped;
+      if(!chunks.length) throw new Error("Empty video");
+      return new Blob(chunks,{type:recorder.mimeType || "video/webm"});
+    } finally {
+      if(audioEl) {audioEl.pause();audioEl.src="";}
+      if(source) {try{source.disconnect();}catch(e){}}
+      if(destination) destination.stream.getTracks().forEach(track=>track.stop());
+      if(stream) stream.getTracks().forEach(track=>track.stop());
+      if(audioCtx && audioCtx.state!=="closed") await audioCtx.close().catch(()=>{});
+      canvas.width=oldW; canvas.height=oldH; draw(0);
+    }
+  }
+
+  $("wovCreate").addEventListener("click",async()=>{
+    if(renderBusy) return;
+    if(!canvas.captureStream || !window.MediaRecorder) {
+      status(t("unsupported"));return;
+    }
+    renderBusy=true;
+    $("wovCreate").disabled=true;
+    $("wovPreview").disabled=true;
+    stopPreview();
+    $("wovDownloads").innerHTML="";
+    const requested=$("wovFormat").value;
+    const formats=requested==="pack"?["portrait","landscape","square"]:[requested];
+    try {
+      for(let i=0;i<formats.length;i++) {
+        status(`${t("rendering")} (${i+1}/${formats.length}: ${formats[i]})`);
+        const blob=await renderVideo(formats[i]);
+        const url=URL.createObjectURL(blob);
+        downloadURLs.push(url);
+        const a=document.createElement("a");
+        a.href=url;
+        a.download=`world-official-${formats[i]}-${Date.now()}.webm`;
+        a.textContent=`${t("download")} — ${formats[i]} (${(blob.size/1048576).toFixed(2)} MB)`;
+        a.style.cssText="display:block;padding:12px;background:#15803d;color:white;border-radius:9px;text-decoration:none;font-weight:bold;overflow-wrap:anywhere";
+        $("wovDownloads").appendChild(a);
+
+        if(i===0) {
+          const video=$("wovResult");
+          video.src=url;
+          video.style.display="block";
+          video.load();
+        }
+      }
+      status(t("done"));
+    } catch(error) {
+      console.error("Video maker error:",error);
+      status(t("error")+" "+(error.message || ""));
+    } finally {
+      renderBusy=false;
+      $("wovCreate").disabled=false;
+      $("wovPreview").disabled=false;
+      resize();
+    }
+  });
+
+  window.addEventListener("beforeunload",()=>{
+    if(imageURL) URL.revokeObjectURL(imageURL);
+    if(musicURL) URL.revokeObjectURL(musicURL);
+    downloadURLs.forEach(URL.revokeObjectURL);
+  });
+
+  updateLanguage();
+  resize();
+})();
+</script>
