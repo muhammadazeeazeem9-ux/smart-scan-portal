@@ -310,7 +310,8 @@ body[dir="rtl"] .topbar-inner {
   }
 }
 </style>
-</head><body>
+</head>
+<body>
 <header class="topbar">
   <div class="topbar-inner">
     <div class="brand">
@@ -592,7 +593,9 @@ const translations = {
     reportDisclaimer:
       "یہ رپورٹ صرف معلومات کے لیے ہے اور ویب سائٹ کی حفاظت کی ضمانت نہیں۔"
   }
-};const elements = {
+};
+
+const elements = {
   brandSubtitle: document.getElementById("brandSubtitle"),
   languageBtn: document.getElementById("languageBtn"),
   privacyBtn: document.getElementById("privacyBtn"),
@@ -736,212 +739,215 @@ function analyzeUrl(parsed) {
   }
 
   const port = parsed.port;
-  if (port && !["80", "443"].includes(port)) {
-    add("unusualPort", "unusualPortDesc", "warn");
-  }
-
-  if (parsed.hostname.toLowerCase().includes("xn--")) {
-    add("punycode", "punycodeDesc", "warn");
-  }
-
-  if (parsed.href.length > 200) {
-    add("longUrl", "longUrlDesc", "warn");
-  }
-
-  if (findings.every(item => item.severity === "good")) {
-    add("secureLooking", "secureLookingDesc", "info");
-  }
-
-  return findings;
-}
-
-function escapeHtml(value) {
-  return String(value).replace(/[&<>"']/g, character => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[character]);
-}
-
-function renderReport(reportText) {
-  const lines = reportText.split("\n");
-  const findingsStart = lines.findIndex(line =>
-    line.startsWith(t("findings") + ":")
-  );
-
-  const summaryText = lines.slice(0, findingsStart < 0
-    ? lines.length
-    : findingsStart).join("\n");
-
-  elements.resultSummary.textContent = summaryText;
-  elements.findingsList.replaceChildren();
-
-  const report = window.latestScan;
-  if (!report) return;
-
-  for (const finding of report.findings) {
-    const card = document.createElement("article");
-    card.className = "finding";
-
-    const badge = document.createElement("span");
-    badge.className = "severity severity-" + finding.severity;
-    badge.textContent =
-      finding.severity === "good" ? t("passed") :
-      finding.severity === "bad" ? t("failed") :
-      finding.severity === "warn" ? t("warning") :
-      t("informational");
-
-    const heading = document.createElement("h4");
-    heading.textContent = finding.title;
-
-    const description = document.createElement("p");
-    description.textContent = finding.description;
-
-    card.append(badge, heading, description);
-    elements.findingsList.appendChild(card);
-  }
-}
-
-function createReport(parsed, findings) {
-  const date = new Date().toLocaleString(
-    currentLanguage === "ur" ? "ur-PK" : "en-US"
-  );
-
-  const lines = [
-    t("reportTitle"),
-    "================================",
-    t("scannedUrl") + ": " + parsed.href,
-    t("scanTime") + ": " + date,
-    "",
-    t("summary") + ":",
-    t("localOnly"),
-    "",
-    t("findings") + ":"
-  ];
-
-  for (const finding of findings) {
-    lines.push(
-      "- " + finding.title,
-      "  " + finding.description
-    );
-  }
-
-  lines.push("", t("reportDisclaimer"));
-  return lines.join("\n");
-}
-
-elements.languageBtn.addEventListener("click", () => {
-  setLanguage(currentLanguage === "en" ? "ur" : "en");
-});
-
-elements.privacyBtn.addEventListener("click", () => {
-  elements.privacyPanel.hidden = false;
-  setStatus(t("privacyOpened"));
-});
-
-elements.closePrivacyBtn.addEventListener("click", () => {
-  elements.privacyPanel.hidden = true;
-  setStatus(t("privacyClosed"));
-});
-
-elements.scannerForm.addEventListener("submit", event => {
-  event.preventDefault();
-
-  try {
-    setStatus(t("scanning"));
-
-    const parsed = normalizeUrl(elements.urlInput.value);
-    const findings = analyzeUrl(parsed);
-
-    window.latestScan = {
-      url: parsed.href,
-      findings
-    };
-
-    latestReport = createReport(parsed, findings);
-    renderReport(latestReport);
-
-    elements.resultsPanel.classList.add("visible");
-    setStatus(t("completed"));
-  } catch (error) {
-    elements.resultsPanel.classList.remove("visible");
-    setStatus(error.message || t("invalidUrl"));
-  }
-});elements.clearBtn.addEventListener("click", () => {
-  elements.urlInput.value = "";
-  elements.resultsPanel.classList.remove("visible");
-  elements.resultSummary.textContent = "";
-  elements.findingsList.replaceChildren();
-  elements.privacyPanel.hidden = true;
-  latestReport = "";
-  window.latestScan = null;
-  setStatus(t("cleared"));
-  elements.urlInput.focus();
-});
-
-elements.copyBtn.addEventListener("click", async () => {
-  if (!latestReport) {
-    setStatus(t("noReport"));
-    return;
-  }
-
-  try {
-    if (navigator.clipboard && window.isSecureContext) {
-      await navigator.clipboard.writeText(latestReport);
-    } else {
-      const temporary = document.createElement("textarea");
-      temporary.value = latestReport;
-      temporary.setAttribute("readonly", "");
-      temporary.style.position = "fixed";
-      temporary.style.opacity = "0";
-      document.body.appendChild(temporary);
-      temporary.select();
-
-      const copied = document.execCommand("copy");
-      temporary.remove();
-
-      if (!copied) {
-        throw new Error("Copy failed");
-      }
+  if (port && !["80", "443"].includes(port)) {const port = parsed.port;
+    if (port && !["80", "443"].includes(port)) {
+      add("unusualPort", "unusualPortDesc", "warn");
     }
 
-    setStatus(t("reportCopied"));
-  } catch {
-    setStatus(t("copyFailed"));
-  }
-});
+    if (parsed.hostname.toLowerCase().includes("xn--")) {
+      add("punycode", "punycodeDesc", "warn");
+    }
 
-elements.downloadBtn.addEventListener("click", () => {
-  if (!latestReport) {
-    setStatus(t("noReport"));
-    return;
+    if (parsed.href.length > 200) {
+      add("longUrl", "longUrlDesc", "warn");
+    }
+
+    if (findings.every(item => item.severity === "good")) {
+      add("secureLooking", "secureLookingDesc", "info");
+    }
+
+    return findings;
   }
 
-  try {
-    const blob = new Blob(
-      ["\uFEFF", latestReport],
-      { type: "text/plain;charset=utf-8" }
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, character => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[character]);
+  }
+
+  function renderReport(reportText) {
+    const lines = reportText.split("\n");
+    const findingsStart = lines.findIndex(line =>
+      line.startsWith(t("findings") + ":")
     );
 
-    const objectUrl = URL.createObjectURL(blob);
-    const link = document.createElement("a");
+    const summaryText = lines.slice(0, findingsStart < 0
+      ? lines.length
+      : findingsStart).join("\n");
 
-    link.href = objectUrl;
-    link.download = "smart-security-scanner-report.txt";
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
+    elements.resultSummary.textContent = summaryText;
+    elements.findingsList.replaceChildren();
 
-    setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
-    setStatus(t("reportDownloaded"));
-  } catch {
-    setStatus(t("copyFailed"));
+    const report = window.latestScan;
+    if (!report) return;
+
+    for (const finding of report.findings) {
+      const card = document.createElement("article");
+      card.className = "finding";
+
+      const badge = document.createElement("span");
+      badge.className = "severity severity-" + finding.severity;
+      badge.textContent =
+        finding.severity === "good" ? t("passed") :
+        finding.severity === "bad" ? t("failed") :
+        finding.severity === "warn" ? t("warning") :
+        t("informational");
+
+      const heading = document.createElement("h4");
+      heading.textContent = finding.title;
+
+      const description = document.createElement("p");
+      description.textContent = finding.description;
+
+      card.append(badge, heading, description);
+      elements.findingsList.appendChild(card);
+    }
   }
-});
 
-setLanguage("en");
+  function createReport(parsed, findings) {
+    const date = new Date().toLocaleString(
+      currentLanguage === "ur" ? "ur-PK" : "en-US"
+    );
+
+    const lines = [
+      t("reportTitle"),
+      "================================",
+      t("scannedUrl") + ": " + parsed.href,
+      t("scanTime") + ": " + date,
+      "",
+      t("summary") + ":",
+      t("localOnly"),
+      "",
+      t("findings") + ":"
+    ];
+
+    for (const finding of findings) {
+      lines.push(
+        "- " + finding.title,
+        "  " + finding.description
+      );
+    }
+
+    lines.push("", t("reportDisclaimer"));
+    return lines.join("\n");
+  }
+
+  elements.languageBtn.addEventListener("click", () => {
+    setLanguage(currentLanguage === "en" ? "ur" : "en");
+  });
+
+  elements.privacyBtn.addEventListener("click", () => {
+    elements.privacyPanel.hidden = false;
+    setStatus(t("privacyOpened"));
+  });
+
+  elements.closePrivacyBtn.addEventListener("click", () => {
+    elements.privacyPanel.hidden = true;
+    setStatus(t("privacyClosed"));
+  });
+
+  elements.scannerForm.addEventListener("submit", event => {
+    event.preventDefault();
+
+    try {
+      setStatus(t("scanning"));
+
+      const parsed = normalizeUrl(elements.urlInput.value);
+      const findings = analyzeUrl(parsed);
+
+      window.latestScan = {
+        url: parsed.href,
+        findings
+      };
+
+      latestReport = createReport(parsed, findings);
+      renderReport(latestReport);
+
+      elements.resultsPanel.classList.add("visible");
+      setStatus(t("completed"));
+    } catch (error) {
+      elements.resultsPanel.classList.remove("visible");
+      setStatus(error.message || t("invalidUrl"));
+    }
+  });
+
+  elements.clearBtn.addEventListener("click", () => {
+    elements.urlInput.value = "";
+    elements.resultsPanel.classList.remove("visible");
+    elements.resultSummary.textContent = "";
+    elements.findingsList.replaceChildren();
+    elements.privacyPanel.hidden = true;
+    latestReport = "";
+    window.latestScan = null;
+    setStatus(t("cleared"));
+    elements.urlInput.focus();
+  });
+
+  elements.copyBtn.addEventListener("click", async () => {
+    if (!latestReport) {
+      setStatus(t("noReport"));
+      return;
+    }
+
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(latestReport);
+      } else {
+        const temporary = document.createElement("textarea");
+        temporary.value = latestReport;
+        temporary.setAttribute("readonly", "");
+        temporary.style.position = "fixed";
+        temporary.style.opacity = "0";
+        document.body.appendChild(temporary);
+        temporary.select();
+
+        const copied = document.execCommand("copy");
+        temporary.remove();
+
+        if (!copied) {
+          throw new Error("Copy failed");
+        }
+      }
+
+      setStatus(t("reportCopied"));
+    } catch {
+      setStatus(t("copyFailed"));
+    }
+  });
+
+  elements.downloadBtn.addEventListener("click", () => {
+    if (!latestReport) {
+      setStatus(t("noReport"));
+      return;
+    }
+
+    try {
+      const blob = new Blob(
+        ["\uFEFF", latestReport],
+        { type: "text/plain;charset=utf-8" }
+      );
+
+      const objectUrl = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = objectUrl;
+      link.download = "smart-security-scanner-report.txt";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+      setStatus(t("reportDownloaded"));
+    } catch {
+      setStatus(t("copyFailed"));
+    }
+  });
+
+  setLanguage("en");
 </script>
 </body>
 </html>
