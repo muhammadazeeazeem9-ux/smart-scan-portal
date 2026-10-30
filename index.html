@@ -1,288 +1,237 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master AI Portal - Sovereign App Hub</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body { background: #050811; color: #f8fafc; font-family: 'Segoe UI', system-ui, sans-serif; }
-        .glass-panel { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .tool-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .tool-card:hover { transform: translateY(-4px); border-color: rgba(6, 182, 212, 0.4); box-shadow: 0 12px 30px -10px rgba(6, 182, 212, 0.2); }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Smart Security Scanner and Sovereign Empire Master Portal">
+  <title>Smart Security Scanner | Sovereign Master Portal</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1220;
+      color: #eef4ff;
+      line-height: 1.6;
+    }
+    .container {
+      width: min(920px, 92%);
+      margin: 45px auto;
+    }
+    .card {
+      background: #131f33;
+      border: 1px solid #2b3d58;
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+    h1 { margin-top: 0; font-size: clamp(27px, 5vw, 40px); }
+    .muted { color: #b6c5dc; }
+    label { display: block; margin: 18px 0 8px; font-weight: bold; }
+    input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #526681;
+      background: #091321;
+      color: white;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 14px;
+      width: 100%;
+      padding: 14px;
+      border: 0;
+      border-radius: 10px;
+      background: #3b82f6;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:disabled { opacity: .6; cursor: wait; }
+    .notice {
+      padding: 13px;
+      border-radius: 10px;
+      background: #202f46;
+      color: #d5e4ff;
+      margin-top: 16px;
+    }
+    .result {
+      border: 1px solid #344965;
+      border-radius: 12px;
+      padding: 15px;
+      margin-top: 12px;
+    }
+    .result h3 { margin: 0 0 5px; font-size: 17px; }
+    .status { font-weight: bold; color: #fbbf24; }
+    
+    /* Portal Navigation Menu Styling */
+    .portal-nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .portal-btn {
+      display: block;
+      text-align: center;
+      padding: 12px;
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 1px solid #3b82f6;
+      border-radius: 10px;
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    .portal-btn:hover {
+      background: #3b82f6;
+      color: white;
+      transform: translateY(-2px);
+    }
+    footer { text-align: center; color: #9fb0c8; padding: 12px; }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-cyan-500 selection:text-black">
+<body>
+  <main class="container">
+    
+    <!-- Portal Navigation Menu -->
+    <section class="card">
+      <p style="margin: 0; font-size: 12px; letter-spacing: 1px; color: #38bdf8; font-weight: bold;">[ SOVEREIGN EMPIRE - MASTER PORTAL ]</p>
+      <div class="portal-nav">
+        <a href="./cyber-shield/index.html" class="portal-btn">🛡️ Cyber Shield</a>
+        <a href="./cinema-video-studio/index.html" class="portal-btn">🎬 Video Studio</a>
+        <a href="./cartoon-studio/index.html" class="portal-btn">🎨 Cartoon Studio</a>
+        <a href="./ai-chat/index.html" class="portal-btn">💬 Ultra AI Chat</a>
+      </div>
+    </section>
 
-    <!-- Top Navigation / Header -->
-    <header class="glass-panel sticky top-0 z-50 border-b border-gray-800/80">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-black font-extrabold text-xl shadow-lg shadow-cyan-500/30">
-                    <i class="fa-solid fa-cube"></i>
-                </div>
-                <div>
-                    <h1 class="text-xl font-black tracking-wider text-white">MASTER AI PORTAL</h1>
-                    <p class="text-xs text-cyan-400 font-mono tracking-widest">SOVEREIGN APP STORE V1.0</p>
-                </div>
-            </div>
+    <section class="card">
+      <p>🛡️ SMART SCAN PORTAL</p>
+      <h1>Smart Security Scanner</h1>
+      <p class="muted">
+        Check a website's basic security configuration and learn
+        which checks still need a trusted scanning service.
+      </p>
 
-            <!-- Quick Search Bar -->
-            <div class="hidden md:flex items-center relative w-96">
-                <i class="fa-solid fa-search absolute left-4 text-gray-400 text-sm"></i>
-                <input type="text" id="searchInput" onkeyup="filterTools()" placeholder="Search independent tools..." class="w-full bg-gray-900/90 border border-gray-800 rounded-xl pl-11 pr-4 py-2.5 text-sm text-white focus:outline-none focus:border-cyan-500 transition-all">
-            </div>
+      <form id="scanForm">
+        <label for="website">Website address</label>
+        <input
+          id="website"
+          name="website"
+          type="text"
+          placeholder="https://example.com"
+          autocomplete="url"
+          required
+        >
+        <button id="scanButton" type="submit">Start Basic Check</button>
+      </form>
 
-            <div class="flex items-center space-x-3">
-                <button onclick="triggerSystemScan()" class="px-4 py-2 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 rounded-xl text-xs font-bold transition-all flex items-center space-x-2">
-                    <i class="fa-solid fa-shield-halved"></i>
-                    <span class="hidden sm:inline">System Audit</span>
-                </button>
-            </div>
-        </div>
-    </header>
+      <div class="notice" id="message" role="status" aria-live="polite">
+        Enter a website address to begin.
+      </div>
+    </section>
 
-    <!-- Main Container -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <section class="card" id="report" hidden>
+      <h2>Preliminary Report</h2>
+      <p class="muted" id="target"></p>
+      <div id="results"></div>
+      <p class="notice">
+        This preliminary report is not a full security audit.
+        Certificate validity and security headers must be checked
+        by a trusted scanner or a properly configured backend.
+      </p>
+    </section>
+    <footer>Smart Scan Portal · Sovereign Empire Ecosystem</footer>
+  </main>
 
-        <!-- Hero Status & Live Scanner Widget -->
-        <section class="glass-panel rounded-3xl p-6 sm:p-8 relative overflow-hidden">
-            <div class="absolute -right-16 -top-16 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
-            <div class="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-                <div class="space-y-2 max-w-2xl">
-                    <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-bold">
-                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-                        <span>ISOLATED DIRECTORY ARCHITECTURE ACTIVE</span>
-                    </div>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Independent Hub & Play Store</h2>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Every tool operates inside its own protected sub-directory with complete file isolation, zero cross-contamination, and standalone deployment ready for GitHub Pages.
-                    </p>
-                </div>
+  <script>
+    const form = document.getElementById("scanForm");
+    const websiteInput = document.getElementById("website");
+    const message = document.getElementById("message");
+    const report = document.getElementById("report");
+    const results = document.getElementById("results");
+    const target = document.getElementById("target");
 
-                <!-- Mini Scanner Status Box -->
-                <div class="w-full lg:w-80 bg-gray-900/90 border border-gray-800 rounded-2xl p-4 space-y-3">
-                    <div class="flex items-center justify-between text-xs font-mono">
-                        <span class="text-gray-400">ISOLATION STATUS</span>
-                        <span id="scanBadge" class="text-[10px] px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 font-bold">SECURE & READY</span>
-                    </div>
-                    <div class="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
-                        <div id="scanBar" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-full w-full transition-all duration-500"></div>
-                    </div>
-                    <div class="flex items-center justify-between text-[11px] text-gray-500 font-mono">
-                        <span>Integrity: 100%</span>
-                        <span id="scanPercent">100%</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+    function addResult(title, detail, status) {
+      const box = document.createElement("div");
+      box.className = "result";
 
-        <!-- Category Filters -->
-        <div class="flex items-center space-x-3 overflow-x-auto pb-2 scrollbar-none">
-            <button onclick="filterCategory('all', this)" class="cat-tab px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-black shadow-lg shadow-cyan-500/20 font-bold text-sm transition-all">All Apps</button>
-            <button onclick="filterCategory('builder', this)" class="cat-tab px-4 py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-gray-300 hover:text-white border border-gray-800 text-sm font-medium transition-all">Builders & Studios</button>
-            <button onclick="filterCategory('security', this)" class="cat-tab px-4 py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-gray-300 hover:text-white border border-gray-800 text-sm font-medium transition-all">Security & Scanners</button>
-        </div>
+      const heading = document.createElement("h3");
+      heading.textContent = title;
 
-        <!-- Apps Catalog Grid (Play Store Style) -->
-        <section id="toolsSection" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      const text = document.createElement("p");
+      text.textContent = detail;
 
-            <!-- Tool Card 1: Sovereign Global Builder -->
-            <div class="tool-card glass-panel rounded-3xl p-6 flex flex-col justify-between space-y-6" data-name="sovereign global builder supreme v6.1" data-category="builder">
-                <div class="space-y-4">
-                    <div class="flex items-start justify-between">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-2xl shadow-inner">
-                            <i class="fa-solid fa-globe"></i>
-                        </div>
-                        <span class="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-mono text-xs font-bold">v6.1 Supreme</span>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white tracking-wide">Sovereign Global Builder</h3>
-                        <p class="text-xs text-gray-400 mt-1">Autonomous business & party deployment system with isolated folder structure.</p>
-                    </div>
-                    <div class="flex items-center space-x-2 text-xs text-gray-500 font-mono pt-1">
-                        <i class="fa-solid fa-folder-tree text-cyan-400"></i>
-                        <span>Path: /global-builder/index.html</span>
-                    </div>
-                </div>
+      const state = document.createElement("span");
+      state.className = "status";
+      state.textContent = status;
 
-                <div class="flex items-center space-x-3 pt-4 border-t border-gray-800">
-                    <a href="./global-builder/index.html" class="flex-grow py-3 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-black font-extrabold text-sm rounded-xl text-center shadow-lg shadow-cyan-500/20 transition-all flex items-center justify-center space-x-2">
-                        <i class="fa-solid fa-rocket"></i>
-                        <span>Launch Tool</span>
-                    </a>
-                    <button onclick="downloadManifest('Global Builder')" class="p-3 bg-gray-900 hover:bg-gray-800 border border-gray-800 text-gray-300 rounded-xl transition-all" title="Download Manifest">
-                        <i class="fa-solid fa-download"></i>
-                    </button>
-                </div>
-            </div>
+      box.append(heading, text, state);
+      results.appendChild(box);
+    }
 
-            <!-- Tool Card 2: Universal AI Studio -->
-            <div class="tool-card glass-panel rounded-3xl p-6 flex flex-col justify-between space-y-6" data-name="universal ai studio" data-category="builder">
-                <div class="space-y-4">
-                    <div class="flex items-start justify-between">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-600/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-2xl shadow-inner">
-                            <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        </div>
-                        <span class="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 font-mono text-xs font-bold">v3.0 Hub</span>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white tracking-wide">Universal AI Studio</h3>
-                        <p class="text-xs text-gray-400 mt-1">Multi-modal generative AI studio environment with custom toolkits.</p>
-                    </div>
-                    <div class="flex items-center space-x-2 text-xs text-gray-500 font-mono pt-1">
-                        <i class="fa-solid fa-folder-tree text-purple-400"></i>
-                        <span>Path: /ai-studio/index.html</span>
-                    </div>
-                </div>
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
 
-                <div class="flex items-center space-x-3 pt-4 border-t border-gray-800">
-                    <a href="./ai-studio/index.html" class="flex-grow py-3 bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-400 hover:to-pink-500 text-white font-extrabold text-sm rounded-xl text-center shadow-lg shadow-purple-500/20 transition-all flex items-center justify-center space-x-2">
-                        <i class="fa-solid fa-rocket"></i>
-                        <span>Launch Tool</span>
-                    </a>
-                    <button onclick="downloadManifest('AI Studio')" class="p-3 bg-gray-900 hover:bg-gray-800 border border-gray-800 text-gray-300 rounded-xl transition-all" title="Download Manifest">
-                        <i class="fa-solid fa-download"></i>
-                    </button>
-                </div>
-            </div>
+      let value = websiteInput.value.trim();
+      if (!/^https?:\/\//i.test(value)) {
+        value = "https://" + value;
+      }
 
-            <!-- Tool Card 3: Global Cinema Studio -->
-            <div class="tool-card glass-panel rounded-3xl p-6 flex flex-col justify-between space-y-6" data-name="global cinema studio cartoon" data-category="builder">
-                <div class="space-y-4">
-                    <div class="flex items-start justify-between">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-600/20 border border-amber-500/30 flex items-center justify-center text-amber-400 text-2xl shadow-inner">
-                            <i class="fa-solid fa-film"></i>
-                        </div>
-                        <span class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 font-mono text-xs font-bold">Cinema v2.0</span>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white tracking-wide">Global Cinema Studio</h3>
-                        <p class="text-xs text-gray-400 mt-1">Cinematic movie generator & AI animation studio environment.</p>
-                    </div>
-                    <div class="flex items-center space-x-2 text-xs text-gray-500 font-mono pt-1">
-                        <i class="fa-solid fa-folder-tree text-amber-400"></i>
-                        <span>Path: /cinema-studio/index.html</span>
-                    </div>
-                </div>
+      let url;
+      try {
+        url = new URL(value);
+      } catch {
+        message.textContent = "Please enter a valid website address.";
+        report.hidden = true;
+        return;
+      }
 
-                <div class="flex items-center space-x-3 pt-4 border-t border-gray-800">
-                    <a href="./cinema-studio/index.html" class="flex-grow py-3 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-black font-extrabold text-sm rounded-xl text-center shadow-lg shadow-amber-500/20 transition-all flex items-center justify-center space-x-2">
-                        <i class="fa-solid fa-rocket"></i>
-                        <span>Launch Tool</span>
-                    </a>
-                    <button onclick="downloadManifest('Cinema Studio')" class="p-3 bg-gray-900 hover:bg-gray-800 border border-gray-800 text-gray-300 rounded-xl transition-all" title="Download Manifest">
-                        <i class="fa-solid fa-download"></i>
-                    </button>
-                </div>
-            </div>
+      if (!["http:", "https:"].includes(url.protocol) ||
+          !url.hostname.includes(".") ||
+          url.hostname === "localhost") {
+        message.textContent = "Please enter a public website domain.";
+        report.hidden = true;
+        return;
+      }
 
-            <!-- Tool Card 4: AI Cartoon Studio (نیا کارٹون ٹूल کارڈ) -->
-            <div class="tool-card glass-panel rounded-3xl p-6 flex flex-col justify-between space-y-6" data-name="ai cartoon studio generator" data-category="builder">
-                <div class="space-y-4">
-                    <div class="flex items-start justify-between">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-amber-600/20 border border-yellow-500/30 flex items-center justify-center text-yellow-400 text-2xl shadow-inner">
-                            <i class="fa-solid fa-face-smile-beam"></i>
-                        </div>
-                        <span class="px-3 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 font-mono text-xs font-bold">Cartoon v2.0</span>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white tracking-wide">AI Cartoon Studio</h3>
-                        <p class="text-xs text-gray-400 mt-1">Specialized 2D/3D cartoon and animated character generator.</p>
-                    </div>
-                    <div class="flex items-center space-x-2 text-xs text-gray-500 font-mono pt-1">
-                        <i class="fa-solid fa-folder-tree text-yellow-400"></i>
-                        <span>Path: /cartoon-studio/index.html</span>
-                    </div>
-                </div>
+      report.hidden = false;
+      target.textContent = "Website: " + url.origin;
+      results.replaceChildren();
 
-                <div class="flex items-center space-x-3 pt-4 border-t border-gray-800">
-                    <a href="./cartoon-studio/index.html" class="flex-grow py-3 bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-400 hover:to-amber-500 text-black font-extrabold text-sm rounded-xl text-center shadow-lg shadow-yellow-500/20 transition-all flex items-center justify-center space-x-2">
-                        <i class="fa-solid fa-rocket"></i>
-                        <span>Launch Tool</span>
-                    </a>
-                    <button onclick="downloadManifest('Cartoon Studio')" class="p-3 bg-gray-900 hover:bg-gray-800 border border-gray-800 text-gray-300 rounded-xl transition-all" title="Download Manifest">
-                        <i class="fa-solid fa-download"></i>
-                    </button>
-                </div>
-            </div>
+      addResult(
+        "Address format",
+        "The address has a valid basic URL format. This does not confirm the site is safe.",
+        "CHECKED"
+      );
 
-            <!-- Tool Card 5: Cyber Shield Security -->
-            <div class="tool-card glass-panel rounded-3xl p-6 flex flex-col justify-between space-y-6" data-name="cyber shield security verification" data-category="security">
-                <div class="space-y-4">
-                    <div class="flex items-start justify-between">
-                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-600/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-2xl shadow-inner">
-                            <i class="fa-solid fa-shield-cat"></i>
-                        </div>
-                        <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-mono text-xs font-bold">Active Shield</span>
-                    </div>
-                    <div>
-                        <h3 class="text-xl font-bold text-white tracking-wide">Cyber Shield Verification</h3>
-                        <p class="text-xs text-gray-400 mt-1">Real-time vulnerability auditor and automated directory protection scanner.</p>
-                    </div>
-                    <div class="flex items-center space-x-2 text-xs text-gray-500 font-mono pt-1">
-                        <i class="fa-solid fa-folder-tree text-emerald-400"></i>
-                        <span>Path: /cyber-shield/index.html</span>
-                    </div>
-                </div>
+      addResult(
+        "HTTPS",
+        url.protocol === "https:"
+          ? "The entered address uses HTTPS. Certificate validity has not been verified."
+          : "The entered address uses HTTP. Try the HTTPS version if the website supports it.",
+        url.protocol === "https:" ? "HTTPS URL" : "HTTP URL — REVIEW"
+      );
 
-                <div class="flex items-center space-x-3 pt-4 border-t border-gray-800">
-                    <a href="./cyber-shield/index.html" class="flex-grow py-3 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-black font-extrabold text-sm rounded-xl text-center shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center space-x-2">
-                        <i class="fa-solid fa-rocket"></i>
-                        <span>Launch Tool</span>
-                    </a>
-                    <button onclick="downloadManifest('Cyber Shield')" class="p-3 bg-gray-900 hover:bg-gray-800 border border-gray-800 text-gray-300 rounded-xl transition-all" title="Download Manifest">
-                        <i class="fa-solid fa-download"></i>
-                    </button>
-                </div>
-            </div>
+      addResult(
+        "SSL/TLS certificate",
+        "Not yet verified by this page. A trusted certificate-checking service is needed.",
+        "NOT CHECKED"
+      );
 
-        </section>
+      addResult(
+        "Security headers",
+        "Not yet verified. The response headers must be checked by a trusted scanner or backend.",
+        "NOT CHECKED"
+      );
 
-    </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-gray-800/80 bg-gray-950/90 py-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 rounded-lg bg-cyan-500 flex items-center justify-center text-black font-extrabold text-sm">
-                    <i class="fa-solid fa-microchip"></i>
-                </div>
-                <span class="text-sm font-bold text-gray-300">Master AI Portal © 2026</span>
-            </div>
-            
-            <div class="flex items-center space-x-6 text-xs text-gray-400">
-                <a href="#toolsSection" class="hover:text-white transition-colors">Catalog</a>
-                <a href="./global-builder/index.html" class="hover:text-white transition-colors">Global Builder</a>
-                <span class="font-mono text-[11px] text-gray-500">masteraiportal.com</span>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Interactive JavaScript Logic -->
-    <script>
-        function filterTools() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.querySelectorAll('.tool-card');
-
-            cards.forEach(card => {
-                const name = card.getAttribute('data-name') || '';
-                if (name.includes(query)) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        function filterCategory(cat, btn) {
-            document.querySelectorAll('.cat-tab').forEach(tab => {
-                tab.className = 'cat-tab px-4 py-2.5 rounded-xl bg-gray-900 hover:bg-gray-800 text-gray-300 hover:text-white transition-all border border-gray-800 text-sm font-medium';
-            });
-            btn.className = 'cat-tab px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-black shadow-lg shadow-cyan-500/20 font-bold text-sm transition-all';
-
-            const cards = document.querySelectorAll('.tool-card');
-            cards.forEach(card => {
-                const cardCat = card.getAttribute('data-category');
-                if (cat === 'all' || c
+      message.textContent =
+        "Preliminary checks completed. Review which security checks remain unverified.";
+      report.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  </script>
+</body>
+</html>
