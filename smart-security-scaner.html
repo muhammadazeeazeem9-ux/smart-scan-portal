@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Smart Security Scanner for basic website security checks.">
+  <title>Smart Security Scanner | Smart Scan Portal</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1220;
+      color: #eef4ff;
+      line-height: 1.6;
+    }
+    .container {
+      width: min(920px, 92%);
+      margin: 45px auto;
+    }
+    .card {
+      background: #131f33;
+      border: 1px solid #2b3d58;
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+    h1 { margin-top: 0; font-size: clamp(27px, 5vw, 40px); }
+    .muted { color: #b6c5dc; }
+    label { display: block; margin: 18px 0 8px; font-weight: bold; }
+    input {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #526681;
+      background: #091321;
+      color: white;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 14px;
+      width: 100%;
+      padding: 14px;
+      border: 0;
+      border-radius: 10px;
+      background: #3b82f6;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:disabled { opacity: .6; cursor: wait; }
+    .notice {
+      padding: 13px;
+      border-radius: 10px;
+      background: #202f46;
+      color: #d5e4ff;
+      margin-top: 16px;
+    }
+    .result {
+      border: 1px solid #344965;
+      border-radius: 12px;
+      padding: 15px;
+      margin-top: 12px;
+    }
+    .result h3 { margin: 0 0 5px; font-size: 17px; }
+    .status { font-weight: bold; color: #fbbf24; }
+    footer { text-align: center; color: #9fb0c8; padding: 12px; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="card">
+      <p>🛡️ SMART SCAN PORTAL</p>
+      <h1>Smart Security Scanner</h1>
+      <p class="muted">
+        Check a website's basic security configuration and learn
+        which checks still need a trusted scanning service.
+      </p>
+
+      <form id="scanForm">
+        <label for="website">Website address</label>
+        <input
+          id="website"
+          name="website"
+          type="text"
+          placeholder="https://example.com"
+          autocomplete="url"
+          required
+        >
+        <button id="scanButton" type="submit">Start Basic Check</button>
+      </form>
+
+      <div class="notice" id="message" role="status" aria-live="polite">
+        Enter a website address to begin.
+      </div>
+    </section>
+
+    <section class="card" id="report" hidden>
+      <h2>Preliminary Report</h2>
+      <p class="muted" id="target"></p>
+      <div id="results"></div>
+      <p class="notice">
+        This preliminary report is not a full security audit.
+        Certificate validity and security headers must be checked
+        by a trusted scanner or a properly configured backend.
+      </p>
+    </section>
+    <footer>Smart Scan Portal · Basic Website Security</footer>
+  </main>
+
+  <script>
+    const form = document.getElementById("scanForm");
+    const websiteInput = document.getElementById("website");
+    const message = document.getElementById("message");
+    const report = document.getElementById("report");
+    const results = document.getElementById("results");
+    const target = document.getElementById("target");
+
+    function addResult(title, detail, status) {
+      const box = document.createElement("div");
+      box.className = "result";
+
+      const heading = document.createElement("h3");
+      heading.textContent = title;
+
+      const text = document.createElement("p");
+      text.textContent = detail;
+
+      const state = document.createElement("span");
+      state.className = "status";
+      state.textContent = status;
+
+      box.append(heading, text, state);
+      results.appendChild(box);
+    }
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      let value = websiteInput.value.trim();
+      if (!/^https?:\/\//i.test(value)) {
+        value = "https://" + value;
+      }
+
+      let url;
+      try {
+        url = new URL(value);
+      } catch {
+        message.textContent = "Please enter a valid website address.";
+        report.hidden = true;
+        return;
+      }
+
+      if (!["http:", "https:"].includes(url.protocol) ||
+          !url.hostname.includes(".") ||
+          url.hostname === "localhost") {
+        message.textContent = "Please enter a public website domain.";
+        report.hidden = true;
+        return;
+      }
+
+      report.hidden = false;
+      target.textContent = "Website: " + url.origin;
+      results.replaceChildren();
+
+      addResult(
+        "Address format",
+        "The address has a valid basic URL format. This does not confirm the site is safe.",
+        "CHECKED"
+      );
+
+      addResult(
+        "HTTPS",
+        url.protocol === "https:"
+          ? "The entered address uses HTTPS. Certificate validity has not been verified."
+          : "The entered address uses HTTP. Try the HTTPS version if the website supports it.",
+        url.protocol === "https:" ? "HTTPS URL" : "HTTP URL — REVIEW"
+      );
+
+      addResult(
+        "SSL/TLS certificate",
+        "Not yet verified by this page. A trusted certificate-checking service is needed.",
+        "NOT CHECKED"
+      );
+
+      addResult(
+        "Security headers",
+        "Not yet verified. The response headers must be checked by a trusted scanner or backend.",
+        "NOT CHECKED"
+      );
+
+      message.textContent =
+        "Preliminary checks completed. Review which security checks remain unverified.";
+      report.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  </script>
+</body>
+</html>
