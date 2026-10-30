@@ -1,267 +1,359 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sovereign Empire Master Portal">
-  <title>Sovereign Empire Master Portal</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b1220;
-      color: #eef4ff;
-      line-height: 1.6;
-    }
-    .container {
-      width: min(920px, 92%);
-      margin: 40px auto;
-    }
-    /* Separate Full-Width Card for Each Individual Tool */
-    .tool-card {
-      background: #131f33;
-      border: 1px solid #2b3d58;
-      border-radius: 18px;
-      padding: 28px;
-      margin-bottom: 24px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-    .tool-card h2 {
-      margin-top: 0;
-      font-size: clamp(24px, 4vw, 32px);
-      color: #38bdf8;
-    }
-    .muted { color: #b6c5dc; margin-bottom: 20px; }
-    
-    /* Specific styling for Smart Security Scanner */
-    label { display: block; margin: 18px 0 8px; font-weight: bold; }
-    input {
-      width: 100%;
-      padding: 14px;
-      border-radius: 10px;
-      border: 1px solid #526681;
-      background: #091321;
-      color: white;
-      font-size: 16px;
-    }
-    button {
-      margin-top: 14px;
-      width: 100%;
-      padding: 14px;
-      border: 0;
-      border-radius: 10px;
-      background: #3b82f6;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    button:disabled { opacity: .6; cursor: wait; }
-    .notice {
-      padding: 13px;
-      border-radius: 10px;
-      background: #202f46;
-      color: #d5e4ff;
-      margin-top: 16px;
-    }
-    .result {
-      border: 1px solid #344965;
-      border-radius: 12px;
-      padding: 15px;
-      margin-top: 12px;
-    }
-    .result h3 { margin: 0 0 5px; font-size: 17px; }
-    .status { font-weight: bold; color: #fbbf24; }
-
-    /* Open Tool Button for Ecosystem Cards */
-    .open-btn {
-      display: inline-block;
-      width: 100%;
-      padding: 14px;
-      background: #3b82f6;
-      color: white;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 16px;
-      transition: background 0.2s, transform 0.2s;
-    }
-    .open-btn:hover {
-      background: #2563eb;
-      transform: translateY(-2px);
-    }
-    footer { text-align: center; color: #9fb0c8; padding: 12px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<meta name="description" content="Smart Security Scanner — privacy-conscious website URL risk analysis with transparent findings, multilingual support and exportable reports.">
+<title>Smart Security Scanner | Global Edition</title>
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#09111f;
+  --panel:#111d30;
+  --panel2:#16243a;
+  --line:#293d59;
+  --text:#edf4ff;
+  --muted:#a8bad1;
+  --blue:#3986ff;
+  --cyan:#58ddff;
+  --green:#4ade80;
+  --yellow:#fbbf24;
+  --red:#fb7185;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  background:radial-gradient(ellipse at top left,#142c4d 0,transparent 42%),var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  line-height:1.6;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,a:focus-visible{
+  outline:3px solid var(--cyan);
+  outline-offset:3px;
+}
+.wrap{width:min(1100px,calc(100% - 28px));margin:24px auto 45px}
+header{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:22px}
+.brand{display:flex;align-items:center;gap:13px}
+.logo{
+  width:52px;height:52px;border-radius:16px;display:grid;place-items:center;
+  background:linear-gradient(135deg,#087fc4,#405ef5);font-size:27px;
+}
+h1{font-size:clamp(22px,4vw,31px);margin:0}
+.subtitle{color:var(--muted);font-size:13px;margin:2px 0 0}
+.header-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{
+  border:1px solid var(--line);border-radius:11px;padding:10px 14px;
+  background:var(--panel2);color:var(--text);font-weight:650;
+}
+.btn:hover{filter:brightness(1.12)}
+.btn-primary{background:linear-gradient(135deg,#087fc4,#405ef5);border-color:transparent}
+.hero,.panel{
+  background:linear-gradient(145deg,#142238,#101a2a);
+  border:1px solid var(--line);border-radius:19px;padding:22px;
+}
+.hero{margin-bottom:17px}
+.hero h2{font-size:clamp(20px,3vw,28px);margin:0 0 8px}
+.hero p{margin:0;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}
+.chip{font-size:12px;border:1px solid #314763;background:#0d192b;border-radius:999px;padding:5px 10px;color:#c8dcf6}
+.layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:17px;align-items:start}
+.panel h3{margin:0 0 7px;font-size:19px}
+.muted{color:var(--muted);font-size:13px}
+label{display:block;margin:16px 0 7px;font-weight:700;font-size:14px}
+input[type="url"],input[type="text"]{
+  width:100%;min-width:0;padding:13px;border-radius:11px;
+  border:1px solid #3a506d;background:#091321;color:var(--text);
+}
+.row{display:flex;gap:9px;margin-top:12px}
+.row button{flex:1}
+.progress{display:none;margin-top:14px;height:5px;background:#263852;border-radius:9px;overflow:hidden}
+.progress span{display:block;height:100%;width:0;background:var(--cyan);transition:width .25s}
+.result{margin-top:15px;padding:14px;border:1px solid var(--line);border-radius:12px;background:#0d192a;overflow-wrap:anywhere}
+.result:empty{display:none}
+.result.good{border-color:#25754c;background:#102b21}
+.result.warn{border-color:#8b681c;background:#302710}
+.result.bad{border-color:#8a344a;background:#321923}
+.result.info{border-color:#315d8e;background:#12253c}
+.result h4{margin:0 0 7px;font-size:16px}
+.result p{margin:6px 0}
+.list{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:9px}
+.list li{padding:10px 11px;background:#0b1728;border:1px solid #253952;border-radius:10px}
+.item-title{font-weight:700;font-size:13px}
+.item-detail{font-size:13px;color:var(--muted);margin-top:3px}
+.tag{display:inline-block;font-size:11px;padding:2px 7px;border-radius:99px;margin-inline-start:5px;background:#293a52;color:#d9e7f8}
+.tag.high{background:#51202d;color:#ffc1cd}
+.tag.medium{background:#493915;color:#ffe19a}
+.tag.low{background:#153c2b;color:#a7f3c4}
+.section-title{margin:20px 0 8px;font-size:15px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:13px}
+.stat{border:1px solid var(--line);border-radius:12px;padding:12px;background:#0c1727}
+.stat strong{display:block;font-size:23px}
+.stat span{font-size:12px;color:var(--muted)}
+.notice{border-inline-start:4px solid var(--yellow);padding:12px 14px;background:#292414;border-radius:9px;color:#f7e8b5;font-size:13px;margin-top:14px}
+.history{display:grid;gap:8px;margin-top:10px}
+.history-row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:10px;font-size:13px}
+.history-row span{overflow-wrap:anywhere}
+footer{margin-top:22px;text-align:center;color:var(--muted);font-size:12px}
+.hidden{display:none!important}
+[dir="rtl"] .row{flex-direction:row}
+@media(max-width:760px){
+ .layout{grid-template-columns:1fr}
+ .hero,.panel{padding:16px}
+ .wrap{width:calc(100% - 20px);margin-top:14px}
+ .row{flex-direction:column}
+ .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*::before,*::after{scroll-behavior:auto!important;transition:none!important}
+}
+</style>
 </head>
 <body>
-  <main class="container">
+<div class="wrap">
+<header>
+  <div class="brand">
+    <div class="logo" aria-hidden="true">🛡️</div>
+    <div>
+      <h1>Smart Security Scanner</h1>
+      <p class="subtitle" id="subtitle">Global Edition · Transparent URL Risk Analysis</p>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="btn" id="languageBtn" type="button">اردو</button>
+    <button class="btn" id="privacyBtn" type="button">Privacy</button>
+  </div>
+</header>
 
-    <!-- 1. Smart Security Scanner Card -->
-    <section class="tool-card">
-      <p style="color: #38bdf8; font-weight: bold; font-size: 12px; letter-spacing: 1px; margin-bottom: 5px;">🛡️ SMART SCAN PORTAL</p>
-      <h2>Smart Security Scanner</h2>
-      <p class="muted">
-        Check a website's basic security configuration and learn which checks still need a trusted scanning service.
-      </p>
+<section class="hero">
+  <h2 id="heroTitle">Understand a website link before you open it.</h2>
+  <p id="heroText">Analyze URL structure, suspicious patterns, domain presentation and common phishing indicators. This tool does not pretend to verify a website against databases it cannot access.</p>
+  <div class="chips">
+    <span class="chip" id="chip1">Privacy-conscious</span>
+    <span class="chip" id="chip2">No account required</span>
+    <span class="chip" id="chip3">Transparent findings</span>
+    <span class="chip" id="chip4">Mobile-friendly</span>
+  </div>
+</section>
 
-      <form id="scanForm">
-        <label for="website">Website address</label>
-        <input
-          id="website"
-          name="website"
-          type="text"
-          placeholder="https://example.com"
-          autocomplete="url"
-          required
-        >
-        <button id="scanButton" type="submit">Start Basic Check</button>
-      </form>
+<main class="layout">
+<section class="panel">
+  <h3 id="scannerTitle">Website Risk Analyzer</h3>
+  <p class="muted" id="scannerDesc">Enter a website address. The URL is analyzed locally in your browser; this version does not visit or crawl the target website.</p>
 
-      <div class="notice" id="message" role="status" aria-live="polite">
-        Enter a website address to begin.
-      </div>
-    </section>
+  <form id="scanForm">
+    <label id="urlLabel" for="urlInput">Website address</label>
+    <input id="urlInput" type="text" inputmode="url" autocomplete="url" maxlength="2048" placeholder="https://example.com" aria-describedby="inputHelp">
+    <p class="muted" id="inputHelp">Tip: Check the spelling of the real domain, especially links received by text or email.</p>
+    <div class="row">
+      <button class="btn btn-primary" id="scanBtn" type="submit">Analyze URL</button>
+      <button class="btn" id="clearBtn" type="button">Clear</button>
+    </div>
+  </form>
 
-    <!-- Preliminary Report Card (Hidden by default) -->
-    <section class="tool-card" id="report" hidden>
-      <h2>Preliminary Report</h2>
-      <p class="muted" id="target"></p>
-      <div id="results"></div>
-      <p class="notice" style="margin-top: 15px;">
-        This preliminary report is not a full security audit. Certificate validity and security headers must be checked by a trusted scanner.
-      </p>
-    </section>
+  <div class="progress" id="progress" aria-hidden="true"><span id="progressBar"></span></div>
+  <div id="scanResult" class="result info" role="status" aria-live="polite">
+    <h4 id="welcomeTitle">Ready to analyze</h4>
+    <p id="welcomeText">Enter a URL to receive transparent findings. No safety guarantee is implied.</p>
+  </div>
 
-    <!-- 2. Cyber Shield Card -->
-    <section class="tool-card">
-      <p style="color: #38bdf8; font-weight: bold; font-size: 12px; letter-spacing: 1px; margin-bottom: 5px;">🛡️ SOVEREIGN SECURITY</p>
-      <h2>Cyber Shield</h2>
-      <p class="muted">Advanced security verification, shielding, and threat analysis tools for your systems.</p>
-      <a href="./cyber-shield/index.html" class="open-btn">Open Cyber Shield Tool</a>
-    </section>
+  <div class="row">
+    <button class="btn" id="copyBtn" type="button" disabled>Copy report</button>
+    <button class="btn" id="downloadBtn" type="button" disabled>Download report</button>
+  </div>
 
-    <!-- 3. Cinema Video Studio Card -->
-    <section class="tool-card">
-      <p style="color: #38bdf8; font-weight: bold; font-size: 12px; letter-spacing: 1px; margin-bottom: 5px;">🎬 MEDIA PRODUCTION</p>
-      <h2>Cinema Video Studio</h2>
-      <p class="muted">World video maker, viral video packs, and cinematic studio toolkit for creators.</p>
-      <a href="./cinema-video-studio/index.html" class="open-btn">Open Video Studio</a>
-    </section>
+  <div class="notice" id="limitations">
+    Important: This is a local heuristic analyzer, not an antivirus or live reputation service. A low-risk result does not prove that a website is safe.
+  </div>
+</section>
 
-    <!-- 4. Cinema Studio Card -->
-    <section class="tool-card">
-      <p style="color: #38bdf8; font-weight: bold; font-size: 12px; letter-spacing: 1px; margin-bottom: 5px;">🎥 CINEMATIC SUITE</p>
-      <h2>Cinema Studio</h2>
-      <p class="muted">Professional cinematic production, high-end editing, and creative media management.</p>
-      <a href="./cinema-studio/index.html" class="open-btn">Open Cinema Studio</a>
-    </section>
+<aside class="panel">
+  <h3 id="findingsTitle">Analysis Findings</h3>
+  <p class="muted" id="findingsDesc">Results will appear here after you analyze a URL.</p>
+  <div class="stats">
+    <div class="stat"><strong id="highCount">0</strong><span id="highLabel">High indicators</span></div>
+    <div class="stat"><strong id="medCount">0</strong><span id="medLabel">Medium indicators</span></div>
+    <div class="stat"><strong id="lowCount">0</strong><span id="lowLabel">Informational</span></div>
+  </div>
+  <ul class="list" id="findingsList"></ul>
+  <h4 class="section-title" id="domainTitle">Parsed address details</h4>
+  <ul class="list" id="detailsList">
+    <li><div class="item-detail" id="detailsEmpty">No address analyzed yet.</div></li>
+  </ul>
+</aside>
+</main>
 
-    <!-- 5. Cartoon Studio Card -->
-    <section class="tool-card">
-      <p style="color: #38bdf8; font-weight: bold; font-size: 12px; letter-spacing: 1px; margin-bottom: 5px;">🎨 CREATIVE STUDIO</p>
-      <h2>Cartoon Studio</h2>
-      <p class="muted">Create and animate smart cartoon graphics, vectors, and visual stories.</p>
-      <a href="./cartoon-studio/index.html" class="open-btn">Open Cartoon Studio</a>
-    </section>
+<section class="panel" style="margin-top:17px">
+  <h3 id="historyTitle">Recent checks</h3>
+  <p class="muted" id="historyDesc">Only recent checks in this page session are shown. They are not saved to a server or browser storage.</p>
+  <div class="history" id="historyList">
+    <div class="muted" id="historyEmpty">No recent checks.</div>
+  </div>
+  <div class="row">
+    <button class="btn" id="clearHistoryBtn" type="button">Clear recent checks</button>
+  </div>
+</section>
 
-    <!-- 6. AI Cartoon Studio Card -->
-    <section class="tool-card">
-      <p style="color: #38bdf8; font-weight: bold; font-size: 12px; letter-spacing: 1px; margin-bottom: 5px;">🤖 NEXT-GEN AI</p>
-      <h2>AI Cartoon Studio</h2>
-      <p class="muted">Next-gen artificial intelligence powered cartoon generation and automation studio.</p>
-      <a href="./ai-cartoon-studio/index.html" class="open-btn">Open AI Cartoon Studio</a>
-    </section>
+<footer>
+  <p id="footerText">Smart Security Scanner · Independent risk indicators, not a security certification.</p>
+  <p>Version 2.0 · Client-side analysis · No cookies or local storage</p>
+</footer>
+</div>
 
-    <footer>Smart Scan Portal · Sovereign Empire Ecosystem</footer>
-  </main>
+<script>
+"use strict";
 
-  <script>
-    const form = document.getElementById("scanForm");
-    const websiteInput = document.getElementById("website");
-    const message = document.getElementById("message");
-    const report = document.getElementById("report");
-    const results = document.getElementById("results");
-    const target = document.getElementById("target");
+const $ = id => document.getElementById(id);
 
-    function addResult(title, detail, status) {
-      const box = document.createElement("div");
-      box.className = "result";
+const TEXT = {
+  en: {
+    subtitle:"Global Edition · Transparent URL Risk Analysis",
+    heroTitle:"Understand a website link before you open it.",
+    heroText:"Analyze URL structure, suspicious patterns, domain presentation and common phishing indicators. This tool does not pretend to verify a website against databases it cannot access.",
+    chips:["Privacy-conscious","No account required","Transparent findings","Mobile-friendly"],
+    scannerTitle:"Website Risk Analyzer",
+    scannerDesc:"Enter a website address. The URL is analyzed locally in your browser; this version does not visit or crawl the target website.",
+    urlLabel:"Website address",
+    inputHelp:"Tip: Check the spelling of the real domain, especially links received by text or email.",
+    scanBtn:"Analyze URL",clearBtn:"Clear",copyBtn:"Copy report",downloadBtn:"Download report",
+    limitations:"Important: This is a local heuristic analyzer, not an antivirus or live reputation service. A low-risk result does not prove that a website is safe.",
+    findingsTitle:"Analysis Findings",
+    findingsDesc:"Results will appear here after you analyze a URL.",
+    highLabel:"High indicators",medLabel:"Medium indicators",lowLabel:"Informational",
+    domainTitle:"Parsed address details",detailsEmpty:"No address analyzed yet.",
+    historyTitle:"Recent checks",
+    historyDesc:"Only recent checks in this page session are shown. They are not saved to a server or browser storage.",
+    historyEmpty:"No recent checks.",clearHistoryBtn:"Clear recent checks",
+    footerText:"Smart Security Scanner · Independent risk indicators, not a security certification.",
+    welcomeTitle:"Ready to analyze",
+    welcomeText:"Enter a URL to receive transparent findings. No safety guarantee is implied.",
+    invalidTitle:"Please check the URL",
+    invalidText:"Enter a valid web address, such as https://example.com.",
+    analyzing:"Analyzing…",complete:"Analysis complete",
+    riskHigh:"Multiple significant warning signs detected",
+    riskMed:"Some warning signs detected",
+    riskLow:"Few structural warning signs detected",
+    noFindings:"No obvious structural warning signs were detected by these checks.",
+    noGuarantee:"This result does not establish that the site is safe or legitimate.",
+    emptyFindings:"No findings yet.",
+    level:{high:"HIGH",medium:"MEDIUM",low:"INFO"},
+    reasons:{
+      http:["Connection does not use HTTPS","Information sent to the site may not be encrypted in transit."],
+      credentials:["Credentials embedded in URL","A URL containing a username or password can be deceptive."],
+      ip:["IP address used as host","IP-based links can be legitimate, but deserve extra scrutiny."],
+      punycode:["Internationalized domain encoding detected","Inspect the domain carefully for lookalike characters."],
+      shortener:["URL shortening service detected","The final destination is not obvious from this link."],
+      at:["@ symbol in URL","Some deceptive links use this pattern to confuse readers."],
+      long:["Unusually long URL","Long links can conceal confusing paths or parameters."],
+      subdomains:["Many subdomain levels","Check which domain is actually registered."],
+      suspicious:["Potentially sensitive words in domain","Words like login or verify are not proof of fraud."],
+      port:["Non-standard web port","A custom port can be legitimate, but should be expected."],
+      encoded:["Heavy URL encoding detected","Encoded characters can obscure the intended destination."],
+      fragment:["Fragment or extra parameters present","Review the complete link and its destination before opening."],
+      mixed:["Mixed or unusual domain characters","Lookalike characters may be used in deceptive domains."],
+      localhost:["Local or private network address","This address is not a typical public website."],
+      redirect:["Redirect-related parameter detected","The link may forward you to another destination."],
+      secureWord:["Security-related words in hostname","HTTPS or words like secure in a hostname do not prove legitimacy."]
+    },
+    detail:{host:"Hostname",protocol:"Protocol",port:"Port",path:"Path",query:"Query parameters",length:"URL length",secure:"HTTPS indicator"},
+    yes:"Yes",no:"No",none:"None",
+    copied:"Report copied.",copyFail:"Could not copy automatically. Select and copy the report manually.",
+    downloadDone:"Report download started.",
+    clearDone:"Cleared.",
+    privacyTitle:"Privacy information",
+    privacyText:"URL analysis happens locally in this page. The scanner does not fetch the target website, submit the URL to a reputation database, or store checks in local storage. Your browser and hosting provider may still process ordinary network requests. Do not enter private tokens or secret links.",
+    reportTitle:"SMART SECURITY SCANNER REPORT",
+    time:"Time",input:"Input",normalized:"Normalized URL",summary:"Summary",findings:"Findings",details:"Details",
+    severity:"Severity",noneFound:"No structural indicators were found."
+  },
+  ur: {
+    subtitle:"عالمی ورژن · ویب لنک کے خطرات کا واضح تجزیہ",
+    heroTitle:"ویب سائٹ کھولنے سے پہلے اس کے لنک کو سمجھیں۔",
+    heroText:"لنک کی ساخت، مشکوک علامات، ڈومین اور عام فشنگ اشاروں کا تجزیہ کریں۔ یہ ٹول ان ڈیٹا بیسز سے تصدیق کا دعویٰ نہیں کرتا جن تک اسے رسائی حاصل نہیں۔",
+    chips:["رازداری کا خیال","اکاؤنٹ کی ضرورت نہیں","واضح نتائج","موبائل کے لیے موزوں"],
+    scannerTitle:"ویب سائٹ خطرہ تجزیہ کار",
+    scannerDesc:"ویب ایڈریس درج کریں۔ اس ورژن میں تجزیہ آپ کے براؤزر میں ہوتا ہے؛ ٹول ہدف ویب سائٹ کو کھولتا یا کرال نہیں کرتا۔",
+    urlLabel:"ویب سائٹ کا ایڈریس",
+    inputHelp:"مشورہ: خاص طور پر SMS یا ای میل میں آنے والے لنکس کے اصل ڈومین کی ہجے چیک کریں۔",
+    scanBtn:"لنک کا تجزیہ کریں",clearBtn:"صاف کریں",copyBtn:"رپورٹ کاپی کریں",downloadBtn:"رپورٹ ڈاؤن لوڈ کریں",
+    limitations:"اہم: یہ مقامی علامات کا تجزیہ ہے، اینٹی وائرس یا لائیو ویب ریپیوٹیشن سروس نہیں۔ کم خطرے کا نتیجہ ویب سائٹ کے محفوظ ہونے کا ثبوت نہیں۔",
+    findingsTitle:"تجزیے کے نتائج",
+    findingsDesc:"لنک کا تجزیہ کرنے کے بعد نتائج یہاں دکھائی دیں گے۔",
+    highLabel:"زیادہ اہم علامات",medLabel:"درمیانی علامات",lowLabel:"معلوماتی",
+    domainTitle:"ایڈریس کی تفصیلات",detailsEmpty:"ابھی کوئی ایڈریس چیک نہیں ہوا۔",
+    historyTitle:"حالیہ چیکس",
+    historyDesc:"صرف اسی صفحے کے موجودہ سیشن کے چیکس دکھائے جاتے ہیں۔ انہیں سرور یا براؤزر اسٹوریج میں محفوظ نہیں کیا جاتا۔",
+    historyEmpty:"ابھی کوئی حالیہ چیک نہیں۔",clearHistoryBtn:"حالیہ چیکس صاف کریں",
+    footerText:"Smart Security Scanner · خطرے کی علامات، سکیورٹی سرٹیفکیشن نہیں۔",
+    welcomeTitle:"تجزیے کے لیے تیار",
+    welcomeText:"واضح نتائج کے لیے لنک درج کریں۔ محفوظ ہونے کی ضمانت نہیں دی جاتی۔",
+    invalidTitle:"براہِ کرم لنک چیک کریں",
+    invalidText:"درست ویب ایڈریس درج کریں، مثلاً https://example.com۔",
+    analyzing:"تجزیہ جاری ہے…",complete:"تجزیہ مکمل",
+    riskHigh:"کئی اہم انتباہی علامات ملیں",
+    riskMed:"کچھ انتباہی علامات ملیں",
+    riskLow:"ساخت میں کم انتباہی علامات ملیں",
+    noFindings:"ان چیکس سے کوئی واضح ساختی انتباہی علامت نہیں ملی۔",
+    noGuarantee:"یہ نتیجہ ثابت نہیں کرتا کہ ویب سائٹ محفوظ یا جائز ہے۔",
+    emptyFindings:"ابھی کوئی نتیجہ نہیں۔",
+    level:{high:"زیادہ",medium:"درمیانہ",low:"معلوماتی"},
+    reasons:{
+      http:["HTTPS استعمال نہیں ہو رہا","ویب سائٹ کو بھیجی گئی معلومات راستے میں انکرپٹ نہ ہوں۔"],
+      credentials:["لنک میں لاگ اِن معلومات موجود ہیں","لنک میں صارف نام یا پاس ورڈ ہونا دھوکا دہی کا طریقہ ہو سکتا ہے۔"],
+      ip:["ڈومین کی جگہ IP ایڈریس ہے","IP والے لنکس جائز بھی ہو سکتے ہیں، لیکن اضافی احتیاط کریں۔"],
+      punycode:["بین الاقوامی ڈومین کی انکوڈنگ ملی","ملتے جلتے حروف کی وجہ سے اصل ڈومین غور سے دیکھیں۔"],
+      shortener:["مختصر لنک سروس استعمال ہوئی ہے","اس لنک سے اصل منزل واضح نہیں۔"],
+      at:["لنک میں @ کی علامت ہے","بعض دھوکا دہی والے لنکس میں یہ انداز استعمال ہوتا ہے۔"],
+      long:["لنک غیر معمولی طور پر لمبا ہے","لمبے لنکس میں پیچیدہ راستے یا پیرامیٹرز چھپ سکتے ہیں۔"],
+      subdomains:["ڈومین میں کئی ذیلی حصے ہیں","دیکھیں کہ اصل رجسٹرڈ ڈومین کون سا ہے۔"],
+      suspicious:["ڈومین میں حساس الفاظ ملے","login یا verify جیسے الفاظ خود فراڈ کا ثبوت نہیں۔"],
+      port:["غیر معمولی ویب پورٹ استعمال ہو رہا ہے","خاص پورٹ جائز ہو سکتا ہے، مگر اسے متوقع ہونا چاہیے۔"],
+      encoded:["لنک میں زیادہ انکوڈنگ ہے","انکوڈ شدہ حروف اصل منزل کو سمجھنا مشکل بنا سکتے ہیں۔"],
+      fragment:["اضافی پیرامیٹر یا fragment موجود ہے","کھولنے سے پہلے مکمل لنک اور منزل چیک کریں۔"],
+      mixed:["ڈومین میں غیر معمولی حروف ہیں","دھوکا دہی والے ڈومین ملتے جلتے حروف استعمال کر سکتے ہیں۔"],
+      localhost:["مقامی یا نجی نیٹ ورک کا ایڈریس ہے","یہ عام عوامی ویب سائٹ کا ایڈریس نہیں۔"],
+      redirect:["ری ڈائریکٹ سے متعلق پیرامیٹر ملا","لنک کسی دوسری منزل پر بھیج سکتا ہے۔"],
+      secureWord:["ڈومین میں سکیورٹی سے متعلق الفاظ ہیں","ڈومین میں secure لکھا ہونا یا HTTPS ہونا جائز ہونے کا ثبوت نہیں۔"]
+    },
+    detail:{host:"ڈومین",protocol:"پروٹوکول",port:"پورٹ",path:"راستہ",query:"اضافی پیرامیٹرز",length:"لنک کی لمبائی",secure:"HTTPS اشارہ"},
+    yes:"ہاں",no:"نہیں",none:"کوئی نہیں",
+    copied:"رپورٹ کاپی ہوگئی۔",copyFail:"خودکار کاپی نہیں ہوئی؛ رپورٹ دستی طور پر منتخب کرکے کاپی کریں۔",
+    downloadDone:"رپورٹ ڈاؤن لوڈ شروع ہوگئی۔",
+    clearDone:"صاف ہوگیا۔",
+    privacyTitle:"رازداری کی معلومات",
+    privacyText:"لنک کا تجزیہ اسی صفحے میں ہوتا ہے۔ ٹول ہدف ویب سائٹ کو نہیں کھولتا، لنک کسی ریپیوٹیشن ڈیٹا بیس کو نہیں بھیجتا اور چیکس کو مقامی اسٹوریج میں محفوظ نہیں کرتا۔ آپ کا براؤزر اور ہوسٹنگ سروس عام نیٹ ورک درخواستوں کو پھر بھی پروسیس کر سکتے ہیں۔ خفیہ لنکس یا ٹوکن درج نہ کریں۔",
+    reportTitle:"SMART SECURITY SCANNER رپورٹ",
+    time:"وقت",input:"درج کردہ لنک",normalized:"معیاری لنک",summary:"خلاصہ",findings:"نتائج",details:"تفصیلات",
+    severity:"درجہ",noneFound:"کوئی ساختی علامت نہیں ملی۔"
+  }
+};
 
-      const heading = document.createElement("h3");
-      heading.textContent = title;
+let lang = "en";
+let lastReport = null;
+let recentChecks = [];
 
-      const text = document.createElement("p");
-      text.textContent = detail;
+function tr(key) {
+  return key.split(".").reduce((o,k)=>o && o[k],TEXT[lang]);
+}
 
-      const state = document.createElement("span");
-      state.className = "status";
-      state.textContent = status;
-
-      box.append(heading, text, state);
-      results.appendChild(box);
-    }
-
-    form.addEventListener("submit", function (event) {
-      event.preventDefault();
-
-      let value = websiteInput.value.trim();
-      if (!/^https?:\/\//i.test(value)) {
-        value = "https://" + value;
-      }
-
-      let url;
-      try {
-        url = new URL(value);
-      } catch {
-        message.textContent = "Please enter a valid website address.";
-        report.hidden = true;
-        return;
-      }
-
-      if (!["http:", "https:"].includes(url.protocol) ||
-          !url.hostname.includes(".") ||
-          url.hostname === "localhost") {
-        message.textContent = "Please enter a public website domain.";
-        report.hidden = true;
-        return;
-      }
-
-      report.hidden = false;
-      target.textContent = "Website: " + url.origin;
-      results.replaceChildren();
-
-      addResult(
-        "Address format",
-        "The address has a valid basic URL format. This does not confirm the site is safe.",
-        "CHECKED"
-      );
-
-      addResult(
-        "HTTPS",
-        url.protocol === "https:"
-          ? "The entered address uses HTTPS. Certificate validity has not been verified."
-          : "The entered address uses HTTP. Try the HTTPS version if the website supports it.",
-        url.protocol === "https:" ? "HTTPS URL" : "HTTP URL — REVIEW"
-      );
-
-      addResult(
-        "SSL/TLS certificate",
-        "Not yet verified by this page. A trusted certificate-checking service is needed.",
-        "NOT CHECKED"
-      );
-
-      addResult(
-        "Security headers",
-        "Not yet verified. The response headers must be checked by a trusted scanner or backend.",
-        "NOT CHECKED"
-      );
-
-      message.textContent =
-        "Preliminary checks completed. Review which security checks remain unverified.";
-      report.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-  </script>
-</body>
-</html>
+function applyLanguage() {
+  const t = TEXT[lang];
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "ur" ? "rtl" : "ltr";
+  $("subtitle").textContent = t.subtitle;
+  $("heroTitle").textContent = t.heroTitle;
+  $("heroText").textContent = t.heroText;
+  ["chip1","chip2","chip3","chip4"].forEach((id,i)=>$(id).textContent=t.chips[i]);
+  $("scannerTitle").textContent=t.scannerTitle;
+  $("scannerDesc").textContent=t.scannerDesc;
+  $("urlLabel").textContent=t.urlLabel;
+  $("inputHelp").textContent=t.inputHelp;
+  $("scanBtn").textContent=t.scanBtn;
+  $("clearBtn").textContent=t.clearBtn;
+  $("copyBtn").textContent=t.copyBtn;
+  $("downloadBtn").textContent=t.downloadBtn;
+  $("limitations")
