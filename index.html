@@ -1,193 +1,409 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sovereign Empire Master Portal">
-  <title>Master AI Portal | Sovereign App Store V1.0</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b1220;
-      color: #eef4ff;
-      line-height: 1.5;
-    }
-    .container {
-      width: min(1100px, 94%);
-      margin: 30px auto;
-    }
-    .header-title {
-      font-size: 14px;
-      letter-spacing: 1px;
-      color: #38bdf8;
-      font-weight: bold;
-      margin-bottom: 25px;
-    }
-    /* Grid layout matching the requested look */
-    .portal-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-    .card {
-      background: #131f33;
-      border: 1px solid #2b3d58;
-      border-radius: 16px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-      transition: transform 0.2s, border-color 0.2s;
-    }
-    .card:hover {
-      border-color: #3b82f6;
-      transform: translateY(-3px);
-    }
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 15px;
-    }
-    .card h2 {
-      margin: 0 0 8px;
-      font-size: 20px;
-      color: #ffffff;
-    }
-    .card p {
-      font-size: 13px;
-      color: #9fb0c8;
-      margin: 0 0 15px;
-    }
-    .path-text {
-      font-size: 12px;
-      color: #cbd5e1;
-      background: #091321;
-      padding: 8px 12px;
-      border-radius: 8px;
-      border: 1px solid #1e293b;
-      margin-bottom: 20px;
-      font-family: monospace;
-    }
-    .launch-btn {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      background: #38bdf8;
-      color: #0b1220;
-      text-align: center;
-      text-decoration: none;
-      border-radius: 10px;
-      font-weight: bold;
-      font-size: 14px;
-      transition: background 0.2s;
-    }
-    .launch-btn:hover {
-      background: #0ea5e9;
-      color: #ffffff;
-    }
-    footer {
-      text-align: center;
-      color: #9fb0c8;
-      font-size: 13px;
-      padding: 20px 0;
-      border-top: 1px solid #1e293b;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    footer a {
-      color: #38bdf8;
-      text-decoration: none;
-      margin-left: 15px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<meta name="description" content="Smart Security Scanner — privacy-conscious website URL risk analysis with transparent findings, multilingual support and exportable reports.">
+<title>Smart Security Scanner | Sovereign Master Portal</title>
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#09111f;
+  --panel:#111d30;
+  --panel2:#16243a;
+  --line:#293d59;
+  --text:#edf4ff;
+  --muted:#a8bad1;
+  --blue:#3986ff;
+  --cyan:#58ddff;
+  --green:#4ade80;
+  --yellow:#fbbf24;
+  --red:#fb7185;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  background:radial-gradient(ellipse at top left,#142c4d 0,transparent 42%),var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  line-height:1.6;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,a:focus-visible{
+  outline:3px solid var(--cyan);
+  outline-offset:3px;
+}
+.wrap{width:min(1100px,calc(100% - 28px));margin:24px auto 45px}
+header{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:22px}
+.brand{display:flex;align-items:center;gap:13px}
+.logo{
+  width:52px;height:52px;border-radius:16px;display:grid;place-items:center;
+  background:linear-gradient(135deg,#087fc4,#405ef5);font-size:27px;
+}
+h1{font-size:clamp(22px,4vw,31px);margin:0}
+.subtitle{color:var(--muted);font-size:13px;margin:2px 0 0}
+.header-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{
+  border:1px solid var(--line);border-radius:11px;padding:10px 14px;
+  background:var(--panel2);color:var(--text);font-weight:650;
+  text-decoration:none;display:inline-block;text-align:center;
+}
+.btn:hover{filter:brightness(1.12)}
+.btn-primary{background:linear-gradient(135deg,#087fc4,#405ef5);border-color:transparent}
+.hero,.panel{
+  background:linear-gradient(145deg,#142238,#101a2a);
+  border:1px solid var(--line);border-radius:19px;padding:22px;
+}
+.hero{margin-bottom:17px}
+.hero h2{font-size:clamp(20px,3vw,28px);margin:0 0 8px}
+.hero p{margin:0;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}
+.chip{font-size:12px;border:1px solid #314763;background:#0d192b;border-radius:999px;padding:5px 10px;color:#c8dcf6}
+.layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:17px;align-items:start}
+.panel h3{margin:0 0 7px;font-size:19px}
+.muted{color:var(--muted);font-size:13px}
+label{display:block;margin:16px 0 7px;font-weight:700;font-size:14px}
+input[type="url"],input[type="text"]{
+  width:100%;min-width:0;padding:13px;border-radius:11px;
+  border:1px solid #3a506d;background:#091321;color:var(--text);
+}
+.row{display:flex;gap:9px;margin-top:12px}
+.row button{flex:1}
+.progress{display:none;margin-top:14px;height:5px;background:#263852;border-radius:9px;overflow:hidden}
+.progress span{display:block;height:100%;width:0;background:var(--cyan);transition:width .25s}
+.result{margin-top:15px;padding:14px;border:1px solid var(--line);border-radius:12px;background:#0d192a;overflow-wrap:anywhere}
+.result:empty{display:none}
+.result.good{border-color:#25754c;background:#102b21}
+.result.warn{border-color:#8b681c;background:#302710}
+.result.bad{border-color:#8a344a;background:#321923}
+.result.info{border-color:#315d8e;background:#12253c}
+.result h4{margin:0 0 7px;font-size:16px}
+.result p{margin:6px 0}
+.list{list-style:none;padding:0;margin:12px 0 0;display:grid;gap:9px}
+.list li{padding:10px 11px;background:#0b1728;border:1px solid #253952;border-radius:10px}
+.item-title{font-weight:700;font-size:13px}
+.item-detail{font-size:13px;color:var(--muted);margin-top:3px}
+.section-title{margin:20px 0 8px;font-size:15px}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:13px}
+.stat{border:1px solid var(--line);border-radius:12px;padding:12px;background:#0c1727}
+.stat strong{display:block;font-size:23px}
+.stat span{font-size:12px;color:var(--muted)}
+.notice{border-inline-start:4px solid var(--yellow);padding:12px 14px;background:#292414;border-radius:9px;color:#f7e8b5;font-size:13px;margin-top:14px}
+.history{display:grid;gap:8px;margin-top:10px}
+.history-row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:10px;font-size:13px}
+.history-row span{overflow-wrap:anywhere}
+
+/* Portal Grid Layout for Independent Tool Cards */
+.portal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+.tool-card {
+  background: linear-gradient(145deg,#142238,#101a2a);
+  border: 1px solid var(--line);
+  border-radius: 19px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  transition: transform 0.2s, border-color 0.2s;
+}
+.tool-card:hover {
+  border-color: var(--blue);
+  transform: translateY(-3px);
+}
+.tool-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.tool-card h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  color: var(--text);
+}
+.tool-card p {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0 0 15px;
+}
+.path-box {
+  font-size: 12px;
+  color: var(--cyan);
+  background: #091321;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  margin-bottom: 20px;
+  font-family: monospace;
+}
+
+footer{margin-top:22px;text-align:center;color:var(--muted);font-size:12px}
+.hidden{display:none!important}
+[dir="rtl"] .row{flex-direction:row}
+@media(max-width:760px){
+ .layout{grid-template-columns:1fr}
+ .hero,.panel{padding:16px}
+ .wrap{width:calc(100% - 20px);margin-top:14px}
+ .row{flex-direction:column}
+ .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+</style>
 </head>
 <body>
-  <main class="container">
-    <div class="header-title">👑 SOVEREIGN EMPIRE - MASTER PORTAL</div>
+<div class="wrap">
+<header>
+  <div class="brand">
+    <div class="logo" aria-hidden="true">🛡️</div>
+    <div>
+      <h1>Smart Security Scanner</h1>
+      <p class="subtitle" id="subtitle">Global Edition · Sovereign Master Portal</p>
+    </div>
+  </div>
+  <div class="header-actions">
+    <button class="btn" id="languageBtn" type="button">اردو</button>
+    <button class="btn" id="privacyBtn" type="button">Privacy</button>
+  </div>
+</header>
 
-    <div class="portal-grid">
-      
-      <!-- 1. Smart Security Scanner / Cyber Shield -->
-      <div class="card">
-        <div>
-          <div class="card-top">
-            <h2>Cyber Shield</h2>
-            <span style="background: #091321; padding: 4px 10px; border-radius: 20px; font-size: 11px; color: #38bdf8; border: 1px solid #2b3d58;">Active Shield</span>
-          </div>
-          <p>Real-time vulnerability auditor and automated directory protection scanner.</p>
-          <div class="path-text">📁 Path: /cyber-shield/index.html</div>
+<section class="hero">
+  <h2 id="heroTitle">Understand a website link before you open it.</h2>
+  <p id="heroText">Analyze URL structure, suspicious patterns, domain presentation and common phishing indicators. This tool does not pretend to verify a website against databases it cannot access.</p>
+  <div class="chips">
+    <span class="chip" id="chip1">Privacy-conscious</span>
+    <span class="chip" id="chip2">No account required</span>
+    <span class="chip" id="chip3">Transparent findings</span>
+    <span class="chip" id="chip4">Mobile-friendly</span>
+  </div>
+</section>
+
+<main class="layout">
+<section class="panel">
+  <h3 id="scannerTitle">Website Risk Analyzer</h3>
+  <p class="muted" id="scannerDesc">Enter a website address. The URL is analyzed locally in your browser; this version does not visit or crawl the target website.</p>
+
+  <form id="scanForm">
+    <label id="urlLabel" for="urlInput">Website address</label>
+    <input id="urlInput" type="text" inputmode="url" autocomplete="url" maxlength="2048" placeholder="https://example.com" aria-describedby="inputHelp">
+    <p class="muted" id="inputHelp">Tip: Check the spelling of the real domain, especially links received by text or email.</p>
+    <div class="row">
+      <button class="btn btn-primary" id="scanBtn" type="submit">Analyze URL</button>
+      <button class="btn" id="clearBtn" type="button">Clear</button>
+    </div>
+  </form>
+
+  <div class="progress" id="progress" aria-hidden="true"><span id="progressBar"></span></div>
+  <div id="scanResult" class="result info" role="status" aria-live="polite">
+    <h4 id="welcomeTitle">Ready to analyze</h4>
+    <p id="welcomeText">Enter a URL to receive transparent findings. No safety guarantee is implied.</p>
+  </div>
+
+  <div class="row">
+    <button class="btn" id="copyBtn" type="button" disabled>Copy report</button>
+    <button class="btn" id="downloadBtn" type="button" disabled>Download report</button>
+  </div>
+
+  <div class="notice" id="limitations">
+    Important: This is a local heuristic analyzer, not an antivirus or live reputation service. A low-risk result does not prove that a website is safe.
+  </div>
+</section>
+
+<aside class="panel">
+  <h3 id="findingsTitle">Analysis Findings</h3>
+  <p class="muted" id="findingsDesc">Results will appear here after you analyze a URL.</p>
+  <div class="stats">
+    <div class="stat"><strong id="highCount">0</strong><span id="highLabel">High indicators</span></div>
+    <div class="stat"><strong id="medCount">0</strong><span id="medLabel">Medium indicators</span></div>
+    <div class="stat"><strong id="lowCount">0</strong><span id="lowLabel">Informational</span></div>
+  </div>
+  <ul class="list" id="findingsList"></ul>
+  <h4 class="section-title" id="domainTitle">Parsed address details</h4>
+  <ul class="list" id="detailsList">
+    <li><div class="item-detail" id="detailsEmpty">No address analyzed yet.</div></li>
+  </ul>
+</aside>
+</main>
+
+<!-- SOVEREIGN EMPIRE ECOSYSTEM - INDEPENDENT TOOL CARDS GRID -->
+<section class="panel" style="margin-top:20px">
+  <h3>Sovereign Empire Master Ecosystem</h3>
+  <p class="muted">Access all independent secure tools and studios connected within this master repository structure.</p>
+  
+  <div class="portal-grid">
+    
+    <!-- 1. Cyber Shield Card -->
+    <div class="tool-card">
+      <div>
+        <div class="tool-header">
+          <h3>Cyber Shield</h3>
+          <span style="background: #091321; padding: 4px 10px; border-radius: 20px; font-size: 11px; color: var(--cyan); border: 1px solid var(--line);">Active Shield</span>
         </div>
-        <a href="./cyber-shield/index.html" class="launch-btn">🚀 Launch Tool</a>
+        <p>Real-time vulnerability auditor and automated directory protection scanner.</p>
+        <div class="path-box">📁 Path: /cyber-shield/index.html</div>
       </div>
-
-      <!-- 2. Cinema Video Studio -->
-      <div class="card">
-        <div>
-          <div class="card-top">
-            <h2>Video Studio</h2>
-            <span style="background: #091321; padding: 4px 10px; border-radius: 20px; font-size: 11px; color: #f43f5e; border: 1px solid #2b3d58;">Studio v2.1</span>
-          </div>
-          <p>Cinematic movie generator and AI animation studio environment.</p>
-          <div class="path-text">📁 Path: /cinema-video-studio/index.html</div>
-        </div>
-        <a href="./cinema-video-studio/index.html" class="launch-btn" style="background: #f43f5e; color: #fff;">🚀 Launch Tool</a>
-      </div>
-
-      <!-- 3. Cinema Studio -->
-      <div class="card">
-        <div>
-          <div class="card-top">
-            <h2>Cinema Studio</h2>
-            <span style="background: #091321; padding: 4px 10px; border-radius: 20px; font-size: 11px; color: #fbbf24; border: 1px solid #2b3d58;">Pro Suite</span>
-          </div>
-          <p>Professional cinematic production and creative media management suite.</p>
-          <div class="path-text">📁 Path: /cinema-studio/index.html</div>
-        </div>
-        <a href="./cinema-studio/index.html" class="launch-btn" style="background: #fbbf24; color: #0b1220;">🚀 Launch Tool</a>
-      </div>
-
-      <!-- 4. Cartoon Studio -->
-      <div class="card">
-        <div>
-          <div class="card-top">
-            <h2>Cartoon Studio</h2>
-            <span style="background: #091321; padding: 4px 10px; border-radius: 20px; font-size: 11px; color: #38bdf8; border: 1px solid #2b3d58;">Cartoon v2.0</span>
-          </div>
-          <p>Specialized 2D/3D cartoon and animated character generator.</p>
-          <div class="path-text">📁 Path: /cartoon-studio/index.html</div>
-        </div>
-        <a href="./cartoon-studio/index.html" class="launch-btn">🚀 Launch Tool</a>
-      </div>
-
-      <!-- 5. AI Cartoon Studio -->
-      <div class="card">
-        <div>
-          <div class="card-top">
-            <h2>AI Cartoon Studio</h2>
-            <span style="background: #091321; padding: 4px 10px; border-radius: 20px; font-size: 11px; color: #a855f7; border: 1px solid #2b3d58;">AI Gen</span>
-          </div>
-          <p>Next-gen artificial intelligence powered cartoon generation studio.</p>
-          <div class="path-text">📁 Path: /ai-cartoon-studio/index.html</div>
-        </div>
-        <a href="./ai-cartoon-studio/index.html" class="launch-btn" style="background: #a855f7; color: #fff;">🚀 Launch Tool</a>
-      </div>
-
+      <a href="./cyber-shield/index.html" class="btn btn-primary">🚀 Launch Tool</a>
     </div>
 
-    <footer>
-      <div>Master AI Portal &copy; 2026</div>
+    <!-- 2. Cinema Video Studio Card -->
+    <div class="tool-card">
       <div>
-        <a href="#">Catalog</a>
-        <a href="#">Global Builder</a>
-        <a href="#">Support</a>
+        <div class="tool-header">
+          <h3>Cinema Video Studio</h3>
+          <span style="background: #091321; padding: 4px 10px; border-radius: 20px; font-size: 11px; color: var(--red); border: 1px solid var(--line);">Studio v2.1</span>
+        </div>
+        <p>Cinematic movie generator and AI animation studio environment.</p>
+        <div class="path-box">📁 Path: /cinema-video-studio/index.html</div>
       </div>
-    </footer>
-  </main>
-</body>
-</html>
+      <a href="./cinema-video-studio/index.html" class="btn btn-primary" style="background: linear-gradient(135deg, #e11d48, #be123c);">🚀 Launch Tool</a>
+    </div>
+
+    <!-- 3. Cinema Studio Card -->
+    <div class="tool-card">
+      <div>
+        <div class="tool-header">
+          <h3>Cinema Studio</h3>
+          <span style="background: #091321; padding: 4px 10px; border-radius: 20px; font-size: 11px; color: var(--yellow); border: 1px solid var(--line);">Pro Suite</span>
+        </div>
+        <p>Professional cinematic production and creative media management suite.</p>
+        <div class="path-box">📁 Path: /cinema-studio/index.html</div>
+      </div>
+      <a href="./cinema-studio/index.html" class="btn btn-primary" style="background: linear-gradient(135deg, #d97706, #b45309);">🚀 Launch Tool</a>
+    </div>
+
+    <!-- 4. Cartoon Studio Card -->
+    <div class="tool-card">
+      <div>
+        <div class="tool-header">
+          <h3>Cartoon Studio</h3>
+          <span style="background: #091321; padding: 4px 10px; border-radius: 20px; font-size: 11px; color: var(--cyan); border: 1px solid var(--line);">Cartoon v2.0</span>
+        </div>
+        <p>Specialized 2D/3D cartoon and animated character generator.</p>
+        <div class="path-box">📁 Path: /cartoon-studio/index.html</div>
+      </div>
+      <a href="./cartoon-studio/index.html" class="btn btn-primary">🚀 Launch Tool</a>
+    </div>
+
+    <!-- 5. AI Cartoon Studio Card -->
+    <div class="tool-card">
+      <div>
+        <div class="tool-header">
+          <h3>AI Cartoon Studio</h3>
+          <span style="background: #091321; padding: 4px 10px; border-radius: 20px; font-size: 11px; color: #c084fc; border: 1px solid var(--line);">AI Gen</span>
+        </div>
+        <p>Next-gen artificial intelligence powered cartoon generation studio.</p>
+        <div class="path-box">📁 Path: /ai-cartoon-studio/index.html</div>
+      </div>
+      <a href="./ai-cartoon-studio/index.html" class="btn btn-primary" style="background: linear-gradient(135deg, #9333ea, #7e22ce);">🚀 Launch Tool</a>
+    </div>
+
+  </div>
+</section>
+
+<section class="panel" style="margin-top:17px">
+  <h3 id="historyTitle">Recent checks</h3>
+  <p class="muted" id="historyDesc">Only recent checks in this page session are shown. They are not saved to a server or browser storage.</p>
+  <div class="history" id="historyList">
+    <div class="muted" id="historyEmpty">No recent checks.</div>
+  </div>
+  <div class="row">
+    <button class="btn" id="clearHistoryBtn" type="button">Clear recent checks</button>
+  </div>
+</section>
+
+<footer>
+  <p id="footerText">Smart Security Scanner · Independent risk indicators, not a security certification.</p>
+  <p>Version 2.0 · Client-side analysis · Sovereign Empire Ecosystem</p>
+</footer>
+</div>
+
+<script>
+"use strict";
+
+const $ = id => document.getElementById(id);
+
+const TEXT = {
+  en: {
+    subtitle:"Global Edition · Sovereign Master Portal",
+    heroTitle:"Understand a website link before you open it.",
+    heroText:"Analyze URL structure, suspicious patterns, domain presentation and common phishing indicators. This tool does not pretend to verify a website against databases it cannot access.",
+    chips:["Privacy-conscious","No account required","Transparent findings","Mobile-friendly"],
+    scannerTitle:"Website Risk Analyzer",
+    scannerDesc:"Enter a website address. The URL is analyzed locally in your browser; this version does not visit or crawl the target website.",
+    urlLabel:"Website address",
+    inputHelp:"Tip: Check the spelling of the real domain, especially links received by text or email.",
+    scanBtn:"Analyze URL",clearBtn:"Clear",copyBtn:"Copy report",downloadBtn:"Download report",
+    limitations:"Important: This is a local heuristic analyzer, not an antivirus or live reputation service. A low-risk result does not prove that a website is safe.",
+    findingsTitle:"Analysis Findings",
+    findingsDesc:"Results will appear here after you analyze a URL.",
+    highLabel:"High indicators",medLabel:"Medium indicators",lowLabel:"Informational",
+    domainTitle:"Parsed address details",detailsEmpty:"No address analyzed yet.",
+    historyTitle:"Recent checks",
+    historyDesc:"Only recent checks in this page session are shown. They are not saved to a server or browser storage.",
+    historyEmpty:"No recent checks.",clearHistoryBtn:"Clear recent checks",
+    footerText:"Smart Security Scanner · Independent risk indicators, not a security certification.",
+    welcomeTitle:"Ready to analyze",
+    welcomeText:"Enter a URL to receive transparent findings. No safety guarantee is implied.",
+    invalidTitle:"Please check the URL",
+    invalidText:"Enter a valid web address, such as https://example.com.",
+    analyzing:"Analyzing…",complete:"Analysis complete",
+    riskHigh:"Multiple significant warning signs detected",
+    riskMed:"Some warning signs detected",
+    riskLow:"Few structural warning signs detected",
+    noFindings:"No obvious structural warning signs were detected by these checks.",
+    noGuarantee:"This result does not establish that the site is safe or legitimate.",
+    emptyFindings:"No findings yet.",
+    level:{high:"HIGH",medium:"MEDIUM",low:"INFO"},
+    reasons:{
+      http:["Connection does not use HTTPS","Information sent to the site may not be encrypted in transit."],
+      credentials:["Credentials embedded in URL","A URL containing a username or password can be deceptive."],
+      ip:["IP address used as host","IP-based links can be legitimate, but deserve extra scrutiny."],
+      punycode:["Internationalized domain encoding detected","Inspect the domain carefully for lookalike characters."],
+      shortener:["URL shortening service detected","The final destination is not obvious from this link."],
+      at:["@ symbol in URL","Some deceptive links use this pattern to confuse readers."],
+      long:["Unusually long URL","Long links can conceal confusing paths or parameters."],
+      subdomains:["Many subdomain levels","Check which domain is actually registered."],
+      suspicious:["Potentially sensitive words in domain","Words like login or verify are not proof of fraud."],
+      port:["Non-standard web port","A custom port can be legitimate, but should be expected."],
+      encoded:["Heavy URL encoding detected","Encoded characters can obscure the intended destination."],
+      fragment:["Fragment or extra parameters present","Review the complete link and its destination before opening."],
+      mixed:["Mixed or unusual domain characters","Lookalike characters may be used in deceptive domains."],
+      localhost:["Local or private network address","This address is not a typical public website."],
+      redirect:["Redirect-related parameter detected","The link may forward you to another destination."],
+      secureWord:["Security-related words in hostname","HTTPS or words like secure in a hostname do not prove legitimacy."]
+    },
+    detail:{host:"Hostname",protocol:"Protocol",port:"Port",path:"Path",query:"Query parameters",length:"URL length",secure:"HTTPS indicator"},
+    yes:"Yes",no:"No",none:"None",
+    copied:"Report copied.",copyFail:"Could not copy automatically. Select and copy the report manually.",
+    downloadDone:"Report download started.",
+    clearDone:"Cleared.",
+    privacyTitle:"Privacy information",
+    privacyText:"URL analysis happens locally in this page. The scanner does not fetch the target website, submit the URL to a reputation database, or store checks in local storage. Your browser and hosting provider may still process ordinary network requests. Do not enter private tokens or secret links.",
+    reportTitle:"SMART SECURITY SCANNER REPORT",
+    time:"Time",input:"Input",normalized:"Normalized URL",summary:"Summary",findings:"Findings",details:"Details",
+    severity:"Severity",noneFound:"No structural indicators were found."
+  },
+  ur: {
+    subtitle:"عالمی ورژن · خودمختار ماسٹر پورٹل",
+    heroTitle:"ویب سائٹ کھولنے سے پہلے اس کے لنک کو سمجھیں۔",
+    heroText:"لنک کی ساخت، مشکوک علامات، ڈومین اور عام فشنگ اشاروں کا تجزیہ کریں۔ یہ ٹول ان ڈیٹا بیسز سے تصدیق کا دعویٰ نہیں کرتا جن تک اسے رسائی حاصل نہیں۔",
+    chips:["رازداری کا خیال","اکاؤنٹ کی ضرورت نہیں","واضح نتائج","موبائل کے لیے موزوں"],
+    scannerTitle:"ویب سائٹ خطرہ تجزیہ کار",
+    scannerDesc:"ویب ایڈریس درج کریں۔ اس ورژن میں تجزیہ آپ کے براؤزر میں ہوتا ہے؛ ٹول ہدف ویب سائٹ کو کھولتا یا کرال نہیں کرتا۔",
+    urlLabel:"ویب سائٹ کا ایڈریس",
+    inputHelp:"مشورہ: خاص طور پر SMS یا ای میل میں آنے والے لنکس کے اصل ڈومین کی ہجے چیک کریں۔",
+    scanBtn:"لنک کا تجزیہ کریں",clearBtn:"صاف کریں",copyBtn:"رپورٹ کاپی کریں",downloadBtn:"رپورٹ ڈاؤن لوڈ کریں",
+    limitations:"اہم: یہ مقامی علامات کا تجزیہ ہے، اینٹی وائرس یا لائیو ویب ریپیوٹیشن سروس نہیں۔ کم خطرے کا نتیجہ ویب سائٹ کے محفوظ ہونے کا ثبوت نہیں۔",
+    findingsTitle:"تجزیے کے نتائج",
+    findingsDesc:"لنک کا تجزیہ کرنے کے بعد نتائج یہاں دکھائی دیں گے۔",
+    highLabel:"زیادہ اہم علامات",medLabel:"درمیانی علامات",lowLabel:"معلوماتی",
+    domainTitle:"ایڈریس کی تفصیلات",detailsEmpty:"ابھی کوئی ایڈریس چیک نہیں ہوا۔",
+    historyTitle:"حالیہ چیکس",
+    historyDesc:"صرف اسی صفحے کے موجودہ سیشن کے چیکس دکھائے جاتے ہیں۔ انہیں سرور یا براؤزر اسٹوریج میں محفوظ نہیں کیا جاتا۔",
+    historyEmpty:
