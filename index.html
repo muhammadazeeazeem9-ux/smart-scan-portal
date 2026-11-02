@@ -1,947 +1,428 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0b1220">
-<meta name="description" content="Smart Security Scanner - a privacy-focused tool for basic website URL security checks.">
-<title>Smart Security Scanner</title>
-
-<style>
-:root {
-  --bg: #0b1220;
-  --panel: #121c2e;
-  --panel2: #19263a;
-  --text: #edf4ff;
-  --muted: #a7b6cc;
-  --accent: #4f9cff;
-  --border: #2b3b53;
-  --good: #36d399;
-  --warn: #fbbf24;
-  --bad: #fb7185;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: var(--bg);
-  color: var(--text);
-  font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.6;
-}
-
-button,
-input,
-select {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-}
-
-button:focus-visible,
-input:focus-visible,
-select:focus-visible {
-  outline: 3px solid var(--accent);
-  outline-offset: 3px;
-}
-
-.topbar {
-  padding: 18px 20px;
-  border-bottom: 1px solid var(--border);
-  background: #0e1727;
-}
-
-.topbar-inner {
-  max-width: 1100px;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.brand-icon {
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  background: #1c3b63;
-  border-radius: 12px;
-  font-size: 24px;
-}
-
-.brand h1 {
-  font-size: 20px;
-  margin: 0;
-}
-
-.brand p {
-  margin: 2px 0 0;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.header-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.container {
-  width: min(1100px, 100%);
-  margin: 0 auto;
-  padding: 28px 18px 50px;
-}
-
-.hero {
-  margin-bottom: 24px;
-}
-
-.hero h2 {
-  margin: 0 0 8px;
-  font-size: clamp(25px, 4vw, 36px);
-  line-height: 1.25;
-}
-
-.hero p {
-  color: var(--muted);
-  max-width: 720px;
-  margin: 0;
-}
-
-.panel {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 22px;
-  margin-bottom: 20px;
-  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.12);
-}
-
-.panel h3 {
-  margin: 0 0 8px;
-  font-size: 19px;
-}
-
-.muted {
-  color: var(--muted);
-}
-
-.small {
-  font-size: 13px;
-}
-
-.field-label {
-  display: block;
-  margin: 18px 0 8px;
-  font-weight: 700;
-}
-
-.input-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.url-input {
-  flex: 1 1 260px;
-  min-width: 0;
-  padding: 13px 14px;
-  color: var(--text);
-  background: #09111e;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-}
-
-.btn {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 11px 15px;
-  color: var(--text);
-  background: var(--panel2);
-  font-weight: 700;
-  transition: opacity 0.15s ease;
-}
-
-.btn:hover {
-  opacity: 0.88;
-}
-
-.btn-primary {
-  color: white;
-  background: #2169c7;
-  border-color: #2169c7;
-}
-
-.btn-quiet {
-  background: transparent;
-}
-
-.btn:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
-}
-
-.button-row {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 14px;
-}
-
-.status-line {
-  margin-top: 14px;
-  min-height: 24px;
-  color: var(--muted);
-}
-
-.results {
-  display: none;
-}
-
-.results.visible {
-  display: block;
-}
-
-.result-summary {
-  padding: 16px;
-  border: 1px solid var(--border);
-  background: #0d1726;
-  border-radius: 12px;
-  margin: 14px 0;
-}
-
-.finding {
-  padding: 14px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  margin-top: 10px;
-  background: #0d1726;
-}
-
-.finding h4 {
-  margin: 0 0 5px;
-}
-
-.finding p {
-  margin: 0;
-  color: var(--muted);
-  overflow-wrap: anywhere;
-}
-
-.severity {
-  display: inline-block;
-  padding: 2px 9px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  margin-bottom: 7px;
-}
-
-.severity-good {
-  color: var(--good);
-  background: #103b34;
-}
-
-.severity-warn {
-  color: var(--warn);
-  background: #453519;
-}
-
-.severity-bad {
-  color: var(--bad);
-  background: #451f2b;
-}
-
-.severity-info {
-  color: #93c5fd;
-  background: #183456;
-}
-
-.footer {
-  text-align: center;
-  color: var(--muted);
-  font-size: 13px;
-  padding: 20px 10px;
-  border-top: 1px solid var(--border);
-}
-
-[hidden] {
-  display: none !important;
-}
-
-body[dir="rtl"] {
-  text-align: right;
-}
-
-body[dir="rtl"] .brand,
-body[dir="rtl"] .topbar-inner {
-  direction: rtl;
-}
-
-@media (max-width: 600px) {
-  .container {
-    padding: 20px 12px 36px;
-  }
-
-  .panel {
-    padding: 16px;
-  }
-
-  .input-row > button {
-    width: 100%;
-  }
-
-  .brand h1 {
-    font-size: 18px;
-  }
-}
-</style>
-</head><body>
-<header class="topbar">
-  <div class="topbar-inner">
-    <div class="brand">
-      <div class="brand-icon" aria-hidden="true">🛡️</div>
-      <div>
-        <h1>Smart Security Scanner</h1>
-        <p id="brandSubtitle">Simple website security checks</p>
-      </div>
-    </div>
-
-    <div class="header-actions">
-      <button class="btn btn-quiet" id="languageBtn" type="button">
-        اردو
-      </button>
-      <button class="btn btn-quiet" id="privacyBtn" type="button">
-        Privacy
-      </button>
-    </div>
-  </div>
-</header>
-
-<main class="container">
-  <section class="hero">
-    <h2 id="heroTitle">Check a website URL</h2>
-    <p id="heroDescription">
-      Review basic URL safety indicators in your browser.
-      This tool does not replace a professional security audit.
-    </p>
-  </section>
-
-  <section class="panel" aria-labelledby="scannerTitle">
-    <h3 id="scannerTitle">Website Scanner</h3>
-    <p class="muted" id="scannerDescription">
-      Enter a full website address, such as https://example.com
-    </p>
-
-    <form id="scannerForm" novalidate>
-      <label class="field-label" id="urlLabel" for="urlInput">
-        Website URL
-      </label>
-
-      <div class="input-row">
-        <input
-          class="url-input"
-          id="urlInput"
-          name="url"
-          type="text"
-          inputmode="url"
-          autocomplete="url"
-          placeholder="https://example.com"
-          maxlength="2048"
-          aria-describedby="urlHelp statusLine"
-          required
-        >
-
-        <button class="btn btn-primary" id="scanBtn" type="submit">
-          Analyze URL
-        </button>
-      </div>
-
-      <p class="muted small" id="urlHelp">
-        Only scan websites you are authorized to assess.
-        Do not enter passwords, tokens, or private information.
-      </p>
-
-      <div class="button-row">
-        <button class="btn" id="clearBtn" type="button">Clear</button>
-        <button class="btn" id="copyBtn" type="button">Copy Report</button>
-        <button class="btn" id="downloadBtn" type="button">
-          Download Report
-        </button>
-      </div>
-
-      <p class="status-line" id="statusLine" role="status" aria-live="polite"></p>
-    </form>
-  </section>
-
-  <section class="panel results" id="resultsPanel"
-    aria-labelledby="resultsTitle" aria-live="polite">
-    <h3 id="resultsTitle">Analysis Results</h3>
-
-    <div class="result-summary" id="resultSummary"></div>
-
-    <div id="findingsList"></div>
-
-    <p class="muted small" id="limitations">
-      Important: this is a local, basic URL analysis. It does not verify
-      website ownership, inspect the website server, or guarantee that
-      a website is safe.
-    </p>
-  </section>
-
-  <section class="panel">
-    <h3 id="aboutTitle">About this tool</h3>
-    <p class="muted" id="aboutDescription">
-      Smart Security Scanner checks selected URL characteristics
-      locally in your browser. It does not perform a full vulnerability scan.
-    </p>
-  </section>
-
-  <section class="panel" id="privacyPanel" hidden>
-    <h3 id="privacyTitle">Privacy Information</h3>
-    <p class="muted" id="privacyText">
-      URL analysis is performed locally in your browser by this page.
-      This tool does not intentionally send the entered URL to a scanning
-      server. Your browser may still contact a website if you open it
-      separately. Avoid entering confidential information.
-    </p>
-    <button class="btn" id="closePrivacyBtn" type="button">
-      Close
-    </button>
-  </section>
-</main>
-
-<footer class="footer">
-  <p id="footerText">
-    Smart Security Scanner · Basic checks, clear limitations
-  </p>
-</footer>
-
-<script>
-"use strict";
-
-const translations = {
-  en: {
-    brandSubtitle: "Simple website security checks",
-    languageBtn: "اردو",
-    privacyBtn: "Privacy",
-    heroTitle: "Check a website URL",
-    heroDescription:
-      "Review basic URL safety indicators in your browser. This tool does not replace a professional security audit.",
-    scannerTitle: "Website Scanner",
-    scannerDescription:
-      "Enter a full website address, such as https://example.com",
-    urlLabel: "Website URL",
-    urlHelp:
-      "Only scan websites you are authorized to assess. Do not enter passwords, tokens, or private information.",
-    scanBtn: "Analyze URL",
-    clearBtn: "Clear",
-    copyBtn: "Copy Report",
-    downloadBtn: "Download Report",
-    resultsTitle: "Analysis Results",
-    limitations:
-      "Important: this is a local, basic URL analysis. It does not verify website ownership, inspect the website server, or guarantee that a website is safe.",
-    aboutTitle: "About this tool",
-    aboutDescription:
-      "Smart Security Scanner checks selected URL characteristics locally in your browser. It does not perform a full vulnerability scan.",
-    privacyTitle: "Privacy Information",
-    privacyText:
-      "URL analysis is performed locally in your browser by this page. This tool does not intentionally send the entered URL to a scanning server. Your browser may still contact a website if you open it separately. Avoid entering confidential information.",
-    closePrivacyBtn: "Close",
-    footerText:
-      "Smart Security Scanner · Basic checks, clear limitations",
-    emptyUrl: "Please enter a website URL first.",
-    invalidUrl: "Please enter a valid URL, such as https://example.com",
-    scanning: "Analyzing URL locally...",
-    completed: "Basic URL analysis completed.",
-    reportTitle: "SMART SECURITY SCANNER REPORT",
-    scannedUrl: "Scanned URL",
-    scanTime: "Analysis time",
-    summary: "Summary",
-    findings: "Findings",
-    secureProtocol: "HTTPS protocol",
-    insecureProtocol: "HTTP protocol",
-    secureProtocolDesc:
-      "The URL uses HTTPS. This alone does not prove the website is trustworthy.",
-    insecureProtocolDesc:
-      "The URL uses HTTP, so the connection does not provide HTTPS transport encryption.",
-    ipAddress: "IP address used as hostname",
-    ipAddressDesc:
-      "The hostname appears to be an IP address. Verify that this is the intended destination.",
-    unusualPort: "Non-standard port",
-    unusualPortDesc:
-      "The URL specifies a port other than the usual web ports. Confirm that it is expected.",
-    credentials: "Credentials embedded in URL",
-    credentialsDesc:
-      "The URL contains a username or password field. Avoid sharing or opening URLs containing credentials.",
-    punycode: "Punycode hostname",
-    punycodeDesc:
-      "The hostname contains an xn-- label. Check carefully for look-alike or misleading domain names.",
-    longUrl: "Unusually long URL",
-    longUrlDesc:
-      "The URL is very long. Long URLs can be legitimate, but unexpected links should be checked carefully.",
-    secureLooking: "No selected warning indicators found",
-    secureLookingDesc:
-      "This limited check did not find the selected URL warning indicators. It cannot confirm the website is safe.",
-    warning: "Review recommended",
-    informational: "Information",
-    passed: "No selected warning detected",
-    failed: "Potential concern",
-    reportCopied: "Report copied.",
-    copyFailed: "Could not copy automatically. Select and copy the report manually.",
-    reportDownloaded: "Report download started.",
-    noReport: "Run an analysis first to create a report.",
-    cleared: "Input and results cleared.",
-    privacyOpened: "Privacy information opened.",
-    privacyClosed: "Privacy information closed.",
-    localOnly:
-      "This analysis checks the URL text only. It does not connect to or test the target website.",
-    reportDisclaimer:
-      "This report is informational only and is not a guarantee of website safety."
-  },
-
-  ur: {
-    brandSubtitle: "ویب سائٹ کی بنیادی سیکیورٹی جانچ",
-    languageBtn: "English",
-    privacyBtn: "پرائیویسی",
-    heroTitle: "ویب سائٹ کا ایڈریس چیک کریں",
-    heroDescription:
-      "اپنے براؤزر میں ویب ایڈریس کی بنیادی حفاظتی علامات دیکھیں۔ یہ ٹول پیشہ ورانہ سیکیورٹی آڈٹ کا متبادل نہیں ہے۔",
-    scannerTitle: "ویب سائٹ اسکینر",
-    scannerDescription:
-      "ویب سائٹ کا مکمل ایڈریس درج کریں، مثلاً https://example.com",
-    urlLabel: "ویب سائٹ کا ایڈریس",
-    urlHelp:
-      "صرف ان ویب سائٹس کو چیک کریں جن کی جانچ کی آپ کو اجازت ہے۔ پاس ورڈ یا خفیہ معلومات درج نہ کریں۔",
-    scanBtn: "ایڈریس کا تجزیہ کریں",
-    clearBtn: "صاف کریں",
-    copyBtn: "رپورٹ کاپی کریں",
-    downloadBtn: "رپورٹ ڈاؤن لوڈ کریں",
-    resultsTitle: "تجزیے کے نتائج",
-    limitations:
-      "اہم: یہ براؤزر میں ایڈریس کا بنیادی تجزیہ ہے۔ یہ ویب سائٹ کی ملکیت کی تصدیق، سرور کی جانچ یا مکمل حفاظت کی ضمانت نہیں دیتا۔",
-    aboutTitle: "اس ٹول کے بارے میں",
-    aboutDescription:
-      "Smart Security Scanner آپ کے براؤزر میں ویب ایڈریس کی چند خصوصیات چیک کرتا ہے۔ یہ مکمل کمزوریوں کی اسکیننگ نہیں کرتا۔",
-    privacyTitle: "پرائیویسی کی معلومات",
-    privacyText:
-      "یہ صفحہ ویب ایڈریس کا تجزیہ آپ کے براؤزر میں کرتا ہے۔ یہ ٹول جان بوجھ کر درج کیا گیا ایڈریس کسی اسکیننگ سرور کو نہیں بھیجتا۔ اگر آپ الگ سے ویب سائٹ کھولیں تو آپ کا براؤزر اس سے رابطہ کر سکتا ہے۔ خفیہ معلومات درج نہ کریں۔",
-    closePrivacyBtn: "بند کریں",
-    footerText:
-      "Smart Security Scanner · بنیادی جانچ، واضح حدود",
-    emptyUrl: "پہلے ویب سائٹ کا ایڈریس درج کریں۔",
-    invalidUrl: "درست ایڈریس درج کریں، مثلاً https://example.com",
-    scanning: "ایڈریس کا مقامی تجزیہ جاری ہے...",
-    completed: "ایڈریس کا بنیادی تجزیہ مکمل ہوگیا۔",
-    reportTitle: "اسمارٹ سیکیورٹی اسکینر رپورٹ",
-    scannedUrl: "چیک کیا گیا ایڈریس",
-    scanTime: "تجزیے کا وقت",
-    summary: "خلاصہ",
-    findings: "نتائج",
-    secureProtocol: "HTTPS پروٹوکول",
-    insecureProtocol: "HTTP پروٹوکول",
-    secureProtocolDesc:
-      "ایڈریس HTTPS استعمال کرتا ہے۔ صرف HTTPS ہونے سے ویب سائٹ قابلِ اعتماد ثابت نہیں ہوتی۔",
-    insecureProtocolDesc:
-      "ایڈریس HTTP استعمال کرتا ہے، اس لیے HTTPS والی ٹرانسپورٹ انکرپشن موجود نہیں۔",
-    ipAddress: "میزبان کے طور پر IP ایڈریس",
-    ipAddressDesc:
-      "ویب ایڈریس میں ہوسٹ ایک IP ایڈریس معلوم ہوتا ہے۔ تصدیق کریں کہ یہی مطلوبہ منزل ہے۔",
-    unusualPort: "غیر معمول کا پورٹ",
-    unusualPortDesc:
-      "ایڈریس میں عام ویب پورٹس کے علاوہ ایک پورٹ درج ہے۔ تصدیق کریں کہ یہ متوقع ہے۔",
-    credentials: "ایڈریس میں لاگ اِن معلومات",
-    credentialsDesc:
-      "ایڈریس میں یوزرنیم یا پاس ورڈ کا حصہ موجود ہے۔ ایسی معلومات والے لنکس شیئر کرنے سے گریز کریں۔",
-    punycode: "Punycode ہوسٹ نیم",
-    punycodeDesc:
-      "ہوسٹ نیم میں xn-- موجود ہے۔ ملتے جلتے یا گمراہ کن ڈومین نام کو احتیاط سے چیک کریں۔",
-    longUrl: "غیر معمولی طور پر طویل ایڈریس",
-    longUrlDesc:
-      "ایڈریس کافی طویل ہے۔ طویل ایڈریس جائز بھی ہوسکتے ہیں، مگر غیر متوقع لنکس احتیاط سے دیکھیں۔",
-    secureLooking: "منتخب انتباہی علامات نہیں ملیں",
-    secureLookingDesc:
-      "اس محدود جانچ میں منتخب علامات نہیں ملیں۔ اس سے ویب سائٹ کی حفاظت کی تصدیق نہیں ہوتی۔",
-    warning: "مزید جانچ کی سفارش",
-    informational: "معلومات",
-    passed: "منتخب انتباہ نہیں ملا",
-    failed: "ممکنہ مسئلہ",
-    reportCopied: "رپورٹ کاپی ہوگئی۔",
-    copyFailed: "رپورٹ خودکار طور پر کاپی نہیں ہوسکی۔ اسے دستی طور پر منتخب کرکے کاپی کریں۔",
-    reportDownloaded: "رپورٹ ڈاؤن لوڈ ہونا شروع ہوگئی۔",
-    noReport: "رپورٹ بنانے کے لیے پہلے تجزیہ کریں۔",
-    cleared: "ایڈریس اور نتائج صاف ہوگئے۔",
-    privacyOpened: "پرائیویسی کی معلومات کھل گئی ہیں۔",
-    privacyClosed: "پرائیویسی کی معلومات بند ہوگئی ہیں۔",
-    localOnly:
-      "یہ تجزیہ صرف ایڈریس کے متن کو چیک کرتا ہے۔ یہ ہدف ویب سائٹ سے رابطہ کرکے اس کی جانچ نہیں کرتا۔",
-    reportDisclaimer:
-      "یہ رپورٹ صرف معلومات کے لیے ہے اور ویب سائٹ کی حفاظت کی ضمانت نہیں۔"
-  }
-};const elements = {
-  brandSubtitle: document.getElementById("brandSubtitle"),
-  languageBtn: document.getElementById("languageBtn"),
-  privacyBtn: document.getElementById("privacyBtn"),
-  heroTitle: document.getElementById("heroTitle"),
-  heroDescription: document.getElementById("heroDescription"),
-  scannerTitle: document.getElementById("scannerTitle"),
-  scannerDescription: document.getElementById("scannerDescription"),
-  urlLabel: document.getElementById("urlLabel"),
-  urlHelp: document.getElementById("urlHelp"),
-  scanBtn: document.getElementById("scanBtn"),
-  clearBtn: document.getElementById("clearBtn"),
-  copyBtn: document.getElementById("copyBtn"),
-  downloadBtn: document.getElementById("downloadBtn"),
-  resultsTitle: document.getElementById("resultsTitle"),
-  limitations: document.getElementById("limitations"),
-  aboutTitle: document.getElementById("aboutTitle"),
-  aboutDescription: document.getElementById("aboutDescription"),
-  privacyTitle: document.getElementById("privacyTitle"),
-  privacyText: document.getElementById("privacyText"),
-  closePrivacyBtn: document.getElementById("closePrivacyBtn"),
-  footerText: document.getElementById("footerText"),
-  urlInput: document.getElementById("urlInput"),
-  scannerForm: document.getElementById("scannerForm"),
-  statusLine: document.getElementById("statusLine"),
-  resultsPanel: document.getElementById("resultsPanel"),
-  resultSummary: document.getElementById("resultSummary"),
-  findingsList: document.getElementById("findingsList"),
-  privacyPanel: document.getElementById("privacyPanel")
-};
-
-let currentLanguage = "en";
-let latestReport = "";
-
-function t(key) {
-  return translations[currentLanguage][key] ||
-    translations.en[key] ||
-    key;
-}
-
-function setStatus(message) {
-  elements.statusLine.textContent = message;
-}
-
-function setLanguage(language) {
-  currentLanguage = language === "ur" ? "ur" : "en";
-
-  document.documentElement.lang = currentLanguage;
-  document.documentElement.dir =
-    currentLanguage === "ur" ? "rtl" : "ltr";
-  document.body.dir =
-    currentLanguage === "ur" ? "rtl" : "ltr";
-
-  for (const [key, value] of Object.entries(elements)) {
-    if (
-      translations[currentLanguage][key] &&
-      value &&
-      value.id !== "urlInput"
-    ) {
-      value.textContent = translations[currentLanguage][key];
-    }
-  }
-
-  elements.urlInput.placeholder = "https://example.com";
-
-  if (latestReport) {
-    renderReport(latestReport);
-  }
-}
-
-function normalizeUrl(rawValue) {
-  let value = rawValue.trim();
-
-  if (!value) {
-    throw new Error(t("emptyUrl"));
-  }
-
-  if (!/^[a-zA-Z][a-zA-Z\d+.-]*:/.test(value)) {
-    value = "https://" + value;
-  }
-
-  let parsed;
-
-  try {
-    parsed = new URL(value);
-  } catch {
-    throw new Error(t("invalidUrl"));
-  }
-
-  if (!["http:", "https:"].includes(parsed.protocol)) {
-    throw new Error(t("invalidUrl"));
-  }
-
-  if (!parsed.hostname || parsed.hostname.includes(" ")) {
-    throw new Error(t("invalidUrl"));
-  }
-
-  return parsed;
-}
-
-function isIpAddress(hostname) {
-  const host = hostname.replace(/^\[|\]$/g, "");
-
-  const ipv4Parts = host.split(".");
-  if (
-    ipv4Parts.length === 4 &&
-    ipv4Parts.every(part =>
-      /^\d{1,3}$/.test(part) &&
-      Number(part) >= 0 &&
-      Number(part) <= 255
-    )
-  ) {
-    return true;
-  }
-
-  return host.includes(":");
-}
-
-function analyzeUrl(parsed) {
-  const findings = [];
-
-  function add(key, descriptionKey, severity) {
-    findings.push({
-      title: t(key),
-      description: t(descriptionKey),
-      severity
-    });
-  }
-
-  if (parsed.protocol === "https:") {
-    add("secureProtocol", "secureProtocolDesc", "good");
-  } else {
-    add("insecureProtocol", "insecureProtocolDesc", "warn");
-  }
-
-  if (parsed.username || parsed.password) {
-    add("credentials", "credentialsDesc", "bad");
-  }
-
-  if (isIpAddress(parsed.hostname)) {
-    add("ipAddress", "ipAddressDesc", "warn");
-  }
-
-  const port = parsed.port;
-  if (port && !["80", "443"].includes(port)) {
-    add("unusualPort", "unusualPortDesc", "warn");
-  }
-
-  if (parsed.hostname.toLowerCase().includes("xn--")) {
-    add("punycode", "punycodeDesc", "warn");
-  }
-
-  if (parsed.href.length > 200) {
-    add("longUrl", "longUrlDesc", "warn");
-  }
-
-  if (findings.every(item => item.severity === "good")) {
-    add("secureLooking", "secureLookingDesc", "info");
-  }
-
-  return findings;
-}
-
-function escapeHtml(value) {
-  return String(value).replace(/[&<>"']/g, character => ({
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#39;"
-  })[character]);
-}
-
-function renderReport(reportText) {
-  const lines = reportText.split("\n");
-  const findingsStart = lines.findIndex(line =>
-    line.startsWith(t("findings") + ":")
-  );
-
-  const summaryText = lines.slice(0, findingsStart < 0
-    ? lines.length
-    : findingsStart).join("\n");
-
-  elements.resultSummary.textContent = summaryText;
-  elements.findingsList.replaceChildren();
-
-  const report = window.latestScan;
-  if (!report) return;
-
-  for (const finding of report.findings) {
-    const card = document.createElement("article");
-    card.className = "finding";
-
-    const badge = document.createElement("span");
-    badge.className = "severity severity-" + finding.severity;
-    badge.textContent =
-      finding.severity === "good" ? t("passed") :
-      finding.severity === "bad" ? t("failed") :
-      finding.severity === "warn" ? t("warning") :
-      t("informational");
-
-    const heading = document.createElement("h4");
-    heading.textContent = finding.title;
-
-    const description = document.createElement("p");
-    description.textContent = finding.description;
-
-    card.append(badge, heading, description);
-    elements.findingsList.appendChild(card);
-  }
-}
-
-function createReport(parsed, findings) {
-  const date = new Date().toLocaleString(
-    currentLanguage === "ur" ? "ur-PK" : "en-US"
-  );
-
-  const lines = [
-    t("reportTitle"),
-    "================================",
-    t("scannedUrl") + ": " + parsed.href,
-    t("scanTime") + ": " + date,
-    "",
-    t("summary") + ":",
-    t("localOnly"),
-    "",
-    t("findings") + ":"
-  ];
-
-  for (const finding of findings) {
-    lines.push(
-      "- " + finding.title,
-      "  " + finding.description
-    );
-  }
-
-  lines.push("", t("reportDisclaimer"));
-  return lines.join("\n");
-}
-
-elements.languageBtn.addEventListener("click", () => {
-  setLanguage(currentLanguage === "en" ? "ur" : "en");
-});
-
-elements.privacyBtn.addEventListener("click", () => {
-  elements.privacyPanel.hidden = false;
-  setStatus(t("privacyOpened"));
-});
-
-elements.closePrivacyBtn.addEventListener("click", () => {
-  elements.privacyPanel.hidden = true;
-  setStatus(t("privacyClosed"));
-});
-
-elements.scannerForm.addEventListener("submit", event => {
-  event.preventDefault();
-
-  try {
-    setStatus(t("scanning"));
-
-    const parsed = normalizeUrl(elements.urlInput.value);
-    const findings = analyzeUrl(parsed);
-
-    window.latestScan = {
-      url: parsed.href,
-      findings
-    };
-
-    latestReport = createReport(parsed, findings);
-    renderReport(latestReport);
-
-    elements.resultsPanel.classList.add("visible");
-    setStatus(t("completed"));
-  } catch (error) {
-    elements.resultsPanel.classList.remove("visible");
-    setStatus(error.message || t("invalidUrl"));
-  }
-});elements.clearBtn.addEventListener("click", () => {
-  elements.urlInput.value = "";
-  elements.resultsPanel.classList.remove("visible");
-  elements.resultSummary.textContent = "";
-  elements.findingsList.replaceChildren();
-  elements.privacyPanel.hidden = true;
-  latestReport = "";
-  window.latestScan = null;
-  setStatus(t("cleared"));
-  elements.urlInput.focus();
-});
-
-elements.copyBtn.addEventListener("click", async () => {
-  if (!latestReport) {
-    setStatus(t("noReport"));
-    return;
-  }
-
-  try {
-    if (navigator.clipboard && window.isSecureContext) {
-      await navigator.clipboard.writeText(latestReport);
-    } else {
-      const temporary = document.createElement("textarea");
-      temporary.value = latestReport;
-      temporary.setAttribute("readonly", "");
-      temporary.style.position = "fixed";
-      temporary.style.opacity = "0";
-      document.body.appendChild(temporary);
-      temporary.select();
-
-      const copied = document.execCommand("copy");
-      temporary.remove();
-
-      if (!copied) {
-        throw new Error("Copy failed");
-      }
-    }
-
-    setStatus(t("reportCopied"));
-  } catch {
-    setStatus(t("copyFailed"));
-  }
-});
-
-elements.downloadBtn.addEventListener("click", () => {
-  if (!latestReport) {
-    setStatus(t("noReport"));
-    return;
-  }
-
-  try {
-    const blob = new Blob(
-      ["\uFEFF", latestReport],
-      { type: "text/plain;charset=utf-8" }
-    );
-
-    const objectUrl = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-
-    link.href = objectUrl;
-    link.download = "smart-security-scanner-report.txt";
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-
-    setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
-    setStatus(t("reportDownloaded"));
-  } catch {
-    setStatus(t("copyFailed"));
-  }
-});
-
-setLanguage("en");
-</script>
-</body>
-</html>
+/* 1 */ <!DOCTYPE html>
+/* 2 */ <html lang="ur" dir="rtl">
+/* 3 */ <head>
+/* 4 */ <meta charset="UTF-8">
+/* 5 */ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+/* 6 */ <meta name="theme-color" content="#08111f">
+/* 7 */ <title>SmartLink PC - Global Free Tools</title>
+/* 8 */ <style>
+/* 9 */ :root{color-scheme:dark;--bg:#08111f;--card:#111d31;--line:#293d5a;--blue:#3988ff;--green:#48fa3f;--muted:#9db0ca;--text:#f3f7ff;font-family:system-ui,sans-serif;min-height:100vh}
+/* 10 */ *{box-sizing:border-box}
+/* 11 */ body{margin:0;background:radial-gradient(ellipse at top,#193052 0%,#08111f 70%);color:var(--text);font-family:Arial,sans-serif;line-height:1.6}
+/* 12 */ button,input,textarea,select{font:inherit}
+/* 13 */ button{cursor:pointer}
+/* 14 */ button:disabled{opacity:.45;cursor:not-allowed}
+/* 15 */ header{padding:24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+/* 16 */ .brand{font-size:22px,4vw,34px;font-weight:850;letter-spacing:-.5px}
+/* 17 */ .brand span{color:var(--blue)}
+/* 18 */ .sub{color:var(--muted);font-size:14px;margin-top:6px}
+/* 19 */ .wrap{width:min(1200px,96%);margin:24px auto 50px}
+/* 20 */ .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:18px}
+/* 21 */ .card{background:linear-gradient(145deg,#15243b,#0d1727);border:1px solid var(--line);border-radius:17px;padding:20px;min-width:0}
+/* 22 */ .card h2{font-size:19px;margin:0 0 12px}
+/* 23 */ .muted{color:var(--muted);font-size:13px;line-height:1.7;margin:0}
+/* 24 */ input,textarea{width:100%;background:#09101d;border:1px solid var(--line);color:var(--text);padding:12px;border-radius:10px;outline:none;transition:.15s}
+/* 25 */ input:focus,textarea:focus{border-color:var(--blue);transform:translateY(-1px)}
+/* 26 */ .primary{background:linear-gradient(120deg,#1978e8,#514be9);border-color:#7557e6;color:white;font-weight:750}
+/* 27 */ .status{border:1px solid var(--line);border-radius:12px;padding:12px;margin-top:12px;font-size:13px;color:var(--muted);overflow-wrap:anywhere}
+/* 28 */ .status.good{border-color:#1d7f58;color:#9ff9ac}
+/* 29 */ .status.warn{border-color:#783044;color:#f9bac9}
+/* 30 */ .status.bad{border-color:#705a27;color:#ffe09a}
+/* 31 */ .tag{font-size:12px;padding:3px 9px;border-radius:20px;border:1px solid var(--line);color:var(--muted)}
+/* 32 */ .tag.good{color:var(--green);border-color:#267b60}
+/* 33 */ video{width:100%;background:#05080e;border-radius:12px;max-height:340px;display:block;object-fit:contain;margin-top:12px}
+/* 34 */ .meter{height:8px;background:#263651;border-radius:8px;overflow:hidden;margin-top:12px}
+/* 35 */ .meter span{display:block;width:0;height:100%;background:linear-gradient(90deg,#48fa3f,#43e0a0);transition:width .4s ease}
+/* 36 */ textarea{resize:vertical;min-height:95px}
+/* 37 */ .small{font-size:12px;color:var(--muted);text-align:center;border-top:1px solid var(--line)}
+/* 38 */ .toast{position:fixed;bottom:16px;left:50%;transform:translate(-50%,50px);background:#1a2b43;border:1px solid var(--line);border-radius:12px;padding:12px;max-width:90%;margin:auto;box-shadow:0 8px 30px #0008}
+/* 39 */ [dir="ltr"] .text-align{left}
+/* 40 */ [dir="rtl"]{transform:scaleX(-1)}
+/* 41 */ @media(max-width:600px){.wrap{padding:16px}}
+/* 42 */ </style>
+/* 43 */ </head>
+/* 44 */ <body>
+/* 45 */ <header class="top">
+/* 46 */   <div>
+/* 47 */     <span class="brand">SmartLink <span>PC</span></span>
+/* 48 */     <div class="sub" id="subtitle">موبایل اور کمپیوٹر کے لیے ایک محفوظ وائرلیس کنٹرول سسٹم</div>
+/* 49 */   </div>
+/* 50 */   <div class="row">
+/* 51 */     <span class="tag" id="engineTag">Engine: Not Connected</span>
+/* 52 */     <button id="langBtn">English</button>
+/* 53 */   </div>
+/* 54 */ </header>
+/* 55 */ <main class="wrap">
+/* 56 */   <section class="card">
+/* 57 */     <h2 id="connectTitle">Windows Companion کنکشن</h2>
+/* 58 */     <p class="muted" id="connectDesc">کمپیوٹر پر Companion engine کے WebSocket connection کا پتہ درج کریں۔</p>
+/* 59 */     <div class="row">
+/* 60 */       <input id="urlInput" type="url" dir="ltr" placeholder="wss://your-secure-companion.auto">
+/* 61 */       <button class="primary" id="connectBtn">Connect Engine</button>
+/* 62 */       <button id="disconnectBtn" disabled>Disconnect</button>
+/* 63 */     </div>
+/* 64 */     <div class="status warn" id="connectionStatus">● ابھی کوئی کنکشن نہیں ہے۔</div>
+/* 65 */   </section>
+/* 66 */   <section class="grid">
+/* 67 */     <section class="card">
+/* 68 */       <div class="icon">🖥️</div>
+/* 69 */       <h2 id="screenTitle">اسکرین شیئرنگ</h2>
+/* 70 */       <p class="muted" id="screenDesc">براؤزر کی اجازت سے، آپ موبائل پر کمپیوٹر یا ویو کی لائیو ویڈیو دیکھ سکتے ہیں۔ اسکرین شیئرنگ صرف پیش نظارہ ہے۔</p>
+/* 71 */       <div class="row">
+/* 72 */         <button class="primary" id="screenStart">Start Screen</button>
+/* 73 */         <button id="screenStop" disabled>Stop</button>
+/* 74 */       </div>
+/* 75 */       <video id="screenVideo" autoplay playsinline muted></video>
+/* 76 */       <div class="status" id="screenStatus">اسکرین شیئر بند ہے۔</div>
+/* 77 */     </section>
+/* 78 */     <section class="card">
+/* 79 */       <div class="icon">📷</div>
+/* 80 */       <h2 id="cameraTitle">AI Webcam Stream</h2>
+/* 81 */       <p class="muted" id="cameraDesc">اجازت ملنے پر کیمرہ سے مقامی پری ویو دیکھیں۔ یہ خود کسی دوست یا اے آئی پر نہیں بھیجا جاتا۔</p>
+/* 82 */       <div class="row">
+/* 83 */         <button class="primary" id="cameraStart">Start Camera</button>
+/* 84 */         <button id="cameraStop" disabled>Stop</button>
+/* 85 */       </div>
+/* 86 */       <video id="cameraVideo" autoplay playsinline muted></video>
+/* 87 */       <div class="status" id="cameraStatus">کیمرہ بند ہے۔</div>
+/* 88 */     </section>
+/* 89 */     <section class="card">
+/* 90 */       <div class="icon">📁</div>
+/* 91 */       <h2 id="filesTitle">فایل ٹرانسفر</h2>
+/* 92 */       <p class="muted" id="filesDesc">فائل منتخب کریں، تفصیل دیکھنے کے لیے۔ دوسری آلہ تک دیکھنے کی اجازت درکار ہے۔</p>
+/* 93 */       <input type="file" id="files" multiple>
+/* 94 */       <div class="status" id="fileStatus">کوئی فائل منتخب نہیں۔</div>
+/* 95 */       <div class="row" style="margin-top:10px">
+/* 96 */         <button class="primary" id="sendFiles">Send to PC</button>
+/* 97 */         <button id="clearFiles">Clear</button>
+/* 98 */       </div>
+/* 99 */       <div class="status" id="fileNote">فائلز خود بخود اپ لوڈ نہیں ہوتیں۔ یوٹیوب یا صفائی رکھنے والی کمپینئن companion کو استعمال کریں۔</div>
+/* 100 */    </section>
+/* 101 */    <section class="card">
+/* 102 */      <div class="icon">📋</div>
+/* 103 */      <h2 id="clipTitle">کلپ بورڈ</h2>
+/* 104 */      <p class="muted" id="clipDesc">متن کاپی کریں، یا کلپ بورڈ سے Sync کریں۔</p>
+/* 105 */      <textarea id="clipText" placeholder="یہاں متن لکھیں"></textarea>
+/* 106 */      <div class="row" style="margin-top:10px">
+/* 107 */        <button class="primary" id="copyClip">Copy</button>
+/* 108 */        <button id="readClip">Read Clipboard</button>
+/* 109 */        <button id="syncClip">Sync to PC</button>
+/* 110 */      </div>
+/* 111 */      <div class="status" id="clipStatus">کلپ بورڈ تیار ہے۔</div>
+/* 112 */    </section>
+/* 113 */    <section class="card">
+/* 114 */      <div class="icon">🎙️</div>
+/* 115 */      <h2 id="voiceTitle">AI وائس کمانڈ</h2>
+/* 116 */      <p class="muted" id="voiceDesc">Speech Recognition کی سہولت دینا ہے، یہ آؤٹ کم کو متن میں تبدیل کریں۔ یہ اپنے آپ کو کمپیوٹر پر عمل نہیں کرتے۔</p>
+/* 117 */      <div class="row">
+/* 118 */        <button class="primary" id="voiceStart">Start Listening</button>
+/* 119 */        <button id="voiceStop" disabled>Stop Listening</button>
+/* 120 */      </div>
+/* 121 */      <textarea id="voiceText" placeholder="Recognized speech..."></textarea>
+/* 122 */      <div class="row" style="margin-top:10px">
+/* 123 */        <button class="primary" id="sendVoice">Send Command to PC</button>
+/* 124 */      </div>
+/* 125 */      <div class="status" id="voiceStatus">مائیکروفون ابھی شروع نہیں۔</div>
+/* 126 */    </section>
+/* 127 */    <section class="card">
+/* 128 */      <div class="icon">🖱️</div>
+/* 129 */      <h2 id="mouseTitle">ریموٹ کنٹرول</h2>
+/* 130 */      <p class="muted" id="mouseDesc">براؤزر صفائی متعلق راکٹ سے Windows companion کو چالو کریں، یہ پلیٹ فارم کنکشن ضروری ہے۔</p>
+/* 131 */      <div class="trackpad" id="trackpad">Drag here to move pointer<span></span></div>
+/* 132 */      <div class="row" style="margin-top:10px">
+/* 133 */        <button id="leftClick">Left Click</button>
+/* 134 */        <button id="rightClick">Right Click</button>
+/* 135 */        <button id="doubleClick">Double Click</button>
+/* 136 */      </div>
+/* 137 */      <input id="keyText" placeholder="Keyboard Text">
+/* 138 */      <button class="primary" id="sendKeys">Send Keyboard Text</button>
+/* 139 */      <div class="status" id="mouseStatus">Remote control inactive</div>
+/* 140 */    </section>
+/* 141 */    <section class="card">
+/* 142 */      <div class="icon">⚡</div>
+/* 143 */      <h2 id="powerTitle">کمپیوٹر پاور</h2>
+/* 144 */      <p class="muted" id="powerDesc">پاور کنٹرول صرف مجاز Windows companion کے ساتھ انجام دیا جاتا ہے۔</p>
+/* 145 */      <div class="row">
+/* 146 */        <button data-power="lock">Lock</button>
+/* 147 */        <button data-power="sleep">Sleep</button>
+/* 148 */        <button data-power="restart">Restart</button>
+/* 149 */        <button data-power="shutdown">Shut Down</button>
+/* 150 */      </div>
+/* 151 */      <div class="status warn" id="powerStatus">کوئی کمانڈ نہیں بھیجی گئی۔</div>
+/* 152 */      <p class="muted small" id="powerNote">Shut Down اور Restart کے لیے محفوظ جانچ مانگی جائے گی۔ غیر محفوظ یا غیر معلوم سرور سے رابطہ نہیں۔</p>
+/* 153 */    </section>
+/* 154 */    <section class="card">
+/* 155 */      <div class="icon">📊</div>
+/* 156 */      <h2 id="healthTitle">کنکشن اور براؤزر</h2>
+/* 157 */      <p class="muted" id="healthDesc">براؤزر کی معلومات، اور سسٹم سٹیٹس کے لیے Companion سے رابطہ کریں۔</p>
+/* 158 */      <button id="refreshHealth">Refresh Status</button>
+/* 159 */      <div class="status" id="pcStatus">اسٹیس کے لیے companion درکار ہے۔</div>
+/* 160 */    </section>
+/* 161 */    <section class="card">
+/* 162 */      <h2 id="securityTitle">🔐 سکیورٹی</h2>
+/* 163 */      <p class="muted" id="securityDesc">صفحہ کے کسی بھی کنکشن کو خودکار encrypted کنکشن کو خود محفوظ companion کے ذریعے بنایا جاتا ہے۔</p>
+/* 164 */      <div class="row">
+/* 165 */        <button id="stopAll">Stop All Media</button>
+/* 166 */        <button id="exportLog">Export Log</button>
+/* 167 */        <button id="clearLog">Clear Log</button>
+/* 168 */      </div>
+/* 169 */      <div class="status" id="securityStatus">موصول ایکٹیویٹی لاگ خالی ہے۔</div>
+/* 170 */      <p class="small" id="privacyNote">براؤزر سے خود سے ان پٹ نہ بھیجیں هنگام. غیر معتبر API key پاس ورڈ سے ہمیں استعمال نہ کریں public computer.</p>
+/* 171 */    </section>
+/* 172 */  </section>
+/* 173 */ </main>
+/* 174 */ <footer class="footer" id="footerText">SmartLink PC · براؤزر فیچرز ورک کرتا ہے۔ ریموٹ کنٹرول کے لیے companion درکار ہے۔</footer>
+/* 175 */ <script>
+/* 176 */ "use strict";
+/* 177 */ const translations = {
+/* 178 */   en: {
+/* 179 */     subtitle: "A secure connection workspace for mobile and PC",
+/* 180 */     engineTag: "Engine: Not connected",
+/* 181 */     connectTitle: "Windows Companion Connection",
+/* 182 */     connectDesc: "Connect to the secure WebSocket endpoint of your Windows companion engine.",
+/* 183 */     urlLabel: "WebSocket URL (wss://)",
+/* 184 */     disconnect: "Disconnect",
+/* 185 */     connectBtn: "Connect Engine",
+/* 186 */     notConnected: "● ابھی کنکشن نہیں ہے.",
+/* 187 */     noSecureURL: "WebSocket URL secure required (wss://)",
+/* 188 */     screenTitle: "Screen Sharing",
+/* 189 */     screenDesc: "View screen preview with browser permission. Stream preview is local unless separate streaming is implemented.",
+/* 190 */     startScreen: "Start Screen",
+/* 191 */     screenOff: "Screen share stopped.",
+/* 192 */     cameraTitle: "AI Webcam Stream",
+/* 193 */     cameraDesc: "Preview your camera after permission. Video is not automatically uploaded.",
+/* 194 */     startCamera: "Start Camera",
+/* 195 */     cameraOff: "Camera stopped.",
+/* 196 */     filesTitle: "File Transfer",
+/* 197 */     filesDesc: "Select files. Transfer to another device requires a compatible companion.",
+/* 198 */     clipTitle: "Cross Clipboard",
+/* 199 */     clipDesc: "Sync text, copy, or read clipboard contents. Requires permission allows.",
+/* 200 */     copyText: "Copy",
+/* 201 */     readClipboard: "Read Clipboard",
+/* 202 */     syncPC: "Sync to PC",
+/* 203 */     voiceTitle: "Voice Recognition",
+/* 204 */     voiceDesc: "Convert speech to text if supported by your browser. This alone does not execute commands on your PC.",
+/* 205 */     start: "Start Listening",
+/* 206 */     stop: "Stop Listening",
+/* 207 */     mouseTitle: "Remote Trackpad",
+/* 208 */     mouseDesc: "Controls send commands only to a compatible connected Windows companion.",
+/* 209 */     leftClick: "Left",
+/* 210 */     rightClick: "Right",
+/* 211 */     doubleClick: "Double",
+/* 212 */     sendKeys: "Send Keyboard Text",
+/* 213 */     powerTitle: "Power Controls",
+/* 214 */     powerDesc: "Lock, sleep, restart, or shutdown requires an acceptable compatible Windows companion.",
+/* 215 */     lock: "Lock",
+/* 216 */     sleep: "Sleep",
+/* 217 */     restart: "Restart",
+/* 218 */     shutdown: "Shut Down",
+/* 219 */     healthTitle: "Connection & Browser Status",
+/* 220 */     healthDesc: "This reports browser/connection information. Real CPU, RAM, battery, and Windows details must come from the companion.",
+/* 221 */     refresh: "Refresh",
+/* 222 */     securityTitle: "Security & Limitations",
+/* 223 */     securityDesc: "This page does not automatically claim a connection is secure or encrypted. Security depends on your actual companion, transport, authentication, and server configuration.",
+/* 224 */     securityIdle: "No remote engine connection. No server-side security protection is assumed by this tool.",
+/* 225 */     stopAll: "Stop All Media",
+/* 226 */     export: "Export Activity Log",
+/* 227 */     logClear: "Clear Activity Log",
+/* 228 */     footerText: "SmartLink PC + Browser features work with supported permissions. Remote PC control requires a companion."
+/* 229 */   },
+/* 230 */   ur: {
+/* 231 */     subtitle: "موبایل اور کمپیوٹر کے لیے ایک محفوظ وائرلیس کنٹرول سسٹم",
+/* 232 */     engineTag: "Engine: Not connected",
+/* 233 */     connectTitle: "Windows Companion کنکشن",
+/* 234 */     connectDesc: "کمپیوٹر پر Companion engine کے WebSocket connection کا پتہ درج کریں۔",
+/* 235 */     urlLabel: "WebSocket URL (wss://)",
+/* 236 */     disconnect: "منقطع کریں",
+/* 237 */     connectBtn: "Connect Engine",
+/* 238 */     notConnected: "● ابھی کوئی کنکشن نہیں ہے",
+/* 239 */     noSecureURL: "غیر محفوظ URL. پروٹوکول wss:// استعمال کریں",
+/* 240 */     screenTitle: "اسکرین شیئرنگ",
+/* 241 */     screenDesc: "براؤزر کی اجازت سے، آپ موبائل پر کمپیوٹر یا ویو کی لائیو ویڈیو دیکھ سکتے ہیں۔ اسکرین شیئرنگ صرف پیش نظارہ ہے۔",
+/* 242 */     startScreen: "اسکرین شیئر شروع",
+/* 243 */     screenOff: "اسکرین شیئر بند",
+/* 244 */     cameraTitle: "AI Webcam Stream",
+/* 245 */     cameraDesc: "اجازت ملنے پر کیمرہ سے مقامی پری ویو دیکھیں۔ یہ خود کسی دوست یا اے آئی پر نہیں بھیجا جاتا۔",
+/* 246 */     startCamera: "کیمرہ شروع",
+/* 247 */     cameraOff: "کیمرہ بند",
+/* 248 */     filesTitle: "فائل ٹرانسفر",
+/* 249 */     filesDesc: "فائل منتخب کریں، تفصیل دیکھنے کے لیے۔ دوسری آلہ تک دیکھنے کی اجازت درکار ہے۔",
+/* 250 */     clipTitle: "کلپ بورڈ",
+/* 251 */     clipDesc: "متن کاپی کریں، یا کلپ بورڈ سے Sync کریں۔",
+/* 252 */     copyText: "کاپی",
+/* 253 */     readClipboard: "کلپ بورڈ پڑھیں",
+/* 254 */     syncPC: "PC کو Sync کریں",
+/* 255 */     voiceTitle: "AI وائس کمانڈ",
+/* 256 */     voiceDesc: "Speech Recognition کی سہولت دینا ہے، یہ آؤٹ کم کو متن میں تبدیل کریں۔",
+/* 257 */     start: "سنا شروع",
+/* 258 */     stop: "سنا بند",
+/* 259 */     mouseTitle: "ریموٹ کنٹرول",
+/* 260 */     mouseDesc: "براؤزر صفائی متعلق راکٹ سے Windows companion کو چالو کریں",
+/* 261 */     leftClick: "بائیں",
+/* 262 */     rightClick: "دائیں",
+/* 263 */     doubleClick: "ڈبل کلک",
+/* 264 */     sendKeys: "اسپیس متن بھیجیں",
+/* 265 */     powerTitle: "کمپیوٹر پاور",
+/* 266 */     powerDesc: "Lock، Sleep، Restart اور Shutdown صرف اس وقت کام کریں گے جب Windows Companion انسٹال ہو۔",
+/* 267 */     lock: "لاک",
+/* 268 */     sleep: "سلیپ",
+/* 269 */     restart: "ریسٹارٹ",
+/* 270 */     shutdown: "شٹ ڈاؤن",
+/* 271 */     healthTitle: "کنکشن اور براؤزر",
+/* 272 */     healthDesc: "براؤزر کی معلومات، اور سسٹم سٹیٹس کے لیے Companion سے رابطہ کریں۔",
+/* 273 */     refresh: "ریفریش",
+/* 274 */     securityTitle: "🔐 سکیورٹی",
+/* 275 */     securityDesc: "صفحہ کے کسی بھی کنکشن کو خودکار encrypted کنکشن کو خود محفوظ companion کے ذریعے بنایا جاتا ہے۔",
+/* 276 */     securityIdle: "کوئی ریموٹ connection نہیں",
+/* 277 */     stopAll: "تمام میڈیا بند کریں",
+/* 278 */     export: "لاگ ایکسپورٹ کریں",
+/* 279 */     logClear: "لاگ صاف کریں",
+/* 280 */     footerText: "SmartLink PC · براؤزر فیچرز ورک کرتا ہے۔"
+/* 281 */   }
+/* 282 */ };
+/* 283 */ const elements = {
+/* 284 */   urlInput: document.getElementById("urlInput"),
+/* 285 */   connectBtn: document.getElementById("connectBtn"),
+/* 286 */   disconnectBtn: document.getElementById("disconnectBtn"),
+/* 287 */   connectionStatus: document.getElementById("connectionStatus"),
+/* 288 */   screenStart: document.getElementById("screenStart"),
+/* 289 */   screenStop: document.getElementById("screenStop"),
+/* 290 */   screenVideo: document.getElementById("screenVideo"),
+/* 291 */   screenStatus: document.getElementById("screenStatus"),
+/* 292 */   cameraStart: document.getElementById("cameraStart"),
+/* 293 */   cameraStop: document.getElementById("cameraStop"),
+/* 294 */   cameraVideo: document.getElementById("cameraVideo"),
+/* 295 */   cameraStatus: document.getElementById("cameraStatus"),
+/* 296 */   files: document.getElementById("files"),
+/* 297 */   fileStatus: document.getElementById("fileStatus"),
+/* 298 */   sendFiles: document.getElementById("sendFiles"),
+/* 299 */   clearFiles: document.getElementById("clearFiles"),
+/* 300 */   fileNote: document.getElementById("fileNote"),
+/* 301 */   clipText: document.getElementById("clipText"),
+/* 302 */   copyClip: document.getElementById("copyClip"),
+/* 303 */   readClipboard: document.getElementById("readClipboard"),
+/* 304 */   syncClip: document.getElementById("syncClip"),
+/* 305 */   clipStatus: document.getElementById("clipStatus"),
+/* 306 */   voiceStart: document.getElementById("voiceStart"),
+/* 307 */   voiceStop: document.getElementById("voiceStop"),
+/* 308 */   voiceText: document.getElementById("voiceText"),
+/* 309 */   sendVoice: document.getElementById("sendVoice"),
+/* 310 */   voiceStatus: document.getElementById("voiceStatus"),
+/* 311 */   trackpad: document.getElementById("trackpad"),
+/* 312 */   leftClick: document.getElementById("leftClick"),
+/* 313 */   rightClick: document.getElementById("rightClick"),
+/* 314 */   doubleClick: document.getElementById("doubleClick"),
+/* 315 */   keyText: document.getElementById("keyText"),
+/* 316 */   sendKeys: document.getElementById("sendKeys"),
+/* 317 */   mouseStatus: document.getElementById("mouseStatus"),
+/* 318 */   powerStatus: document.getElementById("powerStatus"),
+/* 319 */   pcStatus: document.getElementById("pcStatus"),
+/* 320 */   securityStatus: document.getElementById("securityStatus"),
+/* 321 */   stopAll: document.getElementById("stopAll"),
+/* 322 */   exportLog: document.getElementById("exportLog"),
+/* 323 */   clearLog: document.getElementById("clearLog"),
+/* 324 */   langBtn: document.getElementById("langBtn"),
+/* 325 */   subtitle: document.getElementById("subtitle"),
+/* 326 */   engineTag: document.getElementById("engineTag"),
+/* 327 */   connectTitle: document.getElementById("connectTitle"),
+/* 328 */   connectDesc: document.getElementById("connectDesc"),
+/* 329 */   screenTitle: document.getElementById("screenTitle"),
+/* 330 */   screenDesc: document.getElementById("screenDesc"),
+/* 331 */   cameraTitle: document.getElementById("cameraTitle"),
+/* 332 */   cameraDesc: document.getElementById("cameraDesc"),
+/* 333 */   filesTitle: document.getElementById("filesTitle"),
+/* 334 */   filesDesc: document.getElementById("filesDesc"),
+/* 335 */   clipTitle: document.getElementById("clipTitle"),
+/* 336 */   clipDesc: document.getElementById("clipDesc"),
+/* 337 */   voiceTitle: document.getElementById("voiceTitle"),
+/* 338 */   voiceDesc: document.getElementById("voiceDesc"),
+/* 339 */   mouseTitle: document.getElementById("mouseTitle"),
+/* 340 */   mouseDesc: document.getElementById("mouseDesc"),
+/* 341 */   powerTitle: document.getElementById("powerTitle"),
+/* 342 */   powerDesc: document.getElementById("powerDesc"),
+/* 343 */   healthTitle: document.getElementById("healthTitle"),
+/* 344 */   healthDesc: document.getElementById("healthDesc"),
+/* 345 */   securityTitle: document.getElementById("securityTitle"),
+/* 346 */   securityDesc: document.getElementById("securityDesc"),
+/* 347 */   footerText: document.getElementById("footerText")
+/* 348 */ };
+/* 349 */ let currentLang = "ur";
+/* 350 */ let socket = null;
+/* 351 */ let screenStream = null;
+/* 352 */ let cameraStream = null;
+/* 353 */ let activity = [];
+/* 354 */ function t(key){return translations[currentLang][key] || translations.en[key] || key;}
+/* 355 */ function setStatus(el, msg, type=""){el.textContent = msg; el.className = "status "+type;}
+/* 356 */ function log(msg){activity.push({date:new Date().toISOString(), event:msg}); if(activity.length>300)activity.shift();}
+/* 357 */ function applyLanguage(){
+/* 358 */   document.documentElement.lang = currentLang;
+/* 359 */   document.documentElement.dir = currentLang==="ur"?"rtl":"ltr";
+/* 360 */   for(let k in elements){if(translations[currentLang][k] && elements[k]) elements[k].textContent = t(k);}
+/* 361 */   elements.langBtn.textContent = currentLang==="ur"?"English":"اردو";
+/* 362 */ }
+/* 363 */ elements.langBtn.onclick = () => {currentLang = currentLang==="ur"?"en":"ur"; applyLanguage();};
+/* 364 */ connectBtn.onclick = () => {
+/* 365 */   try{
+/* 366 */     let url = elements.urlInput.value.trim();
+/* 367 */     if(!url.startsWith("wss://")){alert(t("noSecureURL")); return;}
+/* 368 */     socket = new WebSocket(url);
+/* 369 */     socket.onopen = () => {
+/* 370 */       setStatus(elements.connectionStatus, "WSS connection established.", "good");
+/* 371 */       elements.engineTag.textContent = "Engine: Connected";
+/* 372 */     };
+/* 373 */     socket.onmessage = (e) => {
+/* 374 */       let d = JSON.parse(e.data);
+/* 375 */       log("Companion msg: "+d.type);
+/* 376 */     };
+/* 377 */     socket.onerror = () => {setStatus(elements.connectionStatus, "Connection error.", "bad");};
+/* 378 */     socket.onclose = () => {setStatus(elements.connectionStatus, "Disconnected.", "warn"); elements.engineTag.textContent = "Engine: Disconnected";};
+/* 379 */   }catch(err){setStatus(elements.connectionStatus, err.message, "bad");}
+/* 380 */ };
+/* 381 */ disconnectBtn.onclick = () => {if(socket) socket.close();};
+/* 382 */ screenStart.onclick = async () => {
+/* 383 */   try{
+/* 384 */     screenStream = await navigator.mediaDevices.getDisplayMedia({video:true});
+/* 385 */     elements.screenVideo.srcObject = screenStream;
+/* 386 */     setStatus(elements.screenStatus, "Screen sharing active.", "good");
+/* 387 */   }catch(e){setStatus(elements.screenStatus, e.message, "bad");}
+/* 388 */ };
+/* 389 */ screenStop.onclick = () => {if(screenStream) screenStream.getTracks().forEach(tr=>tr.stop()); elements.screenVideo.srcObject=null; setStatus(elements.screenStatus, "Stopped.");};
+/* 390 */ cameraStart.onclick = async () => {
+/* 391 */   try{
+/* 392 */     cameraStream = await navigator.mediaDevices.getUserMedia({video:true});
+/* 393 */     elements.cameraVideo.srcObject = cameraStream;
+/* 394 */     setStatus(elements.cameraStatus, "Camera active.", "good");
+/* 395 */   }catch(e){setStatus(elements.cameraStatus, e.message, "bad");}
+/* 396 */ };
+/* 397 */ cameraStop.onclick = () => {if(cameraStream) cameraStream.getTracks().forEach(tr=>tr.stop()); elements.cameraVideo.srcObject=null; setStatus(elements.cameraStatus, "Stopped.");};
+/* 398 */ copyClip.onclick = async () => {
+/* 399 */   try{
+/* 400 */     await navigator.clipboard.writeText(elements.clipText.value);
+/* 401 */     setStatus(elements.clipStatus, "Text copied.", "good");
+/* 402 */   }catch(e){setStatus(elements.clipStatus, e.message, "bad");}
+/* 403 */ };
+/* 404 */ readClipboard.onclick = async () => {
+/* 405 */   try{
+/* 406 */     let text = await navigator.clipboard.readText();
+/* 407 */     elements.clipText.value = text;
+/* 408 */     setStatus(elements.clipStatus, "Clipboard read.", "good");
+/* 409 */   }catch(e){setStatus(elements.clipStatus, e.message, "bad");}
+/* 410 */ };
+/* 411 */ stopAll.onclick = () => {
+/* 412 */   if(screenStream) screenStream.getTracks().forEach(t=>t.stop());
+/* 413 */   if(cameraStream) cameraStream.getTracks().forEach(t=>t.stop());
+/* 414 */   setStatus(elements.securityStatus, "All media stopped.", "good");
+/* 415 */ };
+/* 416 */ exportLog.onclick = () => {
+/* 417 */   let blob = new Blob([JSON.stringify(activity, null, 2)], {type:"application/json"});
+/* 418 */   let a = document.createElement("a");
+/* 419 */   a.href = URL.createObjectURL(blob);
+/* 420 */   a.download = "activity-log.json";
+/* 421 */   a.click();
+/* 422 */ };
+/* 423 */ clearLog.onclick = () => {activity = []; setStatus(elements.securityStatus, "Log cleared.");};
+/* 424 */ applyLanguage();
+/* 425 */ setLanguage("en");
+/* 426 */ </script>
+/* 427 */ </body>
+/* 428 */ </html>
